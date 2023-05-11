@@ -19,7 +19,7 @@ assignees: ''
 
 ## ETC
 
-> 기타 참고사항(URL 등)
+> 기타 참고사항(URL, Image 등)
 
 ---
 
