@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,swiftpackagemanager,cocoapods
-# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,macos,swiftpackagemanager,cocoapods
-
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
@@ -129,8 +126,6 @@ iOSInjectionProject/
 ### SwiftPackageManager ###
 Packages
 xcuserdata
-*.xcodeproj
-
 
 ### Xcode ###
 
@@ -144,5 +139,3 @@ xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-
-# End of https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,swiftpackagemanager,cocoapods
