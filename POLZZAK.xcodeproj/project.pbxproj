@@ -21,6 +21,10 @@
 		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
 		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
+		3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58422A15FF3A005FC66B /* MissionListView.swift */; };
+		3C6E58472A160E73005FC66B /* StampBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* StampBoardViewModel.swift */; };
+		3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */; };
+		3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */; };
 		3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE10C42A110F02000C15EC /* MissionCell.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
@@ -41,6 +45,10 @@
 		3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C6E58422A15FF3A005FC66B /* MissionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListView.swift; sourceTree = "<group>"; };
+		3C6E58462A160E73005FC66B /* StampBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardViewModel.swift; sourceTree = "<group>"; };
+		3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxMissionListViewDataSourceProxy.swift; sourceTree = "<group>"; };
+		3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiissionListView+Rx.swift"; sourceTree = "<group>"; };
 		3CEE10C42A110F02000C15EC /* MissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCell.swift; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -76,7 +84,11 @@
 			children = (
 				3C0793472A0E637700087F73 /* MissionHeaderView.swift */,
 				3CEE10C42A110F02000C15EC /* MissionCell.swift */,
+				3C6E58422A15FF3A005FC66B /* MissionListView.swift */,
+				3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */,
+				3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */,
 				3C0793492A0E637700087F73 /* StampBoardView.swift */,
+				3C6E58462A160E73005FC66B /* StampBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* StampBoardViewController.swift */,
 			);
 			path = StampBoard;
@@ -229,13 +241,17 @@
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
+				3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
+				3C6E58472A160E73005FC66B /* StampBoardViewModel.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
+				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
+				3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
