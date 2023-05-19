@@ -53,7 +53,7 @@ extension MissionListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as! MissionCell
         let data = missionListViewDataSource?.missionListView(dataForItemAt: indexPath)
-        cell.titleLabel.text = data?.missionTitle ?? "미션 제목이 들어가는 자리입니다."
+        cell.titleLabel.text = data?.missionTitle
         cell.updateInset(inset: inset)
         return cell
     }

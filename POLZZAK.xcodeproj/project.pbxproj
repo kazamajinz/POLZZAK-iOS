@@ -82,16 +82,32 @@
 		3C0793462A0E629000087F73 /* StampBoard */ = {
 			isa = PBXGroup;
 			children = (
-				3C0793472A0E637700087F73 /* MissionHeaderView.swift */,
-				3CEE10C42A110F02000C15EC /* MissionCell.swift */,
-				3C6E58422A15FF3A005FC66B /* MissionListView.swift */,
-				3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */,
-				3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */,
+				3C1E9F3D2A174DBB0074A58C /* MissionList */,
 				3C0793492A0E637700087F73 /* StampBoardView.swift */,
 				3C6E58462A160E73005FC66B /* StampBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* StampBoardViewController.swift */,
 			);
 			path = StampBoard;
+			sourceTree = "<group>";
+		};
+		3C1E9F3D2A174DBB0074A58C /* MissionList */ = {
+			isa = PBXGroup;
+			children = (
+				3C0793472A0E637700087F73 /* MissionHeaderView.swift */,
+				3CEE10C42A110F02000C15EC /* MissionCell.swift */,
+				3C6E58422A15FF3A005FC66B /* MissionListView.swift */,
+				3C1E9F3E2A174DCF0074A58C /* Rx */,
+			);
+			path = MissionList;
+			sourceTree = "<group>";
+		};
+		3C1E9F3E2A174DCF0074A58C /* Rx */ = {
+			isa = PBXGroup;
+			children = (
+				3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */,
+				3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */,
+			);
+			path = Rx;
 			sourceTree = "<group>";
 		};
 		3C2300A02A0E34ED00130D1B /* Extensions */ = {
