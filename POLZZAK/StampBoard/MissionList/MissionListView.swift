@@ -19,6 +19,11 @@ protocol MissionListViewDataSource {
 
 class MissionListView: UICollectionView {
     private let inset: CGFloat
+    private var showMore: Bool = false {
+        didSet {
+            reloadDataWithAnimation()
+        }
+    }
     
     var missionListViewDataSource: MissionListViewDataSource?
 
@@ -28,7 +33,6 @@ class MissionListView: UICollectionView {
         config.headerMode = .supplementary
         config.headerTopPadding = 0
         config.showsSeparators = false
-        config.backgroundColor = .blue200
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
@@ -47,7 +51,9 @@ extension MissionListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return missionListViewDataSource?.missionListViewNumberOfItems() ?? 0
+        let numberOfItems = missionListViewDataSource?.missionListViewNumberOfItems() ?? 0
+        guard showMore == true || numberOfItems <= 3 else { return 3 }
+        return numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -63,6 +69,9 @@ extension MissionListView: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MissionHeaderView.reuseIdentifier, for: indexPath) as! MissionHeaderView
             header.updateInset(inset: inset)
+            header.userTapMoreButton = { [weak self] in
+                self?.showMore.toggle()
+            }
             return header
         default:
             return UICollectionReusableView()

@@ -9,8 +9,6 @@ import UIKit
 
 import SnapKit
 
-// viewModel.output.missionList subscribe 할때 DataSource 부르려면 proxy?
-
 class StampBoardViewController: UIViewController {
     enum Constants {
         static let inset: CGFloat = 16

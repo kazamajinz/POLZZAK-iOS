@@ -62,7 +62,8 @@ extension MissionCell {
         
         imageView.snp.makeConstraints { make in
             self.imageViewLeadingConstraint = make.leading.equalToSuperview().constraint
-            make.verticalEdges.lessThanOrEqualToSuperview()
+            make.top.lessThanOrEqualToSuperview()
+            make.bottom.greaterThanOrEqualToSuperview()
             make.centerY.equalToSuperview()
             make.width.equalTo(26)
             make.width.equalTo(imageView.snp.height)

@@ -28,22 +28,31 @@ class MissionHeaderView: UICollectionReusableView {
         titleContainer.font = .body4
         titleContainer.foregroundColor = .gray500
         config.attributedTitle = AttributedString("더보기", attributes: titleContainer)
-        config.image = UIImage(systemName: "chevron.down")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
         config.preferredSymbolConfigurationForImage = imageConfig
         config.imagePlacement = .trailing
         config.imagePadding = 6
+        config.background.cornerRadius = 0
+        config.background.backgroundColor = .white
+        config.cornerStyle = .fixed
         button.configuration = config
+        button.configurationUpdateHandler = { button in
+            switch button.state {
+            case .selected:
+                button.configuration?.image = UIImage(systemName: "chevron.up")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
+            default:
+                button.configuration?.image = UIImage(systemName: "chevron.down")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
+            }
+        }
         return button
     }()
     
     private var titleLabelLeadingConstraint: Constraint?
     private var moreButtonTrailingConstraint: Constraint?
     
+    var userTapMoreButton: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .cyan
-        moreButton.backgroundColor = .yellow
-        titleLabel.backgroundColor = .systemPink
         configure()
     }
     
@@ -56,6 +65,7 @@ extension MissionHeaderView {
     private func configure() {
         configureView()
         configureLayout()
+        configureMoreButton()
     }
     
     private func configureView() {
@@ -76,6 +86,16 @@ extension MissionHeaderView {
             make.verticalEdges.equalToSuperview()
             self.moreButtonTrailingConstraint = make.trailing.equalToSuperview().constraint
         }
+    }
+    
+    private func configureMoreButton() {
+        moreButton.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.moreButton.isSelected.toggle()
+                self?.userTapMoreButton?()
+            }),
+            for: .touchUpInside
+        )
     }
     
     func updateInset(inset: CGFloat) {

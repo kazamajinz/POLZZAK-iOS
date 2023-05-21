@@ -11,6 +11,7 @@
 		3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793492A0E637700087F73 /* StampBoardView.swift */; };
 		3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934D2A0E639F00087F73 /* StampBoardViewController.swift */; };
 		3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934F2A0E63C500087F73 /* MainViewController.swift */; };
+		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
 		3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2300A32A0E358700130D1B /* UIColor+extension.swift */; };
 		3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 		3C0793492A0E637700087F73 /* StampBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StampBoardView.swift; sourceTree = "<group>"; };
 		3C07934D2A0E639F00087F73 /* StampBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardViewController.swift; sourceTree = "<group>"; };
 		3C07934F2A0E63C500087F73 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+reloadDataWIthAnimation.swift"; sourceTree = "<group>"; };
 		3C2300A32A0E358700130D1B /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POLZZAK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				3C2300A32A0E358700130D1B /* UIColor+extension.swift */,
 				3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */,
+				3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */,
+				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
