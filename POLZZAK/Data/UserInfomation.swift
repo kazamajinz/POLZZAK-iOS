@@ -1,0 +1,31 @@
+//
+//  UserInfomation.swift
+//  POLZZAK
+//
+//  Created by 이정환 on 2023/05/18.
+//
+
+import Foundation
+
+struct Partner: Decodable {
+    let memberId: Int
+    let nickname: String
+    let memberType: MemberType
+    let profileUrl: String
+    let kid: Bool
+}
+
+struct StampBoardSummary: Decodable {
+    let stampBoardId: Int
+    let name: String
+    let currentStampCount: Int
+    let goalStampCount: Int
+    let reward: String
+    let missionCompleteCount: Int
+    let isRewarded: Bool
+}
+
+struct UserInformation: Decodable {
+    let partner: Partner
+    let stampBoardSummaries: [StampBoardSummary]
+}
