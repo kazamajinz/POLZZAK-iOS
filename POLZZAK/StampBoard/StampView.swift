@@ -1,5 +1,5 @@
 //
-//  StampBoardView.swift
+//  StampView.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StampBoardView: UICollectionView {
+class StampView: UICollectionView {
 
     /*
     // Only override draw() if you perform custom drawing.

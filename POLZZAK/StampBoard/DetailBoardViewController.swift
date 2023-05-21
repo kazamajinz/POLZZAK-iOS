@@ -1,5 +1,5 @@
 //
-//  StampBoardViewController.swift
+//  DetailBoardViewController.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/12.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class StampBoardViewController: UIViewController {
+class DetailBoardViewController: UIViewController {
     enum Constants {
         static let inset: CGFloat = 16
     }
@@ -31,7 +31,7 @@ class StampBoardViewController: UIViewController {
     }
 }
 
-extension StampBoardViewController {
+extension DetailBoardViewController {
     private func configure() {
         configureView()
         configureLayout()
@@ -49,7 +49,7 @@ extension StampBoardViewController {
     }
 }
 
-extension StampBoardViewController: MissionListViewDataSource {
+extension DetailBoardViewController: MissionListViewDataSource {
     func missionListViewNumberOfItems() -> Int {
         return missionList.count
     }
