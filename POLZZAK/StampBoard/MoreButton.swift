@@ -27,9 +27,11 @@ class MoreButton: UIButton {
             case .selected:
                 button.configuration?.image = UIImage(systemName: "chevron.up")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
                 button.configuration?.attributedTitle = AttributedString(titleWhenSelected ?? title, attributes: titleContainer)
-            default:
+            case .normal:
                 button.configuration?.image = UIImage(systemName: "chevron.down")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
                 button.configuration?.attributedTitle = AttributedString(title, attributes: titleContainer)
+            default:
+                return
             }
         }
     }

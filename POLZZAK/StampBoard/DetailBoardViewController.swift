@@ -28,7 +28,14 @@ class DetailBoardViewController: UIViewController {
         return scrollView
     }()
     
-    private let contentView = UIView()
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
     
     private let stampView: StampView
     private let missionListView = MissionListView(inset: Constants.inset)
@@ -36,7 +43,7 @@ class DetailBoardViewController: UIViewController {
     private var stampViewHeight: Constraint?
     private var missionListViewHeight: Constraint?
     
-    init(stampSize: StampSize = .size48) {
+    init(stampSize: StampSize = .size60) {
         self.stampView = StampView(size: stampSize)
         super.init(nibName: nil, bundle: nil)
     }
@@ -79,29 +86,29 @@ extension DetailBoardViewController {
     
     private func configureLayout() {
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(stampView)
-        contentView.addSubview(missionListView)
+        scrollView.addSubview(contentStackView)
+        contentStackView.addArrangedSubview(stampView)
+        contentStackView.addArrangedSubview(missionListView)
+        
+        contentStackView.setCustomSpacing(16, after: stampView)
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        contentView.snp.makeConstraints { make in
+        contentStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(view.snp.width)
         }
         
         stampView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(Constants.inset)
+            make.width.equalToSuperview().inset(Constants.inset)
             stampViewHeight = make.height.equalTo(200).constraint
         }
         
         missionListView.snp.makeConstraints { make in
-            make.top.equalTo(stampView.snp.bottom).offset(Constants.inset)
-            make.horizontalEdges.equalToSuperview()
+            make.width.equalToSuperview()
             missionListViewHeight = make.height.equalTo(100).constraint
-            make.bottom.equalToSuperview()
         }
     }
     
