@@ -17,6 +17,7 @@ protocol MissionListViewDataSource {
     func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable
 }
 
+/// Never change dataSource. Changing missionListViewDataSource is OK.
 class MissionListView: UICollectionView {
     private let inset: CGFloat
     private var showMore: Bool = false {
@@ -27,7 +28,7 @@ class MissionListView: UICollectionView {
     
     var missionListViewDataSource: MissionListViewDataSource?
 
-    init(frame: CGRect = .zero, inset: CGFloat) {
+    init(frame: CGRect = .zero, inset: CGFloat = 0) {
         self.inset = inset
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.headerMode = .supplementary

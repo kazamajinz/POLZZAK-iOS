@@ -22,7 +22,8 @@ class DetailBoardViewController: UIViewController {
         MissionData(missionNumber: 5, missionTitle: "e")
     ]
     
-    private let missionListView = MissionListView(inset: Constants.inset)
+//    private let missionListView = MissionListView(inset: Constants.inset)
+    private let stampView = StampView(size: .size30)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,30 +36,30 @@ extension DetailBoardViewController {
     private func configure() {
         configureView()
         configureLayout()
-        missionListView.missionListViewDataSource = self
+//        missionListView.missionListViewDataSource = self
     }
     
     private func configureView() {
-        view.addSubview(missionListView)
+        view.addSubview(stampView)
     }
     
     private func configureLayout() {
-        missionListView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+        stampView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide).inset(Constants.inset)
         }
     }
 }
 
-extension DetailBoardViewController: MissionListViewDataSource {
-    func missionListViewNumberOfItems() -> Int {
-        return missionList.count
-    }
-    
-    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable {
-        let data = missionList[indexPath.item]
-        return data
-    }
-}
+//extension DetailBoardViewController: MissionListViewDataSource {
+//    func missionListViewNumberOfItems() -> Int {
+//        return missionList.count
+//    }
+//
+//    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable {
+//        let data = missionList[indexPath.item]
+//        return data
+//    }
+//}
 
 struct MissionData: MissionListViewable {
     let missionNumber: Int
