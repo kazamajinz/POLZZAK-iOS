@@ -5,13 +5,20 @@
 //  Created by Jinyoung Kim on 2023/05/22.
 //
 
-enum StampSize: Int {
-    case size10 = 10, size12 = 12, size16 = 16, size20 = 20
-    case size25 = 25, size30 = 30, size36 = 36
-    case size40 = 40, size48 = 48, size60 = 60
+enum StampSize {
+    case size10, size12, size16, size20
+    case size25, size30, size36
+    case size40, size48, size60
     
-    var numberOfItems: Int {
-        return self.rawValue
+    var count: Int {
+        return rawValue.count
+    }
+    
+    var reducedCount: Int {
+        guard let reducedCount = rawValue.reducedCount else {
+            return count
+        }
+        return reducedCount
     }
     
     var numberOfItemsPerLine: Int {
@@ -25,12 +32,67 @@ enum StampSize: Int {
         }
     }
     
-    var showMoreStamp: ShowMoreStamp {
-        switch self {
-        case .size40, .size48, .size60:
-            return .yes
+    var isMoreStatus: Bool {
+        if case .some(_) = rawValue.reducedCount {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+extension StampSize: RawRepresentable {
+    typealias RawValue = (count: Int, reducedCount: Int?)
+    
+    init?(rawValue: RawValue) {
+        switch rawValue {
+        case (10, nil):
+            self = .size10
+        case (12, nil):
+            self = .size12
+        case (16, nil):
+            self = .size16
+        case (20, nil):
+            self = .size20
+        case (25, nil):
+            self = .size25
+        case (30, nil):
+            self = .size30
+        case (36, nil):
+            self = .size36
+        case (40, 20):
+            self = .size40
+        case (48, 30):
+            self = .size48
+        case (60, 30):
+            self = .size60
         default:
-            return .none
+            return nil
+        }
+    }
+    
+    var rawValue: RawValue {
+        switch self {
+        case .size10:
+            return (10, nil)
+        case .size12:
+            return (12, nil)
+        case .size16:
+            return (16, nil)
+        case .size20:
+            return (20, nil)
+        case .size25:
+            return (25, nil)
+        case .size30:
+            return (30, nil)
+        case .size36:
+            return (36, nil)
+        case .size40:
+            return (40, 20)
+        case .size48:
+            return (48, 30)
+        case .size60:
+            return (60, 30)
         }
     }
 }

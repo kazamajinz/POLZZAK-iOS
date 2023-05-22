@@ -20,31 +20,7 @@ class MissionHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private let moreButton: UIButton = {
-        let button = UIButton(type: .system)
-        var config = UIButton.Configuration.plain()
-        var titleContainer = AttributeContainer()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10)
-        titleContainer.font = .body4
-        titleContainer.foregroundColor = .gray500
-        config.attributedTitle = AttributedString("더보기", attributes: titleContainer)
-        config.preferredSymbolConfigurationForImage = imageConfig
-        config.imagePlacement = .trailing
-        config.imagePadding = 6
-        config.background.cornerRadius = 0
-        config.background.backgroundColor = .white
-        config.cornerStyle = .fixed
-        button.configuration = config
-        button.configurationUpdateHandler = { button in
-            switch button.state {
-            case .selected:
-                button.configuration?.image = UIImage(systemName: "chevron.up")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
-            default:
-                button.configuration?.image = UIImage(systemName: "chevron.down")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
-            }
-        }
-        return button
-    }()
+    private let moreButton = MoreButton(title: "더보기")
     
     private var titleLabelLeadingConstraint: Constraint?
     private var moreButtonTrailingConstraint: Constraint?
@@ -53,7 +29,8 @@ class MissionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureLayout()
+        configureMoreButton()
     }
     
     required init?(coder: NSCoder) {
@@ -61,19 +38,11 @@ class MissionHeaderView: UICollectionReusableView {
     }
 }
 
-extension MissionHeaderView {
-    private func configure() {
-        configureView()
-        configureLayout()
-        configureMoreButton()
-    }
-    
-    private func configureView() {
+extension MissionHeaderView {    
+    private func configureLayout() {
         addSubview(titleLabel)
         addSubview(moreButton)
-    }
-    
-    private func configureLayout() {
+        
         moreButton.setContentCompressionResistancePriority(.init(1001), for: .horizontal)
         
         titleLabel.snp.makeConstraints { make in

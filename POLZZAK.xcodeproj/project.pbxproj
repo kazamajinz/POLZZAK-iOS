@@ -16,7 +16,6 @@
 		3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5C92A1B527900D7B9DD /* StampCell.swift */; };
 		3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */; };
 		3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */; };
-		3C43C5D02A1B6D6000D7B9DD /* ShowMoreStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CF2A1B6D6000D7B9DD /* ShowMoreStamp.swift */; };
 		3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* ViewController.swift */; };
@@ -30,6 +29,8 @@
 		3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */; };
 		3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */; };
 		3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */; };
+		3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */; };
+		3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */; };
 		3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE10C42A110F02000C15EC /* MissionCell.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
@@ -47,7 +48,6 @@
 		3C43C5C92A1B527900D7B9DD /* StampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampCell.swift; sourceTree = "<group>"; };
 		3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutFactory.swift; sourceTree = "<group>"; };
 		3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSize.swift; sourceTree = "<group>"; };
-		3C43C5CF2A1B6D6000D7B9DD /* ShowMoreStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMoreStamp.swift; sourceTree = "<group>"; };
 		3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POLZZAK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +59,8 @@
 		3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewModel.swift; sourceTree = "<group>"; };
 		3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxMissionListViewDataSourceProxy.swift; sourceTree = "<group>"; };
 		3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiissionListView+Rx.swift"; sourceTree = "<group>"; };
+		3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
+		3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFooterView.swift; sourceTree = "<group>"; };
 		3CEE10C42A110F02000C15EC /* MissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCell.swift; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -94,8 +96,9 @@
 			children = (
 				3C1E9F3D2A174DBB0074A58C /* MissionList */,
 				3C0793492A0E637700087F73 /* StampView.swift */,
-				3C43C5CF2A1B6D6000D7B9DD /* ShowMoreStamp.swift */,
+				3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */,
 				3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */,
+				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
 				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
 				3C43C5C92A1B527900D7B9DD /* StampCell.swift */,
 				3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */,
@@ -269,13 +272,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C43C5D02A1B6D6000D7B9DD /* ShowMoreStamp.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampView.swift in Sources */,
+				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
@@ -288,6 +291,7 @@
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
+				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

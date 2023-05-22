@@ -9,19 +9,17 @@ import UIKit
 
 /// Never change dataSource. Changing missionListViewDataSource is OK.
 class StampView: UICollectionView {
-    
-    
     private let size: StampSize
-    private let showMoreStamp: ShowMoreStamp
-    private var showMoreStatus: Bool = false {
+    private var showMore: Bool = false {
         didSet {
             reloadDataWithAnimation()
         }
     }
-
+     
+    var userTapMoreButton: (() -> Void)?
+    
     init(frame: CGRect = .zero, size: StampSize) {
         self.size = size
-        self.showMoreStamp = size.showMoreStamp
         let layout = CollectionViewLayoutFactory.getStampViewLayout(stampViewSize: size)
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
@@ -35,19 +33,32 @@ class StampView: UICollectionView {
 extension StampView: UICollectionViewDataSource {
     private func configure() {
         register(StampCell.self, forCellWithReuseIdentifier: StampCell.reuseIdentifier)
+        register(StampFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampFooterView.reuseIdentifier)
         dataSource = self
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        let numberOfItems = stampViewDataSource?.stampViewNumberOfItems() ?? 0
-//        guard showMore == true || numberOfItems <= 3 else { return 3 }
-//        return numberOfItems
-        return size.numberOfItems
+        guard size.isMoreStatus == false || showMore == true else { return size.reducedCount }
+        return size.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StampCell.reuseIdentifier, for: indexPath) as! StampCell
-        cell.backgroundColor = .blue200
+        cell.backgroundColor = .gray200
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionFooter:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampFooterView.reuseIdentifier, for: indexPath) as! StampFooterView
+            header.userTapMoreButton = { [weak self] in
+                self?.showMore.toggle()
+                self?.userTapMoreButton?()
+            }
+            return header
+        default:
+            return UICollectionReusableView()
+        }
     }
 }

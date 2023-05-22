@@ -26,6 +26,8 @@ class MissionListView: UICollectionView {
         }
     }
     
+    var userTapMoreButton: (() -> Void)?
+    
     var missionListViewDataSource: MissionListViewDataSource?
 
     init(frame: CGRect = .zero, inset: CGFloat = 0) {
@@ -72,6 +74,7 @@ extension MissionListView: UICollectionViewDataSource {
             header.updateInset(inset: inset)
             header.userTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
+                self?.userTapMoreButton?()
             }
             return header
         default:

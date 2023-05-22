@@ -34,7 +34,7 @@ class MissionCell: UICollectionViewListCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -43,18 +43,11 @@ class MissionCell: UICollectionViewListCell {
 }
 
 extension MissionCell {
-    private func configure() {
-        configureView()
-        configureLayout()
-    }
-    
-    private func configureView() {
+    private func configureLayout() {
         contentView.addSubview(wrapperView)
         wrapperView.addSubview(imageView)
         wrapperView.addSubview(titleLabel)
-    }
-    
-    private func configureLayout() {
+        
         wrapperView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(10)
             make.horizontalEdges.equalToSuperview()
