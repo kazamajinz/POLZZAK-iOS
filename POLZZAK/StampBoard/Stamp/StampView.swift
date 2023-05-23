@@ -22,7 +22,8 @@ class StampView: UICollectionView {
         self.size = size
         let layout = CollectionViewLayoutFactory.getStampViewLayout(stampViewSize: size)
         super.init(frame: frame, collectionViewLayout: layout)
-        configure()
+        configureView()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -31,10 +32,17 @@ class StampView: UICollectionView {
 }
 
 extension StampView: UICollectionViewDataSource {
-    private func configure() {
+    private func configureView() {
         register(StampCell.self, forCellWithReuseIdentifier: StampCell.reuseIdentifier)
         register(StampFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampFooterView.reuseIdentifier)
         dataSource = self
+    }
+    
+    private func configureLayout() {
+        backgroundColor = .white
+        layer.cornerRadius = 12
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray200.cgColor
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
