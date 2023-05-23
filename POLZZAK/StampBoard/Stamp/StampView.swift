@@ -51,12 +51,12 @@ extension StampView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionFooter:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampFooterView.reuseIdentifier, for: indexPath) as! StampFooterView
-            header.actionWhenUserTapMoreButton = { [weak self] in
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampFooterView.reuseIdentifier, for: indexPath) as! StampFooterView
+            footer.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
                 self?.actionWhenUserTapMoreButton?()
             }
-            return header
+            return footer
         default:
             return UICollectionReusableView()
         }
