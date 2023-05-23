@@ -126,7 +126,9 @@ extension DetailBoardViewController {
         }
 
         missionListView.snp.makeConstraints { make in
-            missionListViewHeight = make.height.equalTo(missionListViewContentSizeHeight).constraint
+            // UICollectionViewCompositionalLayout.list에는 contentInset 설정할수가 없음
+            // 디자인의 bottom contentInset이 있어서 + 15 해주었음
+            missionListViewHeight = make.height.equalTo(missionListViewContentSizeHeight+15).constraint
         }
     }
 }
