@@ -41,7 +41,7 @@ extension StampFooterView {
         separator.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(1.5)
+            make.height.equalTo(1.5) // TODO: 피그마에는 height가 0으로 나와서 1.5로 해놨는데 바꿔야 함 (2023.05.23)
         }
         
         moreButton.snp.makeConstraints { make in
