@@ -49,8 +49,8 @@ extension MissionHeaderView {
         moreButton.setContentCompressionResistancePriority(.init(1001), for: .horizontal)
         
         contentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.equalTo(50)
+            make.verticalEdges.equalToSuperview().inset(10)
+            make.horizontalEdges.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
