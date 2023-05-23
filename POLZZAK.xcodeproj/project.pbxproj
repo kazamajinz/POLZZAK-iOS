@@ -97,12 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				3C1E9F3D2A174DBB0074A58C /* MissionList */,
-				3C0793492A0E637700087F73 /* StampView.swift */,
-				3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */,
-				3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */,
+				3CCEF9EF2A1CA8F9009C61E1 /* Stamp */,
 				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
 				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
-				3C43C5C92A1B527900D7B9DD /* StampCell.swift */,
 				3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */,
 			);
@@ -171,6 +168,17 @@
 				3C4515ED2A0BF2FB00C9BA4F /* Info.plist */,
 			);
 			path = POLZZAK;
+			sourceTree = "<group>";
+		};
+		3CCEF9EF2A1CA8F9009C61E1 /* Stamp */ = {
+			isa = PBXGroup;
+			children = (
+				3C0793492A0E637700087F73 /* StampView.swift */,
+				3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */,
+				3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */,
+				3C43C5C92A1B527900D7B9DD /* StampCell.swift */,
+			);
+			path = Stamp;
 			sourceTree = "<group>";
 		};
 		3CFB472A2A0FEA1300B03FFD /* Fonts */ = {
