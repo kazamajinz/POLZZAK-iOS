@@ -15,7 +15,9 @@ class StampView: UICollectionView {
             reloadDataWithAnimation()
         }
     }
-     
+    
+    // TODO: parentVC 써서 actionWhenUserTapMoreButton 대체하기
+    
     var actionWhenUserTapMoreButton: (() -> Void)?
     
     init(frame: CGRect = .zero, size: StampSize) {

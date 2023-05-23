@@ -26,6 +26,8 @@ class MissionListView: UICollectionView {
         }
     }
     
+    // TODO: parentVC 써서 actionWhenUserTapMoreButton 대체하기
+    
     var actionWhenUserTapMoreButton: (() -> Void)?
     
     var missionListViewDataSource: MissionListViewDataSource?

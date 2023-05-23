@@ -13,7 +13,7 @@ class CollectionViewLayoutFactory {
         let itemFractionalWidthFraction = 1.0 / CGFloat(numberOfItemPerLine)
         
         let screenWidth = UIApplication.shared.width ?? 0
-        let inset: CGFloat = screenWidth/25 // TODO: 기획에 따라 바뀌어야 함 (2023.05.23)
+        let inset: CGFloat = screenWidth/(6.0*CGFloat(numberOfItemPerLine)) // TODO: 기획에 따라 바뀌어야 함 (2023.05.23)
         let itemSpacing = inset == 0 ? 16 : inset
         
         // Item
