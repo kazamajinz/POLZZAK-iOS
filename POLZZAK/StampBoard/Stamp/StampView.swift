@@ -16,7 +16,7 @@ class StampView: UICollectionView {
         }
     }
      
-    var userTapMoreButton: (() -> Void)?
+    var actionWhenUserTapMoreButton: (() -> Void)?
     
     init(frame: CGRect = .zero, size: StampSize) {
         self.size = size
@@ -52,9 +52,9 @@ extension StampView: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionFooter:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampFooterView.reuseIdentifier, for: indexPath) as! StampFooterView
-            header.userTapMoreButton = { [weak self] in
+            header.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
-                self?.userTapMoreButton?()
+                self?.actionWhenUserTapMoreButton?()
             }
             return header
         default:

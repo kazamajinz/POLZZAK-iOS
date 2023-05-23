@@ -25,7 +25,7 @@ class MissionHeaderView: UICollectionReusableView {
     private var titleLabelLeadingConstraint: Constraint?
     private var moreButtonTrailingConstraint: Constraint?
     
-    var userTapMoreButton: (() -> Void)?
+    var actionWhenUserTapMoreButton: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,7 +61,7 @@ extension MissionHeaderView {
         moreButton.addAction(
             UIAction(handler: { [weak self] _ in
                 self?.moreButton.isSelected.toggle()
-                self?.userTapMoreButton?()
+                self?.actionWhenUserTapMoreButton?()
             }),
             for: .touchUpInside
         )

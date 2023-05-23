@@ -20,7 +20,7 @@ class StampFooterView: UICollectionReusableView {
     
     private let moreButton = MoreButton(title: "펼치기", titleWhenSelected: "접기")
     
-    var userTapMoreButton: (() -> Void)?
+    var actionWhenUserTapMoreButton: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,7 +54,7 @@ extension StampFooterView {
         moreButton.addAction(
             UIAction(handler: { [weak self] _ in
                 self?.moreButton.isSelected.toggle()
-                self?.userTapMoreButton?()
+                self?.actionWhenUserTapMoreButton?()
             }),
             for: .touchUpInside
         )

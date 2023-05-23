@@ -75,11 +75,11 @@ extension DetailBoardViewController {
         missionListView.isScrollEnabled = false
         missionListView.missionListViewDataSource = self
         
-        stampView.userTapMoreButton = { [weak self] in
+        stampView.actionWhenUserTapMoreButton = { [weak self] in
             self?.updateHeightConstraints()
         }
         
-        missionListView.userTapMoreButton = { [weak self] in
+        missionListView.actionWhenUserTapMoreButton = { [weak self] in
             self?.updateHeightConstraints()
         }
     }

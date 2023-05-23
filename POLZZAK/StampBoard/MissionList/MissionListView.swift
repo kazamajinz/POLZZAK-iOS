@@ -26,7 +26,7 @@ class MissionListView: UICollectionView {
         }
     }
     
-    var userTapMoreButton: (() -> Void)?
+    var actionWhenUserTapMoreButton: (() -> Void)?
     
     var missionListViewDataSource: MissionListViewDataSource?
 
@@ -72,9 +72,9 @@ extension MissionListView: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MissionHeaderView.reuseIdentifier, for: indexPath) as! MissionHeaderView
             header.updateInset(inset: inset)
-            header.userTapMoreButton = { [weak self] in
+            header.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
-                self?.userTapMoreButton?()
+                self?.actionWhenUserTapMoreButton?()
             }
             return header
         default:
