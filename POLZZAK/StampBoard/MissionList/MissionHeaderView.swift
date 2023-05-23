@@ -12,6 +12,8 @@ import SnapKit
 class MissionHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "MissionHeaderView"
     
+    private let contentView = UIView()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "미션 목록"
@@ -40,10 +42,16 @@ class MissionHeaderView: UICollectionReusableView {
 
 extension MissionHeaderView {    
     private func configureLayout() {
-        addSubview(titleLabel)
-        addSubview(moreButton)
+        addSubview(contentView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(moreButton)
         
         moreButton.setContentCompressionResistancePriority(.init(1001), for: .horizontal)
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.height.equalTo(50)
+        }
         
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
