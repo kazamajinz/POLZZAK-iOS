@@ -55,7 +55,7 @@ extension DetailBoardNameView {
     func setDayTitle(state: StampBoardState) {
         switch state {
         case .inProgress(let dayRemained):
-            nameLabel.text = "D+\(dayRemained)"
+            dayLabel.text = "D+\(dayRemained)"
         case .completed(let dayTaken):
             dayLabel.text = "\(dayTaken)일 걸렸어요!"
         }

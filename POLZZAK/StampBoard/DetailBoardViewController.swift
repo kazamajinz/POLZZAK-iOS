@@ -33,13 +33,20 @@ class DetailBoardViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.distribution = .fill
-        stackView.alignment = .center
+        stackView.alignment = .fill
         return stackView
+    }()
+    
+    private let stampViewWrapper: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
     }()
     
     private let nameView = DetailBoardNameView(horizontalInset: Constants.inset)
     private let stampView: StampView
     private let missionListView = MissionListView(horizontalInset: Constants.inset)
+    private let compensationView = CompensationView(title: "아이유 2023 콘서트 티켓", horizontalInset: Constants.inset)
     
     private var stampViewHeight: Constraint?
     private var missionListViewHeight: Constraint?
@@ -58,7 +65,7 @@ class DetailBoardViewController: UIViewController {
         view.backgroundColor = .gray100
         configure()
         nameView.setNameTitle(name: "제로의 도장판")
-        nameView.setDayTitle(state: .completed(dayTaken: 10))
+        nameView.setDayTitle(state: .completed(dayTaken: 3))
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,11 +97,16 @@ extension DetailBoardViewController {
     private func configureLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
-        contentStackView.addArrangedSubview(nameView)
-        contentStackView.addArrangedSubview(stampView)
-        contentStackView.addArrangedSubview(missionListView)
+        stampViewWrapper.addSubview(stampView)
         
-        contentStackView.setCustomSpacing(16, after: stampView)
+        [nameView,
+         stampViewWrapper,
+         missionListView,
+         compensationView].forEach {
+            contentStackView.addArrangedSubview($0)
+        }
+        
+        contentStackView.setCustomSpacing(16, after: stampViewWrapper)
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -110,7 +122,8 @@ extension DetailBoardViewController {
         }
         
         stampView.snp.makeConstraints { make in
-            make.width.equalToSuperview().inset(Constants.inset)
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(Constants.inset)
             stampViewHeight = make.height.equalTo(200).constraint
         }
         
