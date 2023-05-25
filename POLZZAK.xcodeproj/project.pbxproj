@@ -96,12 +96,10 @@
 		3C0793462A0E629000087F73 /* StampBoard */ = {
 			isa = PBXGroup;
 			children = (
+				3CF41E492A1F809700914421 /* Common */,
 				3C1E9F3D2A174DBB0074A58C /* MissionList */,
 				3CCEF9EF2A1CA8F9009C61E1 /* Stamp */,
-				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
-				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
-				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
-				3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */,
+				3CF41E4A2A1F80AE00914421 /* DetailBoardName */,
 				3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */,
 			);
@@ -171,6 +169,24 @@
 				3C43C5C92A1B527900D7B9DD /* StampCell.swift */,
 			);
 			path = Stamp;
+			sourceTree = "<group>";
+		};
+		3CF41E492A1F809700914421 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
+				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
+				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3CF41E4A2A1F80AE00914421 /* DetailBoardName */ = {
+			isa = PBXGroup;
+			children = (
+				3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */,
+			);
+			path = DetailBoardName;
 			sourceTree = "<group>";
 		};
 		3CFB472A2A0FEA1300B03FFD /* Fonts */ = {
