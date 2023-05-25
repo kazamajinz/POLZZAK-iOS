@@ -8,6 +8,14 @@
 import UIKit
 
 class CollectionViewLayoutFactory {
+    static func getMissionListViewLayout() -> UICollectionViewLayout {
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        config.headerMode = .supplementary
+        config.headerTopPadding = 0
+        config.showsSeparators = false
+        return UICollectionViewCompositionalLayout.list(using: config)
+    }
+    
     static func getStampViewLayout(stampViewSize: StampSize, sectionInset: CGFloat = 20) -> UICollectionViewLayout {
         let numberOfItemPerLine = stampViewSize.numberOfItemsPerLine
         let itemFractionalWidthFraction = 1.0 / CGFloat(numberOfItemPerLine)

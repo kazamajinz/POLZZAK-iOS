@@ -34,11 +34,7 @@ class MissionListView: UICollectionView {
 
     init(frame: CGRect = .zero, horizontalInset: CGFloat = 0) {
         self.horizontalInset = horizontalInset
-        var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.headerMode = .supplementary
-        config.headerTopPadding = 0
-        config.showsSeparators = false
-        let layout = UICollectionViewCompositionalLayout.list(using: config)
+        let layout = CollectionViewLayoutFactory.getMissionListViewLayout()
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
     }
