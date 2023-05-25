@@ -12,12 +12,44 @@ final class MainViewController: UIViewController {
     
     //MARK: - let, var
     private var userInformations: [UserInformation]
+    
     private var initialContentOffsetY: Double = 74.0
     private var headerTabHeight: Double = 44.0
     private var filterTopPadding: Double = -23.0
     private var refreshPadding: Double = -84.0
-    
     private let customRefreshControl = CustomRefreshControl(topPadding: -20)
+    
+    private var stampBoardState: StampBoardState = .unknown {
+        didSet {
+            switch stampBoardState {
+            case .inProgress:
+                inProgressTabLabel.textColor = .blue400
+                inProgressUnderlineView.backgroundColor = .blue400
+                
+                completedTabLabel.textColor = .gray300
+                completedUnderlineView.backgroundColor = .gray300
+                
+            case .completed:
+                inProgressTabLabel.textColor = .gray300
+                inProgressUnderlineView.backgroundColor = .gray300
+                
+                completedTabLabel.textColor = .blue400
+                completedUnderlineView.backgroundColor = .blue400
+                
+            case .unknown:
+                inProgressTabLabel.textColor = .gray300
+                inProgressUnderlineView.backgroundColor = .gray300
+                
+                completedTabLabel.textColor = .blue400
+                completedUnderlineView.backgroundColor = .blue400
+            }
+            
+            collectionView.reloadData()
+            
+            let newLayout = createLayout()
+            collectionView.setCollectionViewLayout(newLayout, animated: false)
+        }
+    }
     
     //MARK: - headerTabStackView UI
     private let headerTabStackView: UIStackView = {
@@ -30,35 +62,35 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private let progressTabView: UIView = {
+    private let inProgressTabView: UIView = {
         let view = UIView()
         return view
     }()
     
-    private let progressTabLabel: UILabel = {
+    private let inProgressTabLabel: UILabel = {
         let label = UILabel()
         label.setLabel(text: "진행 중", textColor: .gray300, font: .subtitle2, textAlignment: .center)
         return label
     }()
     
-    private let progressUnderlineView: UIView = {
+    private let inProgressUnderlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray300
         return view
     }()
     
-    private let completeTabView: UIView = {
+    private let completedTabView: UIView = {
         let view = UIView()
         return view
     }()
     
-    private let completeTabLabel: UILabel = {
+    private let completedTabLabel: UILabel = {
         let label = UILabel()
         label.setLabel(text: "완료", textColor: .gray300, font: .subtitle2, textAlignment: .center)
         return label
     }()
     
-    private let completeUnderlineView: UIView = {
+    private let completedUnderlineView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray300
         return view
@@ -108,7 +140,8 @@ final class MainViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        collectionView.register(StampBoardCell.self, forCellWithReuseIdentifier: StampBoardCell.reuseIdentifier)
+        collectionView.register(InprogressStampBoardCell.self, forCellWithReuseIdentifier: InprogressStampBoardCell.reuseIdentifier)
+        collectionView.register(CompletedStampBoardCell.self, forCellWithReuseIdentifier: CompletedStampBoardCell.reuseIdentifier)
         collectionView.register(StampBoardHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier)
         
         return collectionView
@@ -116,7 +149,9 @@ final class MainViewController: UIViewController {
     
     //MARK: - init
     init(userInformations: [UserInformation]) {
+        //테스트 데이터
         self.userInformations = userInformations
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -130,6 +165,9 @@ final class MainViewController: UIViewController {
         setUI()
         setNavigation()
         setAction()
+        
+        //테스트
+        stampBoardState = .inProgress
     }
 }
 
@@ -145,38 +183,38 @@ extension MainViewController {
         view.backgroundColor = .white
         
         //MARK: - headerTabStackView UI
-        [progressTabView, completeTabView].forEach {
+        [inProgressTabView, completedTabView].forEach {
             headerTabStackView.addArrangedSubview($0)
         }
         
-        [progressTabLabel, progressUnderlineView].forEach {
-            progressTabView.addSubview($0)
+        [inProgressTabLabel, inProgressUnderlineView].forEach {
+            inProgressTabView.addSubview($0)
         }
         
-        progressTabLabel.snp.makeConstraints {
+        inProgressTabLabel.snp.makeConstraints {
             $0.top.equalTo(14)
             $0.bottom.equalTo(-4)
             $0.centerX.equalToSuperview()
         }
         
-        progressUnderlineView.snp.makeConstraints {
+        inProgressUnderlineView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
             $0.height.equalTo(2)
         }
         
-        [completeTabLabel, completeUnderlineView].forEach {
-            completeTabView.addSubview($0)
+        [completedTabLabel, completedUnderlineView].forEach {
+            completedTabView.addSubview($0)
         }
         
-        completeTabLabel.snp.makeConstraints {
+        completedTabLabel.snp.makeConstraints {
             $0.top.equalTo(14)
             $0.bottom.equalTo(-4)
             $0.centerX.equalToSuperview()
         }
         
-        completeUnderlineView.snp.makeConstraints {
+        completedUnderlineView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
@@ -244,11 +282,11 @@ extension MainViewController {
     }
     
     func setAction() {
-        let tapProgressTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(progressTabButtonTapped))
-        progressTabView.addGestureRecognizer(tapProgressTabRecognizer)
+        let tapInProgressTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(inProgressTabButtonTapped))
+        inProgressTabView.addGestureRecognizer(tapInProgressTabRecognizer)
         
-        let tapCompleteTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(completeTabButtonTapped))
-        completeTabView.addGestureRecognizer(tapCompleteTabRecognizer)
+        let tapCompletedTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(completedTabButtonTapped))
+        completedTabView.addGestureRecognizer(tapCompletedTabRecognizer)
         
         let tapFilterRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
         filterView.addGestureRecognizer(tapFilterRecognizer)
@@ -259,22 +297,12 @@ extension MainViewController {
         print("myConnections 버튼 클릭")
     }
     
-    @objc private func progressTabButtonTapped() {
-        print("progressTab 버튼 클릭")
-        progressTabLabel.textColor = .blue400
-        progressUnderlineView.backgroundColor = .blue400
-        
-        completeTabLabel.textColor = .gray300
-        completeUnderlineView.backgroundColor = .gray300
+    @objc private func inProgressTabButtonTapped() {
+        stampBoardState = .inProgress
     }
     
-    @objc private func completeTabButtonTapped() {
-        print("completeTab 버튼 클릭")
-        progressTabLabel.textColor = .gray300
-        progressUnderlineView.backgroundColor = .gray300
-        
-        completeTabLabel.textColor = .blue400
-        completeUnderlineView.backgroundColor = .blue400
+    @objc private func completedTabButtonTapped() {
+        stampBoardState = .completed
     }
     
     @objc private func filterButtonTapped() {
@@ -284,23 +312,60 @@ extension MainViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        //323.0/375.0
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(323.0/375.0), heightDimension: .fractionalHeight(377.0/581.0))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 7.5, bottom: 30, trailing: 7.5)
-        
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(28))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem( layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 18.5, bottom: 2, trailing: 18.5)
-        section.orthogonalScrollingBehavior = .groupPagingCentered
-        section.boundarySupplementaryItems = [sectionHeader]
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
+        switch stampBoardState {
+        case .inProgress, .unknown:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let deviceWidth = UIScreen.main.bounds.width
+            let deviceHeight = UIScreen.main.bounds.height
+            let collcetcionViewWidth = deviceWidth - 46
+            let collcetcionViewHeight = deviceHeight - 130 - 82 - 44
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(collcetcionViewWidth/deviceWidth),
+                heightDimension: .fractionalHeight(collcetcionViewHeight/deviceHeight)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            group.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 32, trailing: 12)
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(28))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem( layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 11, bottom: 0, trailing: 11)
+            section.orthogonalScrollingBehavior = .groupPagingCentered
+            section.boundarySupplementaryItems = [sectionHeader]
+            
+            let layout = UICollectionViewCompositionalLayout(section: section)
+            return layout
+            
+        case .completed:
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            let deviceWidth = UIScreen.main.bounds.width
+            let collcetcionViewWidth = deviceWidth - 46
+            let collcetcionViewHeight = 180.0/600.0
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(collcetcionViewWidth/deviceWidth),
+                heightDimension: .fractionalHeight(collcetcionViewHeight)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(28))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem( layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 11, bottom: 32, trailing: 11)
+            section.orthogonalScrollingBehavior = .groupPagingCentered
+            section.boundarySupplementaryItems = [sectionHeader]
+            
+            let layout = UICollectionViewCompositionalLayout(section: section)
+            return layout
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -308,16 +373,32 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userInformations[section].stampBoardSummaries.count
+        
+        switch stampBoardState {
+        case .inProgress:
+            return userInformations[section].unRewardedStampBoards.count
+        case .completed:
+            return userInformations[section].rewardedStampBoards.count
+        case .unknown:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StampBoardCell.reuseIdentifier, for: indexPath) as! StampBoardCell
-        let stampBoardSummary = userInformations[indexPath.section].stampBoardSummaries[indexPath.row]
         
-        cell.configure(with: stampBoardSummary)
-        
-        return cell
+        switch stampBoardState {
+        case .inProgress, .unknown:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
+            let stampBoardSummary = userInformations[indexPath.section].unRewardedStampBoards[indexPath.row]
+            cell.configure(with: stampBoardSummary)
+            return cell
+            
+        case .completed:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
+            let stampBoardSummary = userInformations[indexPath.section].unRewardedStampBoards[indexPath.row]
+            cell.configure(with: stampBoardSummary)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -325,7 +406,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let name = userInformations[indexPath.section].partner.nickname
         let currentCount = indexPath.row + 1
-        let totalCount = userInformations[indexPath.section].stampBoardSummaries.count
+        let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
         headerView.configure(nickName: name, currentCount: currentCount, totalCount: totalCount)
         
         return headerView

@@ -28,4 +28,12 @@ struct StampBoardSummary: Decodable {
 struct UserInformation: Decodable {
     let partner: Partner
     let stampBoardSummaries: [StampBoardSummary]
+
+    var unRewardedStampBoards: [StampBoardSummary] {
+        return stampBoardSummaries.filter { false == $0.isRewarded }
+    }
+    
+    var rewardedStampBoards: [StampBoardSummary] {
+        return stampBoardSummaries.filter { true == $0.isRewarded }
+    }
 }

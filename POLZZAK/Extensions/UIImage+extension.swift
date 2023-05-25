@@ -22,6 +22,7 @@ extension UIImage {
     static let filterButton = UIImage(named: "filterButton")
     static let rightArrowButton = UIImage(named: "rightArrowButton")
     static let addStampBoardButton = UIImage(named: "addStampBoardButton")
+    static let couponCompleted = UIImage(named: "couponCompleted")
     
     //MARK: - Character
     static let stampRequestCharacter = UIImage(named: "stampRequestCharacter")

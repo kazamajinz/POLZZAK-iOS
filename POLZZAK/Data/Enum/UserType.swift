@@ -9,5 +9,4 @@ import Foundation
 
 enum MemberType: String, Decodable {
     case kid = "KID"
-    
 }

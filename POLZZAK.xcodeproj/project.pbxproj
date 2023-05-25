@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BDE2A1E37FB00C86049 /* StampState.swift */; };
+		39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -17,7 +19,7 @@
 		39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D22A15F4DE0087B2BD /* UserInfomation.swift */; };
 		39D539D62A16032D0087B2BD /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D52A16032D0087B2BD /* UserType.swift */; };
 		39D539DA2A1614AC0087B2BD /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D92A1614AC0087B2BD /* UIViewController+extension.swift */; };
-		39D539DD2A1654B60087B2BD /* StampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* StampBoardCell.swift */; };
+		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */; };
 		3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
 		3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793482A0E637700087F73 /* MissionListView.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		39227BDE2A1E37FB00C86049 /* StampState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampState.swift; sourceTree = "<group>"; };
+		39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedStampBoardCell.swift; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
 		397366CE2A114439007D998F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -51,7 +55,7 @@
 		39D539D22A15F4DE0087B2BD /* UserInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomation.swift; sourceTree = "<group>"; };
 		39D539D52A16032D0087B2BD /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		39D539D92A1614AC0087B2BD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
-		39D539DC2A1654B60087B2BD /* StampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardCell.swift; sourceTree = "<group>"; };
+		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
 		39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardHeaderView.swift; sourceTree = "<group>"; };
 		39D539E02A1777940087B2BD /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		3C0793472A0E637700087F73 /* MissionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHeaderView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				39D539D52A16032D0087B2BD /* UserType.swift */,
+				39227BDE2A1E37FB00C86049 /* StampState.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -109,7 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */,
-				39D539DC2A1654B60087B2BD /* StampBoardCell.swift */,
+				39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */,
+				39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -289,8 +295,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				39D539DA2A1614AC0087B2BD /* UIViewController+extension.swift in Sources */,
+				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
-				39D539DD2A1654B60087B2BD /* StampBoardCell.swift in Sources */,
+				39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
@@ -305,6 +312,7 @@
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				39AC7DCE2A19B1ED007D58F3 /* MainViewModel.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
+				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				39D539D62A16032D0087B2BD /* UserType.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,

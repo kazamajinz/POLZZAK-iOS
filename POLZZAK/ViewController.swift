@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         UserInformation(
             partner: Partner(
                 memberId: i,
-                nickname: "해린맘\(i+14)",
+                nickname: "해린맘\(i)",
                 memberType: .kid,
                 profileUrl: "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/81e05244-a040-436d-9608-319861ea2e51.png",
                 kid: true
@@ -21,12 +21,12 @@ class ViewController: UIViewController {
             stampBoardSummaries: (1...5).map { j -> StampBoardSummary in
                 StampBoardSummary(
                     stampBoardId: j+7,
-                    name: "테스트 도장판 \(j*11+22)",
+                    name: "테스트 도장판 \(i) / \(j)",
                     currentStampCount: (0...30).randomElement() ?? 0,
                     goalStampCount: 30,
-                    reward: "칭찬 \(j)",
+                    reward: "칭찬 \(j), j % 2 = \(j % 2)",
                     missionCompleteCount: (0...30).randomElement() ?? 0,
-                    isRewarded: false
+                    isRewarded: false//j % 2 == 0 ? true : false
                 )
             }
         )

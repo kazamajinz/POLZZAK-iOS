@@ -1,5 +1,5 @@
 //
-//  StampBoardCell.swift
+//  InprogressStampBoardCell.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/05/18.
@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class StampBoardCell: UICollectionViewCell {
-    static let reuseIdentifier = "StampBoardCell"
+class InprogressStampBoardCell: UICollectionViewCell {
+    static let reuseIdentifier = "InprogressStampBoardCell"
     
     //MARK: - Stamp Top UI
     private let stampTopView: UIStackView = {
@@ -65,15 +65,20 @@ class StampBoardCell: UICollectionViewCell {
         return stampGraphView
     }()
     
+    private let stampRequestView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private let stampRequestImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .stampRequestCharacter
         return imageView
     }()
     
-    private let stampLabelView: UIView = {
+    private let stampRequestLabelView: UIView = {
         let view = UIView()
-        view.setCustomView(radius: 8.5, color: .blue100)
+        view.setCustomView(backgroundColor: .blue100, cornerRadius: 8.5)
         return view
     }()
     
@@ -92,15 +97,10 @@ class StampBoardCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let stampRewardView: UIView = {
-        let view = UIView()
-        view.setCustomView(radius: 4, color: .blue400)
-        return view
-    }()
-    
     private let rewardLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "보상", textColor: .white, font: .caption1)
+        label.setCustomView(cornerRadius: 4)
+        label.setLabel(text: "보상", textColor: .white, font: .caption1, textAlignment: .center, backgroundColor: .blue400)
         return label
     }()
     
@@ -129,7 +129,7 @@ class StampBoardCell: UICollectionViewCell {
     }
 }
 
-extension StampBoardCell {
+extension InprogressStampBoardCell {
     func configure(with info: StampBoardSummary) {
         stampNameLabel.text = info.name
         currentCountLabel.text = "\(info.currentStampCount)"
@@ -145,7 +145,7 @@ extension StampBoardCell {
     }
     
     private func setUI() {
-        backgroundColor = .white
+        setCustomView(backgroundColor: .white, cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
         
         //MARK: - Stamp Top UI
         [stampNameLabel, stampNameButton].forEach {
@@ -157,21 +157,12 @@ extension StampBoardCell {
         }
         
         //MARK: - Stamp Bottom UI
-        [stampRewardView, rewardTitleLabel].forEach {
+        [rewardLabel, rewardTitleLabel].forEach {
             stampBottomView.addArrangedSubview($0)
         }
         
-        stampRewardView.addSubview(rewardLabel)
-        
-        stampRewardView.snp.makeConstraints {
-            $0.width.equalTo(stampRewardView.snp.height).multipliedBy(33.0/25.0)
-        }
-        
         rewardLabel.snp.makeConstraints {
-            $0.top.equalTo(4)
-            $0.leading.equalTo(6)
-            $0.trailing.equalTo(-6)
-            $0.bottom.equalTo(-4)
+            $0.width.equalTo(rewardLabel.snp.height).multipliedBy(33.0/25.0)
         }
         
         //MARK: - Main UI
@@ -190,7 +181,6 @@ extension StampBoardCell {
             $0.top.equalTo(stampTopView.snp.bottom).offset(36)
             $0.leading.equalTo(41.5)
             $0.trailing.equalTo(-41.5)
-            $0.width.equalTo(stampMiddleView.snp.height)
         }
         
         stampBottomView.snp.makeConstraints {
@@ -200,9 +190,9 @@ extension StampBoardCell {
             $0.bottom.equalTo(-20)
             $0.height.equalTo(stampBottomView.snp.width).multipliedBy(25.0/283.0)
         }
-        
+         
         //MARK: - Stamp Middle UI
-        [stampGraphView].forEach {
+        [stampGraphView, stampRequestView].forEach {
             stampMiddleView.addSubview($0)
         }
         
@@ -210,40 +200,47 @@ extension StampBoardCell {
             $0.edges.equalToSuperview()
         }
         
+        stampRequestView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(55)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-38)
+            $0.width.equalToSuperview().multipliedBy(147.0/377.0)
+        }
+        
         [currentCountLabel, perLabel, totalCountLabel].forEach {
             countStackView.addArrangedSubview($0)
         }
         
-        [countStackView, stampRequestImageView, stampLabelView].forEach {
-            stampGraphView.addSubview($0)
+        [countStackView, stampRequestImageView, stampRequestLabelView].forEach {
+            stampRequestView.addSubview($0)
         }
         
         countStackView.snp.makeConstraints {
-            $0.top.equalTo(75)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(stampRequestImageView).multipliedBy(34.0/86.0)
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(17)
+            $0.trailing.equalToSuperview().offset(-17)
         }
         
         stampRequestImageView.snp.makeConstraints {
-            $0.top.equalTo(countStackView.snp.bottom).offset(4)
-            $0.leading.equalTo(77)
-            $0.trailing.equalTo(-77)
-            $0.height.width.equalTo(stampRequestImageView.snp.width).multipliedBy(109.0/86.0)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.height.width.equalTo(stampRequestImageView.snp.width)
         }
         
-        stampLabelView.snp.makeConstraints {
+        stampRequestLabelView.snp.makeConstraints {
             $0.top.equalTo(stampRequestImageView.snp.bottom).offset(2)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(stampLabelView.snp.width).multipliedBy(21.0/86.0)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
-        stampLabelView.addSubview(stampRequestLabel)
+        stampRequestLabelView.addSubview(stampRequestLabel)
         
         stampRequestLabel.snp.makeConstraints {
-            $0.top.equalTo(2)
-            $0.leading.equalTo(10)
-            $0.trailing.equalTo(-10)
-            $0.bottom.equalTo(-2)
+            $0.top.equalToSuperview().offset(2)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.bottom.equalToSuperview().offset(-2)
         }
     }
 }

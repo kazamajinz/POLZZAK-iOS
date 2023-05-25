@@ -41,7 +41,7 @@ class StampBoardHeaderView: UICollectionReusableView {
         return stackView
     }()
     
-    private let currentCountLabel: UILabel = {
+    let currentCountLabel: UILabel = {
         let label = UILabel()
         label.setLabel(textColor: .gray700, font: .body3)
         return label
