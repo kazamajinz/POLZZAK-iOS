@@ -75,7 +75,7 @@ extension MissionHeaderView {
         )
     }
     
-    func updateInset(inset: CGFloat) {
+    func updateHorizontalInset(inset: CGFloat) {
         titleLabelLeadingConstraint?.update(inset: inset)
         moreButtonTrailingConstraint?.update(inset: inset)
     }

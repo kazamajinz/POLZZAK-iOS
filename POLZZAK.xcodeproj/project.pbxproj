@@ -31,6 +31,8 @@
 		3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */; };
 		3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */; };
 		3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE10C42A110F02000C15EC /* MissionCell.swift */; };
+		3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */; };
+		3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -60,6 +62,8 @@
 		3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFooterView.swift; sourceTree = "<group>"; };
 		3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+width.swift"; sourceTree = "<group>"; };
 		3CEE10C42A110F02000C15EC /* MissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCell.swift; sourceTree = "<group>"; };
+		3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardNameView.swift; sourceTree = "<group>"; };
+		3CF41E472A1F43D400914421 /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -95,7 +99,9 @@
 				3C1E9F3D2A174DBB0074A58C /* MissionList */,
 				3CCEF9EF2A1CA8F9009C61E1 /* Stamp */,
 				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
+				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
 				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
+				3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */,
 				3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */,
 			);
@@ -270,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
+				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
@@ -288,6 +295,7 @@
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
+				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

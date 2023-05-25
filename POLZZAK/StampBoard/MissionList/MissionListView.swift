@@ -19,7 +19,7 @@ protocol MissionListViewDataSource {
 
 /// Never change dataSource. Changing missionListViewDataSource is OK.
 class MissionListView: UICollectionView {
-    private let inset: CGFloat
+    private let horizontalInset: CGFloat
     private var showMore: Bool = false {
         didSet {
             reloadDataWithAnimation()
@@ -32,8 +32,8 @@ class MissionListView: UICollectionView {
     
     var missionListViewDataSource: MissionListViewDataSource?
 
-    init(frame: CGRect = .zero, inset: CGFloat = 0) {
-        self.inset = inset
+    init(frame: CGRect = .zero, horizontalInset: CGFloat = 0) {
+        self.horizontalInset = horizontalInset
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.headerMode = .supplementary
         config.headerTopPadding = 0
@@ -65,7 +65,7 @@ extension MissionListView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as! MissionCell
         let data = missionListViewDataSource?.missionListView(dataForItemAt: indexPath)
         cell.titleLabel.text = data?.missionTitle
-        cell.updateInset(inset: inset)
+        cell.updateHorizontalInset(inset: horizontalInset)
         return cell
     }
     
@@ -73,7 +73,7 @@ extension MissionListView: UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MissionHeaderView.reuseIdentifier, for: indexPath) as! MissionHeaderView
-            header.updateInset(inset: inset)
+            header.updateHorizontalInset(inset: horizontalInset)
             header.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
                 self?.actionWhenUserTapMoreButton?()

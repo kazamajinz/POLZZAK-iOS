@@ -37,8 +37,9 @@ class DetailBoardViewController: UIViewController {
         return stackView
     }()
     
+    private let nameView = DetailBoardNameView(horizontalInset: Constants.inset)
     private let stampView: StampView
-    private let missionListView = MissionListView(inset: Constants.inset)
+    private let missionListView = MissionListView(horizontalInset: Constants.inset)
     
     private var stampViewHeight: Constraint?
     private var missionListViewHeight: Constraint?
@@ -56,6 +57,8 @@ class DetailBoardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray100
         configure()
+        nameView.setNameTitle(name: "제로의 도장판")
+        nameView.setDayTitle(state: .completed(dayTaken: 10))
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,6 +90,7 @@ extension DetailBoardViewController {
     private func configureLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentStackView)
+        contentStackView.addArrangedSubview(nameView)
         contentStackView.addArrangedSubview(stampView)
         contentStackView.addArrangedSubview(missionListView)
         
@@ -99,6 +103,10 @@ extension DetailBoardViewController {
         contentStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalTo(view.snp.width)
+        }
+        
+        nameView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
         }
         
         stampView.snp.makeConstraints { make in

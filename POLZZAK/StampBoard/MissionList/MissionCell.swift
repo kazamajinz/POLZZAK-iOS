@@ -69,7 +69,7 @@ extension MissionCell {
         }
     }
     
-    func updateInset(inset: CGFloat) {
+    func updateHorizontalInset(inset: CGFloat) {
         imageViewLeadingConstraint?.update(inset: inset)
         titleLabelTrailingConstraint?.update(inset: inset)
     }
