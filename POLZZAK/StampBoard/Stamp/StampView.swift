@@ -54,7 +54,7 @@ extension StampView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StampCell.reuseIdentifier, for: indexPath) as! StampCell
-        cell.backgroundColor = .gray200
+        cell.setNumber(number: indexPath.item+1)
         return cell
     }
     
