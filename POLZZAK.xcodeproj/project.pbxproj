@@ -27,8 +27,6 @@
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
 		3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58422A15FF3A005FC66B /* MissionListView.swift */; };
 		3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */; };
-		3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */; };
-		3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */; };
 		3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */; };
 		3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */; };
 		3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */; };
@@ -58,8 +56,6 @@
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C6E58422A15FF3A005FC66B /* MissionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionListView.swift; sourceTree = "<group>"; };
 		3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewModel.swift; sourceTree = "<group>"; };
-		3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxMissionListViewDataSourceProxy.swift; sourceTree = "<group>"; };
-		3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiissionListView+Rx.swift"; sourceTree = "<group>"; };
 		3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
 		3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFooterView.swift; sourceTree = "<group>"; };
 		3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+width.swift"; sourceTree = "<group>"; };
@@ -112,18 +108,8 @@
 				3C0793472A0E637700087F73 /* MissionHeaderView.swift */,
 				3CEE10C42A110F02000C15EC /* MissionCell.swift */,
 				3C6E58422A15FF3A005FC66B /* MissionListView.swift */,
-				3C1E9F3E2A174DCF0074A58C /* Rx */,
 			);
 			path = MissionList;
-			sourceTree = "<group>";
-		};
-		3C1E9F3E2A174DCF0074A58C /* Rx */ = {
-			isa = PBXGroup;
-			children = (
-				3C6E584A2A161BED005FC66B /* MiissionListView+Rx.swift */,
-				3C6E58482A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift */,
-			);
-			path = Rx;
 			sourceTree = "<group>";
 		};
 		3C2300A02A0E34ED00130D1B /* Extensions */ = {
@@ -286,7 +272,6 @@
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
-				3C6E58492A1617C4005FC66B /* RxMissionListViewDataSourceProxy.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampView.swift in Sources */,
@@ -298,7 +283,6 @@
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
-				3C6E584B2A161BED005FC66B /* MiissionListView+Rx.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
