@@ -12,6 +12,7 @@ extension UIColor {
     // MARK: - Primary
     
     static let blue100 = UIColor(named: "blue100")!
+    static let blue150 = UIColor(named: "blue150")!
     static let blue200 = UIColor(named: "blue200")!
     static let blue300 = UIColor(named: "blue300")!
     static let blue400 = UIColor(named: "blue400")!
