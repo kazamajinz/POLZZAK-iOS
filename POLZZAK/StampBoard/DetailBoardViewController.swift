@@ -43,7 +43,7 @@ class DetailBoardViewController: UIViewController {
     private var stampViewHeight: Constraint?
     private var missionListViewHeight: Constraint?
     
-    init(stampSize: StampSize = .size60) {
+    init(stampSize: StampSize = .size40) {
         self.stampView = StampView(size: stampSize)
         super.init(nibName: nil, bundle: nil)
     }
