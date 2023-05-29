@@ -42,6 +42,7 @@
 		3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -138,6 +139,7 @@
 				3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */,
 				3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */,
 				3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */,
+				3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */,
 			);
 			path = Pretendard;
 			sourceTree = "<group>";
