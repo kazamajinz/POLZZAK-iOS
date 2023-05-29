@@ -22,6 +22,13 @@
 		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
 		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
+		3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64252A2492B7004A87A2 /* Requestable.swift */; };
+		3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64272A2492CA004A87A2 /* Responsable.swift */; };
+		3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64292A249333004A87A2 /* Endpoint.swift */; };
+		3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF642B2A24934F004A87A2 /* NetworkError.swift */; };
+		3CDF642E2A249516004A87A2 /* URLSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF642D2A249516004A87A2 /* URLSessionProvider.swift */; };
+		3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF642F2A2496DF004A87A2 /* NetworkService.swift */; };
+		3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -43,6 +50,13 @@
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		3CDF64252A2492B7004A87A2 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		3CDF64272A2492CA004A87A2 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
+		3CDF64292A249333004A87A2 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		3CDF642B2A24934F004A87A2 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		3CDF642D2A249516004A87A2 /* URLSessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProvider.swift; sourceTree = "<group>"; };
+		3CDF642F2A2496DF004A87A2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+toDictionary.swift"; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -114,6 +128,7 @@
 				3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */,
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
 				3C4515E32A0BF2F900C9BA4F /* ViewController.swift */,
+				3CDF64242A249238004A87A2 /* Network */,
 				3C0793452A0E628800087F73 /* Main */,
 				3C0793462A0E629000087F73 /* StampBoard */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
@@ -123,6 +138,20 @@
 				3C4515ED2A0BF2FB00C9BA4F /* Info.plist */,
 			);
 			path = POLZZAK;
+			sourceTree = "<group>";
+		};
+		3CDF64242A249238004A87A2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3CDF642B2A24934F004A87A2 /* NetworkError.swift */,
+				3CDF64252A2492B7004A87A2 /* Requestable.swift */,
+				3CDF64272A2492CA004A87A2 /* Responsable.swift */,
+				3CDF64292A249333004A87A2 /* Endpoint.swift */,
+				3CDF642D2A249516004A87A2 /* URLSessionProvider.swift */,
+				3CDF642F2A2496DF004A87A2 /* NetworkService.swift */,
+				3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		3CFB472A2A0FEA1300B03FFD /* Fonts */ = {
@@ -228,15 +257,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CDF642E2A249516004A87A2 /* URLSessionProvider.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
+				3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */,
+				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
+				3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */,
+				3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
+				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
+				3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */,
 				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
