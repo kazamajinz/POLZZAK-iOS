@@ -18,7 +18,7 @@ protocol Requestable {
 }
 
 extension Requestable {
-    func getUrlRequest() throws -> URLRequest {
+    func getURLRequest() throws -> URLRequest {
         let url = try url()
         var urlRequest = URLRequest(url: url)
 

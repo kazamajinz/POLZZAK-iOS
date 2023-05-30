@@ -9,43 +9,47 @@ import Foundation
 
 protocol NetworkServiceProvider {
     /// 특정 responsable이 존재하는 request
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R
+    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R
 
     /// URL에서 Data를 얻는 request
     func request(from url: URL) async throws -> Data
 }
 
 final class NetworkService: NetworkServiceProvider {
-    let session: URLSessionProvider
+    let session: URLSession
+    private let requestAdapter: RequestAdapter?
+    private let requestRetrier: RequestRetrier?
     
-    init(session: URLSessionProvider = URLSession.shared) {
+    init(
+        session: URLSession = .shared,
+        requestAdapter: RequestAdapter = AuthAdapter(),
+        requestRetrier: RequestRetrier = AuthRetrier()
+    ) {
         self.session = session
+        self.requestAdapter = requestAdapter
+        self.requestRetrier = requestRetrier
     }
     
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R {
-        let urlRequest = try endpoint.getUrlRequest()
+    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
+        var urlRequest = try endpoint.getURLRequest()
+        requestAdapter?.adapt(for: &urlRequest)
         let (data, response) = try await session.data(for: urlRequest)
-        try checkError(response: response)
-        return try decode(data: data)
+        
+        guard let requestRetrier, requestRetrier.checkErrorIfRetry(response: response) == true else {
+            return (try decode(data: data), response)
+        }
+        
+        let (dataRetried, responseRetried) = try await requestRetrier.retry(for: urlRequest, session: session)
+        
+        return (try decode(data: dataRetried), responseRetried)
     }
     
     func request(from url: URL) async throws -> Data {
-        let (data, response) = try await session.data(from: url)
-        try checkError(response: response)
+        let (data, _) = try await session.data(from: url)
         return data
     }
 
     // MARK: - Private
-    
-    private func checkError(response: URLResponse) throws {
-        guard let response = response as? HTTPURLResponse else {
-            throw NetworkError.unknownError
-        }
-
-        guard (200...299).contains(response.statusCode) else {
-            throw NetworkError.invalidHTTPStatusCode(response.statusCode)
-        }
-    }
     
     private func decode<T: Decodable>(data: Data) throws -> T {
         return try JSONDecoder().decode(T.self, from: data)
