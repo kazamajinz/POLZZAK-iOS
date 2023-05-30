@@ -13,6 +13,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .green
+        
+        let endpoint = TokenEndpoints.authorize()
+        
+        let networkService = NetworkService()
+        Task {
+            let (data, response) = try await networkService.request(with: endpoint)
+            print(data.code, data.data, data.messages)
+        }
     }
 
 

@@ -21,11 +21,12 @@ class AuthRetrier: RequestRetrier {
     }
     
     func retry(for urlRequest: URLRequest, session: URLSession) async throws -> (Data, URLResponse) {
+        print("retry: \(retryCount[urlRequest])")
         let (data, response) = try await session.data(for: urlRequest)
         guard checkErrorIfRetry(response: response) else { return (data, response) }
         
         if retryCount[urlRequest] == nil {
-            retryCount[urlRequest] = 1
+            retryCount[urlRequest] = 2
             return try await retry(for: urlRequest, session: session)
         } else if retryCount[urlRequest]! < maxRetryCount {
             retryCount[urlRequest]! += 1
@@ -38,6 +39,7 @@ class AuthRetrier: RequestRetrier {
     
     func checkErrorIfRetry(response: URLResponse) -> Bool {
         guard let httpResponse = response as? HTTPURLResponse else { return false }
+        print("status: ", httpResponse.statusCode )
         if httpResponse.statusCode == 401 {
             return true
         }

@@ -13,6 +13,7 @@ protocol RequestAdapter {
 
 class AuthAdapter: RequestAdapter {
     func adapt(for urlRequest: inout URLRequest) {
+        print("adapt")
         let accessToken = ""
         let refreshToken = ""
         urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")

@@ -16,7 +16,7 @@ protocol NetworkServiceProvider {
 }
 
 final class NetworkService: NetworkServiceProvider {
-    let session: URLSession
+    private let session: URLSession
     private let requestAdapter: RequestAdapter?
     private let requestRetrier: RequestRetrier?
     
