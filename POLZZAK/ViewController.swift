@@ -8,42 +8,16 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    let dummyUserInformations = (1...5).map { i -> UserInformation in
-        UserInformation(
-            partner: Partner(
-                memberId: i,
-                nickname: "해린맘\(i)",
-                memberType: .kid,
-                profileUrl: "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/81e05244-a040-436d-9608-319861ea2e51.png",
-                kid: true
-            ),
-            stampBoardSummaries: (1...5).map { j -> StampBoardSummary in
-                StampBoardSummary(
-                    stampBoardId: j+7,
-                    name: "테스트 도장판 \(i) / \(j)",
-                    currentStampCount: (0...30).randomElement() ?? 0,
-                    goalStampCount: 30,
-                    reward: "칭찬 \(j), j % 2 = \(j % 2)",
-                    missionCompleteCount: (0...30).randomElement() ?? 0,
-                    isRewarded: false//j % 2 == 0 ? true : false
-                )
-            }
-        )
-    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        start(UserInformation: dummyUserInformations)
+        start(UserInformation: tempDummyData)
     }
-
+    
 }
 
 extension ViewController {

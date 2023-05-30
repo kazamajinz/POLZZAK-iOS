@@ -72,13 +72,13 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let stampRequestImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .stampRequestCharacter
+        imageView.image = .raisingOneHandCharacter
         return imageView
     }()
     
     private let stampRequestLabelView: UIView = {
         let view = UIView()
-        view.setCustomView(backgroundColor: .blue100, cornerRadius: 8.5)
+        view.setCustomView(backgroundColor: .blue100, cornerRadius: 17)
         return view
     }()
     
@@ -141,7 +141,6 @@ extension InprogressStampBoardCell {
         DispatchQueue.main.async {
             self.stampGraphView.startAnimation(withValue: graphValue)
         }
-        
     }
     
     private func setUI() {
@@ -181,10 +180,10 @@ extension InprogressStampBoardCell {
             $0.top.equalTo(stampTopView.snp.bottom).offset(36)
             $0.leading.equalTo(41.5)
             $0.trailing.equalTo(-41.5)
+            $0.bottom.equalTo(stampBottomView.snp.top).offset(-8)
         }
         
         stampBottomView.snp.makeConstraints {
-            $0.top.equalTo(stampMiddleView.snp.bottom).offset(8)
             $0.leading.equalTo(20)
             $0.trailing.equalTo(-20)
             $0.bottom.equalTo(-20)
@@ -201,10 +200,7 @@ extension InprogressStampBoardCell {
         }
         
         stampRequestView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(55)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(-38)
-            $0.width.equalToSuperview().multipliedBy(147.0/377.0)
+            $0.center.equalToSuperview()
         }
         
         [currentCountLabel, perLabel, totalCountLabel].forEach {
@@ -217,14 +213,15 @@ extension InprogressStampBoardCell {
         
         countStackView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(17)
-            $0.trailing.equalToSuperview().offset(-17)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(stampGraphView.snp.height).multipliedBy(34.0 / 240.0)
         }
         
         stampRequestImageView.snp.makeConstraints {
+            $0.top.equalTo(countStackView.snp.bottom).offset(4)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.height.width.equalTo(stampRequestImageView.snp.width)
+            $0.height.width.equalTo(stampGraphView.snp.height).multipliedBy(86.0 / 240.0)
         }
         
         stampRequestLabelView.snp.makeConstraints {
@@ -232,6 +229,7 @@ extension InprogressStampBoardCell {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
+            $0.height.equalTo(stampGraphView.snp.height).multipliedBy(21.0 / 240.0)
         }
         
         stampRequestLabelView.addSubview(stampRequestLabel)

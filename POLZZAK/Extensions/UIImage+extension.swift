@@ -25,7 +25,8 @@ extension UIImage {
     static let couponCompleted = UIImage(named: "couponCompleted")
     
     //MARK: - Character
-    static let stampRequestCharacter = UIImage(named: "stampRequestCharacter")
+    static let raisingOneHandCharacter = UIImage(named: "raisingOneHandCharacter")
+    static let sittingCharacter = UIImage(named: "sittingCharacter")
     
     //MARK: - Common
     static let refreshDragImage = UIImage(named: "refreshDragImage")

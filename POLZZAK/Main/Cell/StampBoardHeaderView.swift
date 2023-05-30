@@ -15,8 +15,20 @@ class StampBoardHeaderView: UICollectionReusableView {
     private let nameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 0
+        stackView.spacing = 6
         stackView.alignment = .center
+        return stackView
+    }()
+    
+    private let memberTypeLabel: UILabel = {
+        let label = UILabel()
+        label.setLabel(textColor:.gray700, font: .body2, textAlignment: .center)
+        return label
+    }()
+    
+    private let nickNameLabelView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
         return stackView
     }()
     
@@ -41,9 +53,9 @@ class StampBoardHeaderView: UICollectionReusableView {
         return stackView
     }()
     
-    let currentCountLabel: UILabel = {
+    private let currentCountLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray700, font: .body3)
+        label.setLabel(text: "1", textColor: .gray700, font: .body3)
         return label
     }()
     
@@ -58,6 +70,14 @@ class StampBoardHeaderView: UICollectionReusableView {
         label.setLabel(textColor: .gray500, font: .body3)
         return label
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        for subView in nameStackView.arrangedSubviews {
+            subView.removeFromSuperview()
+        }
+    }
 }
 
 extension StampBoardHeaderView {
@@ -66,8 +86,12 @@ extension StampBoardHeaderView {
             countStackView.addArrangedSubview($0)
         }
         
-        [nickNameLabel, nickNameSubLabel].forEach {
+        [nickNameLabelView].forEach {
             nameStackView.addArrangedSubview($0)
+        }
+        
+        [nickNameLabel, nickNameSubLabel].forEach {
+            nickNameLabelView.addArrangedSubview($0)
         }
         
         [nameStackView, countStackView].forEach {
@@ -76,21 +100,32 @@ extension StampBoardHeaderView {
         
         nameStackView.snp.makeConstraints {
             $0.top.equalTo(2)
-            $0.leading.equalTo(26)
+            $0.leading.equalTo(7.5)
             $0.bottom.equalToSuperview()
         }
         
         countStackView.snp.makeConstraints {
             $0.top.equalTo(2)
-            $0.trailing.equalTo(-26)
+            $0.trailing.equalTo(-13.93)
             $0.bottom.equalToSuperview()
         }
     }
     
-    func configure(nickName: String, currentCount: Int, totalCount: Int) {
+    func configure(memberType: String, nickName: String, totalCount: Int) {
         setUI()
+        let view = MemberTypeView(with: memberType)
+        self.nameStackView.insertArrangedSubview(view, at: 0)
         nickNameLabel.text = nickName
-        currentCountLabel.text = "\(currentCount)"
         totalCountLabel.text = "\(totalCount)"
+        countStackView.isHidden = totalCount == 0
+    }
+    
+    func updateCurrentCount(with count: Int) {
+        guard let totalCountText = totalCountLabel.text else { return }
+        guard let totalCount = Int(totalCountText) else { return }
+        
+        if count <= totalCount {
+            currentCountLabel.text = "\(count)"
+        }
     }
 }

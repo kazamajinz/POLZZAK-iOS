@@ -8,7 +8,9 @@
 import Foundation
 
 enum StampBoardState {
-    case inProgress
-    case completed
+    case inProgressAndAll
+    case inProgressAndSection
+    case completedAndAll
+    case completedAndSection
     case unknown
 }

@@ -39,7 +39,7 @@ class CustomRefreshControl: UIRefreshControl {
     }()
     
     // MARK: - Initialization
-    init(topPadding: CGFloat) {
+    init(topPadding: CGFloat = 0.0) {
         super.init()
         setupUI(topPadding: topPadding)
     }
@@ -53,7 +53,6 @@ class CustomRefreshControl: UIRefreshControl {
     }
     
     // MARK: - Control Events
-    
     override func beginRefreshing() {
         super.beginRefreshing()
 
@@ -103,7 +102,7 @@ extension CustomRefreshControl {
                         beginRefreshing()
                     }
                 }
-            } else if distance == 0{
+            } else if distance == 0 {
                 isRefresh = true
             }
         }

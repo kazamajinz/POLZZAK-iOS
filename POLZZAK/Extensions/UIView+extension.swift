@@ -15,4 +15,28 @@ extension UIView {
         self.layer.borderColor = borderColor.cgColor
         self.layer.masksToBounds = masksToBounds
     }
+    
+    func addDashedBorder(borderColor: UIColor, spacing: NSNumber, cornerRadius: CGFloat) {
+        let color = borderColor.cgColor
+        
+        let shapeLayer:CAShapeLayer = CAShapeLayer()
+        let frameSize = self.frame.size
+        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
+        
+        shapeLayer.bounds = shapeRect
+        shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = color
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.lineDashPattern = [spacing, spacing]
+        shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
+        
+        shapeLayer.name = "dashedBorder"
+        self.layer.addSublayer(shapeLayer)
+    }
+    
+    func removeDashedBorder() {
+        self.layer.sublayers?.removeAll { $0.name == "dashedBorder" }
+    }
 }

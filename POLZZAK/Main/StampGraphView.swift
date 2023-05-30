@@ -43,7 +43,6 @@ class StampGraphView: UIView {
         blueShapeLayer?.removeAllAnimations()
         blueShapeLayer?.removeFromSuperlayer()
         blueShapeLayer = nil
-        
     }
     
     func startAnimation(withValue value: CGFloat) {
@@ -72,7 +71,6 @@ class StampGraphView: UIView {
         animation.isRemovedOnCompletion = false
         blueShapeLayer?.add(animation, forKey: "animateStrokeEnd")
     }
-
 }
 
 extension CGFloat {

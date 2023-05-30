@@ -73,6 +73,22 @@ extension UIFont {
         return .pretendard(size: 13, family: .medium)
     }
     
+    static var body5: UIFont {
+        return .pretendard(size: 14, family: .bold)
+    }
+    
+    static var body6: UIFont {
+        return .pretendard(size: 18, family: .bold)
+    }
+    
+    static var body7: UIFont {
+        return .pretendard(size: 18, family: .medium)
+    }
+    
+    static var body8: UIFont {
+        return .pretendard(size: 16, family: .medium)
+    }
+    
     static var caption1: UIFont {
         return .pretendard(size: 12, family: .semiBold)
     }
