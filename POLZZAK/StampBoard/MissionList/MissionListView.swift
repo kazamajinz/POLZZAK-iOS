@@ -7,15 +7,7 @@
 
 import UIKit
 
-protocol MissionListViewable {
-    var missionNumber: Int { get }
-    var missionTitle: String { get }
-}
-
-protocol MissionListViewDataSource {
-    func missionListViewNumberOfItems() -> Int
-    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable
-}
+import SnapKit
 
 /// Never change dataSource. Changing missionListViewDataSource is OK.
 class MissionListView: UICollectionView {
@@ -26,11 +18,8 @@ class MissionListView: UICollectionView {
         }
     }
     
-    // TODO: parentVC 써서 actionWhenUserTapMoreButton 대체하기
-    
-    var actionWhenUserTapMoreButton: (() -> Void)?
-    
-    var missionListViewDataSource: MissionListViewDataSource?
+    weak var heightConstraintDelegate: MissionListViewHeightConstraintDelegate?
+    weak var missionListViewDataSource: MissionListViewDataSource?
 
     init(frame: CGRect = .zero, horizontalInset: CGFloat = 0) {
         self.horizontalInset = horizontalInset
@@ -72,11 +61,44 @@ extension MissionListView: UICollectionViewDataSource {
             header.updateHorizontalInset(inset: horizontalInset)
             header.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
-                self?.actionWhenUserTapMoreButton?()
+                self?.heightConstraintDelegate?.updateMissionListViewHeightConstraints()
             }
             return header
         default:
             return UICollectionReusableView()
+        }
+    }
+}
+
+protocol MissionListViewable {
+    var missionNumber: Int { get }
+    var missionTitle: String { get }
+}
+
+protocol MissionListViewDataSource: AnyObject {
+    func missionListViewNumberOfItems() -> Int
+    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable
+}
+
+protocol MissionListViewHeightConstraintDelegate: UIViewController {
+    var missionListView: MissionListView { get }
+    var missionListViewHeight: Constraint? { get set }
+    
+    func updateMissionListViewHeightConstraints()
+}
+
+extension MissionListViewHeightConstraintDelegate {    
+    func updateMissionListViewHeightConstraints() {
+        view.layoutIfNeeded()
+        
+        let missionListViewContentSizeHeight = missionListView.collectionViewLayout.collectionViewContentSize.height
+        
+        missionListViewHeight?.deactivate()
+
+        missionListView.snp.makeConstraints { make in
+            // UICollectionViewCompositionalLayout.list에는 contentInset 설정할수가 없음
+            // 디자인의 bottom contentInset이 있어서 + 15 해주었음
+            missionListViewHeight = make.height.equalTo(missionListViewContentSizeHeight+15).constraint
         }
     }
 }

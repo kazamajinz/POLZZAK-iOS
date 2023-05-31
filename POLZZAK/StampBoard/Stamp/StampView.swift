@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 /// Never change dataSource. Changing missionListViewDataSource is OK.
 class StampView: UICollectionView {
     private let size: StampSize
@@ -16,9 +18,7 @@ class StampView: UICollectionView {
         }
     }
     
-    // TODO: parentVC 써서 actionWhenUserTapMoreButton 대체하기
-    
-    var actionWhenUserTapMoreButton: (() -> Void)?
+    weak var heightConstraintDelegate: StampViewHeightConstraintDelegate?
     
     init(frame: CGRect = .zero, size: StampSize) {
         self.size = size
@@ -64,11 +64,32 @@ extension StampView: UICollectionViewDataSource {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampFooterView.reuseIdentifier, for: indexPath) as! StampFooterView
             footer.actionWhenUserTapMoreButton = { [weak self] in
                 self?.showMore.toggle()
-                self?.actionWhenUserTapMoreButton?()
+                self?.heightConstraintDelegate?.updateStampViewHeightConstraints()
             }
             return footer
         default:
             return UICollectionReusableView()
+        }
+    }
+}
+
+protocol StampViewHeightConstraintDelegate: UIViewController {
+    var stampView: StampView { get }
+    var stampViewHeight: Constraint? { get set }
+    
+    func updateStampViewHeightConstraints()
+}
+
+extension StampViewHeightConstraintDelegate {
+    func updateStampViewHeightConstraints() {
+        view.layoutIfNeeded()
+        
+        let stampViewContentSizeHeight = stampView.collectionViewLayout.collectionViewContentSize.height
+        
+        stampViewHeight?.deactivate()
+
+        stampView.snp.makeConstraints { make in
+            stampViewHeight = make.height.equalTo(stampViewContentSizeHeight).constraint
         }
     }
 }

@@ -44,12 +44,13 @@ class DetailBoardViewController: UIViewController {
     }()
     
     private let nameView = DetailBoardNameView(horizontalInset: Constants.inset)
-    private let stampView: StampView
-    private let missionListView = MissionListView(horizontalInset: Constants.inset)
     private let compensationView = CompensationView(title: "아이유 2023 콘서트 티켓", horizontalInset: Constants.inset)
     
-    private var stampViewHeight: Constraint?
-    private var missionListViewHeight: Constraint?
+    let stampView: StampView
+    let missionListView = MissionListView(horizontalInset: Constants.inset)
+    
+    var stampViewHeight: Constraint?
+    var missionListViewHeight: Constraint?
     
     init(stampSize: StampSize = .size40) {
         self.stampView = StampView(size: stampSize)
@@ -67,31 +68,19 @@ class DetailBoardViewController: UIViewController {
         nameView.setNameTitle(name: "제로의 도장판")
         nameView.setDayTitle(state: .completed(dayTaken: 3))
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        updateHeightConstraints()
-    }
 }
 
 extension DetailBoardViewController {
     private func configure() {
         configureLayout()
         configureView()
+        setHeightConstraintDelegate()
     }
     
     private func configureView() {
         stampView.isScrollEnabled = false
         missionListView.isScrollEnabled = false
         missionListView.missionListViewDataSource = self
-        
-        stampView.actionWhenUserTapMoreButton = { [weak self] in
-            self?.updateHeightConstraints()
-        }
-        
-        missionListView.actionWhenUserTapMoreButton = { [weak self] in
-            self?.updateHeightConstraints()
-        }
     }
     
     private func configureLayout() {
@@ -132,25 +121,18 @@ extension DetailBoardViewController {
             missionListViewHeight = make.height.equalTo(100).constraint
         }
     }
+}
+
+extension DetailBoardViewController: MissionListViewHeightConstraintDelegate, StampViewHeightConstraintDelegate {
+    private func setHeightConstraintDelegate() {
+        missionListView.heightConstraintDelegate = self
+        stampView.heightConstraintDelegate = self
+    }
     
-    private func updateHeightConstraints() {
-        view.layoutIfNeeded()
-        
-        let stampViewContentSizeHeight = stampView.collectionViewLayout.collectionViewContentSize.height
-        let missionListViewContentSizeHeight = missionListView.collectionViewLayout.collectionViewContentSize.height
-        
-        stampViewHeight?.deactivate()
-        missionListViewHeight?.deactivate()
-
-        stampView.snp.makeConstraints { make in
-            stampViewHeight = make.height.equalTo(stampViewContentSizeHeight).constraint
-        }
-
-        missionListView.snp.makeConstraints { make in
-            // UICollectionViewCompositionalLayout.list에는 contentInset 설정할수가 없음
-            // 디자인의 bottom contentInset이 있어서 + 15 해주었음
-            missionListViewHeight = make.height.equalTo(missionListViewContentSizeHeight+15).constraint
-        }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateMissionListViewHeightConstraints()
+        updateStampViewHeightConstraints()
     }
 }
 
