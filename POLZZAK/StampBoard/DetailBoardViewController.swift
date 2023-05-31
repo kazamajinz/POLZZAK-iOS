@@ -75,6 +75,8 @@ extension DetailBoardViewController {
         configureLayout()
         configureView()
         setHeightConstraintDelegate()
+        updateMissionListViewHeightConstraints()
+        updateStampViewHeightConstraints()
     }
     
     private func configureView() {
@@ -127,12 +129,6 @@ extension DetailBoardViewController: MissionListViewHeightConstraintDelegate, St
     private func setHeightConstraintDelegate() {
         missionListView.heightConstraintDelegate = self
         stampView.heightConstraintDelegate = self
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        updateMissionListViewHeightConstraints()
-        updateStampViewHeightConstraints()
     }
 }
 
