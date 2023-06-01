@@ -11,7 +11,7 @@ protocol RequestAdapter {
     func adapt(for urlRequest: inout URLRequest)
 }
 
-class AuthAdapter: RequestAdapter {
+final class AuthAdapter: RequestAdapter {
     func adapt(for urlRequest: inout URLRequest) {
         print("adapt")
         let accessToken = ""

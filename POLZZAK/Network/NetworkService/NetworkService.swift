@@ -35,11 +35,11 @@ final class NetworkService: NetworkServiceProvider {
         requestAdapter?.adapt(for: &urlRequest)
         let (data, response) = try await session.data(for: urlRequest)
         
-        guard let requestRetrier, requestRetrier.checkErrorIfRetry(response: response) == true else {
+        guard let requestRetrier else {
             return (try decode(data: data), response)
         }
         
-        let (dataRetried, responseRetried) = try await requestRetrier.retry(for: urlRequest, session: session)
+        let (dataRetried, responseRetried) = try await requestRetrier.retry(urlRequest, for: session)
         
         return (try decode(data: dataRetried), responseRetried)
     }

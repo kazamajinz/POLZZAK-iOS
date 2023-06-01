@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ThreadSafeDictionary<T, U> where T: Hashable {
+final class ThreadSafeDictionary<T, U> where T: Hashable {
     private let serialQueue = DispatchQueue(label: "ThreadSafeDictionaryQueue")
     private var _value: [T: U]
     
