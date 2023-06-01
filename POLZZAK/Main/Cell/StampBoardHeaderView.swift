@@ -73,6 +73,7 @@ class StampBoardHeaderView: UICollectionReusableView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        currentCountLabel.text = "1"
         
         for subView in nameStackView.arrangedSubviews {
             subView.removeFromSuperview()
