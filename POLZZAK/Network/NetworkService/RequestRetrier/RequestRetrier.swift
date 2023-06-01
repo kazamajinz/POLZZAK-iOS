@@ -68,9 +68,9 @@ class RequestRetrier {
         
         do {
             (data, response) = try await session.data(for: request)
-            retryResult = await checkIfRetryNeeded(for: response, dueTo: nil)
+            retryResult = await checkIfRetryIsNeed(for: response, dueTo: nil)
         } catch {
-            retryResult = await checkIfRetryNeeded(for: nil, dueTo: error)
+            retryResult = await checkIfRetryIsNeed(for: nil, dueTo: error)
         }
         
         switch retryResult {
@@ -90,13 +90,13 @@ class RequestRetrier {
     }
     
     /// 유저가 retry때 실행할 동작을 정의해줘야 하는 함수
-    func checkIfRetryNeeded(for response: URLResponse?, dueTo error: Error?) async -> RetryResult {
+    func checkIfRetryIsNeed(for response: URLResponse?, dueTo error: Error?) async -> RetryResult {
         return .doNotRetry
     }
 }
 
 final class AuthRetrier: RequestRetrier {
-    override func checkIfRetryNeeded(for response: URLResponse?, dueTo error: Error?) async -> RetryResult {
+    override func checkIfRetryIsNeed(for response: URLResponse?, dueTo error: Error?) async -> RetryResult {
         // auth 코드
         return .doNotRetry
     }
