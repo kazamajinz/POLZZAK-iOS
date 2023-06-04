@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// checkIfRetryIsNeeded(_:for:)을 override해서 retry를 발생시킬지 정의하세요.
 class RequestRetrier {
     typealias ResponseType = (Data, URLResponse)
     
