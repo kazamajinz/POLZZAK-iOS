@@ -31,16 +31,15 @@ final class NetworkService: NetworkServiceProvider {
     }
     
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
-        var urlRequest = try endpoint.getURLRequest()
-        requestAdapter?.adapt(for: &urlRequest)
-        let (data, response) = try await session.data(for: urlRequest)
+        var request = try endpoint.getURLRequest()
+        requestAdapter?.adapt(for: &request)
+        let (data, response) = try await session.data(for: request)
         
         guard let requestRetrier else {
             return (try decode(data: data), response)
         }
         
-        let (dataRetried, responseRetried) = try await requestRetrier.retry(urlRequest, for: session)
-        
+        let (dataRetried, responseRetried) = try await requestRetrier.retry(request, for: session, for: response)
         return (try decode(data: dataRetried), responseRetried)
     }
     

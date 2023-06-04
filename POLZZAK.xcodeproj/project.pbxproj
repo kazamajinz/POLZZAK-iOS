@@ -22,6 +22,8 @@
 		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
 		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
+		3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */; };
+		3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */; };
 		3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416962A25E80A001A1E50 /* RequestAdapter.swift */; };
 		3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416982A25E816001A1E50 /* RequestRetrier.swift */; };
 		3C74169B2A25E849001A1E50 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */; };
@@ -54,6 +56,8 @@
 		3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRetrier.swift; sourceTree = "<group>"; };
+		3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAdapter.swift; sourceTree = "<group>"; };
 		3C7416962A25E80A001A1E50 /* RequestAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAdapter.swift; sourceTree = "<group>"; };
 		3C7416982A25E816001A1E50 /* RequestRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRetrier.swift; sourceTree = "<group>"; };
 		3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
@@ -150,6 +154,22 @@
 			path = POLZZAK;
 			sourceTree = "<group>";
 		};
+		3C6E25A02A2C80270091A929 /* UserAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */,
+			);
+			path = UserAdapter;
+			sourceTree = "<group>";
+		};
+		3C6E25A12A2C802D0091A929 /* UserRetrier */ = {
+			isa = PBXGroup;
+			children = (
+				3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */,
+			);
+			path = UserRetrier;
+			sourceTree = "<group>";
+		};
 		3C7416942A25E7E5001A1E50 /* RequestAdapter */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +211,8 @@
 			children = (
 				3C7416942A25E7E5001A1E50 /* RequestAdapter */,
 				3C7416952A25E7F4001A1E50 /* RequestRetrier */,
+				3C6E25A02A2C80270091A929 /* UserAdapter */,
+				3C6E25A12A2C802D0091A929 /* UserRetrier */,
 				3CDF642F2A2496DF004A87A2 /* NetworkService.swift */,
 				3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */,
 			);
@@ -323,7 +345,9 @@
 				3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
+				3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
+				3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
