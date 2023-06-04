@@ -25,10 +25,12 @@
 		3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */; };
 		3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */; };
 		3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */; };
+		3C6E25A92A2CA1590091A929 /* RefreshTokenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */; };
+		3C6E25AC2A2CA27C0091A929 /* APIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25AB2A2CA27C0091A929 /* APIProtocol.swift */; };
 		3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416962A25E80A001A1E50 /* RequestAdapter.swift */; };
 		3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416982A25E816001A1E50 /* RequestRetrier.swift */; };
 		3C74169B2A25E849001A1E50 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */; };
-		3C74169E2A25ED5E001A1E50 /* TokenEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169D2A25ED5E001A1E50 /* TokenEndpoints.swift */; };
+		3C74169E2A25ED5E001A1E50 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169D2A25ED5E001A1E50 /* AuthAPI.swift */; };
 		3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */; };
 		3C7416A22A25F067001A1E50 /* TokenResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416A12A25F067001A1E50 /* TokenResponseDTO.swift */; };
 		3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64252A2492B7004A87A2 /* Requestable.swift */; };
@@ -60,10 +62,12 @@
 		3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRetrier.swift; sourceTree = "<group>"; };
 		3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAdapter.swift; sourceTree = "<group>"; };
 		3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+extension.swift"; sourceTree = "<group>"; };
+		3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenAdapter.swift; sourceTree = "<group>"; };
+		3C6E25AB2A2CA27C0091A929 /* APIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProtocol.swift; sourceTree = "<group>"; };
 		3C7416962A25E80A001A1E50 /* RequestAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAdapter.swift; sourceTree = "<group>"; };
 		3C7416982A25E816001A1E50 /* RequestRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRetrier.swift; sourceTree = "<group>"; };
 		3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
-		3C74169D2A25ED5E001A1E50 /* TokenEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEndpoints.swift; sourceTree = "<group>"; };
+		3C74169D2A25ED5E001A1E50 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponseDTO.swift; sourceTree = "<group>"; };
 		3C7416A12A25F067001A1E50 /* TokenResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponseDTO.swift; sourceTree = "<group>"; };
 		3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */,
+				3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */,
 			);
 			path = UserAdapter;
 			sourceTree = "<group>";
@@ -171,6 +176,15 @@
 				3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */,
 			);
 			path = UserRetrier;
+			sourceTree = "<group>";
+		};
+		3C6E25AA2A2CA26C0091A929 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
+				3C7416A12A25F067001A1E50 /* TokenResponseDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		3C7416942A25E7E5001A1E50 /* RequestAdapter */ = {
@@ -192,9 +206,8 @@
 		3C74169C2A25ED1F001A1E50 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				3C74169D2A25ED5E001A1E50 /* TokenEndpoints.swift */,
-				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
-				3C7416A12A25F067001A1E50 /* TokenResponseDTO.swift */,
+				3C6E25AB2A2CA27C0091A929 /* APIProtocol.swift */,
+				3C74169D2A25ED5E001A1E50 /* AuthAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -229,6 +242,7 @@
 				3CD51CA82A24B98C00936872 /* NetworkService */,
 				3C74169C2A25ED1F001A1E50 /* APIs */,
 				3CDF642B2A24934F004A87A2 /* NetworkError.swift */,
+				3C6E25AA2A2CA26C0091A929 /* DTO */,
 				3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */,
 			);
 			path = Network;
@@ -344,11 +358,13 @@
 				3C7416A22A25F067001A1E50 /* TokenResponseDTO.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
+				3C6E25A92A2CA1590091A929 /* RefreshTokenAdapter.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */,
 				3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
+				3C6E25AC2A2CA27C0091A929 /* APIProtocol.swift in Sources */,
 				3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
 				3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */,
@@ -358,7 +374,7 @@
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
-				3C74169E2A25ED5E001A1E50 /* TokenEndpoints.swift in Sources */,
+				3C74169E2A25ED5E001A1E50 /* AuthAPI.swift in Sources */,
 				3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */,
 				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,

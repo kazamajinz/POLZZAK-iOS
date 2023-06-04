@@ -9,10 +9,8 @@ import Foundation
 
 protocol NetworkServiceProvider {
     /// 특정 responsable이 존재하는 request
+    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R
-
-    /// URL에서 Data를 얻는 request
-    func request(from url: URL) async throws -> Data
 }
 
 final class NetworkService: NetworkServiceProvider {
@@ -22,14 +20,15 @@ final class NetworkService: NetworkServiceProvider {
     
     init(
         session: URLSession = .shared,
-        requestAdapter: RequestAdapter = AuthAdapter(),
-        requestRetrier: RequestRetrier = AuthRetrier()
+        requestAdapter: RequestAdapter? = nil,
+        requestRetrier: RequestRetrier? = nil
     ) {
         self.session = session
         self.requestAdapter = requestAdapter
         self.requestRetrier = requestRetrier
     }
     
+    // TODO: adapt까지 retry 되도록 해야함..
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
         var request = try endpoint.getURLRequest()
         requestAdapter?.adapt(for: &request)
@@ -43,9 +42,8 @@ final class NetworkService: NetworkServiceProvider {
         return (try decode(data: dataRetried), responseRetried)
     }
     
-    func request(from url: URL) async throws -> Data {
-        let (data, _) = try await session.data(from: url)
-        return data
+    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R {
+        return try await request(with: endpoint).0
     }
 
     // MARK: - Private
