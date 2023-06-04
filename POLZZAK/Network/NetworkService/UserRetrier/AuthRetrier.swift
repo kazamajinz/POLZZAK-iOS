@@ -8,7 +8,7 @@
 import Foundation
 
 final class AuthRetrier: RequestRetrier {
-    override func checkIfRetryIsNeeded(_ request: URLRequest, for response: URLResponse) async -> RetryResult {
+    override func checkIfRetryIsNeeded(for response: URLResponse) async -> RetryResult {
         return .retry
     }
 }

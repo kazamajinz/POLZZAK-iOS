@@ -22,7 +22,7 @@ class RequestRetrier {
     
     /// Retrier가 불러야 하는 함수. 재귀 함수인 _retry를 내부에서 부른다.
     final func retry(_ request: URLRequest, for session: URLSession, for response: URLResponse) async throws -> ResponseType {
-        let retryResult = await checkIfRetryIsNeeded(request, for: response)
+        let retryResult = await checkIfRetryIsNeeded(for: response)
         
         if retryResult.retryRequired {
             if let delay = retryResult.delay {
@@ -47,7 +47,7 @@ class RequestRetrier {
     private func _retry(_ request: URLRequest, for session: URLSession) async throws -> ResponseType {
         os_log("retry", log: .network)
         let response = try await session.data(for: request)
-        let retryResult = await checkIfRetryIsNeeded(request, for: response.1)
+        let retryResult = await checkIfRetryIsNeeded(for: response.1)
         
         if retryResult.retryRequired {
             if let delay = retryResult.delay {
@@ -84,7 +84,7 @@ class RequestRetrier {
     }
     
     /// 유저가 retry때 실행할 동작을 정의해줘야 하는 함수
-    func checkIfRetryIsNeeded(_ request: URLRequest, for response: URLResponse) async -> RetryResult {
+    func checkIfRetryIsNeeded(for response: URLResponse) async -> RetryResult {
         return .doNotRetry
     }
 }
