@@ -8,8 +8,7 @@
 import Foundation
 
 final class AuthAdapter: RequestAdapter {
-    func adapt(for urlRequest: inout URLRequest) {
-        print("adapt")
+    override func adaptTask(for urlRequest: inout URLRequest) {
         let accessToken = ""
         let refreshToken = ""
         urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")

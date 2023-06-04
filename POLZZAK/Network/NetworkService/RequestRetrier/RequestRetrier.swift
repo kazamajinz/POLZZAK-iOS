@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import OSLog
 
-/// checkIfRetryIsNeeded(_:for:)을 override해서 retry를 발생시킬지 정의하세요.
+/// - retry(_:for:for:)을 네트워크 모듈에서 불러줘야 합니다.
+/// - checkIfRetryIsNeeded(_:for:)을 override해서 retry를 발생시킬지 정의하세요.
 class RequestRetrier {
     typealias ResponseType = (Data, URLResponse)
     
     private var retryCount = ThreadSafeDictionary<URLRequest, Int>()
     private let maxRetryCount: Int
     
-    init(maxRetryCount: Int = 3) {
+    init(maxRetryCount: Int = 1) {
         self.maxRetryCount = maxRetryCount
     }
     
@@ -43,6 +45,7 @@ class RequestRetrier {
     
     // 재귀 함수.
     private func _retry(_ request: URLRequest, for session: URLSession) async throws -> ResponseType {
+        os_log("retry", log: .network)
         let response = try await session.data(for: request)
         let retryResult = await checkIfRetryIsNeeded(request, for: response.1)
         
@@ -66,7 +69,7 @@ class RequestRetrier {
     }
     
     private func continueRetry(_ request: URLRequest) -> Bool {
-        guard retryCount[request] == nil || retryCount[request]! < maxRetryCount else {
+        guard maxRetryCount > 0 && (retryCount[request] == nil || retryCount[request]! < maxRetryCount) else {
             retryCount[request] = nil
             return false
         }

@@ -17,8 +17,13 @@ class ViewController: UIViewController {
         
         let networkService = NetworkService()
         Task {
-            let (data, response) = try await networkService.request(with: endpoint)
-            print(data.code, data.data, data.messages)
+            do {
+                let (data, response) = try await networkService.request(with: endpoint)
+                print(data.code, data.data, data.messages)
+            } catch {
+                print(error)
+            }
+            
         }
     }
 }
