@@ -28,17 +28,19 @@ final class NetworkService: NetworkServiceProvider {
         self.requestRetrier = requestRetrier
     }
     
-    // TODO: adapt까지 retry 되도록 해야함..
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
         var request = try endpoint.getURLRequest()
-        requestAdapter?.adapt(for: &request)
+        await requestAdapter?.adapt(for: &request)
         let (data, response) = try await session.data(for: request)
         
         guard let requestRetrier else {
             return (try decode(data: data), response)
         }
         
-        let (dataRetried, responseRetried) = try await requestRetrier.retry(request, for: session, for: response)
+        let (dataRetried, responseRetried) = try await requestRetrier.retry(request, for: session, for: response, adaptWhenRetry: {
+            await self.requestAdapter?.adapt(for: &request)
+        })
+        
         return (try decode(data: dataRetried), responseRetried)
     }
     

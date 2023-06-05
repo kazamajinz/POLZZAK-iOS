@@ -8,7 +8,7 @@
 import Foundation
 
 final class RefreshTokenAdapter: RequestAdapter {
-    override func adaptTask(for urlRequest: inout URLRequest) {
+    override func adaptTask(for urlRequest: inout URLRequest) async {
         // TODO: UserDefaults로 수정
         let accessToken = ""
         let refreshToken = ""

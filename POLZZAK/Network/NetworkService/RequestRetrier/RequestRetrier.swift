@@ -21,19 +21,21 @@ class RequestRetrier {
     }
     
     /// Retrier가 불러야 하는 함수. 재귀 함수인 _retry를 내부에서 부른다.
-    final func retry(_ request: URLRequest, for session: URLSession, for response: URLResponse) async throws -> ResponseType {
+    final func retry(_ request: URLRequest, for session: URLSession, for response: URLResponse, adaptWhenRetry: (() async -> Void)?) async throws -> ResponseType {
         let retryResult = await checkIfRetryIsNeeded(for: response)
         
         if retryResult.retryRequired {
-            if let delay = retryResult.delay {
-                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-            }
-            
             guard continueRetry(request) else {
                 throw RequestRetrierError.retryImmediatelyEnded
             }
             
-            return try await _retry(request, for: session)
+            if let delay = retryResult.delay {
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            }
+            
+            await adaptWhenRetry?()
+            
+            return try await _retry(request, for: session, adaptWhenRetry: adaptWhenRetry)
         } else {
             if let error = retryResult.error {
                 throw error
@@ -44,21 +46,23 @@ class RequestRetrier {
     }
     
     // 재귀 함수.
-    private func _retry(_ request: URLRequest, for session: URLSession) async throws -> ResponseType {
+    private func _retry(_ request: URLRequest, for session: URLSession, adaptWhenRetry: (() async -> Void)?) async throws -> ResponseType {
         os_log("retry", log: .network)
         let response = try await session.data(for: request)
         let retryResult = await checkIfRetryIsNeeded(for: response.1)
         
         if retryResult.retryRequired {
-            if let delay = retryResult.delay {
-                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-            }
-            
             guard continueRetry(request) else {
                 return response
             }
             
-            return try await _retry(request, for: session)
+            if let delay = retryResult.delay {
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            }
+            
+            await adaptWhenRetry?()
+            
+            return try await _retry(request, for: session, adaptWhenRetry: adaptWhenRetry)
         } else {
             if let error = retryResult.error {
                 throw error

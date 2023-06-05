@@ -12,13 +12,13 @@ import OSLog
 /// - adaptTask(for:)을 override해서 adapt를 발생시킬지 정의하세요.
 class RequestAdapter {
     /// Adapter가 불러야 하는 함수.
-    final func adapt(for urlRequest: inout URLRequest) {
+    final func adapt(for urlRequest: inout URLRequest) async {
         os_log("adapt", log: .network)
-        adaptTask(for: &urlRequest)
+        await adaptTask(for: &urlRequest)
     }
     
     /// 유저가 adapt때 실행할 동작을 정의해줘야 하는 함수
-    func adaptTask(for urlRequest: inout URLRequest) {
+    func adaptTask(for urlRequest: inout URLRequest) async {
         
     }
 }
