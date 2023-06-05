@@ -9,7 +9,6 @@ import Foundation
 import OSLog
 
 protocol NetworkServiceProvider {
-    /// 특정 responsable이 존재하는 request
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R
 }
