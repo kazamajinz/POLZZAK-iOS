@@ -9,10 +9,10 @@ import Foundation
 
 final class RefreshTokenAdapter: RequestAdapter {
     override func adaptTask(for urlRequest: inout URLRequest) async {
-        // TODO: UserDefaults로 수정
-        let accessToken = ""
-        let refreshToken = ""
-        urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        urlRequest.addValue("RefreshToken=\(refreshToken)", forHTTPHeaderField: "Cookie")
+        if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken),
+           let refreshToken = Keychain().read(identifier: Constants.KeychainKey.refreshToken) {
+            urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            urlRequest.addValue("RefreshToken=\(refreshToken)", forHTTPHeaderField: "Cookie")
+        }
     }
 }

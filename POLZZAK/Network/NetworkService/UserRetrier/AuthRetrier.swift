@@ -16,8 +16,13 @@ final class AuthRetrier: RequestRetrier {
         
         do {
             let data = try await RefreshTokenAPI().refreshToken()
-            // TODO: UserDefaults같은 싱글톤에 새로 받은 accessToken 추가하도록 수정
-            return .retry
+            if let code = data.code, code == 434, let accessToken = data.data {
+                let keychain = Keychain()
+                keychain.create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
+                return .retry
+            } else {
+                return .doNotRetry
+            }
         } catch {
             os_log("%@", log: .network, String(describing: error))
             return .doNotRetryWithError(error)

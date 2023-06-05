@@ -9,8 +9,8 @@ import Foundation
 
 final class AuthAdapter: RequestAdapter {
     override func adaptTask(for urlRequest: inout URLRequest) async {
-        // TODO: UserDefaults로 수정
-        let accessToken = ""
-        urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken) {
+            urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
     }
 }

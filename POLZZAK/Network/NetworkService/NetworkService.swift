@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 protocol NetworkServiceProvider {
     /// 특정 responsable이 존재하는 request
@@ -31,6 +32,8 @@ final class NetworkService: NetworkServiceProvider {
     func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
         var request = try endpoint.getURLRequest()
         await requestAdapter?.adapt(for: &request)
+        
+        os_log("request", log: .network)
         let (data, response) = try await session.data(for: request)
         
         guard let requestRetrier else {
