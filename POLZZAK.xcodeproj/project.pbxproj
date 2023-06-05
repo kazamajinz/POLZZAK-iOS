@@ -45,7 +45,7 @@
 		3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3CE4EEFD2A2E3CE5008B27AE /* KakaoSDKAuth */; };
 		3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 3CE4EEFF2A2E3CE5008B27AE /* KakaoSDKCommon */; };
 		3CE4EF022A2E3CE5008B27AE /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */; };
-		3CE4EF042A2E4273008B27AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4EF032A2E4273008B27AE /* Constants.swift */; };
+		3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4EF052A2E454B008B27AE /* Constants.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -87,7 +87,7 @@
 		3CDF642B2A24934F004A87A2 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		3CDF642F2A2496DF004A87A2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+toDictionary.swift"; sourceTree = "<group>"; };
-		3CE4EF032A2E4273008B27AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = POLZZAK/Network/DTO/Constants.swift; sourceTree = SOURCE_ROOT; };
+		3CE4EF052A2E454B008B27AE /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		3CD5F8A32A2DC905003E4A67 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				3CE4EF032A2E4273008B27AE /* Constants.swift */,
+				3CE4EF052A2E454B008B27AE /* Constants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -406,7 +406,7 @@
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				3C6E25A92A2CA1590091A929 /* RefreshTokenAdapter.swift in Sources */,
-				3CE4EF042A2E4273008B27AE /* Constants.swift in Sources */,
+				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
 				3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */,
 				3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */,
