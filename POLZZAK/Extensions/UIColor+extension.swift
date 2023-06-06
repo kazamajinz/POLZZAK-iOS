@@ -34,4 +34,8 @@ extension UIColor {
     static let error100 = UIColor(named: "error100")!
     static let error200 = UIColor(named: "error200")!
     static let error500 = UIColor(named: "error500")!
+    
+    //MARK: - Etc
+    
+    static let blindTextColor = UIColor(named: "blindTextColor")!
 }
