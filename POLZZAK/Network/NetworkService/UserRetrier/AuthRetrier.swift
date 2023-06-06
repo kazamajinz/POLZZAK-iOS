@@ -16,9 +16,8 @@ final class AuthRetrier: RequestRetrier {
         
         do {
             let data = try await RefreshTokenAPI().refreshToken()
-            if let code = data.code, code == 434, let accessToken = data.data {
-                let keychain = Keychain()
-                keychain.create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
+            if data.code == 434, let accessToken = data.data {
+                Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
                 return .retry
             } else {
                 return .doNotRetry

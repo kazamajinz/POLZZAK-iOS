@@ -46,6 +46,7 @@
 		3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 3CE4EEFF2A2E3CE5008B27AE /* KakaoSDKCommon */; };
 		3CE4EF022A2E3CE5008B27AE /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */; };
 		3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4EF052A2E454B008B27AE /* Constants.swift */; };
+		3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF28D852A2E4A47000B0A91 /* UserApi+extension.swift */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -88,6 +89,7 @@
 		3CDF642F2A2496DF004A87A2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+toDictionary.swift"; sourceTree = "<group>"; };
 		3CE4EF052A2E454B008B27AE /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3CF28D852A2E4A47000B0A91 /* UserApi+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserApi+extension.swift"; sourceTree = "<group>"; };
 		3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */,
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
 				3C4515E32A0BF2F900C9BA4F /* ViewController.swift */,
+				3CF28D842A2E4A28000B0A91 /* KakaoAPIs */,
 				3CD5F8A32A2DC905003E4A67 /* Common */,
 				3CD5F8A02A2DBDD9003E4A67 /* Utils */,
 				3CDF64242A249238004A87A2 /* Network */,
@@ -288,6 +291,14 @@
 				3C6E25AA2A2CA26C0091A929 /* DTO */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		3CF28D842A2E4A28000B0A91 /* KakaoAPIs */ = {
+			isa = PBXGroup;
+			children = (
+				3CF28D852A2E4A47000B0A91 /* UserApi+extension.swift */,
+			);
+			path = KakaoAPIs;
 			sourceTree = "<group>";
 		};
 		3CFB472A2A0FEA1300B03FFD /* Fonts */ = {
@@ -416,6 +427,7 @@
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
 				3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
+				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
 				3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,

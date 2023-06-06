@@ -15,6 +15,8 @@ protocol NetworkServiceProvider {
 
 final class NetworkService: NetworkServiceProvider {
     private let session: URLSession
+    // TODO: adapter, retrier 배열로?
+    // TODO: AuthRetrier같은경우 기본실행??
     private let requestAdapter: RequestAdapter?
     private let requestRetrier: RequestRetrier?
     
