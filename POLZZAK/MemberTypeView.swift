@@ -34,10 +34,8 @@ extension MemberTypeView {
         addSubview(memberTypeLabel)
         
         memberTypeLabel.snp.makeConstraints {
-            $0.top.equalTo(4)
-            $0.leading.equalTo(12)
-            $0.trailing.equalTo(-12)
-            $0.bottom.equalTo(-4)
+            $0.top.bottom.equalToSuperview().inset(4)
+            $0.leading.trailing.equalToSuperview().inset(12)
         }
     }
     

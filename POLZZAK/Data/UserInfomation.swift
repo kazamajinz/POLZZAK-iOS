@@ -11,7 +11,7 @@ struct Partner: Decodable {
     let memberId: Int
     let nickname: String
     let memberType: String
-    let profileUrl: String
+    let profileURL: String
     let kid: Bool
 }
 

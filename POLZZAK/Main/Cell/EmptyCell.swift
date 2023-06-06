@@ -34,9 +34,13 @@ class EmptyCell: UICollectionViewCell {
         return label
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
@@ -62,8 +66,7 @@ extension EmptyCell {
         addSubview(stackView)
         
         stackView.snp.makeConstraints {
-            $0.leading.equalTo(93)
-            $0.trailing.equalTo(-93)
+            $0.leading.trailing.equalToSuperview().inset(93)
             $0.centerY.equalToSuperview()
         }
     }

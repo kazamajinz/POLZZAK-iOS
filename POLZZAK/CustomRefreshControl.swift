@@ -79,12 +79,12 @@ extension CustomRefreshControl {
         
         refreshImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(topPadding)
+            $0.centerY.equalToSuperview().inset(topPadding)
         }
         
         refreshIndicator.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(topPadding)
+            $0.centerY.equalToSuperview().inset(topPadding)
         }
     }
     

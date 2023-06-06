@@ -170,23 +170,18 @@ extension InprogressStampBoardCell {
         }
         
         stampTopView.snp.makeConstraints {
-            $0.top.equalTo(20)
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
+            $0.top.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(stampTopView.snp.width).multipliedBy(28.0/283.0)
         }
         
         stampMiddleView.snp.makeConstraints {
             $0.top.equalTo(stampTopView.snp.bottom).offset(36)
-            $0.leading.equalTo(41.5)
-            $0.trailing.equalTo(-41.5)
-            $0.bottom.equalTo(stampBottomView.snp.top).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(41.5)
+            $0.bottom.equalTo(stampBottomView.snp.top).inset(8)
         }
         
         stampBottomView.snp.makeConstraints {
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
-            $0.bottom.equalTo(-20)
+            $0.leading.trailing.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(stampBottomView.snp.width).multipliedBy(25.0/283.0)
         }
          
@@ -212,33 +207,27 @@ extension InprogressStampBoardCell {
         }
         
         countStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
+            $0.top.centerX.equalToSuperview()
             $0.height.equalTo(stampGraphView.snp.height).multipliedBy(34.0 / 240.0)
         }
         
         stampRequestImageView.snp.makeConstraints {
             $0.top.equalTo(countStackView.snp.bottom).offset(4)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.height.width.equalTo(stampGraphView.snp.height).multipliedBy(86.0 / 240.0)
         }
         
         stampRequestLabelView.snp.makeConstraints {
             $0.top.equalTo(stampRequestImageView.snp.bottom).offset(2)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(stampGraphView.snp.height).multipliedBy(21.0 / 240.0)
         }
         
         stampRequestLabelView.addSubview(stampRequestLabel)
         
         stampRequestLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(2)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.bottom.equalToSuperview().offset(-2)
+            $0.top.bottom.equalToSuperview().inset(2)
+            $0.leading.trailing.equalToSuperview().inset(10)
         }
     }
 }

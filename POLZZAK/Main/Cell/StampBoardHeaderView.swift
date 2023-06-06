@@ -100,14 +100,14 @@ extension StampBoardHeaderView {
         }
         
         nameStackView.snp.makeConstraints {
-            $0.top.equalTo(2)
-            $0.leading.equalTo(7.5)
+            $0.top.equalToSuperview().inset(2)
+            $0.leading.equalToSuperview().inset(7.5)
             $0.bottom.equalToSuperview()
         }
         
         countStackView.snp.makeConstraints {
-            $0.top.equalTo(2)
-            $0.trailing.equalTo(-13.93)
+            $0.top.equalToSuperview().inset(2)
+            $0.trailing.equalToSuperview().inset(13.93)
             $0.bottom.equalToSuperview()
         }
     }

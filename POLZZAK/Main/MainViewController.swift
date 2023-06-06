@@ -135,7 +135,6 @@ final class MainViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.contentInset = UIEdgeInsets(top: initialContentOffsetY, left: 0, bottom: 0, right: 0)
         
-        customRefreshControl.delegate = self
         customRefreshControl.observe(scrollView: collectionView)
         collectionView.refreshControl = customRefreshControl
         
@@ -152,7 +151,7 @@ final class MainViewController: UIViewController {
     
     //MARK: - init
     init(userInformations: [UserInformation]) {
-        //테스트 데이터
+        //TODO: 테스트 데이터, 삭제할것
         self.userInformations = userInformations
         super.init(nibName: nil, bundle: nil)
     }
@@ -168,7 +167,7 @@ final class MainViewController: UIViewController {
         setNavigation()
         setAction()
         
-        //테스트 데이터
+        //TODO: 테스트 데이터, 삭제할것
         stampFilter = .all
         stampBoardState = .inProgressAndAll
     }
@@ -195,15 +194,13 @@ extension MainViewController {
         }
         
         inProgressTabLabel.snp.makeConstraints {
-            $0.top.equalTo(14)
-            $0.bottom.equalTo(-4)
+            $0.top.equalToSuperview().inset(14)
+            $0.bottom.equalToSuperview().inset(4)
             $0.centerX.equalToSuperview()
         }
         
         inProgressUnderlineView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(2)
         }
         
@@ -212,15 +209,13 @@ extension MainViewController {
         }
         
         completedTabLabel.snp.makeConstraints {
-            $0.top.equalTo(14)
-            $0.bottom.equalTo(-4)
+            $0.top.equalToSuperview().inset(14)
+            $0.bottom.equalToSuperview().inset(4)
             $0.centerX.equalToSuperview()
         }
         
         completedUnderlineView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(2)
         }
         
@@ -228,10 +223,8 @@ extension MainViewController {
         view.addSubview(contentsView)
         
         contentsView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
         }
         
         //MARK: - contents UI
@@ -240,32 +233,27 @@ extension MainViewController {
         }
         
         headerTabStackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(44)
         }
         
         filterStackView.snp.makeConstraints {
             $0.top.equalTo(headerTabStackView.snp.bottom)
-            $0.leading.equalTo(16)
+            $0.leading.equalToSuperview().inset(16)
             $0.height.equalTo(74)
         }
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(headerTabStackView.snp.bottom)
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         addStampBoardButton.snp.makeConstraints {
-            $0.trailing.equalTo(-16)
-            $0.bottom.equalTo(-16)
+            $0.trailing.bottom.equalToSuperview().inset(16)
         }
         
         filterButtonView.snp.makeConstraints {
-            $0.leading.equalTo(16)
+            $0.leading.equalToSuperview().inset(16)
             $0.height.equalTo(26)
             $0.width.equalTo(filterStackView.snp.width)
         }
@@ -314,7 +302,7 @@ extension MainViewController {
     
     @objc private func filterButtonTapped() {
         
-        //테스트 코드
+        //TODO: 테스트 코드, 삭제할것
         let alertController = UIAlertController(title: "필터", message: "필터링해드림", preferredStyle: .actionSheet)
         
         let okAction = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
@@ -329,8 +317,8 @@ extension MainViewController {
         
         //섹션2
         let okAction2 = UIAlertAction(title: "해린맘2(섹션2번) 선택", style: .default) { [weak self] _ in
-            let num = 1
-            let nickname = self?.userInformations[1].partner.nickname ?? "전체"
+            let num = 2
+            let nickname = self?.userInformations[num].partner.nickname ?? "전체"
             let section = StampSection(id: num, name: nickname, memberType: "조카")
             self?.stampFilter = .section(section)
             
@@ -619,21 +607,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-extension MainViewController: CustomRefreshControlDelegate {
-    func didFinishDragging() {
-        //테스트 코드
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if true == self.customRefreshControl.isRefreshing {
-                print("새로고침")
-                self.customRefreshControl.endRefreshing()
-                self.collectionView.reloadData()
-            }
-        }
-    }
-}
-
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        customRefreshControl.delegate?.didFinishDragging()
+        self.customRefreshControl.endRefreshing()
     }
 }

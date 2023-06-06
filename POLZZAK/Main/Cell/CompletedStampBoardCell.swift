@@ -88,24 +88,20 @@ extension CompletedStampBoardCell {
         }
         
         stampNameLabel.snp.makeConstraints {
-            $0.top.equalTo(24)
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
+            $0.top.equalToSuperview().inset(24)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         rewardLabelView.addSubview(rewardLabel)
         
         rewardLabel.snp.makeConstraints {
-            $0.top.equalTo(4)
-            $0.leading.equalTo(6)
-            $0.trailing.equalTo(-6)
-            $0.bottom.equalTo(-4)
+            $0.top.bottom.equalToSuperview().inset(4)
+            $0.leading.trailing.equalToSuperview().inset(6)
         }
         
         stampRewardView.snp.makeConstraints {
-            $0.top.equalTo(stampNameLabel.snp.bottom).offset(16)
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
+            $0.top.equalTo(stampNameLabel.snp.bottom).offset(6)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         blindView.snp.makeConstraints {
@@ -113,9 +109,8 @@ extension CompletedStampBoardCell {
         }
         
         couponLabelImageView.snp.makeConstraints {
-            $0.top.equalTo(11)
-            $0.trailing.equalTo(-16)
-            $0.bottom.equalTo(-11)
+            $0.top.bottom.equalToSuperview().inset(11)
+            $0.trailing.equalToSuperview().inset(16)
         }
     }
 }
