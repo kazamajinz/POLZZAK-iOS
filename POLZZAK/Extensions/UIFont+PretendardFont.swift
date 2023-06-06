@@ -53,8 +53,16 @@ extension UIFont {
         return .pretendard(size: 16, family: .semiBold)
     }
     
+    static var subtitle4: UIFont {
+        return .pretendard(size: 20, family: .semiBold)
+    }
+    
+    static var subtitle5: UIFont {
+        return .pretendard(size: 20, family: .regular)
+    }
+    
     static var subtitle6: UIFont {
-        return .pretendard(size: 18, family: .medium)//.regular)
+        return .pretendard(size: 18, family: .regular)
     }
     
     static var body1: UIFont {
@@ -95,5 +103,9 @@ extension UIFont {
     
     static var caption2: UIFont {
         return .pretendard(size: 12, family: .medium)
+    }
+    
+    static var caption3: UIFont {
+        return .pretendard(size: 12, family: .bold)
     }
 }
