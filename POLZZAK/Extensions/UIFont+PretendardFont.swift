@@ -11,14 +11,14 @@ import UIKit
 
 extension UIFont {
     enum FamilyForPretendard: String {
-        case bold = "-Bold"
-        case medium = "-Medium"
-        case semiBold = "-SemiBold"
-        case regular = ""
+        case bold = "Bold"
+        case medium = "Medium"
+        case semiBold = "SemiBold"
+        case regular = "Regular"
     }
     
     static func pretendard(size: CGFloat, family: FamilyForPretendard) -> UIFont {
-        return UIFont(name: "Pretendard\(family.rawValue)", size: size)!
+        return UIFont(name: "Pretendard-\(family.rawValue)", size: size)!
     }
 }
 
