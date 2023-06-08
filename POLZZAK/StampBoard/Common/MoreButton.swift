@@ -25,9 +25,11 @@ class MoreButton: UIButton {
         configurationUpdateHandler = { button in
             switch button.state {
             case .selected:
+                // TODO: chevron.up이미지 폴짝 이미지로 바꾸기
                 button.configuration?.image = UIImage(systemName: "chevron.up")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
                 button.configuration?.attributedTitle = AttributedString(titleWhenSelected ?? title, attributes: titleContainer)
             case .normal:
+                // TODO: chevron.down이미지 폴짝 이미지로 바꾸기
                 button.configuration?.image = UIImage(systemName: "chevron.down")?.withTintColor(.gray500, renderingMode: .alwaysOriginal)
                 button.configuration?.attributedTitle = AttributedString(title, attributes: titleContainer)
             default:

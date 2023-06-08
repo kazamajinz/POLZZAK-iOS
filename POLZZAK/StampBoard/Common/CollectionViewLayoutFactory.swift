@@ -48,7 +48,7 @@ class CollectionViewLayoutFactory {
         if stampViewSize.isMoreStatus {
             let footerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50.0) // TODO: 피그마에는 60인데 iOS에서는 너무 커보여서 50으로 했음. 수정 필요 (2023.05.23)
+                heightDimension: .absolute(60.0)
             )
             let footer = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: footerSize,
