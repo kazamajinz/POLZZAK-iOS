@@ -23,17 +23,12 @@
 		39D539D62A16032D0087B2BD /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D52A16032D0087B2BD /* UserType.swift */; };
 		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */; };
-		3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
-		3C07934C2A0E637700087F73 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793492A0E637700087F73 /* StampView.swift */; };
-		3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */; };
 		3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934F2A0E63C500087F73 /* MainViewController.swift */; };
 		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
 		3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2300A32A0E358700130D1B /* UIColor+extension.swift */; };
 		3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5C92A1B527900D7B9DD /* StampCell.swift */; };
 		3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */; };
 		3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */; };
-		3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
-		3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* ViewController.swift */; };
 		3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */; };
 		3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */; };
@@ -54,7 +49,12 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
-		3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */; };
+		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
+		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
+		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
+		DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793492A0E637700087F73 /* StampView.swift */; };
+		DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */; };
+		DABA1CD52A31FB5E009E351B /* UIFont+PretendardFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -386,36 +386,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
+				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
+				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
+				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
+				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
+				DABA1CD52A31FB5E009E351B /* UIFont+PretendardFont.swift in Sources */,
 				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
 				39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
-				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
-				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
-				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
-				3C07934C2A0E637700087F73 /* StampView.swift in Sources */,
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
-				3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
-				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
-				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
-				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
-				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+extension.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
-				3C07934C2A0E637700087F73 /* StampView.swift in Sources */,
-				3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */,
-				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
