@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BDE2A1E37FB00C86049 /* StampState.swift */; };
+		39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */; };
+		39227BE32A20A10700C86049 /* StampFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE22A20A10700C86049 /* StampFilter.swift */; };
+		39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE42A21915D00C86049 /* MemberTypeView.swift */; };
+		39227BE72A23866300C86049 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE62A23866300C86049 /* testData.swift */; };
+		39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE82A242BDD00C86049 /* EmptyCell.swift */; };
+		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
+		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
+		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
+		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
+		39AC7DCC2A1839C3007D58F3 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+extension.swift */; };
+		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
+		39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D22A15F4DE0087B2BD /* UserInfomation.swift */; };
+		39D539D62A16032D0087B2BD /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D52A16032D0087B2BD /* UserType.swift */; };
+		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
+		39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */; };
 		3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
 		3C07934C2A0E637700087F73 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793492A0E637700087F73 /* StampView.swift */; };
 		3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */; };
@@ -34,6 +50,7 @@
 		3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */; };
 		3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E4C2A1F834E00914421 /* CompensationView.swift */; };
+		3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -41,6 +58,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		39227BDE2A1E37FB00C86049 /* StampState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampState.swift; sourceTree = "<group>"; };
+		39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedStampBoardCell.swift; sourceTree = "<group>"; };
+		39227BE22A20A10700C86049 /* StampFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFilter.swift; sourceTree = "<group>"; };
+		39227BE42A21915D00C86049 /* MemberTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeView.swift; sourceTree = "<group>"; };
+		39227BE62A23866300C86049 /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
+		39227BE82A242BDD00C86049 /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
+		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
+		397366CE2A114439007D998F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
+		39AC7DCB2A1839C3007D58F3 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
+		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
+		39D539D22A15F4DE0087B2BD /* UserInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomation.swift; sourceTree = "<group>"; };
+		39D539D52A16032D0087B2BD /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
+		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
+		39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardHeaderView.swift; sourceTree = "<group>"; };
 		3C0793472A0E637700087F73 /* MissionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHeaderView.swift; sourceTree = "<group>"; };
 		3C0793492A0E637700087F73 /* StampView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewController.swift; sourceTree = "<group>"; };
@@ -87,10 +121,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39227BEA2A2620D900C86049 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */,
+				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		39D539D12A15F4CB0087B2BD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				39D539D42A16031F0087B2BD /* Enum */,
+				39D539D22A15F4DE0087B2BD /* UserInfomation.swift */,
+				39227BE62A23866300C86049 /* testData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		39D539D42A16031F0087B2BD /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				39D539D52A16032D0087B2BD /* UserType.swift */,
+				39227BDE2A1E37FB00C86049 /* StampState.swift */,
+				39227BE22A20A10700C86049 /* StampFilter.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		39D539DB2A1654680087B2BD /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */,
+				39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */,
+				39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */,
+				39227BE82A242BDD00C86049 /* EmptyCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3C0793452A0E628800087F73 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				3C07934F2A0E63C500087F73 /* MainViewController.swift */,
+				39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */,
+				39D539DB2A1654680087B2BD /* Cell */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -123,9 +199,12 @@
 			isa = PBXGroup;
 			children = (
 				3C2300A32A0E358700130D1B /* UIColor+extension.swift */,
+				397366CA2A10FA35007D998F /* UIImage+extension.swift */,
 				3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */,
 				3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */,
 				3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */,
+				397366CC2A112967007D998F /* UILabel+extension.swift */,
+				39AC7DCB2A1839C3007D58F3 /* UIView+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -152,10 +231,13 @@
 				3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */,
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
 				3C4515E32A0BF2F900C9BA4F /* ViewController.swift */,
+				397366CE2A114439007D998F /* TabBarController.swift */,
 				3C0793452A0E628800087F73 /* Main */,
 				3C0793462A0E629000087F73 /* StampBoard */,
+				39227BEA2A2620D900C86049 /* Common */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
 				3CFB472A2A0FEA1300B03FFD /* Fonts */,
+				39D539D12A15F4CB0087B2BD /* Data */,
 				3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */,
 				3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */,
 				3C4515ED2A0BF2FB00C9BA4F /* Info.plist */,
@@ -212,8 +294,9 @@
 			isa = PBXGroup;
 			children = (
 				3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */,
-				3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */,
 				3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */,
+				3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */,
+				395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */,
 			);
 			path = Pretendard;
 			sourceTree = "<group>";
@@ -288,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */,
+				3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */,
 				3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */,
 				3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */,
 				3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */,
@@ -302,6 +386,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
+				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
+				39227BE72A23866300C86049 /* testData.swift in Sources */,
+				39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
@@ -316,7 +404,22 @@
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
+				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
+				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
+				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
+				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
+				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
+				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
+				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
+				39AC7DCC2A1839C3007D58F3 /* UIView+extension.swift in Sources */,
+				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
+				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
+				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
+				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
+				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
+				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
+				39D539D62A16032D0087B2BD /* UserType.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
@@ -324,6 +427,10 @@
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
+				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
+				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
+				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
+				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,9 +568,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2W776SPR4X;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2W776SPR4X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -479,6 +588,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith2.POLZZAK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_POLZZAK;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -494,9 +604,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2W776SPR4X;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2W776SPR4X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -512,6 +624,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith2.POLZZAK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = adhoc_POLZZAK;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
