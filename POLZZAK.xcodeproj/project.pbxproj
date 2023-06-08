@@ -47,10 +47,10 @@
 		3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */; };
 		3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */; };
 		3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE10C42A110F02000C15EC /* MissionCell.swift */; };
+		3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */; };
 		3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */; };
 		3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E4C2A1F834E00914421 /* CompensationView.swift */; };
-		3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */; };
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
@@ -413,8 +413,8 @@
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+extension.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
-				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
-				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
+				3C07934C2A0E637700087F73 /* StampView.swift in Sources */,
+				3C07934E2A0E639F00087F73 /* DetailBoardViewController.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
@@ -428,7 +428,6 @@
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
-				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 			);
@@ -585,7 +584,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith2.POLZZAK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_POLZZAK;
@@ -621,7 +620,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith2.POLZZAK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = adhoc_POLZZAK;

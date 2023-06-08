@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-enum StampBoardState {
+enum DetailBoardState {
     case inProgress(dayRemained: Int)
     case completed(dayTaken: Int)
 }
@@ -52,7 +52,7 @@ extension DetailBoardNameView {
         nameLabel.text = name
     }
     
-    func setDayTitle(state: StampBoardState) {
+    func setDayTitle(state: DetailBoardState) {
         switch state {
         case .inProgress(let dayRemained):
             dayLabel.text = "D+\(dayRemained)"

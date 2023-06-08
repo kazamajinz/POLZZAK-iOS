@@ -33,7 +33,7 @@ class CustomRefreshControl: UIRefreshControl {
     
     private let refreshIndicator: UIActivityIndicatorView = {
         let refreshIndicator = UIActivityIndicatorView(style: .large)
-        refreshIndicator.color = .blue300
+        refreshIndicator.color = .blue400
         refreshIndicator.hidesWhenStopped = true
         return refreshIndicator
     }()
