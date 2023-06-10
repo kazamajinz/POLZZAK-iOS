@@ -2,7 +2,7 @@
 //  KakaoLogin.swift
 //  POLZZAK
 //
-//  Created by ZERO on 2023/06/09.
+//  Created by Jinyoung Kim on 2023/06/09.
 //
 
 import Foundation

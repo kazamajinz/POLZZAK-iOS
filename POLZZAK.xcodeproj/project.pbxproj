@@ -22,10 +22,7 @@
 		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
 		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
-		3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */; };
-		3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */; };
 		3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */; };
-		3C6E25A92A2CA1590091A929 /* RefreshTokenAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */; };
 		3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416962A25E80A001A1E50 /* RequestAdapter.swift */; };
 		3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7416982A25E816001A1E50 /* RequestRetrier.swift */; };
 		3C74169B2A25E849001A1E50 /* ThreadSafeDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */; };
@@ -36,9 +33,7 @@
 		3CD5F8A82A2DF167003E4A67 /* RefreshTokenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD5F8A72A2DF167003E4A67 /* RefreshTokenAPI.swift */; };
 		3CD5F8AA2A2DF5FB003E4A67 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD5F8A92A2DF5FB003E4A67 /* LoginAPI.swift */; };
 		3CD5F8AC2A2E06CB003E4A67 /* LoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD5F8AB2A2E06CB003E4A67 /* LoginResponseDTO.swift */; };
-		3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64252A2492B7004A87A2 /* Requestable.swift */; };
-		3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64272A2492CA004A87A2 /* Responsable.swift */; };
-		3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64292A249333004A87A2 /* Endpoint.swift */; };
+		3CDF64262A2492B7004A87A2 /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64252A2492B7004A87A2 /* APIType.swift */; };
 		3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF642B2A24934F004A87A2 /* NetworkError.swift */; };
 		3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF642F2A2496DF004A87A2 /* NetworkService.swift */; };
 		3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */; };
@@ -52,6 +47,8 @@
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
 		3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */; };
 		DAC36B882A32DA3900BE5C8D /* KakaoLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B872A32DA3900BE5C8D /* KakaoLogin.swift */; };
+		DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */; };
+		DAC36B932A344A5F00BE5C8D /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,10 +65,7 @@
 		3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRetrier.swift; sourceTree = "<group>"; };
-		3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAdapter.swift; sourceTree = "<group>"; };
 		3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+extension.swift"; sourceTree = "<group>"; };
-		3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenAdapter.swift; sourceTree = "<group>"; };
 		3C7416962A25E80A001A1E50 /* RequestAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAdapter.swift; sourceTree = "<group>"; };
 		3C7416982A25E816001A1E50 /* RequestRetrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRetrier.swift; sourceTree = "<group>"; };
 		3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeDictionary.swift; sourceTree = "<group>"; };
@@ -83,9 +77,7 @@
 		3CD5F8A92A2DF5FB003E4A67 /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		3CD5F8AB2A2E06CB003E4A67 /* LoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseDTO.swift; sourceTree = "<group>"; };
 		3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
-		3CDF64252A2492B7004A87A2 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
-		3CDF64272A2492CA004A87A2 /* Responsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responsable.swift; sourceTree = "<group>"; };
-		3CDF64292A249333004A87A2 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		3CDF64252A2492B7004A87A2 /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
 		3CDF642B2A24934F004A87A2 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		3CDF642F2A2496DF004A87A2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+toDictionary.swift"; sourceTree = "<group>"; };
@@ -96,6 +88,8 @@
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLogin.swift; sourceTree = "<group>"; };
+		DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
+		DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,23 +176,6 @@
 			path = POLZZAK;
 			sourceTree = "<group>";
 		};
-		3C6E25A02A2C80270091A929 /* UserAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				3C6E25A42A2C80BB0091A929 /* AuthAdapter.swift */,
-				3C6E25A82A2CA1590091A929 /* RefreshTokenAdapter.swift */,
-			);
-			path = UserAdapter;
-			sourceTree = "<group>";
-		};
-		3C6E25A12A2C802D0091A929 /* UserRetrier */ = {
-			isa = PBXGroup;
-			children = (
-				3C6E25A22A2C803A0091A929 /* AuthRetrier.swift */,
-			);
-			path = UserRetrier;
-			sourceTree = "<group>";
-		};
 		3C6E25AA2A2CA26C0091A929 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,22 +183,6 @@
 				3CD5F8AB2A2E06CB003E4A67 /* LoginResponseDTO.swift */,
 			);
 			path = DTO;
-			sourceTree = "<group>";
-		};
-		3C7416942A25E7E5001A1E50 /* RequestAdapter */ = {
-			isa = PBXGroup;
-			children = (
-				3C7416962A25E80A001A1E50 /* RequestAdapter.swift */,
-			);
-			path = RequestAdapter;
-			sourceTree = "<group>";
-		};
-		3C7416952A25E7F4001A1E50 /* RequestRetrier */ = {
-			isa = PBXGroup;
-			children = (
-				3C7416982A25E816001A1E50 /* RequestRetrier.swift */,
-			);
-			path = RequestRetrier;
 			sourceTree = "<group>";
 		};
 		3C74169C2A25ED1F001A1E50 /* APIs */ = {
@@ -234,23 +195,11 @@
 			path = APIs;
 			sourceTree = "<group>";
 		};
-		3CD51CA72A24B98000936872 /* Endpoint */ = {
-			isa = PBXGroup;
-			children = (
-				3CDF64252A2492B7004A87A2 /* Requestable.swift */,
-				3CDF64272A2492CA004A87A2 /* Responsable.swift */,
-				3CDF64292A249333004A87A2 /* Endpoint.swift */,
-			);
-			path = Endpoint;
-			sourceTree = "<group>";
-		};
 		3CD51CA82A24B98C00936872 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				3C7416942A25E7E5001A1E50 /* RequestAdapter */,
-				3C7416952A25E7F4001A1E50 /* RequestRetrier */,
-				3C6E25A02A2C80270091A929 /* UserAdapter */,
-				3C6E25A12A2C802D0091A929 /* UserRetrier */,
+				DAC36B912A344A4500BE5C8D /* UserInterceptor */,
+				DAC36B902A344A2400BE5C8D /* RequestInterceptor */,
 				3CDF642F2A2496DF004A87A2 /* NetworkService.swift */,
 			);
 			path = NetworkService;
@@ -275,6 +224,7 @@
 		3CD5F8A62A2DF104003E4A67 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3CDF64252A2492B7004A87A2 /* APIType.swift */,
 				3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */,
 				3CDF642B2A24934F004A87A2 /* NetworkError.swift */,
 				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
@@ -287,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				3CD5F8A62A2DF104003E4A67 /* Common */,
-				3CD51CA72A24B98000936872 /* Endpoint */,
 				3CD51CA82A24B98C00936872 /* NetworkService */,
 				3C74169C2A25ED1F001A1E50 /* APIs */,
 				3C6E25AA2A2CA26C0091A929 /* DTO */,
@@ -321,6 +270,24 @@
 				3CDF64232A24914F004A87A2 /* Pretendard-Regular.otf */,
 			);
 			path = Pretendard;
+			sourceTree = "<group>";
+		};
+		DAC36B902A344A2400BE5C8D /* RequestInterceptor */ = {
+			isa = PBXGroup;
+			children = (
+				DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */,
+				3C7416962A25E80A001A1E50 /* RequestAdapter.swift */,
+				3C7416982A25E816001A1E50 /* RequestRetrier.swift */,
+			);
+			path = RequestInterceptor;
+			sourceTree = "<group>";
+		};
+		DAC36B912A344A4500BE5C8D /* UserInterceptor */ = {
+			isa = PBXGroup;
+			children = (
+				DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */,
+			);
+			path = UserInterceptor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,19 +386,16 @@
 				3C7416A22A25F067001A1E50 /* TokenResponseDTO.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
-				3C6E25A92A2CA1590091A929 /* RefreshTokenAdapter.swift in Sources */,
+				DAC36B932A344A5F00BE5C8D /* AuthInterceptor.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
 				3C4515E02A0BF2F900C9BA4F /* AppDelegate.swift in Sources */,
-				3CDF64282A2492CA004A87A2 /* Responsable.swift in Sources */,
-				3CDF642A2A249333004A87A2 /* Endpoint.swift in Sources */,
+				DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */,
 				3C4515E22A0BF2F900C9BA4F /* SceneDelegate.swift in Sources */,
 				3CD5F8AC2A2E06CB003E4A67 /* LoginResponseDTO.swift in Sources */,
 				3C07934A2A0E637700087F73 /* MissionHeaderView.swift in Sources */,
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
-				3C6E25A32A2C803A0091A929 /* AuthRetrier.swift in Sources */,
 				3C07934C2A0E637700087F73 /* StampBoardView.swift in Sources */,
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
-				3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
 				DAC36B882A32DA3900BE5C8D /* KakaoLogin.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
@@ -441,7 +405,7 @@
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
 				3C74169E2A25ED5E001A1E50 /* AuthAPI.swift in Sources */,
-				3CDF64262A2492B7004A87A2 /* Requestable.swift in Sources */,
+				3CDF64262A2492B7004A87A2 /* APIType.swift in Sources */,
 				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
 			);

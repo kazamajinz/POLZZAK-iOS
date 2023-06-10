@@ -1,15 +1,24 @@
 //
-//  AuthRetrier.swift
+//  AuthInterceptor.swift
 //  POLZZAK
 //
-//  Created by Jinyoung Kim on 2023/06/04.
+//  Created by Jinyoung Kim on 2023/06/10.
 //
 
 import Foundation
-import OSLog
 
-final class AuthRetrier: RequestRetrier {
-    override func checkIfRetryIsNeeded(for response: URLResponse) async -> RetryResult {
+class AuthInterceptor: RequestInterceptor {
+    func adapt(for urlRequest: URLRequest) async throws -> URLRequest {
+        var urlRequest = urlRequest
+        
+        if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken) {
+            urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        return urlRequest
+    }
+    
+    func retry(response: URLResponse) async throws -> RetryResult {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 401 else {
             return .doNotRetry
         }
@@ -23,7 +32,6 @@ final class AuthRetrier: RequestRetrier {
                 return .doNotRetry
             }
         } catch {
-            os_log("%@", log: .network, String(describing: error))
             return .doNotRetryWithError(error)
         }
     }

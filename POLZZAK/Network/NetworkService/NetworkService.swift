@@ -9,52 +9,86 @@ import Foundation
 import OSLog
 
 protocol NetworkServiceProvider {
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R
+    func request(with api: APIType) async throws -> (Data, URLResponse)
+}
+
+extension NetworkServiceProvider {
+    func requestData(with api: APIType) async throws -> Data {
+        return try await request(with: api).0
+    }
+    
+    func request<T: Decodable>(responseType: T.Type, with api: APIType) async throws -> (T, URLResponse) {
+        let (data, response) = try await request(with: api)
+        return (try JSONDecoder().decode(T.self, from: data), response)
+    }
+    
+    func requestData<T: Decodable>(responseType: T.Type, with api: APIType) async throws -> T {
+        let (data, _) = try await request(with: api)
+        return try JSONDecoder().decode(T.self, from: data)
+    }
 }
 
 final class NetworkService: NetworkServiceProvider {
     private let session: URLSession
-    // TODO: adapter, retrier 배열로?
-    // TODO: AuthRetrier같은경우 기본실행??
-    private let requestAdapter: RequestAdapter?
-    private let requestRetrier: RequestRetrier?
+    private let requestInterceptor: RequestInterceptor?
+    private var retryCount = ThreadSafeDictionary<URLRequest, Int>()
     
     init(
         session: URLSession = .shared,
-        requestAdapter: RequestAdapter? = nil,
-        requestRetrier: RequestRetrier? = nil
+        requestInterceptor: RequestInterceptor? = nil
     ) {
         self.session = session
-        self.requestAdapter = requestAdapter
-        self.requestRetrier = requestRetrier
+        self.requestInterceptor = requestInterceptor
     }
     
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> (R, URLResponse) where E.Response == R {
-        var request = try endpoint.getURLRequest()
-        await requestAdapter?.adapt(for: &request)
+    func request(with api: APIType) async throws -> (Data, URLResponse) {
+        var request = try api.getURLRequest()
         
-        os_log("request", log: .network)
-        let (data, response) = try await session.data(for: request)
-        
-        guard let requestRetrier else {
-            return (try decode(data: data), response)
+        guard let requestInterceptor else {
+            os_log("request", log: .network)
+            return try await session.data(for: request)
         }
         
-        let (dataRetried, responseRetried) = try await requestRetrier.retry(request, for: session, for: response, adaptWhenRetry: {
-            await self.requestAdapter?.adapt(for: &request)
-        })
+        os_log("adapt", log: .network)
+        request = try await requestInterceptor.adapt(for: request)
+        os_log("request", log: .network)
+        let (data, response) = try await session.data(for: request)
+        os_log("retry", log: .network)
+        let retryResult = try await requestInterceptor.retry(response: response)
         
-        return (try decode(data: dataRetried), responseRetried)
+        if retryResult.retryRequired {
+            guard continueRetry(request) else {
+                return (data, response)
+            }
+            
+            if let delay = retryResult.delay {
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            }
+            
+            return try await self.request(with: api)
+        } else {
+            if let error = retryResult.error {
+                os_log("retry error: #@", log: .network, String(describing: error))
+            }
+            
+            return (data, response)
+        }
     }
     
-    func request<R: Decodable, E: RequestResponsable>(with endpoint: E) async throws -> R where E.Response == R {
-        return try await request(with: endpoint).0
-    }
-
-    // MARK: - Private
-    
-    private func decode<T: Decodable>(data: Data) throws -> T {
-        return try JSONDecoder().decode(T.self, from: data)
+    private func continueRetry(_ request: URLRequest) -> Bool {
+        guard let maxRetryCount = requestInterceptor?.maxRetryCount else { return false }
+        
+        guard maxRetryCount > 0 && (retryCount[request] == nil || retryCount[request]! < maxRetryCount) else {
+            retryCount[request] = nil
+            return false
+        }
+        
+        if retryCount[request] == nil {
+            retryCount[request] = 1
+        }  else if retryCount[request]! < maxRetryCount {
+            retryCount[request]! += 1
+        }
+        
+        return true
     }
 }

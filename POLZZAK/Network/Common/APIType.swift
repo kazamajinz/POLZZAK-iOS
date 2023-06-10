@@ -1,5 +1,5 @@
 //
-//  Requestable.swift
+//  APIType.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/29.
@@ -7,17 +7,26 @@
 
 import Foundation
 
-protocol Requestable {
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case patch = "PATCH"
+    case delete = "DELETE"
+}
+
+protocol APIType {
     var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
     var queryParameters: Encodable? { get }
     var bodyParameters: Encodable? { get }
     var headers: [String: String]? { get }
+    var intercetpr: RequestInterceptor? { get }
     var sampleData: Data? { get }
 }
 
-extension Requestable {
+extension APIType {
     func getURLRequest() throws -> URLRequest {
         let url = try url()
         var urlRequest = URLRequest(url: url)
