@@ -198,8 +198,8 @@
 		3CD51CA82A24B98C00936872 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
-				DAC36B912A344A4500BE5C8D /* UserInterceptor */,
 				DAC36B902A344A2400BE5C8D /* RequestInterceptor */,
+				DAC36B912A344A4500BE5C8D /* UserInterceptor */,
 				3CDF642F2A2496DF004A87A2 /* NetworkService.swift */,
 			);
 			path = NetworkService;
