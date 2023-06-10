@@ -9,20 +9,20 @@ import Foundation
 import OSLog
 
 protocol NetworkServiceProvider {
-    func request(with api: APIType) async throws -> (Data, URLResponse)
+    func request(with api: TargetType) async throws -> (Data, URLResponse)
 }
 
 extension NetworkServiceProvider {
-    func requestData(with api: APIType) async throws -> Data {
+    func requestData(with api: TargetType) async throws -> Data {
         return try await request(with: api).0
     }
     
-    func request<T: Decodable>(responseType: T.Type, with api: APIType) async throws -> (T, URLResponse) {
+    func request<T: Decodable>(responseType: T.Type, with api: TargetType) async throws -> (T, URLResponse) {
         let (data, response) = try await request(with: api)
         return (try JSONDecoder().decode(T.self, from: data), response)
     }
     
-    func requestData<T: Decodable>(responseType: T.Type, with api: APIType) async throws -> T {
+    func requestData<T: Decodable>(responseType: T.Type, with api: TargetType) async throws -> T {
         let (data, _) = try await request(with: api)
         return try JSONDecoder().decode(T.self, from: data)
     }
@@ -41,7 +41,8 @@ final class NetworkService: NetworkServiceProvider {
         self.requestInterceptor = requestInterceptor
     }
     
-    func request(with api: APIType) async throws -> (Data, URLResponse) {
+    /// 재귀로 retry 로직이 있는 request
+    func request(with api: TargetType) async throws -> (Data, URLResponse) {
         var request = try api.getURLRequest()
         
         guard let requestInterceptor else {

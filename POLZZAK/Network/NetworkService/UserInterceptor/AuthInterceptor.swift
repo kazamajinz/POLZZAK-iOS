@@ -24,9 +24,15 @@ class AuthInterceptor: RequestInterceptor {
         }
         
         do {
-            let data = try await RefreshTokenAPI().refreshToken()
-            if data.code == 434, let accessToken = data.data {
+            let api = TokenTarget.refreshToken
+            let networkService = NetworkService()
+            let (data, response) = try await networkService.request(responseType: TokenResponseDTO.self, with: api)
+            
+            if data.code == 434, let accessToken = data.data,
+               let httpResponse = response as? HTTPURLResponse,
+               let refreshToken = httpResponse.allHeaderFields["RefreshToken"] as? String {
                 Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
+                Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
                 return .retry
             } else {
                 return .doNotRetry

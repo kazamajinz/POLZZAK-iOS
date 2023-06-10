@@ -1,5 +1,5 @@
 //
-//  APIType.swift
+//  TargetType.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/29.
@@ -15,7 +15,7 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
-protocol APIType {
+protocol TargetType {
     var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -26,7 +26,7 @@ protocol APIType {
     var sampleData: Data? { get }
 }
 
-extension APIType {
+extension TargetType {
     func getURLRequest() throws -> URLRequest {
         let url = try url()
         var urlRequest = URLRequest(url: url)
