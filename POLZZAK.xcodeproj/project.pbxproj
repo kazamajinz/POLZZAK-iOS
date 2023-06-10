@@ -51,6 +51,7 @@
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
 		3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */; };
+		DAC36B882A32DA3900BE5C8D /* KakaoLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B872A32DA3900BE5C8D /* KakaoLogin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,7 @@
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
+		DAC36B872A32DA3900BE5C8D /* KakaoLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLogin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				3CF28D852A2E4A47000B0A91 /* UserApi+extension.swift */,
+				DAC36B872A32DA3900BE5C8D /* KakaoLogin.swift */,
 			);
 			path = KakaoAPIs;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
 				3C6E25A52A2C80BB0091A929 /* AuthAdapter.swift in Sources */,
 				3C07934E2A0E639F00087F73 /* StampBoardViewController.swift in Sources */,
+				DAC36B882A32DA3900BE5C8D /* KakaoLogin.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				3CD5F8AA2A2DF5FB003E4A67 /* LoginAPI.swift in Sources */,
