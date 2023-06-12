@@ -176,6 +176,8 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     private func setNavigation() {
         navigationController?.navigationBar.tintColor = .gray800
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
         let rightButtonImage = UIImage.myConnectionsButton
         let rightButton = UIBarButtonItem(image: rightButtonImage, style: .plain, target: self, action: #selector(myConnectionsButtonClicked))
         self.navigationItem.rightBarButtonItem = rightButton
@@ -281,7 +283,8 @@ extension MainViewController {
     
     //MARK: - @objc
     @objc private func myConnectionsButtonClicked() {
-        print("myConnections 버튼 클릭")
+        let linkManagementViewController = LinkManagementViewController(type: 0)
+        navigationController?.pushViewController(linkManagementViewController, animated: true)
     }
     
     @objc private func inProgressTabButtonTapped() {
@@ -586,13 +589,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         switch stampBoardState {
         case .inProgressAndAll, .inProgressAndSection, .unknown:
-            let memberType = userInformations[indexPath.section].partner.memberType
+            let memberType = userInformations[indexPath.section].partner.memberType.detail
             let name = userInformations[indexPath.section].partner.nickname
             let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
             
         case .completedAndAll, .completedAndSection:
-            let memberType = userInformations[indexPath.section].partner.memberType
+            let memberType = userInformations[indexPath.section].partner.memberType.detail
             let name = userInformations[indexPath.section].partner.nickname
             let totalCount = userInformations[indexPath.section].rewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)

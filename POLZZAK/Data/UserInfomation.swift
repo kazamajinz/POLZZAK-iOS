@@ -10,7 +10,7 @@ import Foundation
 struct Partner: Decodable {
     let memberId: Int
     let nickname: String
-    let memberType: String
+    let memberType: MemberType
     let profileURL: String
     let kid: Bool
 }

@@ -20,7 +20,7 @@ class CollectionViewLayoutFactory {
         let numberOfItemPerLine = stampViewSize.numberOfItemsPerLine
         let itemFractionalWidthFraction = 1.0 / CGFloat(numberOfItemPerLine)
         
-        let screenWidth = UIApplication.shared.width ?? 0
+        let screenWidth = UIApplication.shared.width
         let spacing: CGFloat = screenWidth/(5.86*CGFloat(numberOfItemPerLine))
         let itemSpacing = spacing == 0 ? 16 : spacing
         

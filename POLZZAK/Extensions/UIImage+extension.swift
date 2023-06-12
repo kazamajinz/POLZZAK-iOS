@@ -16,19 +16,22 @@ extension UIImage {
     static let notificationTabBarIcon = UIImage(named: "notificationTabBarIcon")
     static let myPageTabBarIcon = UIImage(named: "myPageTabBarIcon")
     
-    //MARK: - Main
+    //MARK: - Button
     
     static let myConnectionsButton = UIImage(named: "myConnectionsButton")
     static let filterButton = UIImage(named: "filterButton")
     static let rightArrowButton = UIImage(named: "rightArrowButton")
     static let addStampBoardButton = UIImage(named: "addStampBoardButton")
-    static let couponCompleted = UIImage(named: "couponCompleted")
+    static let searchButton = UIImage(named: "searchButton")
     
     //MARK: - Character
     static let raisingOneHandCharacter = UIImage(named: "raisingOneHandCharacter")
     static let sittingCharacter = UIImage(named: "sittingCharacter")
+    static let defaultProfileCharacter = UIImage(named: "defaultProfileCharacter")
     
     //MARK: - Common
+    static let couponCompleted = UIImage(named: "couponCompleted")
     static let refreshDragImage = UIImage(named: "refreshDragImage")
+    
     
 }
