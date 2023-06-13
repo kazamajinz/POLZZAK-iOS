@@ -9,21 +9,21 @@ import Foundation
 import OSLog
 
 protocol NetworkServiceProvider {
-    func request(with api: TargetType) async throws -> (Data, URLResponse)
+    func request(with target: TargetType) async throws -> (Data, URLResponse)
 }
 
 extension NetworkServiceProvider {
-    func requestData(with api: TargetType) async throws -> Data {
-        return try await request(with: api).0
+    func requestData(with target: TargetType) async throws -> Data {
+        return try await request(with: target).0
     }
     
-    func request<T: Decodable>(responseType: T.Type, with api: TargetType) async throws -> (T, URLResponse) {
-        let (data, response) = try await request(with: api)
+    func request<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> (T, URLResponse) {
+        let (data, response) = try await request(with: target)
         return (try JSONDecoder().decode(T.self, from: data), response)
     }
     
-    func requestData<T: Decodable>(responseType: T.Type, with api: TargetType) async throws -> T {
-        let (data, _) = try await request(with: api)
+    func requestData<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> T {
+        let (data, _) = try await request(with: target)
         return try JSONDecoder().decode(T.self, from: data)
     }
 }
@@ -42,8 +42,8 @@ final class NetworkService: NetworkServiceProvider {
     }
     
     /// 재귀로 retry 로직이 있는 request
-    func request(with api: TargetType) async throws -> (Data, URLResponse) {
-        var request = try api.getURLRequest()
+    func request(with target: TargetType) async throws -> (Data, URLResponse) {
+        var request = try target.getURLRequest()
         
         guard let requestInterceptor else {
             os_log("request", log: .network)
@@ -66,7 +66,7 @@ final class NetworkService: NetworkServiceProvider {
                 try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
             }
             
-            return try await self.request(with: api)
+            return try await self.request(with: target)
         } else {
             if let error = retryResult.error {
                 os_log("retry error: #@", log: .network, String(describing: error))

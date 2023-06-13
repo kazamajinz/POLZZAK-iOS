@@ -9,6 +9,7 @@ import Foundation
 import OSLog
 import Security
 
+/// init의 service parameter는 의도가 있지 않다면 따로 넣어줄 필요 없음
 struct Keychain {
     private let service: String
     

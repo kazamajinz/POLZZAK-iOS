@@ -30,9 +30,11 @@ class AuthInterceptor: RequestInterceptor {
             
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
-               let refreshToken = httpResponse.allHeaderFields["RefreshToken"] as? String {
+               // TODO: Cookie parsing 해야될지 cookie print 한거 확인하기
+               let cookie = httpResponse.allHeaderFields["Set-Cookie"] as? String {
                 Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
-                Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
+//                Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
+                print("cookie: ", cookie)
                 return .retry
             } else {
                 return .doNotRetry

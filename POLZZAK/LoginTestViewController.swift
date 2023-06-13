@@ -25,17 +25,8 @@ class LoginTestViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let api = TokenTarget.checkToken
-        let networkService = NetworkService()
-        Task {
-            do {
-                let data = try await networkService.requestData(responseType: TokenResponseDTO.self, with: api)
-                print(data.code, data.data, data.messages)
-            } catch {
-                print(error)
-            }
-        }
+        configure()
+        bind()
     }
     
     private func configure() {
@@ -51,13 +42,16 @@ class LoginTestViewController: UIViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 Task {
-                    do {
-                        let oAuthAccessToken = try await KakaoLoginAPI.loginWithKakao()
-                        owner.oAuthAccessToken = oAuthAccessToken
-                        print("oAuthAccessToken", oAuthAccessToken)
-                    } catch {
-                        print(error)
+                    guard let (data, response) = try? await LoginAPI().login(), let httpResponse = response as? HTTPURLResponse else { return }
+                    let statusCode = httpResponse.statusCode
+                    
+                    switch statusCode {
+                    case 200..<300:
+                        fallthrough
+                    default:
+                        return
                     }
+                    
                 }
             })
             .disposed(by: disposeBag)

@@ -49,6 +49,7 @@
 		DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */; };
 		DAC36B932A344A5F00BE5C8D /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */; };
 		DAC36B952A34BEC100BE5C8D /* LoginTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B942A34BEC100BE5C8D /* LoginTestViewController.swift */; };
+		DAC36B9A2A34C3E100BE5C8D /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B992A34C3E100BE5C8D /* LoginAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B942A34BEC100BE5C8D /* LoginTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTestViewController.swift; sourceTree = "<group>"; };
+		DAC36B992A34C3E100BE5C8D /* LoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +240,7 @@
 			children = (
 				3CD5F8A62A2DF104003E4A67 /* Common */,
 				3CD51CA82A24B98C00936872 /* NetworkService */,
+				DAC36B982A34C3C200BE5C8D /* APIs */,
 				3C74169C2A25ED1F001A1E50 /* Targets */,
 				3C6E25AA2A2CA26C0091A929 /* DTO */,
 			);
@@ -288,6 +291,14 @@
 				DAC36B922A344A5F00BE5C8D /* AuthInterceptor.swift */,
 			);
 			path = UserInterceptor;
+			sourceTree = "<group>";
+		};
+		DAC36B982A34C3C200BE5C8D /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				DAC36B992A34C3E100BE5C8D /* LoginAPI.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,6 +412,7 @@
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
 				3CD5F8AA2A2DF5FB003E4A67 /* LoginTarget.swift in Sources */,
+				DAC36B9A2A34C3E100BE5C8D /* LoginAPI.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
