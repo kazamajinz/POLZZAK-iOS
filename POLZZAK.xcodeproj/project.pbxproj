@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA922A32BADC009EAC52 /* LinkManagementViewController.swift */; };
 		3900FA982A3585BF009EAC52 /* RequestListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA972A3585BF009EAC52 /* RequestListSectionHeader.swift */; };
-		3900FA9C2A35DB65009EAC52 /* SectionTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA9B2A35DB65009EAC52 /* SectionTabView.swift */; };
+		3900FA9C2A35DB65009EAC52 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA9B2A35DB65009EAC52 /* TabView.swift */; };
 		3900FA9E2A36FF47009EAC52 /* SearchBarSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */; };
 		3900FAA02A370F9F009EAC52 /* SearchBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */; };
 		3900FAA32A37135B009EAC52 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA22A37135B009EAC52 /* SearchBar.swift */; };
 		3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA42A377340009EAC52 /* UIView+Animation.swift */; };
 		3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */; };
 		3900FAA92A378830009EAC52 /* SearchBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA82A378830009EAC52 /* SearchBarStyle.swift */; };
+		3900FAAC2A381E17009EAC52 /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAB2A381E17009EAC52 /* TabViews.swift */; };
+		3900FAAE2A381FBA009EAC52 /* TabConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAD2A381FBA009EAC52 /* TabConfig.swift */; };
+		3900FAB02A389FBB009EAC52 /* TabStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAF2A389FBB009EAC52 /* TabStyle.swift */; };
 		39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BDE2A1E37FB00C86049 /* StampState.swift */; };
 		39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */; };
 		39227BE32A20A10700C86049 /* StampFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE22A20A10700C86049 /* StampFilter.swift */; };
@@ -69,13 +72,16 @@
 /* Begin PBXFileReference section */
 		3900FA922A32BADC009EAC52 /* LinkManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementViewController.swift; sourceTree = "<group>"; };
 		3900FA972A3585BF009EAC52 /* RequestListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestListSectionHeader.swift; sourceTree = "<group>"; };
-		3900FA9B2A35DB65009EAC52 /* SectionTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTabView.swift; sourceTree = "<group>"; };
+		3900FA9B2A35DB65009EAC52 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarSubView.swift; sourceTree = "<group>"; };
 		3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTextField.swift; sourceTree = "<group>"; };
 		3900FAA22A37135B009EAC52 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3900FAA42A377340009EAC52 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+extension.swift"; sourceTree = "<group>"; };
 		3900FAA82A378830009EAC52 /* SearchBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarStyle.swift; sourceTree = "<group>"; };
+		3900FAAB2A381E17009EAC52 /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
+		3900FAAD2A381FBA009EAC52 /* TabConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabConfig.swift; sourceTree = "<group>"; };
+		3900FAAF2A389FBB009EAC52 /* TabStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabStyle.swift; sourceTree = "<group>"; };
 		39227BDE2A1E37FB00C86049 /* StampState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampState.swift; sourceTree = "<group>"; };
 		39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedStampBoardCell.swift; sourceTree = "<group>"; };
 		39227BE22A20A10700C86049 /* StampFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFilter.swift; sourceTree = "<group>"; };
@@ -167,12 +173,23 @@
 			name = SearchBar;
 			sourceTree = "<group>";
 		};
+		3900FAAA2A381DEB009EAC52 /* SectionTabView */ = {
+			isa = PBXGroup;
+			children = (
+				3900FAAB2A381E17009EAC52 /* TabViews.swift */,
+				3900FA9B2A35DB65009EAC52 /* TabView.swift */,
+				3900FAAD2A381FBA009EAC52 /* TabConfig.swift */,
+				3900FAAF2A389FBB009EAC52 /* TabStyle.swift */,
+			);
+			name = SectionTabView;
+			sourceTree = "<group>";
+		};
 		39227BEA2A2620D900C86049 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */,
 				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
-				3900FA9B2A35DB65009EAC52 /* SectionTabView.swift */,
+				3900FAAA2A381DEB009EAC52 /* SectionTabView */,
 				3900FAA12A370FAF009EAC52 /* SearchBar */,
 			);
 			name = Common;
@@ -440,12 +457,14 @@
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				3900FAA02A370F9F009EAC52 /* SearchBarTextField.swift in Sources */,
 				3900FAA92A378830009EAC52 /* SearchBarStyle.swift in Sources */,
+				3900FAAE2A381FBA009EAC52 /* TabConfig.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
 				3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				3900FA982A3585BF009EAC52 /* RequestListSectionHeader.swift in Sources */,
+				3900FAAC2A381E17009EAC52 /* TabViews.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				DABA1CD52A31FB5E009E351B /* UIFont+PretendardFont.swift in Sources */,
 				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
@@ -472,6 +491,7 @@
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
+				3900FAB02A389FBB009EAC52 /* TabStyle.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
@@ -483,7 +503,7 @@
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
-				3900FA9C2A35DB65009EAC52 /* SectionTabView.swift in Sources */,
+				3900FA9C2A35DB65009EAC52 /* TabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

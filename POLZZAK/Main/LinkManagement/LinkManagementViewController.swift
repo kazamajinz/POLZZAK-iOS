@@ -22,30 +22,9 @@ final class LinkManagementViewController: UIViewController {
         return searchBar
     }()
     
-    private let linkListTab: SectionTabView = {
-        let sectionTabView = SectionTabView(text: "연동목록", font: .subtitle2, lineHeight: 1)
-        return sectionTabView
-    }()
-    
-    private let receivedTab: SectionTabView = {
-        let sectionTabView = SectionTabView(text: "받은 요청", font: .subtitle2, lineHeight: 1)
-        return sectionTabView
-    }()
-    
-    private let sentTab: SectionTabView = {
-        let sectionTabView = SectionTabView(text: "보낸 요청", font: .subtitle2, lineHeight: 1)
-        return sectionTabView
-    }()
-    
-    private let headerTabStackView: UIStackView = {
-        let screenWidth = UIApplication.shared.width
-        let stackView = UIStackView(frame: CGRect(x: 16, y: 44, width: screenWidth - 32, height: 56))
-        stackView.backgroundColor = .white
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        return stackView
+    private let tabViews: TabViews = {
+        let tabViews = TabViews(tabStyle: .linkManagement)
+        return tabViews
     }()
     
     private let tableView: UITableView = {
@@ -57,6 +36,9 @@ final class LinkManagementViewController: UIViewController {
     init(type: Int) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
+        self.tabViews.delegate = self
+        setNavigation()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
@@ -65,17 +47,7 @@ final class LinkManagementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        setNavigation()
-        setUI()
-        
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
 }
 
 extension LinkManagementViewController {
@@ -92,7 +64,9 @@ extension LinkManagementViewController {
     private func setUI() {
         view.backgroundColor = .white
         
-        view.addSubview(searchBar)
+        [searchBar, tabViews].forEach {
+            view.addSubview($0)
+        }
         
         searchBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(5)
@@ -100,5 +74,37 @@ extension LinkManagementViewController {
             $0.height.equalTo(44)
         }
         
+        tabViews.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(13)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(38)
+        }
+    }
+    
+    private func linkListTabTapped() -> Void {
+        
+    }
+    
+    private func receivedTabTapped() -> Void {
+        
+    }
+    
+    private func sentTabTapped() -> Void {
+        
+    }
+}
+
+extension LinkManagementViewController: TabViewsDelegate {
+    func tabViews(_ tabViews: TabViews, didSelectTabAtIndex index: Int) {
+        switch index {
+        case 0:
+            linkListTabTapped()
+        case 1:
+            receivedTabTapped()
+        case 2:
+            sentTabTapped()
+        default:
+            break
+        }
     }
 }
