@@ -321,7 +321,7 @@ extension MainViewController {
         //섹션2
         let okAction2 = UIAlertAction(title: "해린맘2(섹션2번) 선택", style: .default) { [weak self] _ in
             let num = 2
-            let nickname = self?.userInformations[num].partner.nickname ?? "전체"
+            let nickname = self?.userInformations[num].familyMember.nickname ?? "전체"
             let section = StampSection(id: num, name: nickname, memberType: "조카")
             self?.stampFilter = .section(section)
             
@@ -553,7 +553,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 section = getSection()
             }
             
-            let nickName = userInformations[section].partner.nickname
+            let nickName = userInformations[section].familyMember.nickname
             cell.configure(nickName: nickName)
             return cell
         } else {
@@ -589,14 +589,14 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         switch stampBoardState {
         case .inProgressAndAll, .inProgressAndSection, .unknown:
-            let memberType = userInformations[indexPath.section].partner.memberType.detail
-            let name = userInformations[indexPath.section].partner.nickname
+            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
+            let name = userInformations[indexPath.section].familyMember.nickname
             let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
             
         case .completedAndAll, .completedAndSection:
-            let memberType = userInformations[indexPath.section].partner.memberType.detail
-            let name = userInformations[indexPath.section].partner.nickname
+            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
+            let name = userInformations[indexPath.section].familyMember.nickname
             let totalCount = userInformations[indexPath.section].rewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
         }

@@ -14,6 +14,15 @@ final class LinkManagementViewController: UIViewController {
     var type: Int
     let screenWidth = UIApplication.shared.width
     
+    private var linkManagementTabState: LinkManagementTabState = .linkListTab {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    //TODO: - 임시데이터
+    let testData = dummyFmailyData.families
+    
     //MARK: - UI
 
     private let searchBar: SearchBar = {
@@ -27,8 +36,14 @@ final class LinkManagementViewController: UIViewController {
         return tabViews
     }()
     
-    private let tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.register(LinkListTabCell.self, forCellReuseIdentifier: LinkListTabCell.reuseIdentifier)
+        tableView.register(ReceivedTabCell.self, forCellReuseIdentifier: ReceivedTabCell.reuseIdentifier)
+        tableView.register(SentTabCell.self, forCellReuseIdentifier: SentTabCell.reuseIdentifier)
+        
+        tableView.rowHeight = 54
         tableView.backgroundColor = .white
         return tableView
     }()
@@ -36,9 +51,10 @@ final class LinkManagementViewController: UIViewController {
     init(type: Int) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
-        self.tabViews.delegate = self
+        
         setNavigation()
         setUI()
+        setTabViews()
     }
     
     required init?(coder: NSCoder) {
@@ -64,7 +80,7 @@ extension LinkManagementViewController {
     private func setUI() {
         view.backgroundColor = .white
         
-        [searchBar, tabViews].forEach {
+        [searchBar, tabViews, tableView].forEach {
             view.addSubview($0)
         }
         
@@ -79,18 +95,28 @@ extension LinkManagementViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(38)
         }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(tabViews.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    private func setTabViews() {
+        tabViews.delegate = self
     }
     
     private func linkListTabTapped() -> Void {
-        
+        linkManagementTabState = .linkListTab
     }
     
     private func receivedTabTapped() -> Void {
-        
+        linkManagementTabState = .receivedTab
     }
     
     private func sentTabTapped() -> Void {
-        
+        linkManagementTabState = .sentTab
     }
 }
 
@@ -105,6 +131,30 @@ extension LinkManagementViewController: TabViewsDelegate {
             sentTabTapped()
         default:
             break
+        }
+    }
+}
+
+extension LinkManagementViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return testData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let family = testData[indexPath.row]
+        switch linkManagementTabState {
+        case .linkListTab:
+            let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier) as! LinkListTabCell
+            cell.configure(family: family)
+            return cell
+        case .receivedTab:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedTabCell.reuseIdentifier) as! ReceivedTabCell
+            cell.configure(family: family)
+            return cell
+        case .sentTab:
+            let cell = tableView.dequeueReusableCell(withIdentifier: SentTabCell.reuseIdentifier) as! SentTabCell
+            cell.configure(family: family)
+            return cell
         }
     }
 }

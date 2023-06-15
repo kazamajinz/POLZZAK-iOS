@@ -19,7 +19,7 @@ final class SearchBar: UIView {
         }
     }
     
-    var onSearch: ((String) -> Void)? {
+    private var onSearch: ((String) -> Void)? {
         get {
             return searchBarSubView.onSearch
         }

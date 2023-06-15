@@ -7,14 +7,6 @@
 
 import Foundation
 
-struct Partner: Decodable {
-    let memberId: Int
-    let nickname: String
-    let memberType: MemberType
-    let profileURL: String
-    let kid: Bool
-}
-
 struct StampBoardSummary: Decodable {
     let stampBoardId: Int
     let name: String
@@ -26,7 +18,7 @@ struct StampBoardSummary: Decodable {
 }
 
 struct UserInformation: Decodable {
-    let partner: Partner
+    let familyMember: FamilyMember
     let stampBoardSummaries: [StampBoardSummary]
 
     var unRewardedStampBoards: [StampBoardSummary] {
