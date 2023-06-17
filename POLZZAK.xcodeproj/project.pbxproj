@@ -49,6 +49,7 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
+		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -115,6 +116,7 @@
 				3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */,
 				3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */,
 				3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */,
+				DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +324,7 @@
 				3C4515F72A0BF43300C9BA4F /* RxCocoa */,
 				3C4515F92A0BF43300C9BA4F /* RxSwift */,
 				3C4515FC2A0BF46B00C9BA4F /* SkeletonView */,
+				DA50F59D2A3D883F00C7B0B0 /* PanModal */,
 			);
 			productName = POLZZAK;
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
@@ -355,6 +358,7 @@
 				3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */,
 				3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -675,6 +679,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/z3rosmith/PanModal.git";
+			requirement = {
+				branch = "use-in-POLZZAK";
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -697,6 +709,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		DA50F59D2A3D883F00C7B0B0 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
