@@ -1,5 +1,5 @@
 //
-//  LoginAPI.swift
+//  AuthAPI.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/06/10.
@@ -7,16 +7,14 @@
 
 import Foundation
 
-struct LoginAPI {
-    private let networkService = NetworkService()
-    
+struct AuthAPI {
     // TODO: print 지우기
-    func login() async throws -> (Data, URLResponse) {
+    static func login() async throws -> (Data, URLResponse) {
         do {
             let oAuthAccessToken = try await KakaoLoginAPI.loginWithKakao()
             print("🪙 oAuthAccessToken", oAuthAccessToken)
             let target = LoginTarget.kakao(oAuthAccessToken: oAuthAccessToken)
-            let (data, response) = try await networkService.request(with: target)
+            let (data, response) = try await NetworkService().request(with: target)
             return (data, response)
         } catch {
             print("🟢 just print error: ", error)

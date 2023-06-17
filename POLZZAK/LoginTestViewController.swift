@@ -25,6 +25,7 @@ class LoginTestViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configure()
         bind()
     }
@@ -42,16 +43,23 @@ class LoginTestViewController: UIViewController {
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
                 Task {
-                    guard let (data, response) = try? await LoginAPI().login(), let httpResponse = response as? HTTPURLResponse else { return }
+                    guard let (data, response) = try? await AuthAPI.login(), let httpResponse = response as? HTTPURLResponse else { return }
                     let statusCode = httpResponse.statusCode
                     
                     switch statusCode {
                     case 200..<300:
-                        fallthrough
+                        let dto = try? JSONDecoder().decode(BaseResponseDTO<AccessTokenDTO>.self, from: data)
+                        guard let accessToken = dto?.data?.accessToken else { return }
+                        print("🪙 accessToken: ", accessToken)
+                    case 400:
+                        let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
+                        guard let needRegisterDTO = dto?.data else { return }
+                        print("⚠️ need register")
+                        print("username: ", needRegisterDTO.username)
+                        print("socialType: ", needRegisterDTO.socialType)
                     default:
                         return
                     }
-                    
                 }
             })
             .disposed(by: disposeBag)

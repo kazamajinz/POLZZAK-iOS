@@ -21,6 +21,7 @@ enum KakaoUserAPIError: LocalizedError {
 }
 
 extension UserApi {
+    @MainActor
     func loginWithKakaoTalk() async throws -> OAuthToken {
         return try await withCheckedThrowingContinuation { continuation in
             loginWithKakaoTalk { oauthToken, error in
@@ -35,6 +36,7 @@ extension UserApi {
         }
     }
     
+    @MainActor
     func loginWithKakaoAccount() async throws -> OAuthToken {
         return try await withCheckedThrowingContinuation { continuation in
             loginWithKakaoAccount { oauthToken, error in

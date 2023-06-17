@@ -1,5 +1,5 @@
 //
-//  AuthInterceptor.swift
+//  TokenInterceptor.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/06/10.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AuthInterceptor: RequestInterceptor {
+class TokenInterceptor: RequestInterceptor {
     func adapt(for urlRequest: URLRequest) async throws -> URLRequest {
         var urlRequest = urlRequest
         
@@ -26,7 +26,7 @@ class AuthInterceptor: RequestInterceptor {
         do {
             let api = TokenTarget.refreshToken
             let networkService = NetworkService()
-            let (data, response) = try await networkService.request(responseType: TokenResponseDTO.self, with: api)
+            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: api)
             
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
