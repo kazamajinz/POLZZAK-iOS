@@ -14,21 +14,20 @@ protocol TabViewsDelegate: AnyObject {
 
 final class TabViews: UIStackView {
     weak var delegate: TabViewsDelegate?
-//    private var tabs: [TabView] = []
     var tabActions: [() -> Void] = []
     
     private var selectedTab: TabView?
     
     init(frame: CGRect = .zero, tabStyle: TabStyle) {
         super.init(frame: frame)
-        setupTabViews(tabConfig: tabStyle.tabConfig)
+        setTabViews(tabConfig: tabStyle.tabConfig)
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setupTabViews(tabConfig: TabConfig) {
+    private func setTabViews(tabConfig: TabConfig) {
         let screenWidth = UIScreen.main.bounds.width
         let tabWidth = screenWidth / CGFloat(tabConfig.textArray.count)
         

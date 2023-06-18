@@ -8,9 +8,41 @@
 import UIKit
 
 struct LabelStyle {
-    let title: String
-    let titleColor: UIColor
+    let text: String
+    let textColor: UIColor
     let font: UIFont
+    let textAlignment: NSTextAlignment
+    let backgroundColor: UIColor
+    
+    init(text: String, textColor: UIColor = .white, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .white) {
+        self.text = text
+        self.textColor = textColor
+        self.font = font
+        self.textAlignment = textAlignment
+        self.backgroundColor = backgroundColor
+    }
+}
+
+struct EmphasisLabelStyle {
+    let text: String
+    let textFont: UIFont
+    let textColor: UIColor
+    let rest: String
+    let restFont: UIFont
+    let restColor: UIColor
+    let textAlignment: NSTextAlignment
+    let backgroundColor: UIColor
+    
+    init(text: String, textFont: UIFont, textColor: UIColor, rest: String, restFont: UIFont, restColor: UIColor, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
+        self.text = text
+        self.textFont = textFont
+        self.textColor = textColor
+        self.rest = rest
+        self.restFont = restFont
+        self.restColor = restColor
+        self.textAlignment = textAlignment
+        self.backgroundColor = backgroundColor
+    }
 }
 
 struct BorderStyle {

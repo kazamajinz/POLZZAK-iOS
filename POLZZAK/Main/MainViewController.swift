@@ -151,7 +151,7 @@ final class MainViewController: UIViewController {
     
     //MARK: - init
     init(userInformations: [UserInformation]) {
-        //TODO: 테스트 데이터, 삭제할것
+        //TODO: - 테스트 데이터, 삭제할것
         self.userInformations = userInformations
         super.init(nibName: nil, bundle: nil)
     }
@@ -167,7 +167,7 @@ final class MainViewController: UIViewController {
         setNavigation()
         setAction()
         
-        //TODO: 테스트 데이터, 삭제할것
+        //TODO: - 테스트 데이터, 삭제할것
         stampFilter = .all
         stampBoardState = .inProgressAndAll
     }
@@ -284,6 +284,7 @@ extension MainViewController {
     //MARK: - @objc
     @objc private func myConnectionsButtonClicked() {
         let linkManagementViewController = LinkManagementViewController(type: 0)
+        linkManagementViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(linkManagementViewController, animated: true)
     }
     
@@ -305,7 +306,7 @@ extension MainViewController {
     
     @objc private func filterButtonTapped() {
         
-        //TODO: 테스트 코드, 삭제할것
+        //TODO: - 테스트 코드, 삭제할것
         let alertController = UIAlertController(title: "필터", message: "필터링해드림", preferredStyle: .actionSheet)
         
         let okAction = UIAlertAction(title: "전체", style: .default) { [weak self] _ in

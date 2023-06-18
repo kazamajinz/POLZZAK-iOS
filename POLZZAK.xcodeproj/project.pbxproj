@@ -21,10 +21,14 @@
 		3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */; };
 		3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD62A39FDD5009EAC52 /* FamilyData.swift */; };
 		3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */; };
-		3900FADD2A3AA680009EAC52 /* LinkManagementTabState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADC2A3AA680009EAC52 /* LinkManagementTabState.swift */; };
 		3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */; };
 		3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */; };
 		3900FAE52A3ABE62009EAC52 /* UIStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */; };
+		3900FAE82A3AE9C7009EAC52 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */; };
+		3900FAEB2A3AEA25009EAC52 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */; };
+		3900FAED2A3AEFA3009EAC52 /* AlertStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEC2A3AEFA3009EAC52 /* AlertStyle.swift */; };
+		3900FAEF2A3B336A009EAC52 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEE2A3B336A009EAC52 /* LoadingView.swift */; };
+		3900FAF12A3B6F1D009EAC52 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */; };
 		39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BDE2A1E37FB00C86049 /* StampState.swift */; };
 		39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */; };
 		39227BE32A20A10700C86049 /* StampFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE22A20A10700C86049 /* StampFilter.swift */; };
@@ -90,10 +94,14 @@
 		3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListTabCell.swift; sourceTree = "<group>"; };
 		3900FAD62A39FDD5009EAC52 /* FamilyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyData.swift; sourceTree = "<group>"; };
 		3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
-		3900FADC2A3AA680009EAC52 /* LinkManagementTabState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementTabState.swift; sourceTree = "<group>"; };
 		3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedTabCell.swift; sourceTree = "<group>"; };
 		3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentTabCell.swift; sourceTree = "<group>"; };
 		3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyleType.swift; sourceTree = "<group>"; };
+		3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		3900FAEC2A3AEFA3009EAC52 /* AlertStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStyle.swift; sourceTree = "<group>"; };
+		3900FAEE2A3B336A009EAC52 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		39227BDE2A1E37FB00C86049 /* StampState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampState.swift; sourceTree = "<group>"; };
 		39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedStampBoardCell.swift; sourceTree = "<group>"; };
 		39227BE22A20A10700C86049 /* StampFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFilter.swift; sourceTree = "<group>"; };
@@ -203,7 +211,6 @@
 			children = (
 				39227BE22A20A10700C86049 /* StampFilter.swift */,
 				39227BDE2A1E37FB00C86049 /* StampState.swift */,
-				3900FADC2A3AA680009EAC52 /* LinkManagementTabState.swift */,
 				3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */,
 			);
 			path = Main;
@@ -227,13 +234,26 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		3900FAE92A3AEA17009EAC52 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */,
+				3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */,
+				3900FAEC2A3AEFA3009EAC52 /* AlertStyle.swift */,
+			);
+			name = Alert;
+			sourceTree = "<group>";
+		};
 		39227BEA2A2620D900C86049 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */,
+				3900FAEE2A3B336A009EAC52 /* LoadingView.swift */,
 				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
+				3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */,
 				3900FAAA2A381DEB009EAC52 /* SectionTabView */,
 				3900FAA12A370FAF009EAC52 /* SearchBar */,
+				3900FAE92A3AEA17009EAC52 /* Alert */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -504,6 +524,7 @@
 				3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */,
 				DABA1CD52A31FB5E009E351B /* UIFont+PretendardFont.swift in Sources */,
 				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
+				3900FAF12A3B6F1D009EAC52 /* EmptyView.swift in Sources */,
 				3900FAA32A37135B009EAC52 /* SearchBar.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
@@ -520,7 +541,10 @@
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
+				3900FAEB2A3AEA25009EAC52 /* CustomAlertViewController.swift in Sources */,
+				3900FAED2A3AEFA3009EAC52 /* AlertStyle.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
+				3900FAE82A3AE9C7009EAC52 /* CustomAlertView.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
@@ -538,9 +562,9 @@
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
+				3900FAEF2A3B336A009EAC52 /* LoadingView.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
-				3900FADD2A3AA680009EAC52 /* LinkManagementTabState.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 				3900FA9C2A35DB65009EAC52 /* TabView.swift in Sources */,

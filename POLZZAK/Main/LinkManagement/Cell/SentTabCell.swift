@@ -8,8 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol SentTabCellDelegate: AnyObject {
+    func didTapCancel(on cell: SentTabCell)
+}
+
 final class SentTabCell: UITableViewCell {
     static let reuseIdentifier = "SentTabCell"
+    weak var delegate: SentTabCellDelegate?
+    var family: FamilyMember?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -27,9 +33,9 @@ final class SentTabCell: UITableViewCell {
     
     private let cancelButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(title: "요청 취소", titleColor: .white, font: .body2)
+        let labelStyle = LabelStyle(text: "요청 취소", textColor: .white, font: .body2, backgroundColor: .error500)
         let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle, backgroundColor: .error500)
+        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
         return button
     }()
     
@@ -43,8 +49,8 @@ final class SentTabCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        setUI()
+        
+        cancelButton.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +62,14 @@ final class SentTabCell: UITableViewCell {
         reset()
     }
     
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+        setUI()
+    }
+    
     private func setUI() {
+        selectionStyle = .none
+        
         [profileImage, titleLabel, cancelButton].forEach {
             addSubview($0)
         }
@@ -81,11 +94,16 @@ final class SentTabCell: UITableViewCell {
     }
     
     func configure(family: FamilyMember) {
+        self.family = family
         profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickname
     }
     
     private func reset() {
         profileImage.image = .defaultProfileCharacter
+    }
+    
+    @objc private func cancelButtonClicked() {
+        delegate?.didTapCancel(on: self)
     }
 }

@@ -8,8 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol ReceivedTabCellDelegate: AnyObject {
+    func didTapAccept(on cell: ReceivedTabCell)
+    func didTapReject(on cell: ReceivedTabCell)
+}
+
 final class ReceivedTabCell: UITableViewCell {
     static let reuseIdentifier = "ReceivedTabCell"
+    weak var delegate: ReceivedTabCellDelegate?
+    var family: FamilyMember?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -25,28 +32,24 @@ final class ReceivedTabCell: UITableViewCell {
         return label
     }()
     
-    private let buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
+    private let buttonView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let acceptButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(title: "수락", titleColor: .white, font: .body2)
+        let labelStyle = LabelStyle(text: "수락", textColor: .white, font: .body2, backgroundColor: .blue500)
         let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle, backgroundColor: .blue500)
+        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
         return button
     }()
     
     private let rejectButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(title: "거절", titleColor: .white, font: .body2)
+        let labelStyle = LabelStyle(text: "거절", textColor: .white, font: .body2, backgroundColor: .error500)
         let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle, backgroundColor: .error500)
+        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
         return button
     }()
     
@@ -60,8 +63,9 @@ final class ReceivedTabCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        setUI()
+        
+        acceptButton.addTarget(self, action: #selector(acceptButtonClicked), for: .touchUpInside)
+        rejectButton.addTarget(self, action: #selector(rejectButtonClicked), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -73,21 +77,20 @@ final class ReceivedTabCell: UITableViewCell {
         reset()
     }
     
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+        setUI()
+    }
+    
     private func setUI() {
-        [acceptButton, rejectButton].forEach {
-            buttonStackView.addArrangedSubview($0)
-        }
+        selectionStyle = .none
         
-        acceptButton.snp.makeConstraints {
-            $0.width.equalTo(57)
-        }
-        
-        rejectButton.snp.makeConstraints {
-            $0.width.equalTo(57)
-        }
-        
-        [profileImage, titleLabel, buttonStackView].forEach {
+        [profileImage, titleLabel, buttonView].forEach {
             addSubview($0)
+        }
+        
+        [acceptButton, rejectButton].forEach {
+            buttonView.addSubview($0)
         }
         
         profileImage.snp.makeConstraints {
@@ -101,19 +104,39 @@ final class ReceivedTabCell: UITableViewCell {
             $0.leading.equalTo(profileImage.snp.trailing).offset(10)
         }
         
-        buttonStackView.snp.makeConstraints {
+        buttonView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(14)
             $0.leading.equalTo(titleLabel.snp.trailing)
             $0.trailing.equalToSuperview().inset(16)
         }
+        
+        acceptButton.snp.makeConstraints {
+            $0.top.leading.bottom.equalToSuperview()
+            $0.width.equalTo(57)
+        }
+
+        rejectButton.snp.makeConstraints {
+            $0.top.trailing.bottom.equalToSuperview()
+            $0.leading.equalTo(acceptButton.snp.trailing).offset(10)
+            $0.width.equalTo(57)
+        }
     }
     
     func configure(family: FamilyMember) {
+        self.family = family
         profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickname
     }
     
     private func reset() {
         profileImage.image = .defaultProfileCharacter
+    }
+    
+    @objc private func acceptButtonClicked() {
+        delegate?.didTapAccept(on: self)
+    }
+    
+    @objc private func rejectButtonClicked() {
+        delegate?.didTapReject(on: self)
     }
 }

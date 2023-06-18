@@ -14,11 +14,12 @@ extension UIButton {
         self.titleLabel?.font = font
     }
     
-    func setCustomButton(labelStyle: LabelStyle? = nil, borderStyle: BorderStyle? = nil, backgroundColor: UIColor = .white) {
+    func setCustomButton(labelStyle: LabelStyle? = nil, borderStyle: BorderStyle? = nil) {
         if let label = labelStyle {
-            self.setTitle(label.title, for: .normal)
-            self.setTitleColor(label.titleColor, for: .normal)
+            self.setTitle(label.text, for: .normal)
+            self.setTitleColor(label.textColor, for: .normal)
             self.titleLabel?.font = label.font
+            self.backgroundColor = label.backgroundColor
         }
         
         if let border = borderStyle {
@@ -27,7 +28,5 @@ extension UIButton {
             self.layer.borderWidth = border.width
             self.layer.masksToBounds = border.masksToBounds
         }
-        
-        self.backgroundColor = backgroundColor
     }
 }

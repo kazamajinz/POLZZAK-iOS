@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//TODO: 테스트 코드, 메인데이터
+//TODO: - 테스트 코드, 메인데이터
 
 let dummyUserInformations = (1...5).map { i -> UserInformation in
     UserInformation(
@@ -111,7 +111,7 @@ let tempDummyData = [UserInformation(familyMember: FamilyMember(memberId: 0,
 ]
 
 
-//TODO: 테스트 코드, 연동관리데이터
+//TODO: - 테스트 코드, 연동관리데이터
 
 let dummyFmailyData = FamilyData(
     families:
@@ -119,11 +119,11 @@ let dummyFmailyData = FamilyData(
             FamilyMember(memberId: 0, nickname: "이정환", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "https://as1.ftcdn.net/v2/jpg/02/16/27/30/1000_F_216273016_EBLZScZQ5Zu5Yw7W3RO48bdYbsynnjur.jpg"),
             FamilyMember(memberId: 1, nickname: "김홍근", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "https://as1.ftcdn.net/v2/jpg/02/16/27/30/1000_F_216273005_rl8P3MYE1xQHXdcCX0cCRFk1Hsvip9ZX.jpg"),
             FamilyMember(memberId: 2, nickname: "조준모", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "https://www.shutterstock.com/image-vector/skull-bone-16x16-pixel-art-600w-1113310772.jpg"),
-            FamilyMember(memberId: 2, nickname: "다람쥐", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "https://d2v80xjmx68n4w.cloudfront.net/gigs/bS1Dr1680424865.jpg"),
-            FamilyMember(memberId: 2, nickname: "고구마", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
-            FamilyMember(memberId: 2, nickname: "기린", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
-            FamilyMember(memberId: 2, nickname: "해바라기", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
-            FamilyMember(memberId: 2, nickname: "사탕", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "")
+            FamilyMember(memberId: 3, nickname: "다람쥐", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "https://d2v80xjmx68n4w.cloudfront.net/gigs/bS1Dr1680424865.jpg"),
+            FamilyMember(memberId: 4, nickname: "고구마", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
+            FamilyMember(memberId: 5, nickname: "기린", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
+            FamilyMember(memberId: 6, nickname: "해바라기", memberType: MemberType(name: "KID", detail: "아이"), profileURL: ""),
+            FamilyMember(memberId: 7, nickname: "사탕", memberType: MemberType(name: "KID", detail: "아이"), profileURL: "")
         ]
 )
 

@@ -8,8 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol LinkListTabCellDelegate: AnyObject {
+    func didTapClose(on cell: LinkListTabCell)
+}
+
 final class LinkListTabCell: UITableViewCell {
     static let reuseIdentifier = "LinkListCell"
+    weak var delegate: LinkListTabCellDelegate?
+    var family: FamilyMember?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -41,8 +47,8 @@ final class LinkListTabCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        setUI()
+        
+        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -54,7 +60,14 @@ final class LinkListTabCell: UITableViewCell {
         reset()
     }
     
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+        setUI()
+    }
+    
     private func setUI() {
+        selectionStyle = .none
+        
         [profileImage, titleLabel, closeButton].forEach {
             addSubview($0)
         }
@@ -78,12 +91,17 @@ final class LinkListTabCell: UITableViewCell {
         }
     }
     
-    func configure(family: FamilyMember) {
+    func configure(with family: FamilyMember) {
+        self.family = family
         profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickname
     }
     
     private func reset() {
         profileImage.image = .defaultProfileCharacter
+    }
+    
+    @objc func closeButtonClicked() {
+        delegate?.didTapClose(on: self)
     }
 }
