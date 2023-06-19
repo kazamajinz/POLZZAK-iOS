@@ -12,7 +12,7 @@ enum LoginTarget {
     case apple(oAuthAccessToken: String)
 }
 
-extension LoginTarget: TargetType {
+extension LoginTarget: BasicTargetType {
     var baseURL: String {
         return Constants.URL.baseURL
     }
@@ -30,7 +30,15 @@ extension LoginTarget: TargetType {
         return .post
     }
     
+    var headers: [String : String]? {
+        return ["Content-Type": "application/json"]
+    }
+    
     var queryParameters: Encodable? {
+        return nil
+    }
+    
+    var sampleData: Data? {
         return nil
     }
     
@@ -41,17 +49,5 @@ extension LoginTarget: TargetType {
         case .apple(let oAuthAccessToken):
             return ["oAuthAccessToken": oAuthAccessToken]
         }
-    }
-    
-    var headers: [String : String]? {
-        return ["Content-Type": "application/json"]
-    }
-    
-    var intercetpr: RequestInterceptor? {
-        return nil
-    }
-    
-    var sampleData: Data? {
-        return nil
     }
 }

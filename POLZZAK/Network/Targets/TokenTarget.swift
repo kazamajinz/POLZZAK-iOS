@@ -12,7 +12,7 @@ enum TokenTarget {
     case refreshToken
 }
 
-extension TokenTarget: TargetType {
+extension TokenTarget: BasicTargetType {
     var baseURL: String {
         return Constants.URL.baseURL
     }
@@ -23,14 +23,6 @@ extension TokenTarget: TargetType {
     
     var method: HTTPMethod {
         return .get
-    }
-    
-    var queryParameters: Encodable? {
-        return nil
-    }
-    
-    var bodyParameters: Encodable? {
-        return nil
     }
     
     var headers: [String : String]? {
@@ -47,11 +39,15 @@ extension TokenTarget: TargetType {
         }
     }
     
-    var intercetpr: RequestInterceptor? {
+    var queryParameters: Encodable? {
         return nil
     }
     
     var sampleData: Data? {
+        return nil
+    }
+    
+    var bodyParameters: Encodable? {
         return nil
     }
 }

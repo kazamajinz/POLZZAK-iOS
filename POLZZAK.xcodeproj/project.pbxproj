@@ -44,6 +44,9 @@
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
 		3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */; };
+		DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEA52A4033D3005A469D /* RegisterTarget.swift */; };
+		DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEA72A4071A9005A469D /* MultipartFormTargetType.swift */; };
+		DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEA92A4071EC005A469D /* BasicTargetType.swift */; };
 		DABEC1B32A382B4300EAD8CA /* AccessTokenDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */; };
 		DABEC1B52A382D1800EAD8CA /* NeedRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */; };
 		DAC36B882A32DA3900BE5C8D /* KakaoLoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B872A32DA3900BE5C8D /* KakaoLoginAPI.swift */; };
@@ -87,6 +90,9 @@
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
+		DA11FEA52A4033D3005A469D /* RegisterTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTarget.swift; sourceTree = "<group>"; };
+		DA11FEA72A4071A9005A469D /* MultipartFormTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTargetType.swift; sourceTree = "<group>"; };
+		DA11FEA92A4071EC005A469D /* BasicTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTargetType.swift; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginAPI.swift; sourceTree = "<group>"; };
@@ -197,6 +203,7 @@
 			children = (
 				3C74169D2A25ED5E001A1E50 /* TokenTarget.swift */,
 				3CD5F8A92A2DF5FB003E4A67 /* LoginTarget.swift */,
+				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -231,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				3CDF64252A2492B7004A87A2 /* TargetType.swift */,
+				DA11FEA92A4071EC005A469D /* BasicTargetType.swift */,
+				DA11FEA72A4071A9005A469D /* MultipartFormTargetType.swift */,
 				3C74169A2A25E849001A1E50 /* ThreadSafeDictionary.swift */,
 				3CDF642B2A24934F004A87A2 /* NetworkError.swift */,
 				3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */,
@@ -397,6 +406,7 @@
 				3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */,
 				3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
+				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
@@ -414,6 +424,7 @@
 				DAC36B882A32DA3900BE5C8D /* KakaoLoginAPI.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				3CFB47332A0FEBE200B03FFD /* UIFont+PretendardFont.swift in Sources */,
+				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
 				3CD5F8AA2A2DF5FB003E4A67 /* LoginTarget.swift in Sources */,
 				DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
@@ -424,6 +435,7 @@
 				3CDF64262A2492B7004A87A2 /* TargetType.swift in Sources */,
 				3C07934B2A0E637700087F73 /* MissionListView.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
+				DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
