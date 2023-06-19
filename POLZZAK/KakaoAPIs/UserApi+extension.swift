@@ -51,15 +51,13 @@ extension UserApi {
         }
     }
     
-    func accessTokenInfo() async throws -> AccessTokenInfo {
+    func unlink() async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            accessTokenInfo { accessTokenInfo, error in
+            unlink { error in
                 if let error {
                     continuation.resume(throwing: error)
-                } else if let accessTokenInfo {
-                    continuation.resume(returning: accessTokenInfo)
                 } else {
-                    continuation.resume(throwing: KakaoUserAPIError.noResponseData)
+                    continuation.resume(returning: ())
                 }
             }
         }

@@ -69,7 +69,7 @@ final class NetworkService: NetworkServiceProvider {
             return try await self.request(with: target)
         } else {
             if let error = retryResult.error {
-                os_log("retry error: #@", log: .network, String(describing: error))
+                os_log("doNotRetry with error: %@", log: .network, String(describing: error))
             }
             
             return (data, response)

@@ -20,18 +20,18 @@ protocol MultipartFormTargetType: TargetType {
 
 extension MultipartFormTargetType {
     func getURLRequest() throws -> URLRequest {
+        let boundary = UUID().uuidString
         let url = try url()
         var urlRequest = URLRequest(url: url)
 
         // httpBody
         if let formData = try formData {
             var data = Data()
-            let boundary = UUID().uuidString
             for formData in formData {
-                data.append("--\(boundary)".data(using: .utf8)!)
-                data.append(Self.formData(formData: formData))
+                data.append(Self.formData(formData: formData, using: boundary))
             }
             data.append("--\(boundary)--".data(using: .utf8)!)
+            
             urlRequest.httpBody = data
         }
 
@@ -39,21 +39,26 @@ extension MultipartFormTargetType {
         urlRequest.httpMethod = method.rawValue
 
         // header
-        headers?.forEach { urlRequest.setValue($1, forHTTPHeaderField: $0) }
-
+        headers?.forEach {
+            let value = $0 == "Content-Type" ? $1 + "; boundary=\(boundary)": $1
+            urlRequest.setValue(value, forHTTPHeaderField: $0)
+        }
+        
         return urlRequest
     }
 }
 
 extension MultipartFormTargetType {
-    static func formData(formData: FormData) -> Data {
+    static func formData(formData: FormData, using boundary: String) -> Data {
         var fieldString = ""
+        fieldString += "--\(boundary)\r\n"
         fieldString += "Content-Disposition: form-data; name=\(formData.name); filename=\(formData.filename)\r\n"
-        fieldString += "Content-Type: \(formData.contentType)"
+        fieldString += "Content-Type: \(formData.contentType)\r\n"
         fieldString += "\r\n"
         
         var fdata = fieldString.data(using: .utf8)!
         fdata.append(formData.data)
+        fdata.append("\r\n".data(using: .utf8)!)
         
         return fdata
     }

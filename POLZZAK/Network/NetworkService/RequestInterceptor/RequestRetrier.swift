@@ -45,13 +45,3 @@ extension RetryResult {
         return error
     }
 }
-
-enum RequestRetrierError: LocalizedError {
-    case retryImmediatelyEnded
-    
-    var errorDescription: String? {
-        switch self {
-        case .retryImmediatelyEnded: return "retry가 시작 전 종료되었습니다."
-        }
-    }
-}

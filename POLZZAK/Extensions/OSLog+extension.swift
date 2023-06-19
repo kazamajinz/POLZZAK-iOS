@@ -12,4 +12,9 @@ extension OSLog {
     static let ui = OSLog(subsystem: subsystem, category: "UI")
     static let network = OSLog(subsystem: subsystem, category: "Network")
     static let keychain = OSLog(subsystem: subsystem, category: "Keychain")
+    static let userAPI = OSLog(subsystem: subsystem, category: "userAPI")
+    
+    static func os_log(log: OSLog, file: String = #fileID, function: String = #function, errorDescription: String) {
+        os.os_log("error at file (%@), at function (%@)\nerror: %@", log: .userAPI, file, function, errorDescription)
+    }
 }
