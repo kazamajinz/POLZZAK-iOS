@@ -5,22 +5,54 @@
 //  Created by Jinyoung Kim on 2023/06/10.
 //
 
+import AuthenticationServices
 import Foundation
-import OSLog
 import UIKit
+
+enum AuthAPIError: LocalizedError {
+    case appleLoginNoIdentityToken
+    
+    var errorDescription: String? {
+        switch self {
+        case .appleLoginNoIdentityToken: return "애플 로그인; identityToken을 가져올 수 없습니다."
+        }
+    }
+}
 
 struct AuthAPI {
     typealias APIReturnType = (Data, URLResponse)
     
-    static func login() async throws -> APIReturnType {
+    static func kakaoLogin() async throws -> APIReturnType {
         do {
-            let oAuthAccessToken = try await KakaoLoginAPI.loginWithKakao()
-            print("🪙 oAuthAccessToken", oAuthAccessToken)
+            let oAuthAccessToken = try await KakaoLoginManager.loginWithKakao()
             let target = LoginTarget.kakao(oAuthAccessToken: oAuthAccessToken)
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            OSLog.os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .userAPI, errorDescription: String(describing: error))
+            throw error
+        }
+    }
+    
+    static func appleLogin(appleLoginPresentationAnchorView viewController: UIViewController) async throws -> APIReturnType {
+        do {
+            let appleLoginManager = AppleLoginManager()
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            appleLoginManager.setAppleLoginPresentationAnchorView(viewController)
+            
+            let authorization = try await appleLoginManager.login(authorizationRequests: [request])
+            if case let appleIDCredential as ASAuthorizationAppleIDCredential = authorization.credential,
+               let identityToken = appleIDCredential.identityToken,
+               let identityTokenString = String(data: identityToken, encoding: .utf8) {
+                let target = LoginTarget.kakao(oAuthAccessToken: identityTokenString)
+                let result = try await NetworkService().request(with: target)
+                return result
+            } else {
+                throw AuthAPIError.appleLoginNoIdentityToken
+            }
+        } catch {
+            os_log(log: .userAPI, errorDescription: String(describing: error))
             throw error
         }
     }
@@ -36,7 +68,7 @@ struct AuthAPI {
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            OSLog.os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .userAPI, errorDescription: String(describing: error))
             throw error
         }
     }
@@ -54,7 +86,7 @@ struct AuthAPI {
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            OSLog.os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .userAPI, errorDescription: String(describing: error))
             throw error
         }
     }
