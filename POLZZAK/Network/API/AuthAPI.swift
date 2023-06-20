@@ -14,7 +14,7 @@ enum AuthAPIError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .appleLoginNoIdentityToken: return "애플 로그인; identityToken을 가져올 수 없습니다."
+        case .appleLoginNoIdentityToken: return "애플 로그인 오류; identityToken을 가져올 수 없습니다."
         }
     }
 }
