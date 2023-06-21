@@ -115,7 +115,7 @@ final class LinkManagementViewController: UIViewController {
         return emptyView
     }()
     private var searchResultView: SearchResultView = SearchResultView()
-    private var fullScreenLoadingView = FullScreenLoadingView(style: .linkmanagement)
+    private var fullScreenLoadingView = FullScreenLoadingView(style: .linkManagement)
     
     private let searchLoadingView: SearchLoadingView = {
         let searchLoadingView = SearchLoadingView()

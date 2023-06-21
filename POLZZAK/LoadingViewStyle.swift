@@ -8,11 +8,11 @@
 import UIKit
 
 enum LoadingViewStyle {
-    case linkmanagement
+    case linkManagement
     
     var topConstraint: CGFloat {
         switch self {
-        case .linkmanagement:
+        case .linkManagement:
             return 251
         }
     }

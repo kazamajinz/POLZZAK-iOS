@@ -10,11 +10,6 @@ import SnapKit
 
 struct Toast {
     var style: LabelStyleProtocol
-//    var text: String
-//    var textColor: UIColor
-//    var font: UIFont
-//    var textAlignment: NSTextAlignment
-//    var backgroundColor: UIColor
     var image: UIImage?
     
     let toastContainer: UIView = {
@@ -37,18 +32,13 @@ struct Toast {
 
     init(style: LabelStyleProtocol, image: UIImage? = nil) {
         self.style = style
-//        self.text = style.text
-//        self.textColor = style.textColor
-//        self.font = style.font
-//        self.textAlignment = style.textAlignment
-//        self.backgroundColor = style.backgroundColor
         self.image = image
         configuration()
     }
 
     func show(controller: UIViewController) {
-        
         controller.view.addSubview(toastContainer)
+        
         setUI()
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
