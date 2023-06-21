@@ -18,7 +18,7 @@ final class TabViews: UIStackView {
     
     private var selectedTab: TabView?
     
-    init(frame: CGRect = .zero, tabStyle: TabStyle) {
+    init(frame: CGRect = .zero, tabStyle: LinkTabStyle) {
         super.init(frame: frame)
         setTabViews(tabConfig: tabStyle.tabConfig)
     }
@@ -47,8 +47,7 @@ final class TabViews: UIStackView {
                 lineColor: tabConfig.lineColor,
                 lineHeight: tabConfig.lineHeight,
                 selectTextColor: tabConfig.selectTextColor,
-                selectLineColor: tabConfig.selectLineColor,
-                selectLineHeight: tabConfig.selectLineHeight
+                selectLineColor: tabConfig.selectLineColor
             )
             
             let tabView = TabView(tabConfig: customTabConfig)

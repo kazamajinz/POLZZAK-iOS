@@ -11,46 +11,128 @@ import SnapKit
 final class LinkManagementViewController: UIViewController {
     
     //MARK: - let, var
-    var type: Int
+    var userType: UserType
     let screenWidth = UIApplication.shared.width
+    private var workItem: DispatchWorkItem?
     
-    //TODO: - 새로운 API통신을 했다는 가정
-    private var beforeState: TabStyle = .receivedTab
-    
-    private var linkManagementTabState: TabStyle = .linkListTab {
+    //TODO: - 임시코드, 새로운 API통신을 했다는 가정
+    private var beforeState: LinkTabStyle = .receivedTab
+    private var linkManagementTabState: LinkTabStyle = .linkListTab {
         didSet {
             //TODO: - 새로운 API통신을 했다는 가정
-            if beforeState != linkManagementTabState {
+            fullScreenLoadingView.startLoading()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                guard let self = self else { return }
+                if beforeState != linkManagementTabState {
+                    testData = dummyFmailyData.families
+                }
+                
                 testData = dummyFmailyData.families
+                
+                switch linkManagementTabState {
+                case .linkListTab:
+                    tableEmptyView.setStyle(LinkEmptyStyle.linkListTab)
+                case .receivedTab:
+                    tableEmptyView.setStyle(LinkEmptyStyle.receivedTab)
+                case .sentTab:
+                    tableEmptyView.setStyle(LinkEmptyStyle.sentTab)
+                }
+                
+                tableView.backgroundView = tableEmptyView
+                tableView.reloadData()
+                
+                self.fullScreenLoadingView.stopLoading()
             }
-            
-            testData = dummyFmailyData.families
-            
-            emptyView.setStyle(linkManagementTabState)
-            tableView.backgroundView = emptyView
-            tableView.reloadData()
         }
     }
     
     //TODO: - 임시데이터
-    var testData: [FamilyMember] = dummyFmailyData.families {
+    private var testData: [FamilyMember] = dummyFmailyData.families {
         didSet {
             if testData.isEmpty {
-                emptyView.showBackgroundView()
+                tableEmptyView.showBackgroundView()
             } else {
-                emptyView.hideBackgroundView()
+                tableEmptyView.hideBackgroundView()
             }
             tableView.reloadData()
         }
     }
     
-    //MARK: - UI
-    private var emptyView: EmptyView = EmptyView(style: .linkListTab)
+    private var searchState: SearchState = .beforeSearch(isSearchBarActive: false) {
+        didSet {
+            switch searchState {
+            case .beforeSearch(isSearchBarActive: let isSearchBarActive):
+                if false == isSearchBarActive {
+                    searchEmptyView.isHidden = true
+                    tableView.isHidden = false
+                    searchLoadingView.isHidden = true
+                    searchResultView.isHidden = true
+                } else {
+                    searchEmptyView.isHidden = false
+                    tableView.isHidden = true
+                    searchLoadingView.isHidden = true
+                    searchResultView.isHidden = true
+                }
+            case .searching(let text):
+                searchEmptyView.isHidden = true
+                tableView.isHidden = true
+                searchLoadingView.isHidden = false
+                searchResultView.isHidden = true
+                searching(text: text ?? "")
+            case .afterSearch:
+                searchEmptyView.isHidden = true
+                tableView.isHidden = true
+                searchLoadingView.isHidden = true
+                searchResultView.isHidden = false
+            }
+        }
+    }
     
-    private let searchBar: SearchBar = {
+    private var searchResultState: SearchResultState = .notSearch {
+        didSet {
+            switch searchResultState {
+            case .linked(let familyMember):
+                let style = SearchResultState.linked(familyMember)
+                searchResultView.setStyle(style: style)
+            case .unlinked(let familyMember):
+                let style = SearchResultState.unlinked(familyMember)
+                searchResultView.setStyle(style: style)
+            case .nonExist(let nickname):
+                let style = SearchResultState.nonExist(nickname)
+                searchResultView.setStyle(style: style)
+            case .notSearch:
+                return
+            }
+            searchCancel(keyboard: false)
+        }
+    }
+    
+    //MARK: - UI
+    private var tableEmptyView: EmptyView = EmptyView(style: LinkEmptyStyle.linkListTab)
+    private lazy var searchEmptyView: EmptyView = {
+        let emptyView = EmptyView(style: LinkSearchEmptyStyle.searchDefault(userType))
+        emptyView.isHidden = true
+        return emptyView
+    }()
+    private var searchResultView: SearchResultView = SearchResultView()
+    private var fullScreenLoadingView = FullScreenLoadingView(style: .linkmanagement)
+    
+    private let searchLoadingView: SearchLoadingView = {
+        let searchLoadingView = SearchLoadingView()
+        searchLoadingView.isHidden = true
+        searchLoadingView.isUserInteractionEnabled = true
+        return searchLoadingView
+    }()
+    
+    private lazy var searchBar: SearchBar = {
         let screenWidth = UIApplication.shared.width
-        let searchBar = SearchBar(frame: CGRect(x: 16, y: 0, width: screenWidth - 32, height: 44), style: .linkManagement("아이"))
+        let searchBar = SearchBar(frame: CGRect(x: 16, y: 0, width: screenWidth - 32, height: 44), style: .linkManagement(userType))
         return searchBar
+    }()
+    
+    private let tabContentView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private let tabViews: TabViews = {
@@ -72,13 +154,13 @@ final class LinkManagementViewController: UIViewController {
         return tableView
     }()
     
-    init(type: Int) {
-        self.type = type
+    init(userType: UserType) {
+        self.userType = userType
         super.init(nibName: nil, bundle: nil)
         
         setNavigation()
         setUI()
-        setTabViews()
+        setDelegate()
     }
     
     required init?(coder: NSCoder) {
@@ -90,6 +172,7 @@ final class LinkManagementViewController: UIViewController {
         
         //TODO: - API통신
         linkManagementTabState = .linkListTab
+        setAction()
     }
 }
 
@@ -107,7 +190,7 @@ extension LinkManagementViewController {
     private func setUI() {
         view.backgroundColor = .white
         
-        [searchBar, tabViews, tableView].forEach {
+        [searchBar, tabContentView, searchEmptyView, searchLoadingView, searchResultView, fullScreenLoadingView].forEach {
             view.addSubview($0)
         }
         
@@ -117,21 +200,62 @@ extension LinkManagementViewController {
             $0.height.equalTo(44)
         }
         
-        tabViews.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(13)
+        tabContentView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(19)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(38)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        [tabViews, tableView].forEach {
+            tabContentView.addSubview($0)
+        }
+        
+        tabViews.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(28)
         }
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(tabViews.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        searchEmptyView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(5)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        searchLoadingView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(5)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        searchResultView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(5)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        fullScreenLoadingView.snp.makeConstraints {
+            $0.top.equalTo(tabViews.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
     }
     
-    private func setTabViews() {
+    private func setDelegate() {
         tabViews.delegate = self
+        searchBar.delegate = self
+        searchResultView.delegate = self
+    }
+    
+    private func setAction() {
+        searchLoadingView.cancelButton.addTarget(self, action: #selector(searchCancel), for: .touchUpInside)
     }
     
     private func linkListTabTapped() {
@@ -172,7 +296,6 @@ extension LinkManagementViewController: TabViewsDelegate {
 }
 
 extension LinkManagementViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testData.count
     }
@@ -198,11 +321,20 @@ extension LinkManagementViewController: UITableViewDataSource {
         }
     }
     
-    func showAlert(alertStyle: AlertStyle, memberId: Int) {
+    private func showAlert(alertStyle: AlertStyleProtocol, memberId: Int) {
         let action = { [weak self] (completion: @escaping () -> Void) in
-            self?.testAPI(memberId: memberId) {
-                completion()
+            if let alertStyle = alertStyle as? LinkAlertStyle,
+               case .linkRequest(_) = alertStyle {
+                self?.tempLinkRequest(memberId: memberId) {
+                    completion()
+                    self?.searchResultView.requestCompletion()
+                }
+            } else {
+                self?.tempRemove(memberId: memberId) {
+                    completion()
+                }
             }
+            
             return
         }
         
@@ -211,8 +343,18 @@ extension LinkManagementViewController: UITableViewDataSource {
         present(alertVC, animated: false)
     }
     
-    // TODO: - 임시 API 함수
-    func testAPI(memberId: Int = -1, completion: @escaping () -> Void) {
+    //    TODO: - API통신 취소 기능 추가
+    @objc func searchCancel(keyboard: Bool = true) {
+        workItem?.cancel()
+        if true == keyboard {
+            searchState = .beforeSearch(isSearchBarActive: true)
+        }
+        searchBar.isCancelState.toggle()
+        searchBar.activate(bool: true, keyboard: keyboard)
+    }
+    
+    // TODO: - 임시 삭제 API 함수
+    func tempRemove(memberId: Int = -1, completion: @escaping () -> Void) {
         if memberId == -1 {
             testData = dummyFmailyData.families
         } else {
@@ -224,13 +366,59 @@ extension LinkManagementViewController: UITableViewDataSource {
             }
         }
     }
+    
+    //TODO: - 임시 연동요청 API 함수
+    func tempLinkRequest(memberId: Int = -1, completion: @escaping () -> Void) {
+        if memberId == -1 {
+            testData = dummyFmailyData.families
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                completion()
+            }
+        }
+    }
+    
+    //TODO: - 임시 요청취소 API 함수
+    @objc private func requestCancel(memberId: Int = -1, completion: @escaping () -> Void) {
+        if memberId == -1 {
+            testData = dummyFmailyData.families
+        } else {
+            fullScreenLoadingView.startLoading()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.fullScreenLoadingView.stopLoading()
+                completion()
+            }
+        }
+    }
+    
+    //TODO: - 임시데이터를 포함한 검색로직
+    private func searching(text: String) {
+        workItem?.cancel()
+        
+        workItem = DispatchWorkItem { [weak self] in
+            self?.searchState = .afterSearch
+            if text == "연동" {
+                let tempFamilyMember = tempDummyData.first!.familyMember
+                self?.searchResultState = .unlinked(tempFamilyMember)
+            } else if text == "미연동" {
+                let tempFamilyMember = tempDummyData.first!.familyMember
+                self?.searchResultState = .linked(tempFamilyMember)
+            } else {
+                self?.searchResultState = .nonExist(text)
+            }
+        }
+        
+        if let workItem = workItem {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: workItem)
+        }
+    }
 }
 
 // MARK: - LinkListTabCellDelegate
 extension LinkManagementViewController: LinkListTabCellDelegate {
     func didTapClose(on cell: LinkListTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: UnlinkAlertStyle.unlink(family.nickname), memberId: family.memberId)
+            showAlert(alertStyle: LinkAlertStyle.unlink(family.nickName), memberId: family.memberId)
         }
     }
 }
@@ -239,13 +427,13 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
 extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapAccept(on cell: ReceivedTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: UnlinkAlertStyle.receivedAccept(family.nickname), memberId: family.memberId)
+            showAlert(alertStyle: LinkAlertStyle.receivedAccept(family.nickName), memberId: family.memberId)
         }
     }
     
     func didTapReject(on cell: ReceivedTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: UnlinkAlertStyle.receivedReject(family.nickname), memberId: family.memberId)
+            showAlert(alertStyle: LinkAlertStyle.receivedReject(family.nickName), memberId: family.memberId)
         }
     }
 }
@@ -254,7 +442,48 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
 extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: UnlinkAlertStyle.requestCancel(family.nickname), memberId: family.memberId)
+            showAlert(alertStyle: LinkAlertStyle.requestCancel(family.nickName), memberId: family.memberId)
+        }
+    }
+}
+
+//MARK: - SearchBarDelegate
+extension LinkManagementViewController: SearchBarDelegate {
+    func searchBarDidBeginEditing(_ searchBar: SearchBar) {
+        if searchBar.searchBarSubView.searchBarTextField.text == "" {
+            searchState = .beforeSearch(isSearchBarActive: true)
+        }
+    }
+    
+    func searchBarDidEndEditing(_ searchBar: SearchBar) {
+        if searchState == .searching() {
+            searchEmptyView.isHidden = false
+            tableView.isHidden = true
+            searchLoadingView.isHidden = true
+        } else {
+            searchState = .beforeSearch(isSearchBarActive: false)
+        }
+    }
+    
+    func search(_ searchBar: SearchBar, searchText: String) {
+        searchLoadingView.configure(nickName: searchText)
+        searchState = .searching(nickName: searchText)
+    }
+}
+
+//MARK: - SearchResultViewDelegate
+extension LinkManagementViewController: SearchResultViewDelegate {
+    func linkRequest(alertStyle: LinkAlertStyle, memberId: Int) {
+        self.showAlert(alertStyle: alertStyle, memberId: memberId)
+    }
+    
+    func linkRequestCancel(memberId: Int) {
+        self.requestCancel(memberId: memberId) { [weak self] in
+            guard let self = self else { return }
+            let style = LabelStyle(text: "요청이 취소됐어요", font: .body2, backgroundColor: .error500)
+            let toast = Toast(style: style, image: .informationButton)
+            toast.show(controller: self)
+            self.searchResultView.requestCancel()
         }
     }
 }

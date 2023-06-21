@@ -29,4 +29,15 @@ extension UIButton {
             self.layer.masksToBounds = border.masksToBounds
         }
     }
+    
+    func setUnderlinedTitle(labelStyle: LabelStyle) {
+        let attributedString = NSAttributedString(string: labelStyle.text, attributes: [
+            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
+        ])
+        setAttributedTitle(attributedString, for: .normal)
+        self.setTitleColor(labelStyle.textColor, for: .normal)
+        self.titleLabel?.font = labelStyle.font
+        self.backgroundColor = labelStyle.backgroundColor
+    }
 }
+

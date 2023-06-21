@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 struct TabConfig {
     let text: String
     let textArray: [String]
@@ -23,14 +22,14 @@ struct TabConfig {
     init(
         text: String = "",
         textArray: [String] = [],
-        textColor: UIColor,
-        font: UIFont,
+        textColor: UIColor = .gray300,
+        font: UIFont = .subtitle2,
         textAlignment: NSTextAlignment = .center,
-        lineColor: UIColor,
-        lineHeight: CGFloat,
-        selectTextColor: UIColor,
-        selectLineColor: UIColor,
-        selectLineHeight: CGFloat
+        lineColor: UIColor = .gray300,
+        lineHeight: CGFloat = 2.0,
+        selectTextColor: UIColor = .blue500,
+        selectLineColor: UIColor = .blue500,
+        selectLineHeight: CGFloat = 2.0
     ) {
         self.text = text
         self.textArray = textArray

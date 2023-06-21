@@ -15,7 +15,7 @@ class CustomAlertViewController: UIViewController {
     private let width = UIApplication.shared.width * 343.0 / 375.0
     private let height = UIApplication.shared.width * 343.0 / 375.0 * 196.0 / 343.0
     
-    init(alertStyle: AlertStyle, action: ((@escaping () -> Void) -> Void)? = nil) {
+    init(alertStyle: AlertStyleProtocol, action: ((@escaping () -> Void) -> Void)? = nil) {
         self.action = action
         self.customAlertView = CustomAlertView(alertStyle: alertStyle)
         super.init(nibName: nil, bundle: nil)
@@ -39,12 +39,13 @@ class CustomAlertViewController: UIViewController {
         }
         
         customAlertView.firstButtonAction = { [weak self] in
-            self?.dismiss(animated: false, completion: nil)
+            self?.dismiss(animated: false)
         }
         
         customAlertView.secondButtonAction = { [weak self] in
-            self?.action? {
-                self?.dismiss(animated: false, completion: nil)
+            guard let self = self else { return }
+            self.action? {
+                self.dismiss(animated: false)
             }
         }
     }

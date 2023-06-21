@@ -30,9 +30,9 @@ final class CustomAlertView: UIView {
     private let firstButton = UIButton()
     private let secondButton = UIButton()
     let loadingView = LoadingView()
-    private let alertStyle: AlertStyle?
+    private let alertStyle: AlertStyleProtocol?
     
-    init(frame: CGRect = .zero, alertStyle: AlertStyle) {
+    init(frame: CGRect = .zero, alertStyle: AlertStyleProtocol) {
         self.alertStyle = alertStyle
         super.init(frame: frame)
         setAlertView(alertStyle: alertStyle)
@@ -45,8 +45,8 @@ final class CustomAlertView: UIView {
 }
 
 extension CustomAlertView {
-    private func setAlertView(alertStyle: AlertStyle) {
-        label.setEmphasisLabel(style: alertStyle.emphasisLabelStyle)
+    private func setAlertView(alertStyle: AlertStyleProtocol) {
+        label.setLabel(style: alertStyle.emphasisLabelStyle)
         setCustomView(cornerRadius: alertStyle.borderStyle.cornerRadius)
         
         let buttons = alertStyle.buttons

@@ -32,10 +32,25 @@ extension SearchBarTextField {
         delegate = self
         
         placeholder = style.placeholder
+        textColor = style.textColor
         font = style.font
         clearButtonMode = .whileEditing
         rightView = searchImageView
         rightViewMode = .unlessEditing
+    }
+    
+    func textFieldActivate(bool: Bool, keyboard: Bool = true) {
+        if true == bool {
+            textColor = .gray800
+            if true == keyboard {
+                DispatchQueue.main.async {
+                    self.becomeFirstResponder()
+                }
+            }
+        } else {
+            textColor = .gray500
+        }
+        isEnabled = bool
     }
 }
 
@@ -46,16 +61,17 @@ extension SearchBarTextField: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        onActivationChange?()
-        searchImageView.isHidden = false
+        if textField.text == "" {
+            onActivationChange?()
+            searchImageView.isHidden = false
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let searchText = textField.text {
-            print("Search for \(searchText)")
+            onSearch?(searchText)
         }
-        
-        textField.resignFirstResponder()
+        textField.endEditing(true)
         return true
     }
 }

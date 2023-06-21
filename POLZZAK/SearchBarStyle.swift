@@ -8,12 +8,19 @@
 import UIKit
 
 enum SearchBarStyle {
-    case linkManagement(String)
+    case linkManagement(UserType)
     
     var placeholder: String {
         switch self {
         case .linkManagement(let type):
-            return "\(type) 추가"
+            return "\(type.string) 추가"
+        }
+    }
+    
+    var textColor: UIColor {
+        switch self {
+        case .linkManagement(_):
+            return .gray800
         }
     }
     

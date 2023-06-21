@@ -13,7 +13,15 @@ struct FamilyData: Decodable {
 
 struct FamilyMember: Decodable {
     let memberId: Int
-    let nickname: String
+    let nickName: String
     let memberType: MemberType
     let profileURL: String
+    let familyStatus: FamilyStatus?
+
+        enum FamilyStatus: String, Decodable {
+            case none = "NONE"
+            case received = "RECEIVED"
+            case sent = "SENT"
+            case approve = "APPROVE"
+        }
 }

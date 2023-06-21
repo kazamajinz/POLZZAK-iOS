@@ -21,7 +21,6 @@ final class LinkListTabCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.setCustomView(cornerRadius: 16)
         return imageView
     }()
     
@@ -89,12 +88,14 @@ final class LinkListTabCell: UITableViewCell {
             $0.trailing.equalToSuperview().inset(16)
             $0.width.equalTo(closeButton.snp.height)
         }
+        
+        profileImage.setCustomView(cornerRadius: profileImage.bounds.width / 2)
     }
     
     func configure(with family: FamilyMember) {
         self.family = family
         profileImage.loadImage(from: family.profileURL)
-        titleLabel.text = family.nickname
+        titleLabel.text = family.nickName
     }
     
     private func reset() {

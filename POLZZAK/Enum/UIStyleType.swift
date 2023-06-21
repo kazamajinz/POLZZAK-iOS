@@ -7,7 +7,15 @@
 
 import UIKit
 
-struct LabelStyle {
+protocol LabelStyleProtocol {
+    var text: String { get }
+    var textColor: UIColor { get }
+    var font: UIFont { get }
+    var textAlignment: NSTextAlignment { get }
+    var backgroundColor: UIColor { get }
+}
+
+struct LabelStyle: LabelStyleProtocol {
     let text: String
     let textColor: UIColor
     let font: UIFont
@@ -23,25 +31,27 @@ struct LabelStyle {
     }
 }
 
-struct EmphasisLabelStyle {
+struct EmphasisLabelStyle: LabelStyleProtocol {
     let text: String
-    let textFont: UIFont
     let textColor: UIColor
-    let rest: String
-    let restFont: UIFont
-    let restColor: UIColor
+    let font: UIFont
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
     
-    init(text: String, textFont: UIFont, textColor: UIColor, rest: String, restFont: UIFont, restColor: UIColor, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
+    let emphasisRange: NSRange?
+    let emphasisColor: UIColor?
+    let emphasisFont: UIFont?
+    
+    init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRange: NSRange? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
         self.text = text
-        self.textFont = textFont
         self.textColor = textColor
-        self.rest = rest
-        self.restFont = restFont
-        self.restColor = restColor
+        self.font = font
         self.textAlignment = textAlignment
         self.backgroundColor = backgroundColor
+        
+        self.emphasisRange = emphasisRange
+        self.emphasisColor = emphasisColor
+        self.emphasisFont = emphasisFont
     }
 }
 

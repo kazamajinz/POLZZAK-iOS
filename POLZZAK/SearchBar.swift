@@ -7,31 +7,19 @@
 
 import UIKit
 
+protocol SearchBarDelegate: AnyObject {
+    func searchBarDidBeginEditing(_ searchBar: SearchBar)
+    func searchBarDidEndEditing(_ searchBar: SearchBar)
+    func search(_ searchBar: SearchBar, searchText: String)
+}
+
 final class SearchBar: UIView {
-    private var onActivationChange: (() -> Void)? {
-        get {
-            return searchBarSubView.onActivationChange
-        }
-        set {
-            searchBarSubView.onActivationChange = {
-                newValue?()
-            }
-        }
-    }
+    weak var delegate: SearchBarDelegate?
     
-    private var onSearch: ((String) -> Void)? {
-        get {
-            return searchBarSubView.onSearch
-        }
-        set {
-            searchBarSubView.onSearch = newValue
-        }
-    }
-    
-    private var isCancelState = true
+    var isCancelState = false
     
     private let padding = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-    private let searchBarSubView: SearchBarSubView
+    let searchBarSubView: SearchBarSubView
     
     private let cancelButton: UIButton = {
         let button = UIButton()
@@ -45,6 +33,7 @@ final class SearchBar: UIView {
         super.init(frame: frame)
         
         configure()
+        updateUI()
     }
     
     required init?(coder: NSCoder) {
@@ -53,14 +42,7 @@ final class SearchBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if true == isCancelState {
-            searchBarSubView.animateFrameChange(to: bounds)
-            cancelButton.animateFrameChange(to: CGRect(x: bounds.width + 49, y: 0, width: 49, height: bounds.height))
-        } else {
-            searchBarSubView.animateFrameChange(to: CGRect(x: 0, y: 0, width: bounds.width - 49, height: bounds.height))
-            cancelButton.animateFrameChange(to: CGRect(x: bounds.width - 49, y: 0, width: 49, height: bounds.height))
-        }
+        updateUI()
     }
 }
 
@@ -71,15 +53,55 @@ extension SearchBar {
         }
         
         searchBarSubView.onActivationChange = { [weak self] in
-            self?.isCancelState.toggle()
-            self?.setNeedsLayout()
+            guard let self = self else { return }
+            self.isCancelState.toggle()
+            if false == self.isCancelState {
+                self.delegate?.searchBarDidEndEditing(self)
+            } else {
+                self.delegate?.searchBarDidBeginEditing(self)
+            }
+            self.setNeedsLayout()
+        }
+        
+        searchBarSubView.onSearch = { [weak self] text in
+            guard let self = self else { return }
+            self.delegate?.search(self, searchText: text)
+            self.cancelButtonActivate(bool: text == "")
+            self.searchBarSubView.searchBarTextField.textFieldActivate(bool: text == "")
         }
         
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
+    func updateUI() {
+        if false == isCancelState {
+            searchBarSubView.animateFrameChange(to: bounds)
+            cancelButton.animateFrameChange(to: CGRect(x: bounds.width + 49, y: 0, width: 49, height: bounds.height))
+        } else {
+            searchBarSubView.animateFrameChange(to: CGRect(x: 0, y: 0, width: bounds.width - 49, height: bounds.height))
+            cancelButton.animateFrameChange(to: CGRect(x: bounds.width - 41, y: 0, width: 49, height: bounds.height))
+        }
+    }
+    
+    func activate(bool: Bool, keyboard: Bool = true) {
+        cancelButtonActivate(bool: bool)
+        searchBarSubView.searchBarTextField.textFieldActivate(bool: bool, keyboard: keyboard)
+    }
+    
+    private func cancelButtonActivate(bool: Bool) {
+        if true == bool {
+            cancelButton.setTitleColor(.gray600, for: .normal)
+        } else {
+            cancelButton.setTitleColor(.gray400, for: .normal)
+        }
+        cancelButton.isEnabled = bool
+    }
+    
     @objc private func cancelButtonTapped() {
+        searchBarSubView.searchBarTextField.text = ""
         searchBarSubView.searchBarTextField.endEditing(true)
-        self.setNeedsLayout()
+        delegate?.searchBarDidEndEditing(self)
+        isCancelState = false
+        updateUI()
     }
 }

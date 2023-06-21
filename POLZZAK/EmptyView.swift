@@ -9,30 +9,34 @@ import UIKit
 import SnapKit
 
 final class EmptyView: UIView {
+    private var topConstraint: Constraint?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .sittingCharacter
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     private let label: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         return label
     }()
     
-    init(frame: CGRect = .zero, style: TabStyle) {
+    init(frame: CGRect = .zero, style: EmptyStyleProtocol) {
         super.init(frame: frame)
-        setUI(with: style)
+        setUI(style: style)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUI(with style: TabStyle) {
-        label.setLabel(with: style.labelStyle)
+    private func setUI(style: EmptyStyleProtocol) {
+        label.setLabel(style: style.labelStyle)
+        imageView.image = style.emptyImage
+        
+        backgroundColor = .white
         
         [imageView, label].forEach {
             addSubview($0)
@@ -43,7 +47,7 @@ final class EmptyView: UIView {
             if style.topConstraint == 0 {
                 $0.centerY.equalToSuperview()
             } else {
-                $0.top.equalTo(style.topConstraint)
+                self.topConstraint = $0.top.equalToSuperview().constraint
             }
             
             $0.centerX.equalToSuperview()
@@ -54,10 +58,19 @@ final class EmptyView: UIView {
             $0.top.equalTo(imageView.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
         }
+        
+        updateUI(offset: style.topConstraint)
     }
     
-    func setStyle(_ style: TabStyle) {
-        label.setLabel(with: style.labelStyle)
+    func setStyle(_ style: EmptyStyleProtocol) {
+        label.setLabel(style: style.labelStyle)
+        imageView.image = style.emptyImage
+        updateUI(offset: style.topConstraint)
+        self.layoutIfNeeded()
+    }
+    
+    func updateUI(offset: CGFloat) {
+        topConstraint?.update(offset: offset)
     }
     
     func hideBackgroundView() {

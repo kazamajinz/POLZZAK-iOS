@@ -24,6 +24,7 @@ extension UIImage {
     static let addStampBoardButton = UIImage(named: "addStampBoardButton")
     static let searchButton = UIImage(named: "searchButton")
     static let closeButton = UIImage(named: "closeButton")
+    static let informationButton = UIImage(named: "informationButton")
     
     //MARK: - Character
     
@@ -35,6 +36,7 @@ extension UIImage {
     
     static let couponCompleted = UIImage(named: "couponCompleted")
     static let refreshDragImage = UIImage(named: "refreshDragImage")
+    static let searchImage = UIImage(named: "searchImage")
     
     
 }

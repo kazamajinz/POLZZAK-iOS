@@ -24,7 +24,9 @@ final class SearchBarSubView: UIView {
             return searchBarTextField.onSearch
         }
         set {
-            searchBarTextField.onSearch = newValue
+            searchBarTextField.onSearch = { text in
+                newValue?(text)
+            }
         }
     }
     

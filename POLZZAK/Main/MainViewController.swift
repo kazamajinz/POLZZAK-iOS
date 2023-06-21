@@ -283,7 +283,8 @@ extension MainViewController {
     
     //MARK: - @objc
     @objc private func myConnectionsButtonClicked() {
-        let linkManagementViewController = LinkManagementViewController(type: 0)
+        //TODO: - 보호자로 가정
+        let linkManagementViewController = LinkManagementViewController(userType: .parent)
         linkManagementViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(linkManagementViewController, animated: true)
     }
@@ -322,7 +323,7 @@ extension MainViewController {
         //섹션2
         let okAction2 = UIAlertAction(title: "해린맘2(섹션2번) 선택", style: .default) { [weak self] _ in
             let num = 2
-            let nickname = self?.userInformations[num].familyMember.nickname ?? "전체"
+            let nickname = self?.userInformations[num].familyMember.nickName ?? "전체"
             let section = StampSection(id: num, name: nickname, memberType: "조카")
             self?.stampFilter = .section(section)
             
@@ -554,7 +555,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 section = getSection()
             }
             
-            let nickName = userInformations[section].familyMember.nickname
+            let nickName = userInformations[section].familyMember.nickName
             cell.configure(nickName: nickName)
             return cell
         } else {
@@ -591,13 +592,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch stampBoardState {
         case .inProgressAndAll, .inProgressAndSection, .unknown:
             let memberType = userInformations[indexPath.section].familyMember.memberType.detail
-            let name = userInformations[indexPath.section].familyMember.nickname
+            let name = userInformations[indexPath.section].familyMember.nickName
             let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
             
         case .completedAndAll, .completedAndSection:
             let memberType = userInformations[indexPath.section].familyMember.memberType.detail
-            let name = userInformations[indexPath.section].familyMember.nickname
+            let name = userInformations[indexPath.section].familyMember.nickName
             let totalCount = userInformations[indexPath.section].rewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
         }

@@ -72,9 +72,9 @@ extension EmptyCell {
     }
     
     func configure(nickName: String = "") {
-        let emphasisLabelStyle = EmphasisLabelStyle(text: nickName, textFont: .body5, textColor: .gray700,
-                                                    rest: nickName == "" ? placeHoldText : nickNamePlaceHoldText, restFont: .body3, restColor: .gray700,
-                                                    textAlignment: .center)
-        placeHoldLabel.setEmphasisLabel(style: emphasisLabelStyle)
+        let emphasisRange = NSRange(location: 0, length: nickName.count)
+        let emphasisLabelStyle = EmphasisLabelStyle(text: nickName, textColor: .gray700, font: .body5,
+                                                    emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body3)
+        placeHoldLabel.setLabel(style: emphasisLabelStyle)
     }
 }

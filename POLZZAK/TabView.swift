@@ -13,7 +13,6 @@ protocol TabViewDelegate: AnyObject {
 }
 
 final class TabView: UIView {
-    private var underLineHeight: Constraint?
     private var tabConfig: TabConfig
     weak var delegate: TabViewDelegate?
     
@@ -41,7 +40,8 @@ final class TabView: UIView {
 
 extension TabView {
     private func configure(tabConfig: TabConfig) {
-        tabLabel.setLabel(text: tabConfig.text, textColor: tabConfig.textColor, font: tabConfig.font, textAlignment: tabConfig.textAlignment)
+        let labelStyle = LabelStyle(text: tabConfig.text, textColor: tabConfig.textColor, font: tabConfig.font, textAlignment: tabConfig.textAlignment)
+        tabLabel.setLabel(style: labelStyle)
         tabUnderlineView.backgroundColor = tabConfig.lineColor
         
         [tabLabel, tabUnderlineView].forEach {
@@ -49,14 +49,14 @@ extension TabView {
         }
         
         tabLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(8)
-            $0.bottom.equalToSuperview().inset(9)
+            $0.top.equalToSuperview()//.inset(8)
+            $0.bottom.equalToSuperview().inset(4)
             $0.leading.trailing.equalToSuperview()
         }
         
         tabUnderlineView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            self.underLineHeight = $0.height.equalTo(tabConfig.lineHeight).constraint
+            $0.height.equalTo(2)
         }
     }
     
@@ -68,12 +68,10 @@ extension TabView {
     func deselectedTab() {
         tabLabel.textColor = tabConfig.textColor
         tabUnderlineView.backgroundColor = tabConfig.lineColor
-        underLineHeight?.update(offset: tabConfig.lineHeight)
     }
     
     func selectedTab() {
         tabLabel.textColor = tabConfig.selectTextColor
         tabUnderlineView.backgroundColor = tabConfig.selectLineColor
-        underLineHeight?.update(offset: tabConfig.selectLineHeight)
     }
 }
