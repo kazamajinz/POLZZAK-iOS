@@ -19,6 +19,10 @@ protocol MultipartFormTargetType: TargetType {
 }
 
 extension MultipartFormTargetType {
+    var headers: [String : String]? {
+        return ["Content-Type": "multipart/form-data"]
+    }
+    
     func getURLRequest() throws -> URLRequest {
         let boundary = UUID().uuidString
         let url = try url()
@@ -46,9 +50,7 @@ extension MultipartFormTargetType {
         
         return urlRequest
     }
-}
-
-extension MultipartFormTargetType {
+    
     static func formData(formData: FormData, using boundary: String) -> Data {
         var fieldString = ""
         fieldString += "--\(boundary)\r\n"

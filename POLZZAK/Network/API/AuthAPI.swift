@@ -45,7 +45,8 @@ struct AuthAPI {
             if case let appleIDCredential as ASAuthorizationAppleIDCredential = authorization.credential,
                let identityToken = appleIDCredential.identityToken,
                let identityTokenString = String(data: identityToken, encoding: .utf8) {
-                let target = LoginTarget.kakao(oAuthAccessToken: identityTokenString)
+                // TODO: identityToken을 서버에 보내야 하는지는 아직 정해지지 않았음. 수정 필요.
+                let target = LoginTarget.apple(oAuthAccessToken: identityTokenString)
                 let result = try await NetworkService().request(with: target)
                 return result
             } else {

@@ -22,10 +22,12 @@ class LoginTestViewController: UIViewController {
         let stackView = UIStackView()
         stackView.spacing = 5
         stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
-    private let appleLoginButton = ASAuthorizationAppleIDButton()
+    private let appleLoginButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
     
     private let kakaoLoginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -36,12 +38,6 @@ class LoginTestViewController: UIViewController {
     private let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("폴짝 가입", for: .normal)
-        return button
-    }()
-    
-    private let unRegisterButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("폴짝 탈퇴", for: .normal)
         return button
     }()
     
@@ -58,7 +54,7 @@ class LoginTestViewController: UIViewController {
     private func configure() {
         view.addSubview(stackView)
         
-        [kakaoLoginButton, appleLoginButton, registerButton, unRegisterButton].forEach {
+        [kakaoLoginButton, appleLoginButton, registerButton].forEach {
             stackView.addArrangedSubview($0)
         }
         
@@ -81,10 +77,13 @@ class LoginTestViewController: UIViewController {
                         guard let accessToken = dto?.data?.accessToken else { return }
                         print("✅ login success!")
                         print("🪙 accessToken: ", accessToken)
+                        if let refreshToken = (httpResponse.allHeaderFields["Set-Cookie"] as? String)?.getRefreshTokenFromCookie() {
+                            print("🪙 refreshToken: ", refreshToken)
+                        }
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
                         guard let needRegisterDTO = dto?.data else { return }
-                        print("⚠️ need register")
+                        print("⚠️ need register") // TODO: 이 때 회원가입화면으로 넘어가야함
                         print("username: ", needRegisterDTO.username)
                         print("socialType: ", needRegisterDTO.socialType)
                         owner.username = needRegisterDTO.username
@@ -112,7 +111,7 @@ class LoginTestViewController: UIViewController {
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
                         guard let needRegisterDTO = dto?.data else { return }
-                        print("⚠️ need register")
+                        print("⚠️ need register") // TODO: 이 때 회원가입화면으로 넘어가야함
                         print("username: ", needRegisterDTO.username)
                         print("socialType: ", needRegisterDTO.socialType)
                         owner.username = needRegisterDTO.username
@@ -157,27 +156,5 @@ class LoginTestViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
-        unRegisterButton.rx.tap
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                Task {
-                    try await UserApi.shared.unlink()
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-}
-
-extension LoginTestViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        
-        if case let appleIDCredential as ASAuthorizationAppleIDCredential = authorization.credential {
-            
-        }
     }
 }

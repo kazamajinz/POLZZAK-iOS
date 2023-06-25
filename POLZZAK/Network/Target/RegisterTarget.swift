@@ -38,10 +38,6 @@ extension RegisterTarget: MultipartFormTargetType {
         return .post
     }
     
-    var headers: [String : String]? {
-        return ["Content-Type": "multipart/form-data"]
-    }
-    
     var queryParameters: Encodable? {
         return nil
     }
