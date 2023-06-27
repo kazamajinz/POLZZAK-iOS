@@ -24,6 +24,7 @@ protocol TargetType {
     /// 목 데이터 넣을떄 사용
     var sampleData: Data? { get }
     
+    func url() throws -> URL
     func getURLRequest() throws -> URLRequest
 }
 
