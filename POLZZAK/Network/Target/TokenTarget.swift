@@ -31,7 +31,6 @@ extension TokenTarget: BasicTargetType {
         case .checkToken:
             return headers
         case .refreshToken:
-            // TODO: "RefreshToken=\() 붙이는거 자동으로 가능?"
             if let refreshToken = Keychain().read(identifier: Constants.KeychainKey.refreshToken) {
                 headers.updateValue("Cookie", forKey: "RefreshToken=\(refreshToken)")
             }
