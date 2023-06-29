@@ -14,13 +14,6 @@ class MissionCell: UICollectionViewListCell {
     
     private let wrapperView = UIView()
     
-    let imageView: UIImageView = {
-        let imageView = UIImageView(frame: .init(x: 0, y: 0, width: 26, height: 26))
-        imageView.layer.cornerRadius = 13
-        imageView.backgroundColor = .blue200.withAlphaComponent(0.5)
-        return imageView
-    }()
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .body3
@@ -28,9 +21,7 @@ class MissionCell: UICollectionViewListCell {
         label.text = "미션 제목이 들어가는 자리입니다."
         return label
     }()
-    
-    private var imageViewLeadingConstraint: Constraint?
-    private var titleLabelTrailingConstraint: Constraint?
+    private var titleLabelHorizontalEdgesConstraint: Constraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,7 +36,6 @@ class MissionCell: UICollectionViewListCell {
 extension MissionCell {
     private func configureLayout() {
         contentView.addSubview(wrapperView)
-        wrapperView.addSubview(imageView)
         wrapperView.addSubview(titleLabel)
         
         wrapperView.snp.makeConstraints { make in
@@ -53,24 +43,13 @@ extension MissionCell {
             make.horizontalEdges.equalToSuperview()
         }
         
-        imageView.snp.makeConstraints { make in
-            self.imageViewLeadingConstraint = make.leading.equalToSuperview().constraint
-            make.top.lessThanOrEqualToSuperview()
-            make.bottom.greaterThanOrEqualToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(26)
-            make.width.equalTo(imageView.snp.height)
-            make.trailing.equalTo(titleLabel.snp.leading).offset(-12)
-        }
-        
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            self.titleLabelTrailingConstraint = make.trailing.equalToSuperview().constraint
+            self.titleLabelHorizontalEdgesConstraint = make.horizontalEdges.equalToSuperview().constraint
         }
     }
     
     func updateHorizontalInset(inset: CGFloat) {
-        imageViewLeadingConstraint?.update(inset: inset)
-        titleLabelTrailingConstraint?.update(inset: inset)
+        titleLabelHorizontalEdgesConstraint?.update(inset: inset)
     }
 }
