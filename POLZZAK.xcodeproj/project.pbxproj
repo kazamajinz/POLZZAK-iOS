@@ -49,7 +49,9 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
+		DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
+		DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -105,6 +107,8 @@
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
+		DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeSelectButton.swift; sourceTree = "<group>"; };
+		DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +238,7 @@
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
 				3C4515E32A0BF2F900C9BA4F /* ViewController.swift */,
 				397366CE2A114439007D998F /* TabBarController.swift */,
+				DAA6D03C2A4B15B000101DCE /* Login */,
 				3C0793452A0E628800087F73 /* Main */,
 				3C0793462A0E629000087F73 /* StampBoard */,
 				39227BEA2A2620D900C86049 /* Common */,
@@ -301,6 +306,15 @@
 				395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */,
 			);
 			path = Pretendard;
+			sourceTree = "<group>";
+		};
+		DAA6D03C2A4B15B000101DCE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */,
+				DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,7 +428,9 @@
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+extension.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
+				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
+				DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				39D539D62A16032D0087B2BD /* UserType.swift in Sources */,
