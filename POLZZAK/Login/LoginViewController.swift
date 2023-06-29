@@ -5,11 +5,15 @@
 //  Created by Jinyoung Kim on 2023/06/27.
 //
 
+import Combine
 import UIKit
 
+import CombineCocoa
 import SnapKit
 
 class LoginViewController: UIViewController {
+    private var cancellables = Set<AnyCancellable>()
+    
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -92,7 +96,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
-        view.backgroundColor = .gray100
+        configureView()
+        configureBinding()
     }
     
     private func configureLayout() {
@@ -139,5 +144,33 @@ class LoginViewController: UIViewController {
         
         kakaoLoginButton.clipsToBounds = true
         appleLoginButton.clipsToBounds = true
+    }
+    
+    private func configureView() {
+        view.backgroundColor = .gray100
+    }
+    
+    private func configureBinding() {
+        kakaoLoginButton.tapPublisher
+            .sink { [weak self] _ in
+                // TODO: Coordinator 써서 RootViewController를 바꿔주는 방식으로 바꿔야 함
+                let navController = UINavigationController(rootViewController: RegisterUserTypeViewController())
+                navController.modalPresentationStyle = .overFullScreen
+                navController.modalTransitionStyle = .crossDissolve
+                navController.navigationBar.tintColor = .gray400
+                self?.present(navController, animated: true)
+            }
+            .store(in: &cancellables)
+        
+        appleLoginButton.tapPublisher
+            .sink { [weak self] _ in
+                // TODO: Coordinator 써서 RootViewController를 바꿔주는 방식으로 바꿔야 함
+                let navController = UINavigationController(rootViewController: RegisterUserTypeViewController())
+                navController.modalPresentationStyle = .overFullScreen
+                navController.modalTransitionStyle = .crossDissolve
+                navController.navigationBar.tintColor = .gray400
+                self?.present(navController, animated: true)
+            }
+            .store(in: &cancellables)
     }
 }

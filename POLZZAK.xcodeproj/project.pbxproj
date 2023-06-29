@@ -33,8 +33,6 @@
 		3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */; };
 		3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */; };
 		3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F42A0BF40200C9BA4F /* SnapKit */; };
-		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
-		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
 		3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58422A15FF3A005FC66B /* MissionListView.swift */; };
 		3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */; };
@@ -50,6 +48,14 @@
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
 		DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */; };
+		DA38E60C2A4D60DE00229282 /* RegisterUserTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */; };
+		DA38E60E2A4D713C00229282 /* RegisterNextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E60D2A4D713C00229282 /* RegisterNextButton.swift */; };
+		DA38E6112A4D74A500229282 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DA38E6102A4D74A500229282 /* CombineCocoa */; };
+		DA38E6132A4D80E000229282 /* LoginUserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6122A4D80E000229282 /* LoginUserType.swift */; };
+		DA38E6152A4D81CE00229282 /* RegisterParentTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */; };
+		DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */; };
+		DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6182A4DA78800229282 /* NicknameChecker.swift */; };
+		DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
@@ -108,6 +114,13 @@
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
 		DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeSelectButton.swift; sourceTree = "<group>"; };
+		DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTypeViewController.swift; sourceTree = "<group>"; };
+		DA38E60D2A4D713C00229282 /* RegisterNextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNextButton.swift; sourceTree = "<group>"; };
+		DA38E6122A4D80E000229282 /* LoginUserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserType.swift; sourceTree = "<group>"; };
+		DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterParentTypeViewController.swift; sourceTree = "<group>"; };
+		DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameViewController.swift; sourceTree = "<group>"; };
+		DA38E6182A4DA78800229282 /* NicknameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChecker.swift; sourceTree = "<group>"; };
+		DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
 		DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,9 +130,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */,
-				3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */,
-				3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */,
 				3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */,
+				DA38E6112A4D74A500229282 /* CombineCocoa in Frameworks */,
 				DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,7 +324,14 @@
 			isa = PBXGroup;
 			children = (
 				DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */,
+				DA38E6122A4D80E000229282 /* LoginUserType.swift */,
 				DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */,
+				DA38E60D2A4D713C00229282 /* RegisterNextButton.swift */,
+				DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */,
+				DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */,
+				DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */,
+				DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */,
+				DA38E6182A4DA78800229282 /* NicknameChecker.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -335,10 +354,9 @@
 			name = POLZZAK;
 			packageProductDependencies = (
 				3C4515F42A0BF40200C9BA4F /* SnapKit */,
-				3C4515F72A0BF43300C9BA4F /* RxCocoa */,
-				3C4515F92A0BF43300C9BA4F /* RxSwift */,
 				3C4515FC2A0BF46B00C9BA4F /* SkeletonView */,
 				DA50F59D2A3D883F00C7B0B0 /* PanModal */,
+				DA38E6102A4D74A500229282 /* CombineCocoa */,
 			);
 			productName = POLZZAK;
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
@@ -370,9 +388,9 @@
 			mainGroup = 3C4515D32A0BF2F900C9BA4F;
 			packageReferences = (
 				3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */,
 				3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */,
+				DA38E60F2A4D74A500229282 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -404,6 +422,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */,
+				DA38E60C2A4D60DE00229282 /* RegisterUserTypeViewController.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
@@ -414,15 +434,18 @@
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
 				39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */,
+				DA38E60E2A4D713C00229282 /* RegisterNextButton.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
+				DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */,
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
+				DA38E6132A4D80E000229282 /* LoginUserType.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
@@ -431,6 +454,7 @@
 				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */,
+				DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				39D539D62A16032D0087B2BD /* UserType.swift in Sources */,
@@ -442,6 +466,7 @@
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
+				DA38E6152A4D81CE00229282 /* RegisterParentTypeViewController.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 			);
@@ -679,20 +704,20 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 		3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		DA38E60F2A4D74A500229282 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
 			};
 		};
 		DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */ = {
@@ -711,20 +736,15 @@
 			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		3C4515F72A0BF43300C9BA4F /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3C4515F92A0BF43300C9BA4F /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
 		3C4515FC2A0BF46B00C9BA4F /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		DA38E6102A4D74A500229282 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA38E60F2A4D74A500229282 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
 		};
 		DA50F59D2A3D883F00C7B0B0 /* PanModal */ = {
 			isa = XCSwiftPackageProductDependency;
