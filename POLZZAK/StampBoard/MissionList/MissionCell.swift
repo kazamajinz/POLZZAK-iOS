@@ -21,6 +21,7 @@ class MissionCell: UICollectionViewListCell {
         label.text = "미션 제목이 들어가는 자리입니다."
         return label
     }()
+    
     private var titleLabelHorizontalEdgesConstraint: Constraint?
     
     override init(frame: CGRect) {
