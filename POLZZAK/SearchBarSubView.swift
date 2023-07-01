@@ -31,14 +31,38 @@ final class SearchBarSubView: UIView {
     }
     
     private let padding = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-    let searchBarTextField: SearchBarTextField
+    let searchBarTextField = SearchBarTextField()
     
-    init(frame: CGRect = .zero, style: SearchBarStyle) {
+    var placeholder: String = "" {
+        didSet {
+            searchBarTextField.placeholder = placeholder
+        }
+    }
+    
+    var textColor: UIColor = .gray800 {
+        didSet {
+            searchBarTextField.textColor = textColor
+        }
+    }
+    
+    var font: UIFont = .body3 {
+        didSet {
+            searchBarTextField.font = font
+        }
+    }
+    
+    var searchImage: UIImage? = .searchButton {
+        didSet {
+            searchBarTextField.searchImageView.image = searchImage
+        }
+    }
+    
+    override init(frame: CGRect = .zero) {
         
-        searchBarTextField = SearchBarTextField(style: style)
+//        searchBarTextField = SearchBarTextField(placeholder: placeholder)
         super.init(frame: frame)
         
-        configure()
+//        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -47,6 +71,7 @@ final class SearchBarSubView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        configure()
         searchBarTextField.frame = bounds.inset(by: padding)
     }
     
@@ -59,7 +84,6 @@ final class SearchBarSubView: UIView {
 extension SearchBarSubView {
     private func configure() {
         addSubview(searchBarTextField)
-        
         setCustomView(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
     }
 }

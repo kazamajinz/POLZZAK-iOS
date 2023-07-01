@@ -14,10 +14,7 @@
 		3900FAA32A37135B009EAC52 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA22A37135B009EAC52 /* SearchBar.swift */; };
 		3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA42A377340009EAC52 /* UIView+Animation.swift */; };
 		3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */; };
-		3900FAA92A378830009EAC52 /* SearchBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAA82A378830009EAC52 /* SearchBarStyle.swift */; };
 		3900FAAC2A381E17009EAC52 /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAB2A381E17009EAC52 /* TabViews.swift */; };
-		3900FAAE2A381FBA009EAC52 /* TabConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAD2A381FBA009EAC52 /* TabConfig.swift */; };
-		3900FAB02A389FBB009EAC52 /* TabStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAAF2A389FBB009EAC52 /* TabStyleProtocol.swift */; };
 		3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */; };
 		3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD62A39FDD5009EAC52 /* FamilyData.swift */; };
 		3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */; };
@@ -29,7 +26,6 @@
 		3900FAED2A3AEFA3009EAC52 /* AlertStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEC2A3AEFA3009EAC52 /* AlertStyleProtocol.swift */; };
 		3900FAEF2A3B336A009EAC52 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEE2A3B336A009EAC52 /* LoadingView.swift */; };
 		3900FAF12A3B6F1D009EAC52 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */; };
-		3900FB032A40893C009EAC52 /* LinkTabStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB022A40893C009EAC52 /* LinkTabStyle.swift */; };
 		3900FB062A408961009EAC52 /* LinkAlertStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB052A408961009EAC52 /* LinkAlertStyle.swift */; };
 		3900FB0A2A408A64009EAC52 /* EmptyStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */; };
 		3900FB0C2A408F3D009EAC52 /* LinkEmptyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */; };
@@ -102,10 +98,7 @@
 		3900FAA22A37135B009EAC52 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3900FAA42A377340009EAC52 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
 		3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+extension.swift"; sourceTree = "<group>"; };
-		3900FAA82A378830009EAC52 /* SearchBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarStyle.swift; sourceTree = "<group>"; };
 		3900FAAB2A381E17009EAC52 /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
-		3900FAAD2A381FBA009EAC52 /* TabConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabConfig.swift; sourceTree = "<group>"; };
-		3900FAAF2A389FBB009EAC52 /* TabStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabStyleProtocol.swift; sourceTree = "<group>"; };
 		3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkListTabCell.swift; sourceTree = "<group>"; };
 		3900FAD62A39FDD5009EAC52 /* FamilyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyData.swift; sourceTree = "<group>"; };
 		3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
@@ -117,7 +110,6 @@
 		3900FAEC2A3AEFA3009EAC52 /* AlertStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStyleProtocol.swift; sourceTree = "<group>"; };
 		3900FAEE2A3B336A009EAC52 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
-		3900FB022A40893C009EAC52 /* LinkTabStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTabStyle.swift; sourceTree = "<group>"; };
 		3900FB052A408961009EAC52 /* LinkAlertStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAlertStyle.swift; sourceTree = "<group>"; };
 		3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStyleProtocol.swift; sourceTree = "<group>"; };
 		3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyStyle.swift; sourceTree = "<group>"; };
@@ -222,7 +214,6 @@
 				3900FAA22A37135B009EAC52 /* SearchBar.swift */,
 				3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */,
 				3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */,
-				3900FAA82A378830009EAC52 /* SearchBarStyle.swift */,
 			);
 			name = SearchBar;
 			sourceTree = "<group>";
@@ -232,8 +223,6 @@
 			children = (
 				3900FAAB2A381E17009EAC52 /* TabViews.swift */,
 				3900FA9B2A35DB65009EAC52 /* TabView.swift */,
-				3900FAAD2A381FBA009EAC52 /* TabConfig.swift */,
-				3900FB042A40894F009EAC52 /* TabStyle */,
 			);
 			name = SectionTabView;
 			sourceTree = "<group>";
@@ -276,15 +265,6 @@
 				3900FB072A408973009EAC52 /* AlertStyle */,
 			);
 			name = Alert;
-			sourceTree = "<group>";
-		};
-		3900FB042A40894F009EAC52 /* TabStyle */ = {
-			isa = PBXGroup;
-			children = (
-				3900FAAF2A389FBB009EAC52 /* TabStyleProtocol.swift */,
-				3900FB022A40893C009EAC52 /* LinkTabStyle.swift */,
-			);
-			name = TabStyle;
 			sourceTree = "<group>";
 		};
 		3900FB072A408973009EAC52 /* AlertStyle */ = {
@@ -620,9 +600,7 @@
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				3900FAA02A370F9F009EAC52 /* SearchBarTextField.swift in Sources */,
-				3900FAA92A378830009EAC52 /* SearchBarStyle.swift in Sources */,
 				3900FB0F2A408F72009EAC52 /* LinkSearchEmptyStyle.swift in Sources */,
-				3900FAAE2A381FBA009EAC52 /* TabConfig.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
@@ -672,14 +650,12 @@
 				3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
 				391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */,
-				3900FAB02A389FBB009EAC52 /* TabStyleProtocol.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3900FAE52A3ABE62009EAC52 /* UIStyleType.swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
-				3900FB032A40893C009EAC52 /* LinkTabStyle.swift in Sources */,
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3900FB112A409025009EAC52 /* ParentsType.swift in Sources */,

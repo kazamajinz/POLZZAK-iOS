@@ -11,15 +11,15 @@ final class SearchBarTextField: UITextField {
     var onActivationChange: (() -> Void)?
     var onSearch: ((String) -> Void)?
     
-    private let searchImageView: UIImageView = {
+    let searchImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .searchButton
         return imageView
     }()
     
-    init(frame: CGRect = .zero, style: SearchBarStyle) {
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        configure(style: style)
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -28,15 +28,11 @@ final class SearchBarTextField: UITextField {
 }
 
 extension SearchBarTextField {
-    private func configure(style: SearchBarStyle) {
+    private func configure() {
         delegate = self
-        
-        placeholder = style.placeholder
-        textColor = style.textColor
-        font = style.font
         clearButtonMode = .whileEditing
-        rightView = searchImageView
         rightViewMode = .unlessEditing
+        rightView = searchImageView
     }
     
     func textFieldActivate(bool: Bool, keyboard: Bool = true) {

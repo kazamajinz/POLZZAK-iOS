@@ -19,7 +19,31 @@ final class SearchBar: UIView {
     var isCancelState = false
     
     private let padding = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-    let searchBarSubView: SearchBarSubView
+    let searchBarSubView = SearchBarSubView()
+    
+    var placeholder: String = "" {
+        didSet {
+            searchBarSubView.placeholder = placeholder
+        }
+    }
+    
+    var textColor: UIColor = .gray800 {
+        didSet {
+            searchBarSubView.textColor = textColor
+        }
+    }
+    
+    var font: UIFont = .body3 {
+        didSet {
+            searchBarSubView.font = font
+        }
+    }
+    
+    var searchImage: UIImage? = .searchButton {
+        didSet {
+            searchBarSubView.searchImage = searchImage
+        }
+    }
     
     private let cancelButton: UIButton = {
         let button = UIButton()
@@ -28,8 +52,7 @@ final class SearchBar: UIView {
         
     }()
     
-    init(frame: CGRect = .zero, style: SearchBarStyle) {
-        searchBarSubView = SearchBarSubView(style: style)
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
         configure()

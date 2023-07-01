@@ -8,6 +8,13 @@
 import UIKit
 import SnapKit
 
+//TODO: - 임시
+enum LinkTabStyle {
+    case linkListTab
+    case receivedTab
+    case sentTab
+}
+
 final class LinkManagementViewController: UIViewController {
     
     //MARK: - let, var
@@ -126,7 +133,8 @@ final class LinkManagementViewController: UIViewController {
     
     private lazy var searchBar: SearchBar = {
         let screenWidth = UIApplication.shared.width
-        let searchBar = SearchBar(frame: CGRect(x: 16, y: 0, width: screenWidth - 32, height: 44), style: .linkManagement(userType))
+        let searchBar = SearchBar(frame: CGRect(x: 16, y: 0, width: screenWidth - 32, height: 44))
+        searchBar.placeholder = userType.string
         return searchBar
     }()
     
