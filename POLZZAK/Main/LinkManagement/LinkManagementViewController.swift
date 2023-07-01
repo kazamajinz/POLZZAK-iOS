@@ -330,28 +330,6 @@ extension LinkManagementViewController: UITableViewDataSource {
         }
     }
     
-    private func showAlert(alertStyle: AlertStyleProtocol, memberId: Int) {
-        let action = { [weak self] (completion: @escaping () -> Void) in
-            if let alertStyle = alertStyle as? LinkAlertStyle,
-               case .linkRequest(_) = alertStyle {
-                self?.tempLinkRequest(memberId: memberId) {
-                    completion()
-                    self?.searchResultView.requestCompletion()
-                }
-            } else {
-                self?.tempRemove(memberId: memberId) {
-                    completion()
-                }
-            }
-            
-            return
-        }
-        
-        let alertVC = CustomAlertViewController(alertStyle: alertStyle, action: action)
-        alertVC.modalPresentationStyle = .overCurrentContext
-        present(alertVC, animated: false)
-    }
-    
     //    TODO: - API통신 취소 기능 추가
     @objc func searchCancel(keyboard: Bool = true) {
         workItem?.cancel()
@@ -361,7 +339,7 @@ extension LinkManagementViewController: UITableViewDataSource {
     }
     
     // TODO: - 임시 삭제 API 함수
-    func tempRemove(memberId: Int = -1, completion: @escaping () -> Void) {
+    func tempRemove(memberId: Int = -1, completion: (() -> Void)? = nil) {
         if memberId == -1 {
             testData = dummyFmailyData.families
         } else {
@@ -369,7 +347,7 @@ extension LinkManagementViewController: UITableViewDataSource {
                 if let index = self?.testData.firstIndex(where: { $0.memberId == memberId }) {
                     self?.testData.remove(at: index)
                 }
-                completion()
+                completion?()
             }
         }
     }
@@ -425,7 +403,18 @@ extension LinkManagementViewController: UITableViewDataSource {
 extension LinkManagementViewController: LinkListTabCellDelegate {
     func didTapClose(on cell: LinkListTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: LinkAlertStyle.unlink(family.nickName), memberId: family.memberId)
+            let alert = CustomAlertViewController()
+            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님과\n연동을 해제하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            alert.secondButton.setTitle("네, 해제할래요", for: .normal)
+            alert.isLoadingView = true
+            
+            alert.secondButtonAction = { [weak self] in
+                self?.tempRemove(memberId: family.memberId)
+            }
+            
+            present(alert, animated: false)
         }
     }
 }
@@ -434,13 +423,36 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
 extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapAccept(on cell: ReceivedTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: LinkAlertStyle.receivedAccept(family.nickName), memberId: family.memberId)
+            let alert = CustomAlertViewController()
+            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님의\n연동 요청을 수락하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            alert.secondButton.setTitle("네, 좋아요!", for: .normal)
+            alert.isLoadingView = true
+            
+            alert.secondButtonAction = { [weak self] in
+                self?.tempRemove(memberId: family.memberId)
+            }
+            
+            present(alert, animated: false)
         }
     }
     
     func didTapReject(on cell: ReceivedTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: LinkAlertStyle.receivedReject(family.nickName), memberId: family.memberId)
+            let alert = CustomAlertViewController()
+            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님의\n연동 요청을 거절하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            alert.secondButton.setTitle("네, 거절할래요", for: .normal)
+            
+            alert.secondButtonAction = { [weak self] in
+                self?.tempRemove(memberId: family.memberId)
+            }
+            
+            present(alert, animated: false)
+            
+            
         }
     }
 }
@@ -449,7 +461,18 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
 extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
         if let family = cell.family {
-            showAlert(alertStyle: LinkAlertStyle.requestCancel(family.nickName), memberId: family.memberId)
+            let alert = CustomAlertViewController()
+            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님에게 보낸\n연동 요청을 취소하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            alert.secondButton.setTitle("네, 취소할래요", for: .normal)
+            alert.isLoadingView = true
+            
+            alert.secondButtonAction = { [weak self] in
+                self?.tempRemove(memberId: family.memberId)
+            }
+            
+            present(alert, animated: false)
         }
     }
 }
@@ -480,8 +503,21 @@ extension LinkManagementViewController: SearchBarDelegate {
 
 //MARK: - SearchResultViewDelegate
 extension LinkManagementViewController: SearchResultViewDelegate {
-    func linkRequest(alertStyle: LinkAlertStyle, memberId: Int) {
-        self.showAlert(alertStyle: alertStyle, memberId: memberId)
+    func linkRequest(nickName: String, memberId: Int) {
+        let alert = CustomAlertViewController()
+        let emphasisRange = NSRange(location: 0, length: nickName.count)
+        let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님에게\n연동 오쳥을 보낼까요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+        alert.contentLabel.setLabel(style: emphasisLabelStyle)
+        alert.secondButton.setTitle("네, 좋아요!", for: .normal)
+        alert.isLoadingView = true
+        
+        alert.secondButtonAction = { [weak self] in
+            self?.tempLinkRequest(memberId: memberId) {
+                self?.searchResultView.requestCompletion()
+            }
+        }
+        
+        present(alert, animated: false)
     }
     
     func linkRequestCancel(memberId: Int) {

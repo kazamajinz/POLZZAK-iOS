@@ -21,7 +21,7 @@ struct LabelStyle: LabelStyleProtocol {
     let font: UIFont
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
-    
+
     init(text: String, textColor: UIColor = .white, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .white) {
         self.text = text
         self.textColor = textColor
@@ -37,18 +37,18 @@ struct EmphasisLabelStyle: LabelStyleProtocol {
     let font: UIFont
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
-    
+
     let emphasisRange: NSRange?
     let emphasisColor: UIColor?
     let emphasisFont: UIFont?
-    
+
     init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRange: NSRange? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
         self.text = text
         self.textColor = textColor
         self.font = font
         self.textAlignment = textAlignment
         self.backgroundColor = backgroundColor
-        
+
         self.emphasisRange = emphasisRange
         self.emphasisColor = emphasisColor
         self.emphasisFont = emphasisFont
@@ -60,7 +60,7 @@ struct BorderStyle {
     let width: CGFloat
     let cornerRadius: CGFloat
     let masksToBounds: Bool
-    
+
     init(color: UIColor = .white, width: CGFloat = 0.0, cornerRadius: CGFloat = 0.0, masksToBounds: Bool = true) {
         self.color = color
         self.width = width

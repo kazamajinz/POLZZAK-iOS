@@ -8,17 +8,74 @@
 import UIKit
 import SnapKit
 
-class CustomAlertViewController: UIViewController {
-    private let customAlertView: CustomAlertView
-    private let action: ((@escaping () -> Void) -> Void)?
+enum ButtonCount {
+    case single
+    case double
+}
+
+final class CustomAlertViewController: UIViewController {
+    var firstButtonAction: (() -> Void)?
+    var secondButtonAction: (() -> Void)?
     
     private let width = UIApplication.shared.width * 343.0 / 375.0
     private let height = UIApplication.shared.width * 343.0 / 375.0 * 196.0 / 343.0
     
-    init(alertStyle: AlertStyleProtocol, action: ((@escaping () -> Void) -> Void)? = nil) {
-        self.action = action
-        self.customAlertView = CustomAlertView(alertStyle: alertStyle)
-        super.init(nibName: nil, bundle: nil)
+    let customAlertView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 12
+        view.layer.masksToBounds = true
+        return view
+    }()
+    
+    let contentLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = .gray700
+        label.font = .body7
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.backgroundColor = .white
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 11
+        return stackView
+    }()
+    
+    let firstButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("아니요", for: .normal)
+        button.titleLabel?.font = .subtitle3
+        button.backgroundColor = .gray300
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
+    let secondButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = .subtitle3
+        button.backgroundColor = .blue500
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
+    private let loadingView = LoadingView()
+    
+    var buttonStyle: ButtonCount = .double
+    
+    var isLoadingView: Bool = false
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        modalPresentationStyle = .overCurrentContext
     }
     
     required init?(coder: NSCoder) {
@@ -27,7 +84,14 @@ class CustomAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUI()
+        setAction()
+        setSecondButton()
+    }
+}
+
+extension CustomAlertViewController {
+    private func setUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         
         view.addSubview(customAlertView)
@@ -38,16 +102,56 @@ class CustomAlertViewController: UIViewController {
             $0.height.equalTo(height)
         }
         
-        customAlertView.firstButtonAction = { [weak self] in
-            self?.dismiss(animated: false)
+        [contentLabel, buttonStackView, loadingView].forEach {
+            customAlertView.addSubview($0)
         }
         
-        customAlertView.secondButtonAction = { [weak self] in
-            guard let self = self else { return }
-            self.action? {
-                self.dismiss(animated: false)
-            }
+        contentLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(40)
+            $0.centerX.equalToSuperview()
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+        }
+        
+        loadingView.snp.makeConstraints {
+            $0.top.equalTo(contentLabel.snp.bottom).offset(24)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.width.equalTo(loadingView.snp.height)
+            $0.centerX.equalToSuperview()
+        }
+        
+        buttonStackView.addArrangedSubview(firstButton)
+    }
+    
+    private func setAction() {
+        firstButton.addTarget(self, action: #selector(firstButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setSecondButton() {
+        if buttonStyle == .double {
+            buttonStackView.addArrangedSubview(secondButton)
+            secondButton.addTarget(self, action: #selector(secondButtonTapped), for: .touchUpInside)
         }
     }
     
+    func startLoading() {
+        buttonStackView.isHidden = true
+        loadingView.startRotating()
+    }
+    
+    @objc private func firstButtonTapped() {
+        firstButtonAction?()
+        dismiss(animated: false)
+    }
+    
+    @objc private func secondButtonTapped() {
+        if true == isLoadingView {
+            startLoading()
+        }
+        secondButtonAction?()
+        dismiss(animated: false)
+    }
 }

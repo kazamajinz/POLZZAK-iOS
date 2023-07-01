@@ -20,13 +20,10 @@
 		3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */; };
 		3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */; };
 		3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */; };
-		3900FAE52A3ABE62009EAC52 /* UIStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */; };
-		3900FAE82A3AE9C7009EAC52 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */; };
+		3900FAE52A3ABE62009EAC52 /* UILabelStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */; };
 		3900FAEB2A3AEA25009EAC52 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */; };
-		3900FAED2A3AEFA3009EAC52 /* AlertStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEC2A3AEFA3009EAC52 /* AlertStyleProtocol.swift */; };
 		3900FAEF2A3B336A009EAC52 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEE2A3B336A009EAC52 /* LoadingView.swift */; };
 		3900FAF12A3B6F1D009EAC52 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */; };
-		3900FB062A408961009EAC52 /* LinkAlertStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB052A408961009EAC52 /* LinkAlertStyle.swift */; };
 		3900FB0A2A408A64009EAC52 /* EmptyStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */; };
 		3900FB0C2A408F3D009EAC52 /* LinkEmptyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */; };
 		3900FB0F2A408F72009EAC52 /* LinkSearchEmptyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0E2A408F72009EAC52 /* LinkSearchEmptyStyle.swift */; };
@@ -104,13 +101,10 @@
 		3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedTabCell.swift; sourceTree = "<group>"; };
 		3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentTabCell.swift; sourceTree = "<group>"; };
-		3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyleType.swift; sourceTree = "<group>"; };
-		3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelStyleType.swift; sourceTree = "<group>"; };
 		3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
-		3900FAEC2A3AEFA3009EAC52 /* AlertStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStyleProtocol.swift; sourceTree = "<group>"; };
 		3900FAEE2A3B336A009EAC52 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
-		3900FB052A408961009EAC52 /* LinkAlertStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAlertStyle.swift; sourceTree = "<group>"; };
 		3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStyleProtocol.swift; sourceTree = "<group>"; };
 		3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyStyle.swift; sourceTree = "<group>"; };
 		3900FB0E2A408F72009EAC52 /* LinkSearchEmptyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkSearchEmptyStyle.swift; sourceTree = "<group>"; };
@@ -241,7 +235,7 @@
 			children = (
 				3900FB102A409025009EAC52 /* ParentsType.swift */,
 				391E23A22A40B3D300CA75EF /* SearchState.swift */,
-				3900FAE42A3ABE62009EAC52 /* UIStyleType.swift */,
+				3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */,
 				3900FAD52A39FD22009EAC52 /* Main */,
 			);
 			path = Enum;
@@ -260,20 +254,9 @@
 		3900FAE92A3AEA17009EAC52 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				3900FAE72A3AE9C7009EAC52 /* CustomAlertView.swift */,
 				3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */,
-				3900FB072A408973009EAC52 /* AlertStyle */,
 			);
 			name = Alert;
-			sourceTree = "<group>";
-		};
-		3900FB072A408973009EAC52 /* AlertStyle */ = {
-			isa = PBXGroup;
-			children = (
-				3900FAEC2A3AEFA3009EAC52 /* AlertStyleProtocol.swift */,
-				3900FB052A408961009EAC52 /* LinkAlertStyle.swift */,
-			);
-			name = AlertStyle;
 			sourceTree = "<group>";
 		};
 		3900FB082A4089AB009EAC52 /* EmptyView */ = {
@@ -631,16 +614,13 @@
 				391E23BA2A43608C00CA75EF /* FullScreenLoadingView.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
 				3900FB0C2A408F3D009EAC52 /* LinkEmptyStyle.swift in Sources */,
-				3900FB062A408961009EAC52 /* LinkAlertStyle.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
 				3900FAEB2A3AEA25009EAC52 /* CustomAlertViewController.swift in Sources */,
-				3900FAED2A3AEFA3009EAC52 /* AlertStyleProtocol.swift in Sources */,
 				391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
-				3900FAE82A3AE9C7009EAC52 /* CustomAlertView.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				391E23A92A41344900CA75EF /* ColorButton.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
@@ -652,7 +632,7 @@
 				391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */,
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
-				3900FAE52A3ABE62009EAC52 /* UIStyleType.swift in Sources */,
+				3900FAE52A3ABE62009EAC52 /* UILabelStyleType.swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,

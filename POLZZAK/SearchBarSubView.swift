@@ -58,11 +58,7 @@ final class SearchBarSubView: UIView {
     }
     
     override init(frame: CGRect = .zero) {
-        
-//        searchBarTextField = SearchBarTextField(placeholder: placeholder)
         super.init(frame: frame)
-        
-//        configure()
     }
     
     required init?(coder: NSCoder) {

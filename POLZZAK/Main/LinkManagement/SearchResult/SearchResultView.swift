@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol SearchResultViewDelegate: AnyObject {
-    func linkRequest(alertStyle: LinkAlertStyle, memberId: Int)
+    func linkRequest(nickName: String, memberId: Int)
     func linkRequestCancel(memberId: Int)
 }
 
@@ -127,7 +127,7 @@ final class SearchResultView: UIView {
     
     @objc private func linkRequest() {
         if let nickName = familyMember?.nickName, let memberId = familyMember?.memberId {
-            delegate?.linkRequest(alertStyle: LinkAlertStyle.linkRequest(nickName), memberId: memberId)
+            delegate?.linkRequest(nickName: nickName, memberId: memberId)
         }
     }
     
