@@ -16,10 +16,10 @@ protocol SearchBarDelegate: AnyObject {
 final class SearchBar: UIView {
     weak var delegate: SearchBarDelegate?
     
-    var isCancelState = false
+    let searchBarSubView = SearchBarSubView()
     
     private let padding = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
-    let searchBarSubView = SearchBarSubView()
+    var isCancelState = false
     
     var placeholder: String = "" {
         didSet {
