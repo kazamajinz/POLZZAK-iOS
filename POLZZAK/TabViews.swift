@@ -25,6 +25,7 @@ final class TabViews: UIStackView {
         return stackView
     }()
     
+    private let screenWidth = UIApplication.shared.width
     private var tabViews: [TabView]
     
     var tabTitles: [String] = [] {
@@ -36,8 +37,6 @@ final class TabViews: UIStackView {
             }
         }
     }
-    
-    private let screenWidth = UIApplication.shared.width
     
     var selectTextColor: UIColor = .blue500 {
         didSet {
