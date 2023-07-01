@@ -136,7 +136,10 @@ final class LinkManagementViewController: UIViewController {
     }()
     
     private let tabViews: TabViews = {
-        let tabViews = TabViews(tabStyle: .linkListTab)
+        let tabViews = TabViews()
+        tabViews.tabTitles = ["연동 목록", "받은 목록", "보낸 목록"]
+        tabViews.selectLineHeight = 5
+        tabViews.setTabviews()
         return tabViews
     }()
     
@@ -346,9 +349,7 @@ extension LinkManagementViewController: UITableViewDataSource {
     //    TODO: - API통신 취소 기능 추가
     @objc func searchCancel(keyboard: Bool = true) {
         workItem?.cancel()
-        if true == keyboard {
-            searchState = .beforeSearch(isSearchBarActive: true)
-        }
+        searchState = .beforeSearch(isSearchBarActive: true)
         searchBar.isCancelState.toggle()
         searchBar.activate(bool: true, keyboard: keyboard)
     }

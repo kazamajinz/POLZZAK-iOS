@@ -13,23 +13,42 @@ protocol TabViewDelegate: AnyObject {
 }
 
 final class TabView: UIView {
-    private var tabConfig: TabConfig
     weak var delegate: TabViewDelegate?
     
-    private let tabLabel: UILabel = {
+    let tabLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
-    private let tabUnderlineView: UIView = {
+    let underlineView: UIView = {
         let view = UIView()
         return view
     }()
     
-    init(frame: CGRect = .zero, tabConfig: TabConfig) {
-        self.tabConfig = tabConfig
+    var selectTextColor: UIColor = .blue500
+    var selectFont: UIFont = .subtitle2
+    var selectLineColor: UIColor = .blue500
+    var selectLineHeight: CGFloat = 2.0 {
+        didSet {
+            underlineHeightConstraint?.update(offset: selectLineHeight)
+        }
+    }
+    
+    var deselectTextColor: UIColor = .gray300
+    var deselectFont: UIFont = .subtitle2
+    var deselectLineColor: UIColor = .gray300
+    var deselectLineHeight: CGFloat = 2.0 {
+        didSet {
+            underlineHeightConstraint?.update(offset: deselectLineHeight)
+        }
+    }
+    
+    var textAliment: NSTextAlignment = .center
+    var underlineHeightConstraint: Constraint?
+    var isSelected: Bool = false
+    
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        self.configure(tabConfig: tabConfig)
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
@@ -39,39 +58,44 @@ final class TabView: UIView {
 }
 
 extension TabView {
-    private func configure(tabConfig: TabConfig) {
-        let labelStyle = LabelStyle(text: tabConfig.text, textColor: tabConfig.textColor, font: tabConfig.font, textAlignment: tabConfig.textAlignment)
-        tabLabel.setLabel(style: labelStyle)
-        tabUnderlineView.backgroundColor = tabConfig.lineColor
-        
-        [tabLabel, tabUnderlineView].forEach {
+    func setUI() {
+        [tabLabel, underlineView].forEach {
             addSubview($0)
         }
         
         tabLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()//.inset(8)
+            $0.top.equalToSuperview()
             $0.bottom.equalToSuperview().inset(4)
             $0.leading.trailing.equalToSuperview()
         }
         
-        tabUnderlineView.snp.makeConstraints {
+        underlineView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(2)
+            if true == isSelected {
+                underlineHeightConstraint = $0.height.equalTo(selectLineHeight).constraint
+            } else {
+                underlineHeightConstraint = $0.height.equalTo(deselectLineHeight).constraint
+            }
+            
         }
     }
     
     @objc private func handleTap() {
-        selectedTab()
         delegate?.tabViewDidSelect(self)
     }
     
-    func deselectedTab() {
-        tabLabel.textColor = tabConfig.textColor
-        tabUnderlineView.backgroundColor = tabConfig.lineColor
+    func selectedTab(selectTextColor: UIColor, selectFont: UIFont, selectLineColor: UIColor, selectLineHeight: CGFloat) {
+        tabLabel.textColor = selectTextColor
+        underlineView.backgroundColor = selectLineColor
+        underlineHeightConstraint?.update(offset: selectLineHeight)
+        self.selectLineHeight = selectLineHeight
+        setNeedsLayout()
     }
     
-    func selectedTab() {
-        tabLabel.textColor = tabConfig.selectTextColor
-        tabUnderlineView.backgroundColor = tabConfig.selectLineColor
+    func deselectedTab(deselectTextColor: UIColor, deselectFont: UIFont, deselectLineColor: UIColor, deselectLineHeight: CGFloat) {
+        tabLabel.textColor = deselectTextColor
+        underlineView.backgroundColor = deselectLineColor
+        underlineHeightConstraint?.update(offset: deselectLineHeight)
+        self.deselectLineHeight = deselectLineHeight
     }
 }
