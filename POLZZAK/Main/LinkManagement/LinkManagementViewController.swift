@@ -138,7 +138,6 @@ final class LinkManagementViewController: UIViewController {
     private let tabViews: TabViews = {
         let tabViews = TabViews()
         tabViews.tabTitles = ["연동 목록", "받은 목록", "보낸 목록"]
-        tabViews.setTabviews()
         return tabViews
     }()
     
