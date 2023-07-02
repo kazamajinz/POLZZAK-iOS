@@ -22,8 +22,6 @@ final class LoadingView: UIView {
     }
 
     private func setLayers() {
-        isHidden = true
-        
         backgroundLayer.strokeColor = UIColor.blue200.cgColor
         backgroundLayer.lineWidth = 7
         backgroundLayer.fillColor = UIColor.clear.cgColor
@@ -41,6 +39,7 @@ final class LoadingView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         setCenter()
+        startRotating()
     }
     
     func setCenter() {
@@ -51,9 +50,11 @@ final class LoadingView: UIView {
 
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         backgroundLayer.path = path.cgPath
-
+        backgroundLayer.lineCap = .round
+        
         let rotatingPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: .pi / 2, clockwise: true)
         rotatingLayer.path = rotatingPath.cgPath
+        rotatingLayer.lineCap = .round
         
         rotatingView.frame = bounds
     }
@@ -64,7 +65,5 @@ final class LoadingView: UIView {
         rotationAnimation.duration = 1
         rotationAnimation.repeatCount = .infinity
         rotatingView.layer.add(rotationAnimation, forKey: "rotationAnimation")
-        
-        isHidden = false
     }
 }

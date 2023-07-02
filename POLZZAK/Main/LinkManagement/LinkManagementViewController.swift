@@ -99,14 +99,17 @@ final class LinkManagementViewController: UIViewController {
         didSet {
             switch searchResultState {
             case .linked(let familyMember):
-                let style = SearchResultState.linked(familyMember)
-                searchResultView.setStyle(style: style)
+                let type = SearchResultState.linked(familyMember)
+                searchResultView.setType(type: type)
             case .unlinked(let familyMember):
-                let style = SearchResultState.unlinked(familyMember)
-                searchResultView.setStyle(style: style)
+                let type = SearchResultState.unlinked(familyMember)
+                searchResultView.setType(type: type)
+            case .linkedRequestComplete(let familyMember):
+                let type = SearchResultState.linkedRequestComplete(familyMember)
+                searchResultView.setType(type: type)
             case .nonExist(let nickname):
-                let style = SearchResultState.nonExist(nickname)
-                searchResultView.setStyle(style: style)
+                let type = SearchResultState.nonExist(nickname)
+                searchResultView.setType(type: type)
             case .notSearch:
                 return
             }
@@ -122,7 +125,7 @@ final class LinkManagementViewController: UIViewController {
         return emptyView
     }()
     private var searchResultView: SearchResultView = SearchResultView()
-    private var fullScreenLoadingView = FullScreenLoadingView(style: .linkManagement)
+    private var fullScreenLoadingView = FullScreenLoadingView()
     
     private let searchLoadingView: SearchLoadingView = {
         let searchLoadingView = SearchLoadingView()
@@ -333,7 +336,10 @@ extension LinkManagementViewController: UITableViewDataSource {
     //    TODO: - API통신 취소 기능 추가
     @objc func searchCancel(keyboard: Bool = true) {
         workItem?.cancel()
-        searchState = .beforeSearch(isSearchBarActive: true)
+        //TODO: - 커밋전에 체크
+        if searchState == .searching() {
+            searchState = .beforeSearch(isSearchBarActive: true)
+        }
         searchBar.isCancelState.toggle()
         searchBar.activate(bool: true, keyboard: keyboard)
     }
@@ -384,10 +390,10 @@ extension LinkManagementViewController: UITableViewDataSource {
             self?.searchState = .afterSearch
             if text == "연동" {
                 let tempFamilyMember = tempDummyData.first!.familyMember
-                self?.searchResultState = .unlinked(tempFamilyMember)
+                self?.searchResultState = .linked(tempFamilyMember)
             } else if text == "미연동" {
                 let tempFamilyMember = tempDummyData.first!.familyMember
-                self?.searchResultState = .linked(tempFamilyMember)
+                self?.searchResultState = .unlinked(tempFamilyMember)
             } else {
                 self?.searchResultState = .nonExist(text)
             }
@@ -480,12 +486,15 @@ extension LinkManagementViewController: SentTabCellDelegate {
 //MARK: - SearchBarDelegate
 extension LinkManagementViewController: SearchBarDelegate {
     func searchBarDidBeginEditing(_ searchBar: SearchBar) {
+        print("searchBarDidBeginEditing")
         if searchBar.searchBarSubView.searchBarTextField.text == "" {
+            print("searchBarDidBeginEditing_searchBarTextField.text.isEmpty")
             searchState = .beforeSearch(isSearchBarActive: true)
         }
     }
     
     func searchBarDidEndEditing(_ searchBar: SearchBar) {
+        print("searchBarDidEndEditing")
         if searchState == .searching() {
             searchEmptyView.isHidden = false
             tableView.isHidden = true
@@ -511,6 +520,7 @@ extension LinkManagementViewController: SearchResultViewDelegate {
         alert.secondButton.setTitle("네, 좋아요!", for: .normal)
         alert.isLoadingView = true
         
+        //TODO: - API연결하고 수정필요, requestCompletion을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.
         alert.secondButtonAction = { [weak self] in
             self?.tempLinkRequest(memberId: memberId) {
                 self?.searchResultView.requestCompletion()
@@ -523,9 +533,9 @@ extension LinkManagementViewController: SearchResultViewDelegate {
     func linkRequestCancel(memberId: Int) {
         self.requestCancel(memberId: memberId) { [weak self] in
             guard let self = self else { return }
-            let style = LabelStyle(text: "요청이 취소됐어요", font: .body2, backgroundColor: .error500)
-            let toast = Toast(style: style, image: .informationButton)
+            let toast = Toast(text: "요청이 취소됐어요")
             toast.show(controller: self)
+            //TODO: - API연결하고 수정필요, requestCancel을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.
             self.searchResultView.requestCancel()
         }
     }

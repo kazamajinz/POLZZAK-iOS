@@ -9,21 +9,21 @@ import UIKit
 import SnapKit
 
 final class SearchLoadingView: UIView {
-    private let loadingView: LoadingView = {
-        let loadingView = LoadingView()
-        loadingView.startRotating()
-        return loadingView
-    }()
-    
+    private let loadingView = LoadingView()
     private let placeholder: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    let cancelButton: ColorButton = {
-        let button = ColorButton(buttonStyle: .LinkRequestBlue500)
+    let cancelButton: UIButton = {
+        let button = UIButton()
         button.setTitle("취소", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .caption3
+        button.backgroundColor = .blue500
+        button.layer.cornerRadius = 4
+        button.layer.masksToBounds = true
         return button
     }()
     
@@ -41,7 +41,6 @@ final class SearchLoadingView: UIView {
         let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님을\n열심히 찾는 중이에요", textColor: .gray800, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray800, emphasisFont: .body5)
         placeholder.setLabel(style: emphasisLabelStyle)
     }
-    
     
     private func setUI() {
         backgroundColor = .white

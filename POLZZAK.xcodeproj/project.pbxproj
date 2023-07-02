@@ -30,13 +30,10 @@
 		3900FB112A409025009EAC52 /* ParentsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB102A409025009EAC52 /* ParentsType.swift */; };
 		391E23A32A40B3D300CA75EF /* SearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23A22A40B3D300CA75EF /* SearchState.swift */; };
 		391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23A42A41265500CA75EF /* SearchLoadingView.swift */; };
-		391E23A92A41344900CA75EF /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23A82A41344900CA75EF /* ColorButton.swift */; };
-		391E23AC2A41359500CA75EF /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23AB2A41359500CA75EF /* ButtonStyle.swift */; };
 		391E23B02A42D11300CA75EF /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23AF2A42D11300CA75EF /* SearchResultView.swift */; };
 		391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23B22A42D54100CA75EF /* SearchResultState.swift */; };
 		391E23B72A43524000CA75EF /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23B62A43524000CA75EF /* Toast.swift */; };
 		391E23BA2A43608C00CA75EF /* FullScreenLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23B92A43608C00CA75EF /* FullScreenLoadingView.swift */; };
-		391E23BC2A43630000CA75EF /* LoadingViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23BB2A43630000CA75EF /* LoadingViewStyle.swift */; };
 		39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BDE2A1E37FB00C86049 /* StampState.swift */; };
 		39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */; };
 		39227BE32A20A10700C86049 /* StampFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE22A20A10700C86049 /* StampFilter.swift */; };
@@ -111,13 +108,10 @@
 		3900FB102A409025009EAC52 /* ParentsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentsType.swift; sourceTree = "<group>"; };
 		391E23A22A40B3D300CA75EF /* SearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchState.swift; sourceTree = "<group>"; };
 		391E23A42A41265500CA75EF /* SearchLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLoadingView.swift; sourceTree = "<group>"; };
-		391E23A82A41344900CA75EF /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
-		391E23AB2A41359500CA75EF /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		391E23AF2A42D11300CA75EF /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		391E23B22A42D54100CA75EF /* SearchResultState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultState.swift; sourceTree = "<group>"; };
 		391E23B62A43524000CA75EF /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		391E23B92A43608C00CA75EF /* FullScreenLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenLoadingView.swift; sourceTree = "<group>"; };
-		391E23BB2A43630000CA75EF /* LoadingViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewStyle.swift; sourceTree = "<group>"; };
 		39227BDE2A1E37FB00C86049 /* StampState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampState.swift; sourceTree = "<group>"; };
 		39227BE02A1E498700C86049 /* CompletedStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedStampBoardCell.swift; sourceTree = "<group>"; };
 		39227BE22A20A10700C86049 /* StampFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFilter.swift; sourceTree = "<group>"; };
@@ -277,15 +271,6 @@
 			name = EmptyStyle;
 			sourceTree = "<group>";
 		};
-		391E23AA2A41358900CA75EF /* ColorButton */ = {
-			isa = PBXGroup;
-			children = (
-				391E23A82A41344900CA75EF /* ColorButton.swift */,
-				391E23AB2A41359500CA75EF /* ButtonStyle.swift */,
-			);
-			name = ColorButton;
-			sourceTree = "<group>";
-		};
 		391E23B12A42D16700CA75EF /* LinkManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,7 +294,6 @@
 			children = (
 				3900FAEE2A3B336A009EAC52 /* LoadingView.swift */,
 				391E23B92A43608C00CA75EF /* FullScreenLoadingView.swift */,
-				391E23BB2A43630000CA75EF /* LoadingViewStyle.swift */,
 			);
 			name = LoadingView;
 			sourceTree = "<group>";
@@ -321,7 +305,6 @@
 				391E23B82A43607C00CA75EF /* LoadingView */,
 				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
 				391E23B62A43524000CA75EF /* Toast.swift */,
-				391E23AA2A41358900CA75EF /* ColorButton */,
 				3900FB082A4089AB009EAC52 /* EmptyView */,
 				3900FAAA2A381DEB009EAC52 /* SectionTabView */,
 				3900FAA12A370FAF009EAC52 /* SearchBar */,
@@ -590,10 +573,8 @@
 				391E23B72A43524000CA75EF /* Toast.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
 				3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */,
-				391E23BC2A43630000CA75EF /* LoadingViewStyle.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				3900FAAC2A381E17009EAC52 /* TabViews.swift in Sources */,
-				391E23AC2A41359500CA75EF /* ButtonStyle.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */,
 				DABA1CD52A31FB5E009E351B /* UIFont+PretendardFont.swift in Sources */,
@@ -622,7 +603,6 @@
 				391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
-				391E23A92A41344900CA75EF /* ColorButton.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,

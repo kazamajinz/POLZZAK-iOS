@@ -16,13 +16,13 @@ extension UILabel {
         self.backgroundColor = backgroundColor
     }
     
-    func setLabel(with labelStyle: LabelStyleProtocol) {
-        self.text = labelStyle.text
-        self.textColor = labelStyle.textColor
-        self.font = labelStyle.font
-        self.textAlignment = labelStyle.textAlignment
-        self.backgroundColor = labelStyle.backgroundColor
-    }
+//    func setLabel(with labelStyle: LabelStyleProtocol) {
+//        self.text = labelStyle.text
+//        self.textColor = labelStyle.textColor
+//        self.font = labelStyle.font
+//        self.textAlignment = labelStyle.textAlignment
+//        self.backgroundColor = labelStyle.backgroundColor
+//    }
     
     func setLabel(style: LabelStyleProtocol) {
         let attributedString = NSMutableAttributedString(string: style.text)

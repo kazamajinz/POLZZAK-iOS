@@ -14,6 +14,14 @@ extension UIButton {
         self.titleLabel?.font = font
     }
     
+    func setButtonView(backgroundColor: UIColor = .white, borderColor: UIColor = .black, cornerRadius: CGFloat = 0, borderWidth: CGFloat = 0.0,  masksToBounds: Bool = true) {
+        self.backgroundColor = backgroundColor
+        self.layer.borderColor = borderColor.cgColor
+        self.layer.cornerRadius = cornerRadius
+        self.layer.borderWidth = borderWidth
+        self.layer.masksToBounds = masksToBounds
+    }
+    
     func setCustomButton(labelStyle: LabelStyle? = nil, borderStyle: BorderStyle? = nil) {
         if let label = labelStyle {
             self.setTitle(label.text, for: .normal)

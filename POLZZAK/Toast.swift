@@ -9,19 +9,23 @@ import UIKit
 import SnapKit
 
 struct Toast {
-    var style: LabelStyleProtocol
-    var image: UIImage?
-    
-    let toastContainer: UIView = {
+    private let toastContainer: UIView = {
         let view = UIView()
         view.alpha = 0
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
+        view.backgroundColor = .error500
         return view
     }()
     
-    let imageView = UIImageView()
-    let toastLabel = UILabel()
+    private let imageView = UIImageView()
+    
+    private let toastLabel: UILabel = {
+        let label = UILabel()
+        label.font = .body2
+        label.textColor = .white
+        return label
+    }()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -30,15 +34,13 @@ struct Toast {
         return stackView
     }()
 
-    init(style: LabelStyleProtocol, image: UIImage? = nil) {
-        self.style = style
-        self.image = image
-        configuration()
+    init(image: UIImage? = .informationButton, text: String) {
+        imageView.image = image
+        toastLabel.text = text
     }
 
     func show(controller: UIViewController) {
         controller.view.addSubview(toastContainer)
-        
         setUI()
         
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
@@ -53,12 +55,11 @@ struct Toast {
     }
     
     func setUI() {
-        if image != nil {
-            stackView.addArrangedSubview(imageView)
-            imageView.snp.makeConstraints {
-                $0.width.height.equalTo(20)
-            }
+        stackView.addArrangedSubview(imageView)
+        imageView.snp.makeConstraints {
+            $0.width.height.equalTo(20)
         }
+        
         stackView.addArrangedSubview(toastLabel)
         
         toastContainer.addSubview(stackView)
@@ -72,11 +73,5 @@ struct Toast {
             $0.top.bottom.equalToSuperview().inset(11)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
-    }
-    
-    private func configuration() {
-        toastContainer.backgroundColor = style.backgroundColor
-        toastLabel.setLabel(style: style)
-        imageView.image = image
     }
 }

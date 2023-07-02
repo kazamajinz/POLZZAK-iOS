@@ -32,8 +32,14 @@ final class SearchResultView: UIView {
         return label
     }()
     
-    var button: ColorButton = {
-        let button = ColorButton(buttonStyle: .LinkRequestBlue500)
+    var button: UIButton = {
+        let button = UIButton()
+        button.setTitle("취소", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .caption3
+        button.backgroundColor = .blue500
+        button.layer.cornerRadius = 4
+        button.layer.masksToBounds = true
         return button
     }()
     
@@ -90,38 +96,45 @@ final class SearchResultView: UIView {
         }
     }
     
-    func setStyle(style: SearchResultState) {
-        switch style {
-        case .unlinked(let familyMember):
-            self.familyMember = familyMember
-            imageView.loadImage(from: style.imageURL)
-            imageView.setCustomView(cornerRadius: style.cornerRadious)
-        case .linked(let familyMember):
-            self.familyMember = familyMember
-            imageView.loadImage(from: style.imageURL)
-            imageView.setCustomView(cornerRadius: style.cornerRadious)
-        case .nonExist(_):
+    func setType(type: SearchResultState) {
+        switch type {
+        case .unlinked(let member):
+            familyMember = member
+            imageView.loadImage(from: member.profileURL)
+            imageView.setCustomView(cornerRadius: 45.5)
+            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
+            button.setTitleLabel(title: "연동요청", color: .white, font: .caption3)
+            button.setButtonView(backgroundColor: .blue500, cornerRadius: 4)
+            updateButtonUI(imageViewSize: 91, buttonWidth: 93)
+            button.addTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+        case .linked(let member):
+            familyMember = member
+            imageView.loadImage(from: member.profileURL)
+            imageView.setCustomView(cornerRadius: 45.5)
+            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
+            button.setTitleLabel(title: "이미 연동됐어요", color: .gray400, font: .caption3)
+            button.setButtonView(borderColor: .gray400, cornerRadius: 4, borderWidth: 1)
+            updateButtonUI(imageViewSize: 91, buttonWidth: 124)
+            button.removeTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+        case .linkedRequestComplete(let member):
+            familyMember = member
+            imageView.loadImage(from: member.profileURL)
+            imageView.setCustomView(cornerRadius: 45.5)
+//            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
+            button.setTitleLabel(title: "연동 요청 완료!", color: .blue500, font: .caption3)
+            button.setButtonView(borderColor: .blue500, cornerRadius: 4, borderWidth: 1)
+            updateButtonUI(imageViewSize: 91, buttonWidth: 120)
+            button.removeTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+        case .nonExist(let nickName):
             imageView.image = .sittingCharacter
-            imageView.setCustomView()
+            let emphasisRange = NSRange(location: 0, length: nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님을\n찾을 수 없어요", textColor: .gray700, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body5)
+            placeholder.setLabel(style: emphasisLabelStyle)
+            updateButtonUI(imageViewSize: 100)
         case .notSearch:
             break
         }
         
-        if let style = style.placeholder {
-            placeholder.setLabel(style: style)
-        }
-        
-        updateUI(style: style)
-        setAction(style: style)
-    }
-    
-    func setAction(style: SearchResultState) {
-        switch style {
-        case .unlinked, .linked:
-            button.addTarget(self, action: #selector(linkRequest), for: .touchUpInside)
-        default:
-            break
-        }
         underLineButton.addTarget(self, action: #selector(linkRequestCancel), for: .touchUpInside)
     }
     
@@ -137,31 +150,27 @@ final class SearchResultView: UIView {
         }
     }
     
-    func updateUI(style: SearchResultState) {
+    func updateButtonUI(imageViewSize: CGFloat, buttonWidth: CGFloat = 0) {
         imageView.snp.updateConstraints {
-            self.imageViewSize = $0.width.height.equalTo(style.imageViewSize).constraint
+            self.imageViewSize = $0.width.height.equalTo(imageViewSize).constraint
         }
         
         button.snp.updateConstraints {
-            self.buttonWidth = $0.width.equalTo(style.buttonWidth).constraint
+            self.buttonWidth = $0.width.equalTo(buttonWidth).constraint
         }
-        
-        if let buttonStyle = style.buttonStyle {
-            button.configure(style: buttonStyle)
-        }
-        
-        button.setTitle(style.buttonTitle, for: .normal)
     }
     
     func requestCompletion() {
         guard let familyMember = familyMember else { return }
-        updateUI(style: SearchResultState.linked(familyMember))
+//        updateUI(style: SearchResultState.linked(familyMember))
+        setType(type: .linkedRequestComplete(familyMember))
         underLineButton.isHidden = false
     }
     
     func requestCancel() {
         guard let familyMember = familyMember else { return }
-        updateUI(style: SearchResultState.unlinked(familyMember))
+//        updateUI(style: SearchResultState.unlinked(familyMember))
+        setType(type: .unlinked(familyMember))
         underLineButton.isHidden = true
     }
 }

@@ -10,31 +10,39 @@ import SnapKit
 
 final class FullScreenLoadingView: UIView {
     private let loadingView = LoadingView()
-
-    init(frame: CGRect = .zero, style: LoadingViewStyle) {
+    private var topConstraint: Constraint?
+    var topSpacing: CGFloat = 251 {
+        didSet {
+            topConstraint?.update(offset: topSpacing)
+        }
+    }
+    
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        setupView(style: style)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView(style: LoadingViewStyle) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupView()
+    }
+    
+    private func setupView() {
         backgroundColor = .white
         isHidden = true
         
         addSubview(loadingView)
         
         loadingView.snp.makeConstraints {
-            let topConstraint = style.topConstraint
-            $0.top.equalTo(topConstraint)
+            topConstraint = $0.top.equalTo(topSpacing).constraint
             $0.centerX.equalToSuperview()
         }
     }
     
     func startLoading() {
-        loadingView.startRotating()
         isHidden = false
     }
 

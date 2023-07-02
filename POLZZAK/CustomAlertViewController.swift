@@ -66,7 +66,11 @@ final class CustomAlertViewController: UIViewController {
         return button
     }()
     
-    private let loadingView = LoadingView()
+    private let loadingView: LoadingView = {
+        let loadingView = LoadingView()
+        loadingView.isHidden = true
+        return loadingView
+    }()
     
     var buttonStyle: ButtonCount = .double
     
@@ -139,7 +143,6 @@ extension CustomAlertViewController {
     
     func startLoading() {
         buttonStackView.isHidden = true
-        loadingView.startRotating()
     }
     
     @objc private func firstButtonTapped() {
