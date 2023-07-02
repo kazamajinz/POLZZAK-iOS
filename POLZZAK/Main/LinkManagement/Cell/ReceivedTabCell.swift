@@ -22,7 +22,7 @@ final class ReceivedTabCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.setCustomView(cornerRadius: 16)
+        imageView.addBorder(cornerRadius: 16)
         return imageView
     }()
     
@@ -39,17 +39,15 @@ final class ReceivedTabCell: UITableViewCell {
     
     private let acceptButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(text: "수락", textColor: .white, font: .body2, backgroundColor: .blue500)
-        let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
+        button.setTitleLabel(title: "수락", color: .white, font: .body2, backgroundColor: .blue500)
+        button.addBorder(cornerRadius: 6)
         return button
     }()
     
     private let rejectButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(text: "거절", textColor: .white, font: .body2, backgroundColor: .error500)
-        let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
+        button.setTitleLabel(title: "취소", color: .white, font: .body2, backgroundColor: .error500)
+        button.addBorder(cornerRadius: 6)
         return button
     }()
     

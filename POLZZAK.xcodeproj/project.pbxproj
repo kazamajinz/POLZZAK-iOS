@@ -24,9 +24,7 @@
 		3900FAEB2A3AEA25009EAC52 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */; };
 		3900FAEF2A3B336A009EAC52 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAEE2A3B336A009EAC52 /* LoadingView.swift */; };
 		3900FAF12A3B6F1D009EAC52 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */; };
-		3900FB0A2A408A64009EAC52 /* EmptyStyleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */; };
-		3900FB0C2A408F3D009EAC52 /* LinkEmptyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */; };
-		3900FB0F2A408F72009EAC52 /* LinkSearchEmptyStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0E2A408F72009EAC52 /* LinkSearchEmptyStyle.swift */; };
+		3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */; };
 		3900FB112A409025009EAC52 /* ParentsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB102A409025009EAC52 /* ParentsType.swift */; };
 		391E23A32A40B3D300CA75EF /* SearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23A22A40B3D300CA75EF /* SearchState.swift */; };
 		391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391E23A42A41265500CA75EF /* SearchLoadingView.swift */; };
@@ -50,6 +48,7 @@
 		39D539D62A16032D0087B2BD /* MemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D52A16032D0087B2BD /* MemberType.swift */; };
 		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */; };
+		39F60FB32A51ADF0006CDC6A /* PaddedLabel .swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F60FB22A51ADF0006CDC6A /* PaddedLabel .swift */; };
 		3C0793502A0E63C500087F73 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C07934F2A0E63C500087F73 /* MainViewController.swift */; };
 		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
 		3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2300A32A0E358700130D1B /* UIColor+extension.swift */; };
@@ -102,9 +101,7 @@
 		3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		3900FAEE2A3B336A009EAC52 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
-		3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStyleProtocol.swift; sourceTree = "<group>"; };
-		3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyStyle.swift; sourceTree = "<group>"; };
-		3900FB0E2A408F72009EAC52 /* LinkSearchEmptyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkSearchEmptyStyle.swift; sourceTree = "<group>"; };
+		3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyType.swift; sourceTree = "<group>"; };
 		3900FB102A409025009EAC52 /* ParentsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentsType.swift; sourceTree = "<group>"; };
 		391E23A22A40B3D300CA75EF /* SearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchState.swift; sourceTree = "<group>"; };
 		391E23A42A41265500CA75EF /* SearchLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLoadingView.swift; sourceTree = "<group>"; };
@@ -129,6 +126,7 @@
 		39D539D52A16032D0087B2BD /* MemberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberType.swift; sourceTree = "<group>"; };
 		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
 		39D539DE2A16568D0087B2BD /* StampBoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardHeaderView.swift; sourceTree = "<group>"; };
+		39F60FB22A51ADF0006CDC6A /* PaddedLabel .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaddedLabel .swift"; sourceTree = "<group>"; };
 		3C0793472A0E637700087F73 /* MissionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHeaderView.swift; sourceTree = "<group>"; };
 		3C0793492A0E637700087F73 /* StampView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +178,7 @@
 			children = (
 				3900FA922A32BADC009EAC52 /* LinkManagementViewController.swift */,
 				391E23A42A41265500CA75EF /* SearchLoadingView.swift */,
+				3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */,
 				391E23B42A42D54800CA75EF /* SearchResult */,
 				3900FA962A358595009EAC52 /* Cell */,
 			);
@@ -200,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				3900FAA22A37135B009EAC52 /* SearchBar.swift */,
+				391E23A22A40B3D300CA75EF /* SearchState.swift */,
 				3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */,
 				3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */,
 			);
@@ -215,22 +215,11 @@
 			name = SectionTabView;
 			sourceTree = "<group>";
 		};
-		3900FAD52A39FD22009EAC52 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				39227BE22A20A10700C86049 /* StampFilter.swift */,
-				39227BDE2A1E37FB00C86049 /* StampState.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
 		3900FAD82A39FE30009EAC52 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
 				3900FB102A409025009EAC52 /* ParentsType.swift */,
-				391E23A22A40B3D300CA75EF /* SearchState.swift */,
 				3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */,
-				3900FAD52A39FD22009EAC52 /* Main */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -257,27 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */,
-				3900FB0D2A408F53009EAC52 /* EmptyStyle */,
 			);
 			name = EmptyView;
-			sourceTree = "<group>";
-		};
-		3900FB0D2A408F53009EAC52 /* EmptyStyle */ = {
-			isa = PBXGroup;
-			children = (
-				3900FB092A408A64009EAC52 /* EmptyStyleProtocol.swift */,
-				391E23B12A42D16700CA75EF /* LinkManagement */,
-			);
-			name = EmptyStyle;
-			sourceTree = "<group>";
-		};
-		391E23B12A42D16700CA75EF /* LinkManagement */ = {
-			isa = PBXGroup;
-			children = (
-				3900FB0B2A408F3D009EAC52 /* LinkEmptyStyle.swift */,
-				3900FB0E2A408F72009EAC52 /* LinkSearchEmptyStyle.swift */,
-			);
-			name = LinkManagement;
 			sourceTree = "<group>";
 		};
 		391E23B42A42D54800CA75EF /* SearchResult */ = {
@@ -309,6 +279,7 @@
 				3900FAAA2A381DEB009EAC52 /* SectionTabView */,
 				3900FAA12A370FAF009EAC52 /* SearchBar */,
 				3900FAE92A3AEA17009EAC52 /* Alert */,
+				39F60FB22A51ADF0006CDC6A /* PaddedLabel .swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -338,6 +309,8 @@
 			children = (
 				3C07934F2A0E63C500087F73 /* MainViewController.swift */,
 				39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */,
+				39227BE22A20A10700C86049 /* StampFilter.swift */,
+				39227BDE2A1E37FB00C86049 /* StampState.swift */,
 				39D539DB2A1654680087B2BD /* Cell */,
 				3900FA912A32044D009EAC52 /* LinkManagement */,
 			);
@@ -566,7 +539,6 @@
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				3900FAA02A370F9F009EAC52 /* SearchBarTextField.swift in Sources */,
-				3900FB0F2A408F72009EAC52 /* LinkSearchEmptyStyle.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
@@ -594,7 +566,7 @@
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
 				391E23BA2A43608C00CA75EF /* FullScreenLoadingView.swift in Sources */,
 				3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */,
-				3900FB0C2A408F3D009EAC52 /* LinkEmptyStyle.swift in Sources */,
+				3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
@@ -617,6 +589,7 @@
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
+				39F60FB32A51ADF0006CDC6A /* PaddedLabel .swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3900FB112A409025009EAC52 /* ParentsType.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
@@ -625,7 +598,6 @@
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
-				3900FB0A2A408A64009EAC52 /* EmptyStyleProtocol.swift in Sources */,
 				3900FA9C2A35DB65009EAC52 /* TabView.swift in Sources */,
 				391E23B02A42D11300CA75EF /* SearchResultView.swift in Sources */,
 			);

@@ -52,7 +52,8 @@ class EmptyCell: UICollectionViewCell {
 
 extension EmptyCell {
     private func setUI() {
-        setCustomView(backgroundColor: .white, cornerRadius: 8)
+        backgroundColor = .white
+        addBorder(cornerRadius: 8)
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         [imageView, placeHoldLabel].forEach {
@@ -73,8 +74,7 @@ extension EmptyCell {
     
     func configure(nickName: String = "") {
         let emphasisRange = NSRange(location: 0, length: nickName.count)
-        let emphasisLabelStyle = EmphasisLabelStyle(text: nickName, textColor: .gray700, font: .body5,
-                                                    emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body3)
+        let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님은 아직\n완료된 도장판이 없어요", textColor: .gray700, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body5)
         placeHoldLabel.setLabel(style: emphasisLabelStyle)
     }
 }

@@ -38,11 +38,11 @@ final class LinkManagementViewController: UIViewController {
                 
                 switch linkManagementTabState {
                 case .linkListTab:
-                    tableEmptyView.setStyle(LinkEmptyStyle.linkListTab)
+                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
                 case .receivedTab:
-                    tableEmptyView.setStyle(LinkEmptyStyle.receivedTab)
+                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
                 case .sentTab:
-                    tableEmptyView.setStyle(LinkEmptyStyle.sentTab)
+                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
                 }
                 
                 tableView.backgroundView = tableEmptyView
@@ -118,9 +118,18 @@ final class LinkManagementViewController: UIViewController {
     }
     
     //MARK: - UI
-    private var tableEmptyView: EmptyView = EmptyView(style: LinkEmptyStyle.linkListTab)
+    private var tableEmptyView: EmptyView = {
+        let emptyView = EmptyView()
+        emptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
+        emptyView.imageView.image = .sittingCharacter
+        return emptyView
+    }()
+    
     private lazy var searchEmptyView: EmptyView = {
-        let emptyView = EmptyView(style: LinkSearchEmptyStyle.searchDefault(userType))
+        let emptyView = EmptyView()
+        emptyView.topSpacing = 229
+        emptyView.label.setLabel(text: "연동된 \(userType.string)에게\n칭안 도장판을 만들어 줄 수 있어요", textColor: .gray500, font: .caption2, textAlignment: .center)
+        emptyView.imageView.image = .searchImage
         emptyView.isHidden = true
         return emptyView
     }()
@@ -457,8 +466,6 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
             }
             
             present(alert, animated: false)
-            
-            
         }
     }
 }

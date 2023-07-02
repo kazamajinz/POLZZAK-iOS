@@ -10,32 +10,34 @@ import SnapKit
 
 final class EmptyView: UIView {
     private var topConstraint: Constraint?
+    var topSpacing: CGFloat = 128 {
+        didSet {
+            topConstraint?.update(offset: topSpacing)
+        }
+    }
     
-    private let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private let label: UILabel = {
+    let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    init(frame: CGRect = .zero, style: EmptyStyleProtocol) {
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        setUI(style: style)
+        setUI()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUI(style: EmptyStyleProtocol) {
-        label.setLabel(style: style.labelStyle)
-        imageView.image = style.emptyImage
-        
+    private func setUI() {
         backgroundColor = .white
         
         [imageView, label].forEach {
@@ -43,13 +45,7 @@ final class EmptyView: UIView {
         }
         
         imageView.snp.makeConstraints {
-            //MARK: - topContraint가 0일 경우 가운데로 가도록.
-            if style.topConstraint == 0 {
-                $0.centerY.equalToSuperview()
-            } else {
-                self.topConstraint = $0.top.equalToSuperview().constraint
-            }
-            
+            topConstraint = $0.top.equalTo(topSpacing).constraint
             $0.centerX.equalToSuperview()
             $0.height.width.equalTo(100)
         }
@@ -58,19 +54,6 @@ final class EmptyView: UIView {
             $0.top.equalTo(imageView.snp.bottom).offset(12)
             $0.centerX.equalToSuperview()
         }
-        
-        updateUI(offset: style.topConstraint)
-    }
-    
-    func setStyle(_ style: EmptyStyleProtocol) {
-        label.setLabel(style: style.labelStyle)
-        imageView.image = style.emptyImage
-        updateUI(offset: style.topConstraint)
-        self.layoutIfNeeded()
-    }
-    
-    func updateUI(offset: CGFloat) {
-        topConstraint?.update(offset: offset)
     }
     
     func hideBackgroundView() {

@@ -15,7 +15,6 @@ protocol SearchResultViewDelegate: AnyObject {
 
 final class SearchResultView: UIView {
     private var imageViewSize: Constraint?
-    private var buttonWidth: Constraint?
     weak var delegate: SearchResultViewDelegate?
     var familyMember: FamilyMember?
     
@@ -32,22 +31,12 @@ final class SearchResultView: UIView {
         return label
     }()
     
-    var button: UIButton = {
-        let button = UIButton()
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .caption3
-        button.backgroundColor = .blue500
-        button.layer.cornerRadius = 4
-        button.layer.masksToBounds = true
-        return button
-    }()
+    let button = PaddedLabel()
     
     var underLineButton: UIButton = {
         let button = UIButton()
         button.isHidden = true
-        let labelStyle = LabelStyle(text: "앗 실수, 요청 취소 할래요", textColor: .gray500, font: .body9, textAlignment: .center)
-        button.setUnderlinedTitle(labelStyle: labelStyle)
+        button.setUnderlinedTitle(text: "앗 실수, 요청 취소 할래요", textColor: .gray500, font: .body9)
         return button
     }()
     
@@ -86,7 +75,6 @@ final class SearchResultView: UIView {
         button.snp.makeConstraints {
             $0.top.equalTo(placeholder.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
-            self.buttonWidth = $0.width.equalTo(100).constraint
             $0.height.equalTo(32)
         }
         
@@ -101,30 +89,31 @@ final class SearchResultView: UIView {
         case .unlinked(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
-            imageView.setCustomView(cornerRadius: 45.5)
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
-            button.setTitleLabel(title: "연동요청", color: .white, font: .caption3)
-            button.setButtonView(backgroundColor: .blue500, cornerRadius: 4)
-            updateButtonUI(imageViewSize: 91, buttonWidth: 93)
-            button.addTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+            button.setLabel(text: "연동요청", textColor: .white, font: .caption3, textAlignment: .center, backgroundColor: .blue500)
+            button.addBorder(cornerRadius: 4)
+            //TODO: - 패딩값이 고정이 아닌 이유가 피그마에는 13, 12, 13, 12로 표기되어있습니다. 그래서 설정이 되도록 만들었는데 육안상으로 13, 24, 13, 24가 맞는것같습니다...
+            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
+            button.isUserInteractionEnabled = true
+            button.addGestureRecognizer(tapGesture)
+
         case .linked(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
-            imageView.setCustomView(cornerRadius: 45.5)
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
-            button.setTitleLabel(title: "이미 연동됐어요", color: .gray400, font: .caption3)
-            button.setButtonView(borderColor: .gray400, cornerRadius: 4, borderWidth: 1)
-            updateButtonUI(imageViewSize: 91, buttonWidth: 124)
-            button.removeTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+            button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption3, textAlignment: .center)
+            button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
+            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
+            button.isUserInteractionEnabled = true
+            button.addGestureRecognizer(tapGesture)
         case .linkedRequestComplete(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
-            imageView.setCustomView(cornerRadius: 45.5)
-//            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
-            button.setTitleLabel(title: "연동 요청 완료!", color: .blue500, font: .caption3)
-            button.setButtonView(borderColor: .blue500, cornerRadius: 4, borderWidth: 1)
-            updateButtonUI(imageViewSize: 91, buttonWidth: 120)
-            button.removeTarget(self, action: #selector(linkRequest), for: .touchUpInside)
+            button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption3, textAlignment: .center)
+            button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
+            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
         case .nonExist(let nickName):
             imageView.image = .sittingCharacter
             let emphasisRange = NSRange(location: 0, length: nickName.count)
@@ -150,26 +139,20 @@ final class SearchResultView: UIView {
         }
     }
     
-    func updateButtonUI(imageViewSize: CGFloat, buttonWidth: CGFloat = 0) {
+    func updateButtonUI(imageViewSize: CGFloat) {
         imageView.snp.updateConstraints {
             self.imageViewSize = $0.width.height.equalTo(imageViewSize).constraint
-        }
-        
-        button.snp.updateConstraints {
-            self.buttonWidth = $0.width.equalTo(buttonWidth).constraint
         }
     }
     
     func requestCompletion() {
         guard let familyMember = familyMember else { return }
-//        updateUI(style: SearchResultState.linked(familyMember))
         setType(type: .linkedRequestComplete(familyMember))
         underLineButton.isHidden = false
     }
     
     func requestCancel() {
         guard let familyMember = familyMember else { return }
-//        updateUI(style: SearchResultState.unlinked(familyMember))
         setType(type: .unlinked(familyMember))
         underLineButton.isHidden = true
     }

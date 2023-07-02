@@ -80,7 +80,7 @@ final class SearchBarSubView: UIView {
 extension SearchBarSubView {
     private func configure() {
         addSubview(searchBarTextField)
-        setCustomView(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
     }
 }
 

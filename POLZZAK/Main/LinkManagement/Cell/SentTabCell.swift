@@ -21,7 +21,7 @@ final class SentTabCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.setCustomView(cornerRadius: 16)
+        imageView.addBorder(cornerRadius: 16)
         return imageView
     }()
     
@@ -33,9 +33,8 @@ final class SentTabCell: UITableViewCell {
     
     private let cancelButton: UIButton = {
         let button = UIButton()
-        let labelStyle = LabelStyle(text: "요청 취소", textColor: .white, font: .body2, backgroundColor: .error500)
-        let borderStyle = BorderStyle(cornerRadius: 6)
-        button.setCustomButton(labelStyle: labelStyle, borderStyle: borderStyle)
+        button.setTitleLabel(title: "요청 취소", color: .white, font: .body2, backgroundColor: .error500)
+        button.addBorder(cornerRadius: 6)
         return button
     }()
     

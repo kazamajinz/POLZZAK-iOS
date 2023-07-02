@@ -89,7 +89,7 @@ final class LinkListTabCell: UITableViewCell {
             $0.width.equalTo(closeButton.snp.height)
         }
         
-        profileImage.setCustomView(cornerRadius: profileImage.bounds.width / 2)
+        profileImage.addBorder(cornerRadius: profileImage.bounds.width / 2)
     }
     
     func configure(with family: FamilyMember) {
