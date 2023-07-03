@@ -76,6 +76,7 @@ final class SearchResultView: UIView {
             $0.top.equalTo(placeholder.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32)
+            $0.width.greaterThanOrEqualTo(100)
         }
         
         underLineButton.snp.makeConstraints {
@@ -92,8 +93,7 @@ final class SearchResultView: UIView {
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
             button.setLabel(text: "연동요청", textColor: .white, font: .caption3, textAlignment: .center, backgroundColor: .blue500)
             button.addBorder(cornerRadius: 4)
-            //TODO: - 패딩값이 고정이 아닌 이유가 피그마에는 13, 12, 13, 12로 표기되어있습니다. 그래서 설정이 되도록 만들었는데 육안상으로 13, 24, 13, 24가 맞는것같습니다...
-            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
+            button.padding = UIEdgeInsets(top: 13, left: 12, bottom: 13, right: 12)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
             button.isUserInteractionEnabled = true
             button.addGestureRecognizer(tapGesture)
