@@ -176,6 +176,7 @@ class NicknameChecker: UIView {
             }
             .store(in: &cancellables)
         
+        // TODO: 아래 TapGesture를 RegisterNicknameViewController로 옮기기
         let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         addGestureRecognizer(tapGesture)
         
