@@ -14,7 +14,6 @@ protocol SearchResultViewDelegate: AnyObject {
 }
 
 final class SearchResultView: UIView {
-    private var imageViewSize: Constraint?
     weak var delegate: SearchResultViewDelegate?
     var familyMember: FamilyMember?
     
@@ -22,6 +21,7 @@ final class SearchResultView: UIView {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -64,7 +64,7 @@ final class SearchResultView: UIView {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(175)
             $0.centerX.equalToSuperview()
-            self.imageViewSize = $0.width.height.equalTo(100).constraint
+            $0.width.height.equalTo(100)
         }
         
         placeholder.snp.makeConstraints {
@@ -90,6 +90,7 @@ final class SearchResultView: UIView {
         case .unlinked(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
+            imageView.layer.cornerRadius = 50
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
             button.setLabel(text: "연동요청", textColor: .white, font: .caption3, textAlignment: .center, backgroundColor: .blue500)
             button.addBorder(cornerRadius: 4)
@@ -101,6 +102,7 @@ final class SearchResultView: UIView {
         case .linked(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
+            imageView.layer.cornerRadius = 50
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
             button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption3, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
@@ -111,15 +113,16 @@ final class SearchResultView: UIView {
         case .linkedRequestComplete(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
+            imageView.layer.cornerRadius = 50
             button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption3, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
             button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
         case .nonExist(let nickName):
             imageView.image = .sittingCharacter
+            imageView.layer.cornerRadius = 0
             let emphasisRange = NSRange(location: 0, length: nickName.count)
             let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님을\n찾을 수 없어요", textColor: .gray700, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body5)
             placeholder.setLabel(style: emphasisLabelStyle)
-            updateButtonUI(imageViewSize: 100)
         case .notSearch:
             break
         }
@@ -136,12 +139,6 @@ final class SearchResultView: UIView {
     @objc private func linkRequestCancel() {
         if let memberId = familyMember?.memberId {
             delegate?.linkRequestCancel(memberId: memberId)
-        }
-    }
-    
-    func updateButtonUI(imageViewSize: CGFloat) {
-        imageView.snp.updateConstraints {
-            self.imageViewSize = $0.width.height.equalTo(imageViewSize).constraint
         }
     }
     
