@@ -139,3 +139,7 @@ xcuserdata
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+
+
+### POLZZAK Project ###
+# POLZZAK/Common/Constants.swift
