@@ -35,7 +35,7 @@ class RegisterNicknameViewController: UIViewController {
         return label
     }()
     
-    private let textField = NicknameTextField()
+    private let nicknameChecker = NicknameChecker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +45,11 @@ class RegisterNicknameViewController: UIViewController {
     }
     
     private func configureLayout() {
-        view.addSubview(textField)
+        view.addSubview(nicknameChecker)
         
-        textField.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+        nicknameChecker.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(16)
         }
     }
     
