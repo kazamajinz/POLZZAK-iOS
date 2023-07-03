@@ -12,11 +12,12 @@ extension UIColor {
     // MARK: - Primary
     
     static let blue100 = UIColor(named: "blue100")!
+    static let blue150 = UIColor(named: "blue150")!
     static let blue200 = UIColor(named: "blue200")!
-    static let blue300 = UIColor(named: "blue300")!
     static let blue400 = UIColor(named: "blue400")!
     static let blue500 = UIColor(named: "blue500")!
     static let blue600 = UIColor(named: "blue600")!
+    static let blue700 = UIColor(named: "blue700")!
     
     // MARK: - Grayscale
     
@@ -34,4 +35,8 @@ extension UIColor {
     static let error100 = UIColor(named: "error100")!
     static let error200 = UIColor(named: "error200")!
     static let error500 = UIColor(named: "error500")!
+    
+    //MARK: - Etc
+    
+    static let blindTextColor = UIColor(named: "blindTextColor")!
 }
