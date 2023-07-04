@@ -133,7 +133,7 @@ class NicknameChecker: UIView {
                 setCheckButton(status: .inactive)
                 setCountLabelText(textCount: text?.count)
                 let validationResult = checkValidity(text: text)
-                setDescriptionUnderTextField(validationResult: validationResult, hideWhenNilOrEmpty: textField.isFirstResponder)
+                setDescriptionUnderTextField(validationResult: validationResult, alwaysHide: textField.isFirstResponder)
                 
                 switch validationResult {
                 case .pass:
@@ -161,7 +161,6 @@ class NicknameChecker: UIView {
         
         textField.cancelImageViewTapped
             .sink { [weak self] _ in
-                print("tapped")
                 self?.otherEditTextField.send(())
             }
             .store(in: &cancellables)
@@ -186,7 +185,7 @@ class NicknameChecker: UIView {
             }
             .store(in: &cancellables)
         
-        backgroundColor = .green
+        backgroundColor = .green // TODO: 삭제
     }
     
     private func configureTextField() {
@@ -203,7 +202,7 @@ class NicknameChecker: UIView {
         return .pass
     }
     
-    private func setDescriptionUnderTextField(validationResult: ValidationResult, hideWhenNilOrEmpty: Bool = true) {
+    private func setDescriptionUnderTextField(validationResult: ValidationResult, alwaysHide: Bool = false) {
         descriptionLabel.text = validationResult.description
         
         switch validationResult {
@@ -211,8 +210,8 @@ class NicknameChecker: UIView {
             descriptionLabel.textColor = .error500
             descriptionLabel.isHidden = false
             checkImageView.isHidden = true
-            print(hideWhenNilOrEmpty)
-            if hideWhenNilOrEmpty {
+            
+            if alwaysHide {
                 fallthrough
             }
         default:
