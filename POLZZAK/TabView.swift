@@ -49,6 +49,7 @@ final class TabView: UIView {
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
+        setUI()
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
@@ -58,7 +59,7 @@ final class TabView: UIView {
 }
 
 extension TabView {
-    func setUI() {
+    private func setUI() {
         [tabLabel, underlineView].forEach {
             addSubview($0)
         }
@@ -84,18 +85,15 @@ extension TabView {
         delegate?.tabViewDidSelect(self)
     }
     
-    func selectedTab(selectTextColor: UIColor, selectFont: UIFont, selectLineColor: UIColor, selectLineHeight: CGFloat) {
+    func selectedTab() {
         tabLabel.textColor = selectTextColor
         underlineView.backgroundColor = selectLineColor
         underlineHeightConstraint?.update(offset: selectLineHeight)
-        self.selectLineHeight = selectLineHeight
-        setNeedsLayout()
     }
     
-    func deselectedTab(deselectTextColor: UIColor, deselectFont: UIFont, deselectLineColor: UIColor, deselectLineHeight: CGFloat) {
+    func deselectedTab() {
         tabLabel.textColor = deselectTextColor
         underlineView.backgroundColor = deselectLineColor
         underlineHeightConstraint?.update(offset: deselectLineHeight)
-        self.deselectLineHeight = deselectLineHeight
     }
 }

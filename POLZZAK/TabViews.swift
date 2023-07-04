@@ -145,15 +145,22 @@ extension TabViews {
             if index == 0 {
                 tabView.isSelected = true
                 tabView.selectLineHeight = selectLineHeight
-                tabView.selectedTab(selectTextColor: selectTextColor, selectFont: selectFont, selectLineColor: selectLineColor, selectLineHeight: selectLineHeight)
+                tabView.selectTextColor = selectTextColor
+                tabView.selectFont = selectFont
+                tabView.selectLineColor = selectLineColor
+                tabView.selectLineHeight = selectLineHeight
                 selectedTab = tabView
+                tabView.selectedTab()
             } else {
                 tabView.isSelected = false
                 tabView.deselectLineHeight = deselectLineHeight
-                tabView.deselectedTab(deselectTextColor: deselectTextColor, deselectFont: deselectFont, deselectLineColor: deselectLineColor, deselectLineHeight: deselectLineHeight)
+                tabView.deselectTextColor = deselectTextColor
+                tabView.deselectFont = deselectFont
+                tabView.deselectLineColor = deselectLineColor
+                tabView.deselectLineHeight = deselectLineHeight
+                tabView.deselectedTab()
             }
             
-            tabView.setUI()
             addArrangedSubview(tabView)
         }
     }
@@ -162,9 +169,9 @@ extension TabViews {
 extension TabViews: TabViewDelegate {
     func tabViewDidSelect(_ tabView: TabView) {
         if selectedTab != tabView {
-            selectedTab?.deselectedTab(deselectTextColor: deselectTextColor, deselectFont: deselectFont, deselectLineColor: deselectLineColor, deselectLineHeight: deselectLineHeight)
+            selectedTab?.deselectedTab()
             
-            tabView.selectedTab(selectTextColor: selectTextColor, selectFont: selectFont, selectLineColor: selectLineColor, selectLineHeight: selectLineHeight)
+            tabView.selectedTab()
             selectedTab = tabView
             delegate?.tabViews(self, didSelectTabAtIndex: tabView.tag)
         }

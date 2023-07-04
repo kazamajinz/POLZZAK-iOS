@@ -15,17 +15,15 @@ protocol SentTabCellDelegate: AnyObject {
 final class SentTabCell: UITableViewCell {
     static let reuseIdentifier = "SentTabCell"
     weak var delegate: SentTabCellDelegate?
-    var family: FamilyMember?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.addBorder(cornerRadius: 16)
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.setLabel(textColor: .gray800, font: .body2)
         return label
@@ -48,7 +46,7 @@ final class SentTabCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setUI()
         cancelButton.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
     }
     
@@ -63,14 +61,14 @@ final class SentTabCell: UITableViewCell {
     
     override func setNeedsLayout() {
         super.setNeedsLayout()
-        setUI()
+        profileImage.addBorder(cornerRadius: profileImage.bounds.width / 2)
     }
     
     private func setUI() {
         selectionStyle = .none
         
         [profileImage, titleLabel, cancelButton].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
         
         profileImage.snp.makeConstraints {
@@ -93,7 +91,6 @@ final class SentTabCell: UITableViewCell {
     }
     
     func configure(family: FamilyMember) {
-        self.family = family
         profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickName
     }

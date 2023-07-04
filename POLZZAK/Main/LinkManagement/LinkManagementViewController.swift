@@ -23,19 +23,16 @@ final class LinkManagementViewController: UIViewController {
     private var workItem: DispatchWorkItem?
     
     //TODO: - 임시코드, 새로운 API통신을 했다는 가정
-    private var beforeState: LinkTabStyle = .receivedTab
     private var linkManagementTabState: LinkTabStyle = .linkListTab {
         didSet {
+            
+            if 0 == testData.count {
+                return
+            }
             //TODO: - 새로운 API통신을 했다는 가정
             fullScreenLoadingView.startLoading()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 guard let self = self else { return }
-                if beforeState != linkManagementTabState {
-                    testData = dummyFmailyData.families
-                }
-                
-                testData = dummyFmailyData.families
-                
                 switch linkManagementTabState {
                 case .linkListTab:
                     tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
@@ -44,10 +41,10 @@ final class LinkManagementViewController: UIViewController {
                 case .sentTab:
                     tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
                 }
-                
+
                 tableView.backgroundView = tableEmptyView
                 tableView.reloadData()
-                
+
                 self.fullScreenLoadingView.stopLoading()
             }
         }
@@ -134,7 +131,7 @@ final class LinkManagementViewController: UIViewController {
         return emptyView
     }()
     private var searchResultView: SearchResultView = SearchResultView()
-    private var fullScreenLoadingView = FullScreenLoadingView()
+    private let fullScreenLoadingView = FullScreenLoadingView()
     
     private let searchLoadingView: SearchLoadingView = {
         let searchLoadingView = SearchLoadingView()
@@ -281,21 +278,21 @@ extension LinkManagementViewController {
     
     private func linkListTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-        beforeState = linkManagementTabState
+//        beforeState = linkManagementTabState
         
         linkManagementTabState = .linkListTab
     }
     
     private func receivedTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-        beforeState = linkManagementTabState
+//        beforeState = linkManagementTabState
         
         linkManagementTabState = .receivedTab
     }
     
     private func sentTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-        beforeState = linkManagementTabState
+//        beforeState = linkManagementTabState
         
         linkManagementTabState = .sentTab
     }
@@ -325,17 +322,17 @@ extension LinkManagementViewController: UITableViewDataSource {
         let family = testData[indexPath.row]
         switch linkManagementTabState {
         case .linkListTab:
-            let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier) as! LinkListTabCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier, for: indexPath) as! LinkListTabCell
             cell.delegate = self
             cell.configure(with: family)
             return cell
         case .receivedTab:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedTabCell.reuseIdentifier) as! ReceivedTabCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedTabCell.reuseIdentifier, for: indexPath) as! ReceivedTabCell
             cell.delegate = self
             cell.configure(family: family)
             return cell
         case .sentTab:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SentTabCell.reuseIdentifier) as! SentTabCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: SentTabCell.reuseIdentifier, for: indexPath) as! SentTabCell
             cell.delegate = self
             cell.configure(family: family)
             return cell
@@ -359,9 +356,7 @@ extension LinkManagementViewController: UITableViewDataSource {
             testData = dummyFmailyData.families
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                if let index = self?.testData.firstIndex(where: { $0.memberId == memberId }) {
-                    self?.testData.remove(at: index)
-                }
+                self?.testData.remove(at: memberId)
                 completion?()
             }
         }
@@ -417,16 +412,16 @@ extension LinkManagementViewController: UITableViewDataSource {
 // MARK: - LinkListTabCellDelegate
 extension LinkManagementViewController: LinkListTabCellDelegate {
     func didTapClose(on cell: LinkListTabCell) {
-        if let family = cell.family {
+        if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님과\n연동을 해제하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            let emphasisRange = NSRange(location: 0, length: nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님과\n연동을 해제하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
             alert.contentLabel.setLabel(style: emphasisLabelStyle)
             alert.secondButton.setTitle("네, 해제할래요", for: .normal)
             alert.isLoadingView = true
             
             alert.secondButtonAction = { [weak self] in
-                self?.tempRemove(memberId: family.memberId)
+                self?.tempRemove(memberId: indexPath)
             }
             
             present(alert, animated: false)
@@ -437,16 +432,16 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
 //MARK: - ReceivedTabCellDelegate
 extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapAccept(on cell: ReceivedTabCell) {
-        if let family = cell.family {
+        if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님의\n연동 요청을 수락하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            let emphasisRange = NSRange(location: 0, length: nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님의\n연동 요청을 수락하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
             alert.contentLabel.setLabel(style: emphasisLabelStyle)
             alert.secondButton.setTitle("네, 좋아요!", for: .normal)
             alert.isLoadingView = true
             
             alert.secondButtonAction = { [weak self] in
-                self?.tempRemove(memberId: family.memberId)
+                self?.tempRemove(memberId: indexPath)
             }
             
             present(alert, animated: false)
@@ -454,15 +449,15 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
     }
     
     func didTapReject(on cell: ReceivedTabCell) {
-        if let family = cell.family {
+        if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님의\n연동 요청을 거절하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            let emphasisRange = NSRange(location: 0, length: nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님의\n연동 요청을 거절하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
             alert.contentLabel.setLabel(style: emphasisLabelStyle)
             alert.secondButton.setTitle("네, 거절할래요", for: .normal)
             
             alert.secondButtonAction = { [weak self] in
-                self?.tempRemove(memberId: family.memberId)
+                self?.tempRemove(memberId: indexPath)
             }
             
             present(alert, animated: false)
@@ -473,16 +468,16 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
 //MARK: - SentTabCellDelegate
 extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
-        if let family = cell.family {
+        if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: family.nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(family.nickName)님에게 보낸\n연동 요청을 취소하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
+            let emphasisRange = NSRange(location: 0, length: nickName.count)
+            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님에게 보낸\n연동 요청을 취소하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
             alert.contentLabel.setLabel(style: emphasisLabelStyle)
             alert.secondButton.setTitle("네, 취소할래요", for: .normal)
             alert.isLoadingView = true
             
             alert.secondButtonAction = { [weak self] in
-                self?.tempRemove(memberId: family.memberId)
+                self?.tempRemove(memberId: indexPath)
             }
             
             present(alert, animated: false)

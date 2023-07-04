@@ -16,17 +16,15 @@ protocol ReceivedTabCellDelegate: AnyObject {
 final class ReceivedTabCell: UITableViewCell {
     static let reuseIdentifier = "ReceivedTabCell"
     weak var delegate: ReceivedTabCellDelegate?
-    var family: FamilyMember?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.addBorder(cornerRadius: 16)
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.setLabel(textColor: .gray800, font: .body2)
         return label
@@ -61,7 +59,7 @@ final class ReceivedTabCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setUI()
         acceptButton.addTarget(self, action: #selector(acceptButtonClicked), for: .touchUpInside)
         rejectButton.addTarget(self, action: #selector(rejectButtonClicked), for: .touchUpInside)
     }
@@ -77,14 +75,14 @@ final class ReceivedTabCell: UITableViewCell {
     
     override func setNeedsLayout() {
         super.setNeedsLayout()
-        setUI()
+        profileImage.addBorder(cornerRadius: profileImage.bounds.width / 2)
     }
     
     private func setUI() {
         selectionStyle = .none
         
         [profileImage, titleLabel, buttonView].forEach {
-            addSubview($0)
+            contentView.addSubview($0)
         }
         
         [acceptButton, rejectButton].forEach {
@@ -121,7 +119,6 @@ final class ReceivedTabCell: UITableViewCell {
     }
     
     func configure(family: FamilyMember) {
-        self.family = family
         profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickName
     }

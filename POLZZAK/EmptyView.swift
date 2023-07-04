@@ -45,7 +45,7 @@ final class EmptyView: UIView {
         }
         
         imageView.snp.makeConstraints {
-            topConstraint = $0.top.equalTo(topSpacing).constraint
+            topConstraint = $0.top.equalToSuperview().offset(topSpacing).constraint
             $0.centerX.equalToSuperview()
             $0.height.width.equalTo(100)
         }
