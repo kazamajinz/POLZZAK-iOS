@@ -14,6 +14,7 @@ protocol TabViewsDelegate: AnyObject {
 
 final class TabViews: UIStackView {
     weak var delegate: TabViewsDelegate?
+    private var didSetupTabViews = false
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -35,6 +36,7 @@ final class TabViews: UIStackView {
                 tabView.tabLabel.text = title
                 tabViews.append(tabView)
             }
+            setTabviews()
         }
     }
     
@@ -124,7 +126,11 @@ final class TabViews: UIStackView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setTabviews()
+        
+        if !didSetupTabViews {
+                setTabviews()
+                didSetupTabViews = true
+            }
     }
 }
 
