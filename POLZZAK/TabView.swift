@@ -25,21 +25,67 @@ final class TabView: UIView {
         return view
     }()
     
-    var selectTextColor: UIColor = .blue500
-    var selectFont: UIFont = .subtitle2
-    var selectLineColor: UIColor = .blue500
-    var selectLineHeight: CGFloat = 2.0 {
+    var selectTextColor: UIColor = .blue500 {
         didSet {
-            underlineHeightConstraint?.update(offset: selectLineHeight)
+            if isSelected {
+                tabLabel.textColor = selectTextColor
+            }
         }
     }
     
-    var deselectTextColor: UIColor = .gray300
-    var deselectFont: UIFont = .subtitle2
-    var deselectLineColor: UIColor = .gray300
+    var selectFont: UIFont = .subtitle2 {
+        didSet {
+            if isSelected {
+                tabLabel.font = selectFont
+            }
+        }
+    }
+    
+    var selectLineColor: UIColor = .blue500 {
+        didSet {
+            if isSelected {
+                underlineView.backgroundColor = selectLineColor
+            }
+        }
+    }
+    
+    var selectLineHeight: CGFloat = 2.0 {
+        didSet {
+            if isSelected {
+                underlineHeightConstraint?.update(offset: selectLineHeight)
+            }
+        }
+    }
+    
+    var deselectTextColor: UIColor = .gray300 {
+        didSet {
+            if false == isSelected {
+                tabLabel.textColor = deselectTextColor
+            }
+        }
+    }
+    
+    var deselectFont: UIFont = .subtitle2 {
+        didSet {
+            if false == isSelected {
+                tabLabel.font = deselectFont
+            }
+        }
+    }
+    
+    var deselectLineColor: UIColor = .gray300 {
+        didSet {
+            if false == isSelected {
+                underlineView.backgroundColor = deselectLineColor
+            }
+        }
+    }
+    
     var deselectLineHeight: CGFloat = 2.0 {
         didSet {
-            underlineHeightConstraint?.update(offset: deselectLineHeight)
+            if false == isSelected {
+                underlineHeightConstraint?.update(offset: deselectLineHeight)
+            }
         }
     }
     

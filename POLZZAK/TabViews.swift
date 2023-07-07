@@ -15,6 +15,8 @@ protocol TabViewsDelegate: AnyObject {
 final class TabViews: UIStackView {
     weak var delegate: TabViewsDelegate?
     private var didSetupTabViews = false
+    private var selectedTab: TabView?
+    var index: Int = 0
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -112,25 +114,14 @@ final class TabViews: UIStackView {
         }
     }
     
-    private var selectedTab: TabView?
-    var index: Int = 0
-    
     init(frame: CGRect = .zero, tabViews: [TabView] = []) {
         self.tabViews = tabViews
         super.init(frame: frame)
+        setTabviews()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if !didSetupTabViews {
-                setTabviews()
-                didSetupTabViews = true
-            }
     }
 }
 
