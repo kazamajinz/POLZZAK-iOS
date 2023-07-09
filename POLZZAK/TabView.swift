@@ -132,12 +132,14 @@ extension TabView {
     }
     
     func selectedTab() {
+        isSelected = true
         tabLabel.textColor = selectTextColor
         underlineView.backgroundColor = selectLineColor
         underlineHeightConstraint?.update(offset: selectLineHeight)
     }
     
     func deselectedTab() {
+        isSelected = false
         tabLabel.textColor = deselectTextColor
         underlineView.backgroundColor = deselectLineColor
         underlineHeightConstraint?.update(offset: deselectLineHeight)
