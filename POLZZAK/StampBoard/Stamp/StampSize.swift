@@ -33,7 +33,7 @@ enum StampSize {
     }
     
     var isMoreStatus: Bool {
-        if case .some(_) = rawValue.reducedCount {
+        if let _ = rawValue.reducedCount {
             return true
         } else {
             return false
@@ -93,6 +93,36 @@ extension StampSize: RawRepresentable {
             return (48, 30)
         case .size60:
             return (60, 30)
+        }
+    }
+}
+
+extension StampSize {
+    /// For convenience
+    init?(count: Int) {
+        switch count {
+        case 10:
+            self = .size10
+        case 12:
+            self = .size12
+        case 16:
+            self = .size16
+        case 20:
+            self = .size20
+        case 25:
+            self = .size25
+        case 30:
+            self = .size30
+        case 36:
+            self = .size36
+        case 40:
+            self = .size40
+        case 48:
+            self = .size48
+        case 60:
+            self = .size60
+        default:
+            return nil
         }
     }
 }
