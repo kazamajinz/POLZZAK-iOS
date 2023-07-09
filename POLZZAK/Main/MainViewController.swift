@@ -617,3 +617,9 @@ extension MainViewController: UIScrollViewDelegate {
         self.customRefreshControl.endRefreshing()
     }
 }
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(DetailBoardViewController(stampSize: .size20), animated: true)
+    }
+}
