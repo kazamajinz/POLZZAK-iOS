@@ -8,8 +8,7 @@
 import UIKit
 
 extension UIView {
-    func setCustomView(backgroundColor: UIColor = .white, cornerRadius: CGFloat = 0.0, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear, masksToBounds: Bool = true) {
-        self.backgroundColor = backgroundColor
+    func addBorder(cornerRadius: CGFloat = 0.0, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear, masksToBounds: Bool = true) {
         self.layer.cornerRadius = cornerRadius
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor.cgColor

@@ -16,26 +16,29 @@ extension UILabel {
         self.backgroundColor = backgroundColor
     }
     
-    func setLabelForRange(
-        text: String, textFont: UIFont, textColor: UIColor,
-        rest: String, restFont: UIFont, restColor: UIColor,
-        textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
+    func setLabel(style: LabelStyleProtocol) {
+        let attributedString = NSMutableAttributedString(string: style.text)
         
-        let totalString = text + rest
-        let attributedString = NSMutableAttributedString(string: totalString)
+        let basicAttributes: [NSAttributedString.Key: Any] = [
+            .font: style.font,
+            .foregroundColor: style.textColor
+        ]
+        attributedString.addAttributes(basicAttributes, range: NSRange(location: 0, length: style.text.count))
         
-        let textRange = NSRange(location: 0, length: text.count)
-        attributedString.addAttribute(.font, value: textFont, range: textRange)
-        attributedString.addAttribute(.foregroundColor, value: textColor, range: textRange)
-        
-        if rest.count > 0 {
-            let restRange = NSRange(location: text.count, length: rest.count)
-            attributedString.addAttribute(.font, value: restFont, range: restRange)
-            attributedString.addAttribute(.foregroundColor, value: restColor, range: restRange)
+        if let emphasisStyle = style as? EmphasisLabelStyle,
+           let emphasisFont = emphasisStyle.emphasisFont,
+           let emphasisColor = emphasisStyle.emphasisColor,
+           let emphasisRange = emphasisStyle.emphasisRange {
+            let emphasisAttributes: [NSAttributedString.Key: Any] = [
+                .font: emphasisFont,
+                .foregroundColor: emphasisColor
+            ]
+            attributedString.addAttributes(emphasisAttributes, range: emphasisRange)
         }
         
-        self.textAlignment = textAlignment
-        self.backgroundColor = backgroundColor
+        self.textAlignment = style.textAlignment
+        self.backgroundColor = style.backgroundColor
         self.attributedText = attributedString
     }
+    
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AppFlowCoordinator.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/11.
@@ -10,7 +10,7 @@ import UIKit
 final class AppFlowCoordinator {
     
     func getRootView() -> TabBarController {
-        //TODO: 로그인 및 회원상태에 따라 분기처리할 예정
+        //TODO: - 로그인 및 회원상태에 따라 분기처리할 예정
         if false == tempDummyData.isEmpty {
             let mainViewController = MainViewController(userInformations: tempDummyData)
             mainViewController.tabBarItem = UITabBarItem(title: "메인", image: .mainTabBarIcon, tag: 0)

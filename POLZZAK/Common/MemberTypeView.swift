@@ -29,7 +29,8 @@ class MemberTypeView: UIView {
 
 extension MemberTypeView {
     private func setUI() {
-        setCustomView(backgroundColor: .gray200, cornerRadius: 8, borderWidth: 1, borderColor: UIColor(white: 0, alpha: 0.12))
+        backgroundColor = .gray200
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: UIColor(white: 0, alpha: 0.12))
         
         addSubview(memberTypeLabel)
         

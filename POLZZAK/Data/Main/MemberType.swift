@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum MemberType: String, Decodable {
-    case kid = "KID"
+struct MemberType: Decodable {
+    let name: String
+    let detail: String
 }

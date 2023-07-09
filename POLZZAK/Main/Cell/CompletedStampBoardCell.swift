@@ -27,7 +27,8 @@ class CompletedStampBoardCell: UICollectionViewCell {
     
     private let rewardLabelView: UIView = {
         let view = UIView()
-        view.setCustomView(backgroundColor: .blue200.withAlphaComponent(0.6), cornerRadius: 4)
+        view.backgroundColor = .blue200.withAlphaComponent(0.6)
+        view.addBorder(cornerRadius: 4)
         return view
     }()
     
@@ -73,7 +74,7 @@ extension CompletedStampBoardCell {
     }
     
     private func setUI() {
-        setCustomView(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
         
         [rewardLabelView, rewardTitleLabel].forEach {
             stampRewardView.addArrangedSubview($0)

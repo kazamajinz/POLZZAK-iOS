@@ -78,7 +78,8 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let stampRequestLabelView: UIView = {
         let view = UIView()
-        view.setCustomView(backgroundColor: .blue100, cornerRadius: 17)
+        view.backgroundColor = .blue100
+        view.addBorder(cornerRadius: 17)
         return view
     }()
     
@@ -99,7 +100,7 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let rewardLabel: UILabel = {
         let label = UILabel()
-        label.setCustomView(cornerRadius: 4)
+        label.addBorder(cornerRadius: 4)
         label.setLabel(text: "보상", textColor: .white, font: .caption1, textAlignment: .center, backgroundColor: .blue400)
         return label
     }()
@@ -144,7 +145,8 @@ extension InprogressStampBoardCell {
     }
     
     private func setUI() {
-        setCustomView(backgroundColor: .white, cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+        backgroundColor = .white
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
         
         //MARK: - Stamp Top UI
         [stampNameLabel, stampNameButton].forEach {
