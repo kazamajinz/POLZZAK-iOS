@@ -27,7 +27,7 @@ final class TabView: UIView {
     
     var selectTextColor: UIColor = .blue500 {
         didSet {
-            if isSelected {
+            if true == isSelected {
                 tabLabel.textColor = selectTextColor
             }
         }
@@ -35,7 +35,7 @@ final class TabView: UIView {
     
     var selectFont: UIFont = .subtitle2 {
         didSet {
-            if isSelected {
+            if true == isSelected {
                 tabLabel.font = selectFont
             }
         }
@@ -43,7 +43,7 @@ final class TabView: UIView {
     
     var selectLineColor: UIColor = .blue500 {
         didSet {
-            if isSelected {
+            if true == isSelected {
                 underlineView.backgroundColor = selectLineColor
             }
         }
@@ -51,7 +51,7 @@ final class TabView: UIView {
     
     var selectLineHeight: CGFloat = 2.0 {
         didSet {
-            if isSelected {
+            if true == isSelected {
                 underlineHeightConstraint?.update(offset: selectLineHeight)
             }
         }
@@ -132,18 +132,14 @@ extension TabView {
     }
     
     func selectedTab() {
-        if true == isSelected {
-            tabLabel.textColor = selectTextColor
-            underlineView.backgroundColor = selectLineColor
-            underlineHeightConstraint?.update(offset: selectLineHeight)
-        }
+        tabLabel.textColor = selectTextColor
+        underlineView.backgroundColor = selectLineColor
+        underlineHeightConstraint?.update(offset: selectLineHeight)
     }
     
     func deselectedTab() {
-        if false == isSelected {
-            tabLabel.textColor = deselectTextColor
-            underlineView.backgroundColor = deselectLineColor
-            underlineHeightConstraint?.update(offset: deselectLineHeight)
-        }
+        tabLabel.textColor = deselectTextColor
+        underlineView.backgroundColor = deselectLineColor
+        underlineHeightConstraint?.update(offset: deselectLineHeight)
     }
 }
