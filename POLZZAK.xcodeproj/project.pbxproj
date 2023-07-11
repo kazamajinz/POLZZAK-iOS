@@ -61,8 +61,6 @@
 		3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */; };
 		3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */; };
 		3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F42A0BF40200C9BA4F /* SnapKit */; };
-		3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F72A0BF43300C9BA4F /* RxCocoa */; };
-		3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F92A0BF43300C9BA4F /* RxSwift */; };
 		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
 		3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */; };
 		3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58422A15FF3A005FC66B /* MissionListView.swift */; };
@@ -99,6 +97,7 @@
 		DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEAC2A41E465005A469D /* AppleLoginManager.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DAA6D03B2A46C86400101DCE /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03A2A46C86400101DCE /* String+extension.swift */; };
+		DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAAFC5A32A5D91E9006393D0 /* CombineCocoa */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -234,12 +233,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */,
-				3C4515FA2A0BF43300C9BA4F /* RxSwift in Frameworks */,
-				3C4515F82A0BF43300C9BA4F /* RxCocoa in Frameworks */,
 				3CE4EF022A2E3CE5008B27AE /* KakaoSDKUser in Frameworks */,
 				3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */,
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
+				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
 				DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,13 +660,12 @@
 			name = POLZZAK;
 			packageProductDependencies = (
 				3C4515F42A0BF40200C9BA4F /* SnapKit */,
-				3C4515F72A0BF43300C9BA4F /* RxCocoa */,
-				3C4515F92A0BF43300C9BA4F /* RxSwift */,
 				3C4515FC2A0BF46B00C9BA4F /* SkeletonView */,
 				3CE4EEFD2A2E3CE5008B27AE /* KakaoSDKAuth */,
 				3CE4EEFF2A2E3CE5008B27AE /* KakaoSDKCommon */,
 				3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */,
 				DA50F59D2A3D883F00C7B0B0 /* PanModal */,
+				DAAFC5A32A5D91E9006393D0 /* CombineCocoa */,
 			);
 			productName = POLZZAK;
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
@@ -701,10 +698,10 @@
 			mainGroup = 3C4515D32A0BF2F900C9BA4F;
 			packageReferences = (
 				3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */,
 				3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */,
+				DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -1060,14 +1057,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 		3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -1092,6 +1081,14 @@
 				kind = branch;
 			};
 		};
+		DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1099,16 +1096,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		3C4515F72A0BF43300C9BA4F /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3C4515F92A0BF43300C9BA4F /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515F62A0BF43300C9BA4F /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		3C4515FC2A0BF46B00C9BA4F /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1134,6 +1121,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */;
 			productName = PanModal;
+		};
+		DAAFC5A32A5D91E9006393D0 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
