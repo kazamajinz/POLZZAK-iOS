@@ -46,6 +46,15 @@
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
+		398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E586D2A5D93790055CF37 /* NotificationViewController.swift */; };
+		398E58702A5D93830055CF37 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E586F2A5D93830055CF37 /* NotificationViewModel.swift */; };
+		398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58712A5DBAD10055CF37 /* NotificationTableViewCell.swift */; };
+		398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58732A5EB9070055CF37 /* NotificationType.swift */; };
+		398E58762A5ED1580055CF37 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58752A5ED1580055CF37 /* NotificationModel.swift */; };
+		398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58772A5ED1700055CF37 /* NotificationDTO.swift */; };
+		398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */; };
+		398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */; };
+		398E588C2A6304AC0055CF37 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E588B2A6304AC0055CF37 /* CustomSwitch.swift */; };
 		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
 		39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */; };
 		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
@@ -160,6 +169,15 @@
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
 		397366CE2A114439007D998F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		398E586D2A5D93790055CF37 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		398E586F2A5D93830055CF37 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		398E58712A5DBAD10055CF37 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		398E58732A5EB9070055CF37 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
+		398E58752A5ED1580055CF37 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		398E58772A5ED1700055CF37 /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
+		398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
+		398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewCell.swift; sourceTree = "<group>"; };
+		398E588B2A6304AC0055CF37 /* CustomSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
 		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
 		39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
@@ -344,6 +362,37 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
+		398E586C2A5D936B0055CF37 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				398E588A2A62DFAE0055CF37 /* NotificationViewController */,
+				398E58892A62DF9A0055CF37 /* NotificationSetting */,
+				398E58732A5EB9070055CF37 /* NotificationType.swift */,
+				398E58752A5ED1580055CF37 /* NotificationModel.swift */,
+				398E58772A5ED1700055CF37 /* NotificationDTO.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		398E58892A62DF9A0055CF37 /* NotificationSetting */ = {
+			isa = PBXGroup;
+			children = (
+				398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */,
+				398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */,
+			);
+			path = NotificationSetting;
+			sourceTree = "<group>";
+		};
+		398E588A2A62DFAE0055CF37 /* NotificationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				398E586D2A5D93790055CF37 /* NotificationViewController.swift */,
+				398E586F2A5D93830055CF37 /* NotificationViewModel.swift */,
+				398E58712A5DBAD10055CF37 /* NotificationTableViewCell.swift */,
+			);
+			path = NotificationViewController;
+			sourceTree = "<group>";
+		};
 		39D539D12A15F4CB0087B2BD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +501,7 @@
 				3CD5F8A02A2DBDD9003E4A67 /* Utils */,
 				3CDF64242A249238004A87A2 /* Network */,
 				3C0793452A0E628800087F73 /* Main */,
+				398E586C2A5D936B0055CF37 /* Notification */,
 				3C0793462A0E629000087F73 /* StampBoard */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
 				3900FAD82A39FE30009EAC52 /* Enum */,
@@ -525,6 +575,7 @@
 				39152B2E2A5AB2C200AAFA23 /* CustomAlertViewController.swift */,
 				39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */,
 				39152B382A5AB37500AAFA23 /* Toast.swift */,
+				398E588B2A6304AC0055CF37 /* CustomSwitch.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -738,18 +789,22 @@
 				39152B462A5AB68500AAFA23 /* MainViewController.swift in Sources */,
 				39152B412A5AB4DA00AAFA23 /* MissionCell.swift in Sources */,
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
+				398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */,
 				39152B3E2A5AB37500AAFA23 /* SearchBar.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				39152B322A5AB2C200AAFA23 /* FullScreenLoadingView.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
+				398E588C2A6304AC0055CF37 /* CustomSwitch.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
 				3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */,
+				398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */,
+				398E58762A5ED1580055CF37 /* NotificationModel.swift in Sources */,
 				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
@@ -763,6 +818,7 @@
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
+				398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */,
 				DAA6D03B2A46C86400101DCE /* String+extension.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
@@ -780,6 +836,7 @@
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
 				39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */,
 				3C74169E2A25ED5E001A1E50 /* TokenTarget.swift in Sources */,
+				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
 				3CDF64262A2492B7004A87A2 /* TargetType.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
 				DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */,
@@ -790,7 +847,9 @@
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
 				3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */,
+				398E58702A5D93830055CF37 /* NotificationViewModel.swift in Sources */,
 				39152B3F2A5AB37500AAFA23 /* Toast.swift in Sources */,
+				398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
 				39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */,
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
@@ -820,6 +879,7 @@
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
+				398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 				39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */,
 				391E23B02A42D11300CA75EF /* SearchResultView.swift in Sources */,
@@ -966,7 +1026,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2W776SPR4X;
+				DEVELOPMENT_TEAM = CB95NTZJ5Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1000,7 +1060,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2W776SPR4X;
+				DEVELOPMENT_TEAM = CB95NTZJ5Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

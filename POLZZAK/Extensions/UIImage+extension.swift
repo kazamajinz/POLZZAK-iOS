@@ -25,6 +25,10 @@ extension UIImage {
     static let searchButton = UIImage(named: "searchButton")
     static let closeButton = UIImage(named: "closeButton")
     static let informationButton = UIImage(named: "informationButton")
+    static let notificationSettingButton = UIImage(named: "notificationSettingButton")
+    static let trashButton = UIImage(named: "trashButton")
+    static let acceptButton = UIImage(named: "acceptButton")
+    static let rejectButton = UIImage(named: "rejectButton")
     
     //MARK: - Character
     
@@ -38,5 +42,7 @@ extension UIImage {
     static let refreshDragImage = UIImage(named: "refreshDragImage")
     static let searchImage = UIImage(named: "searchImage")
     
-    
+    //MARK: - Icon
+    static let circle4 = UIImage(named: "circle4")
+    static let circle6 = UIImage(named: "circle6")
 }

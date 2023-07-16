@@ -17,28 +17,36 @@ extension UILabel {
     }
     
     func setLabel(style: LabelStyleProtocol) {
-        let attributedString = NSMutableAttributedString(string: style.text)
-        
+        let styledText = style.text
+
+        let attributedString = NSMutableAttributedString(string: styledText)
+
         let basicAttributes: [NSAttributedString.Key: Any] = [
             .font: style.font,
             .foregroundColor: style.textColor
         ]
-        attributedString.addAttributes(basicAttributes, range: NSRange(location: 0, length: style.text.count))
-        
+        attributedString.addAttributes(basicAttributes, range: NSRange(location: 0, length: attributedString.length))
+
         if let emphasisStyle = style as? EmphasisLabelStyle,
            let emphasisFont = emphasisStyle.emphasisFont,
-           let emphasisColor = emphasisStyle.emphasisColor,
-           let emphasisRange = emphasisStyle.emphasisRange {
+           let emphasisColor = emphasisStyle.emphasisColor {
             let emphasisAttributes: [NSAttributedString.Key: Any] = [
                 .font: emphasisFont,
                 .foregroundColor: emphasisColor
             ]
-            attributedString.addAttributes(emphasisAttributes, range: emphasisRange)
+
+            if let emphasisRange = emphasisStyle.emphasisRange {
+                attributedString.addAttributes(emphasisAttributes, range: emphasisRange)
+            } else if let emphasisRangeArray = emphasisStyle.emphasisRangeArray {
+                for range in emphasisRangeArray {
+                    attributedString.addAttributes(emphasisAttributes, range: range)
+                }
+            }
         }
-        
+
         self.textAlignment = style.textAlignment
         self.backgroundColor = style.backgroundColor
         self.attributedText = attributedString
     }
-    
+
 }

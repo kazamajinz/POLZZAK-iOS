@@ -25,8 +25,10 @@ struct EmphasisLabelStyle: LabelStyleProtocol {
     let emphasisRange: NSRange?
     let emphasisColor: UIColor?
     let emphasisFont: UIFont?
+    
+    let emphasisRangeArray: [NSRange]?
 
-    init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRange: NSRange? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
+    init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRange: NSRange? = nil, emphasisRangeArray: [NSRange]? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
         self.text = text
         self.textColor = textColor
         self.font = font
@@ -34,6 +36,7 @@ struct EmphasisLabelStyle: LabelStyleProtocol {
         self.backgroundColor = backgroundColor
 
         self.emphasisRange = emphasisRange
+        self.emphasisRangeArray = emphasisRangeArray
         self.emphasisColor = emphasisColor
         self.emphasisFont = emphasisFont
     }
