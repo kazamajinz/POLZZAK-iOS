@@ -88,6 +88,7 @@ class RegisterUserTypeViewController: UIViewController {
         nextButton.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(16)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(36)
+            make.height.equalTo(50)
         }
     }
     

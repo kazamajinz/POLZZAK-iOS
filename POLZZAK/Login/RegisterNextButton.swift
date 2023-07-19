@@ -30,10 +30,6 @@ class RegisterNextButton: UIButton {
         }
         layer.cornerRadius = 8
         tintColor = .white
-        
-        snp.makeConstraints { make in
-            make.height.equalTo(50)
-        }
     }
     
     required init?(coder: NSCoder) {
