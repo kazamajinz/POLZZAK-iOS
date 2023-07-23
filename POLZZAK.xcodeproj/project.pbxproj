@@ -54,7 +54,6 @@
 		398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58772A5ED1700055CF37 /* NotificationDTO.swift */; };
 		398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */; };
 		398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */; };
-		398E588C2A6304AC0055CF37 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E588B2A6304AC0055CF37 /* CustomSwitch.swift */; };
 		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
 		39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */; };
 		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
@@ -177,7 +176,6 @@
 		398E58772A5ED1700055CF37 /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewCell.swift; sourceTree = "<group>"; };
-		398E588B2A6304AC0055CF37 /* CustomSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
 		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
 		39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
@@ -575,7 +573,6 @@
 				39152B2E2A5AB2C200AAFA23 /* CustomAlertViewController.swift */,
 				39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */,
 				39152B382A5AB37500AAFA23 /* Toast.swift */,
-				398E588B2A6304AC0055CF37 /* CustomSwitch.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -795,7 +792,6 @@
 				39152B322A5AB2C200AAFA23 /* FullScreenLoadingView.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
-				398E588C2A6304AC0055CF37 /* CustomSwitch.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,

@@ -27,17 +27,17 @@ struct NotificationDummyDataGenerator {
         var now = Date()
         var dummyDates: [Date] = [
             now,
-            now.addingTimeInterval(-10),    // +10 seconds
-            now.addingTimeInterval(-30),    // +30 seconds
-            now.addingTimeInterval(-60),    // +1 minute
-            now.addingTimeInterval(-60*60), // +1 hour
-            now.addingTimeInterval(-60*60*58.33), // +3500 minutes
-            now.addingTimeInterval(-60*60*60), // +3600 minutes
-            now.addingTimeInterval(-60*60*24) // +1 day
+            now.addingTimeInterval(-10),
+            now.addingTimeInterval(-30),
+            now.addingTimeInterval(-60),
+            now.addingTimeInterval(-60*60),
+            now.addingTimeInterval(-60*60*58.33),
+            now.addingTimeInterval(-60*60*60),
+            now.addingTimeInterval(-60*60*24)
         ]
         
         for _ in 8..<NotificationType.allCases.count {
-            now = now.addingTimeInterval(-60*60*24) // Add 1 day
+            now = now.addingTimeInterval(-60*60*24)
             dummyDates.append(now)
         }
         

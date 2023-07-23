@@ -36,7 +36,6 @@ struct NotificationModel {
         self.isNew = dto.isNew
     }
 
-    
     private static func convertDate(from dateString: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

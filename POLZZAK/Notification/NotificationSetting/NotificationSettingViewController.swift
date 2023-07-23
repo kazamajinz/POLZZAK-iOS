@@ -9,12 +9,41 @@ import UIKit
 import SnapKit
 
 final class NotificationSettingViewController: UIViewController {
+    private let headerView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.setLabel(text: "모든알림", textColor: .gray800, font: .subtitle3)
+        return label
+    }()
+    
+    let detailLabel: UILabel = {
+        let label = UILabel()
+        label.isHidden = true
+        label.setLabel(textColor: .gray500, font: .caption2)
+        return label
+    }()
+    
+    let customSwitch: UISwitch = {
+        let customSwitfch = UISwitch()
+        customSwitfch.onTintColor = .blue500
+        return customSwitfch
+    }()
+    
+    let bottomLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray300
+        return view
+    }()
     
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(NotificationSettingTableViewCell.self, forCellReuseIdentifier: NotificationSettingTableViewCell.reuseIdentifier)
-        tableView.backgroundColor = .gray100
         tableView.separatorStyle = .none
+        
         return tableView
     }()
     
@@ -31,7 +60,6 @@ final class NotificationSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
         setNavigation()
         setTbleView()
@@ -39,18 +67,49 @@ final class NotificationSettingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         checkNotificationAuthorizationStatus()
     }
 }
 
 extension NotificationSettingViewController {
     private func setUI() {
-        view.addSubview(tableView)
+        view.backgroundColor = .gray100
+        
+        [headerView, bottomLine, tableView].forEach {
+            view.addSubview($0)
+        }
+        
+        [titleLabel, customSwitch].forEach {
+            headerView.addSubview($0)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.leading.bottom.equalToSuperview()
+            $0.height.equalTo(customSwitch.snp.height)
+        }
+        
+        customSwitch.snp.makeConstraints {
+            $0.top.trailing.bottom.equalToSuperview()
+            $0.leading.equalTo(titleLabel.snp.trailing)
+        }
+        
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(24)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+        
+        bottomLine.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(1)
+        }
         
         tableView.snp.makeConstraints {
-            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(bottomLine.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -61,24 +120,25 @@ extension NotificationSettingViewController {
     private func setTbleView() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .gray100
     }
     
-    @objc func notificationSwitchTapped(_ mySwitch: CustomSwitch) {
+    @objc func notificationSwitchTapped(_ mySwitch: UISwitch) {
         if let appSettingsUrl = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(appSettingsUrl, options: [:], completionHandler: nil)
         }
     }
     
-    //TODO: - 서버 API통신을 연결할예정, binding도 필요.
-        @objc func switchChanged(_ mySwitch: CustomSwitch) {
-            let row = mySwitch.tag
-            if testBoolData.filter({true == $0}).count == 1 {
-                mySwitch.isSwitchOn = !mySwitch.isSwitchOn
-            } else {
-                testBoolData[row] = mySwitch.isSwitchOn
-                checkNotificationAuthorizationStatus()
-            }
+    //TODO: - 서버 API통신을 연결할예정, 바인딩도 필요.
+    @objc func switchChanged(_ mySwitch: UISwitch) {
+        let row = mySwitch.tag
+        if testBoolData.filter({true == $0}).count == 1 {
+            mySwitch.isOn = !mySwitch.isOn
+        } else {
+            testBoolData[row] = mySwitch.isOn
+            checkNotificationAuthorizationStatus()
         }
+    }
     
     private func checkNotificationAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
@@ -89,26 +149,8 @@ extension NotificationSettingViewController {
                     switch settings.authorizationStatus {
                     case .authorized, .provisional:
                         self.deviceNotification = true
-//                        if false == cell.customSwitch.isOn {
-//                            cell.customSwitch.isOn = true
-//                            self?.testBoolData = [Bool](repeating: true, count: 7)
-//                        }
-//                        for (index, isOn) in self.testBoolData.enumerated() {
-//                            if !isOn {
-//                                self.testBoolData[index] = true
-//                            }
-//                        }
                     case .denied:
                         self.deviceNotification = false
-//                        if true == cell.customSwitch.isOn {
-//                            cell.customSwitch.isOn = false
-//                            self.testBoolData = [Bool](repeating: false, count: 7)
-//                        }
-//                        for (index, isOn) in self.testBoolData.enumerated() {
-//                            if isOn {
-//                                self.testBoolData[index] = false
-//                            }
-//                        }
                     default:
                         return
                     }
@@ -119,70 +161,26 @@ extension NotificationSettingViewController {
 }
 
 extension NotificationSettingViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
-            return 7
-        }
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as! NotificationSettingTableViewCell
-        if indexPath.section != 0 {
-            let titleText = dataSource[indexPath.row][0]
-            let detailText = dataSource[indexPath.row][1]
-            let isSwitchOn = testBoolData[indexPath.row]
-            cell.customSwitch.tag = indexPath.row
-            cell.configure(titleText: titleText, detailText: detailText, isSwitchOn: isSwitchOn)
-            cell.customSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
-        } else {
-            cell.customSwitch.isSwitchOn = testBoolData.contains(true)
-            cell.customSwitch.addTarget(self, action: #selector(notificationSwitchTapped), for: .valueChanged)
-            cell.customSwitch.isSwitchOn = testBoolData.contains(true)
+        let titleText = dataSource[indexPath.row][0]
+        let detailText = dataSource[indexPath.row][1]
+        let isSwitchOn = testBoolData[indexPath.row]
+        cell.customSwitch.tag = indexPath.row
+        cell.configure(titleText: titleText, detailText: detailText, isSwitchOn: isSwitchOn)
+        cell.customSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+        
+        if indexPath.row == 6 {
+            cell.hideBottomLine()
         }
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
-            let footerView = UIView()
-            footerView.backgroundColor = .clear
-            
-            let lineView = UIView()
-            lineView.backgroundColor = .gray300
-            
-            footerView.addSubview(lineView)
-            
-            lineView.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(16)
-                make.trailing.equalToSuperview().inset(16)
-                make.bottom.equalToSuperview()
-                make.height.equalTo(1)
-            }
-            
-            return footerView
-        }
-        
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 25
-        }
-        return 0
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 24 + 24
-        } else {
-            return 45 + 32
-        }
+        return 52 + 32
     }
 }

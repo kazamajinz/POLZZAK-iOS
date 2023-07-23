@@ -257,12 +257,10 @@ extension NotificationTableViewCell {
             cellStackView.addArrangedSubview($0)
         }
         
-        //MARK: - header
         [titleView, descriptionLabel].forEach {
             headerStackView.addArrangedSubview($0)
         }
         
-        //MARK: - title
         [iconLabel, titleLabel, circleImageView, dateLabel, newAlertImage].forEach {
             titleView.addSubview($0)
         }
@@ -296,12 +294,10 @@ extension NotificationTableViewCell {
             $0.width.height.equalTo(6)
         }
         
-        //MARK: - button
         [acceptButton, rejectButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
         
-        //MARK: - completionView
         completionView.addSubview(completionSubView)
         
         completionSubView.snp.makeConstraints {
@@ -324,7 +320,6 @@ extension NotificationTableViewCell {
             $0.top.trailing.bottom.equalToSuperview()
         }
         
-        //MARK: - bottom
         [profileImageView, nicknameLabel].forEach {
             bottomView.addSubview($0)
         }

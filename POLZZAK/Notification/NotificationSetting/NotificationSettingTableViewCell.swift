@@ -10,7 +10,6 @@ import SnapKit
 
 final class NotificationSettingTableViewCell: UITableViewCell {
     static let reuseIdentifier = "NotificationSettingTableViewCell"
-    var topConstraint: Constraint?
     
     private let headerView: UIView = {
         let view = UIView()
@@ -26,20 +25,26 @@ final class NotificationSettingTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "모든알림", textColor: .gray800, font: .subtitle3)
+        label.setLabel(textColor: .gray800, font: .body8)
         return label
     }()
     
     let detailLabel: UILabel = {
         let label = UILabel()
-        label.isHidden = true
         label.setLabel(textColor: .gray500, font: .caption2)
         return label
     }()
     
-    let customSwitch: CustomSwitch = {
-        let customSwitfch = CustomSwitch()
+    let customSwitch: UISwitch = {
+        let customSwitfch = UISwitch()
+        customSwitfch.onTintColor = .blue500
         return customSwitfch
+    }()
+    
+    let bottomLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray200
+        return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,40 +66,45 @@ extension NotificationSettingTableViewCell {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
+            $0.top.leading.bottom.equalToSuperview()
+            $0.height.equalTo(customSwitch.snp.height)
         }
         
         customSwitch.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.width.equalTo(45)
-            $0.height.equalTo(24)
+            $0.top.trailing.bottom.equalToSuperview()
+            $0.leading.equalTo(titleLabel.snp.trailing)
         }
         
         [headerView, detailLabel].forEach {
             stackView.addArrangedSubview($0)
         }
         
-        [stackView].forEach {
+        [stackView, bottomLine].forEach {
             contentView.addSubview($0)
         }
         
         stackView.snp.makeConstraints {
-            topConstraint = $0.top.equalTo(24).constraint
+            $0.top.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+        
+        bottomLine.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(24)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
+            $0.height.equalTo(1)
         }
+        
     }
     
     func configure(titleText: String = "", detailText: String = "", isSwitchOn: Bool) {
-        if titleText != "", detailText != "" {
-            detailLabel.isHidden = false
-            topConstraint?.update(offset: 32)
-            titleLabel.setLabel(text: titleText, textColor: .gray800, font: .body8)
-            detailLabel.setLabel(text: detailText, textColor: .gray500, font: .caption2)
-        }
-        customSwitch.isSwitchOn = isSwitchOn
+        titleLabel.text = titleText
+        detailLabel.text = detailText
+        customSwitch.isOn = isSwitchOn
+    }
+    
+    func hideBottomLine() {
+        bottomLine.backgroundColor = .gray100
     }
 }
