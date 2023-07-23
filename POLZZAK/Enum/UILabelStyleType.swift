@@ -15,27 +15,28 @@ protocol LabelStyleProtocol {
     var backgroundColor: UIColor { get }
 }
 
-struct EmphasisLabelStyle: LabelStyleProtocol {
+protocol EmphasisLabelStyleProtocol: LabelStyleProtocol {
+    var emphasisRangeArray: [NSRange]? { get }
+    var emphasisColor: UIColor? { get }
+    var emphasisFont: UIFont? { get }
+}
+
+struct EmphasisLabelStyle: EmphasisLabelStyleProtocol {
     let text: String
     let textColor: UIColor
     let font: UIFont
     let textAlignment: NSTextAlignment
     let backgroundColor: UIColor
-
-    let emphasisRange: NSRange?
+    let emphasisRangeArray: [NSRange]?
     let emphasisColor: UIColor?
     let emphasisFont: UIFont?
-    
-    let emphasisRangeArray: [NSRange]?
 
-    init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRange: NSRange? = nil, emphasisRangeArray: [NSRange]? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
+    init(text: String, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear, emphasisRangeArray: [NSRange]? = nil, emphasisColor: UIColor? = nil, emphasisFont: UIFont? = nil) {
         self.text = text
         self.textColor = textColor
         self.font = font
         self.textAlignment = textAlignment
         self.backgroundColor = backgroundColor
-
-        self.emphasisRange = emphasisRange
         self.emphasisRangeArray = emphasisRangeArray
         self.emphasisColor = emphasisColor
         self.emphasisFont = emphasisFont

@@ -59,7 +59,7 @@ class NotificationTableViewCell: UITableViewCell {
     
     private let titleView = UIView()
     
-    private let descriptionLabel: UILabel = {
+    private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.preferredMaxLayoutWidth = UIApplication.shared.width - (16 * 4)
@@ -343,9 +343,9 @@ extension NotificationTableViewCell {
         dateLabel.text = data.date
         newAlertImage.isHidden = data.isNew
         
-        let descriptionText = data.description
-        let emphasisStyle = type.getLabelStyle(emphasisText: descriptionText)
-        descriptionLabel.setLabel(style: emphasisStyle)
+        let emphasisText = data.description
+        let style = type.getStyle(emphasisText: emphasisText)
+        descriptionLabel.setLabel(style: style)
         
         buttonStackView.isHidden = type.isButtonHidden
         bottomView.isHidden = type.isSenderHidden

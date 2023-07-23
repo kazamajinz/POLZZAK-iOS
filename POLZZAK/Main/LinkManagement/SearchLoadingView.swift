@@ -37,9 +37,17 @@ final class SearchLoadingView: UIView {
     }
     
     func configure(nickName: String) {
-        let emphasisRange = NSRange(location: 0, length: nickName.count)
-        let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님을\n열심히 찾는 중이에요", textColor: .gray800, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray800, emphasisFont: .body5)
-        placeholder.setLabel(style: emphasisLabelStyle)
+        let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+        let builder = LabelStyleBuilder()
+        let style = builder.setText("\(nickName)님을\n열심히 찾는 중이에요")
+            .setTextColor(.gray800)
+            .setFont(.body3)
+            .setTextAlignment(.center)
+            .setEmphasisRangeArray(emphasisRangeArray)
+            .setEmphasisColor(.gray800)
+            .setEmphasisFont(.body5)
+            .build()
+        placeholder.setLabel(style: style)
     }
     
     private func setUI() {

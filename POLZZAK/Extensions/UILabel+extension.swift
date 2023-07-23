@@ -35,9 +35,7 @@ extension UILabel {
                 .foregroundColor: emphasisColor
             ]
 
-            if let emphasisRange = emphasisStyle.emphasisRange {
-                attributedString.addAttributes(emphasisAttributes, range: emphasisRange)
-            } else if let emphasisRangeArray = emphasisStyle.emphasisRangeArray {
+            if let emphasisRangeArray = emphasisStyle.emphasisRangeArray {
                 for range in emphasisRangeArray {
                     attributedString.addAttributes(emphasisAttributes, range: range)
                 }
@@ -48,5 +46,4 @@ extension UILabel {
         self.backgroundColor = style.backgroundColor
         self.attributedText = attributedString
     }
-
 }

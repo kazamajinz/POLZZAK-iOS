@@ -414,9 +414,17 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
     func didTapClose(on cell: LinkListTabCell) {
         if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님과\n연동을 해제하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
-            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+            let builder = LabelStyleBuilder()
+            let style = builder.setText("\(nickName)님과\n연동을 해제하시겠어요?")
+                .setTextColor(.gray700)
+                .setFont(.body7)
+                .setTextAlignment(.center)
+                .setEmphasisRangeArray(emphasisRangeArray)
+                .setEmphasisColor(.gray700)
+                .setEmphasisFont(.body6)
+                .build()
+            alert.contentLabel.setLabel(style: style)
             alert.secondButton.setTitle("네, 해제할래요", for: .normal)
             alert.isLoadingView = true
             
@@ -434,9 +442,17 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapAccept(on cell: ReceivedTabCell) {
         if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님의\n연동 요청을 수락하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
-            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+            let builder = LabelStyleBuilder()
+            let style = builder.setText("\(nickName)님의\n연동 요청을 수락하시겠어요?")
+                .setTextColor(.gray700)
+                .setFont(.body7)
+                .setTextAlignment(.center)
+                .setEmphasisRangeArray(emphasisRangeArray)
+                .setEmphasisColor(.gray700)
+                .setEmphasisFont(.body6)
+                .build()
+            alert.contentLabel.setLabel(style: style)
             alert.secondButton.setTitle("네, 좋아요!", for: .normal)
             alert.isLoadingView = true
             
@@ -451,9 +467,17 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapReject(on cell: ReceivedTabCell) {
         if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님의\n연동 요청을 거절하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
-            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+            let builder = LabelStyleBuilder()
+            let style = builder.setText("\(nickName)님의\n연동 요청을 거절하시겠어요?")
+                .setTextColor(.gray700)
+                .setFont(.body7)
+                .setTextAlignment(.center)
+                .setEmphasisRangeArray(emphasisRangeArray)
+                .setEmphasisColor(.gray700)
+                .setEmphasisFont(.body6)
+                .build()
+            alert.contentLabel.setLabel(style: style)
             alert.secondButton.setTitle("네, 거절할래요", for: .normal)
             
             alert.secondButtonAction = { [weak self] in
@@ -470,9 +494,17 @@ extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
         if let nickName = cell.titleLabel.text, let indexPath = tableView.indexPath(for: cell)?.row {
             let alert = CustomAlertViewController()
-            let emphasisRange = NSRange(location: 0, length: nickName.count)
-            let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님에게 보낸\n연동 요청을 취소하시겠어요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
-            alert.contentLabel.setLabel(style: emphasisLabelStyle)
+            let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+            let builder = LabelStyleBuilder()
+            let style = builder.setText("\(nickName)님에게 보낸\n연동 요청을 취소하시겠어요?")
+                .setTextColor(.gray700)
+                .setFont(.body7)
+                .setTextAlignment(.center)
+                .setEmphasisRangeArray(emphasisRangeArray)
+                .setEmphasisColor(.gray700)
+                .setEmphasisFont(.body6)
+                .build()
+            alert.contentLabel.setLabel(style: style)
             alert.secondButton.setTitle("네, 취소할래요", for: .normal)
             alert.isLoadingView = true
             
@@ -516,9 +548,17 @@ extension LinkManagementViewController: SearchBarDelegate {
 extension LinkManagementViewController: SearchResultViewDelegate {
     func linkRequest(nickName: String, memberId: Int) {
         let alert = CustomAlertViewController()
-        let emphasisRange = NSRange(location: 0, length: nickName.count)
-        let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님에게\n연동 오쳥을 보낼까요?", textColor: .gray700, font: .body7, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body6)
-        alert.contentLabel.setLabel(style: emphasisLabelStyle)
+        let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+        let builder = LabelStyleBuilder()
+        let style = builder.setText("\(nickName)님에게\n연동 오쳥을 보낼까요?")
+            .setTextColor(.gray700)
+            .setFont(.body7)
+            .setTextAlignment(.center)
+            .setEmphasisRangeArray(emphasisRangeArray)
+            .setEmphasisColor(.gray700)
+            .setEmphasisFont(.body6)
+            .build()
+        alert.contentLabel.setLabel(style: style)
         alert.secondButton.setTitle("네, 좋아요!", for: .normal)
         alert.isLoadingView = true
         

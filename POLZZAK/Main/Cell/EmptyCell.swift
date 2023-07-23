@@ -73,8 +73,16 @@ extension EmptyCell {
     }
     
     func configure(nickName: String = "") {
-        let emphasisRange = NSRange(location: 0, length: nickName.count)
-        let emphasisLabelStyle = EmphasisLabelStyle(text: "\(nickName)님은 아직\n완료된 도장판이 없어요", textColor: .gray700, font: .body3, textAlignment: .center, emphasisRange: emphasisRange, emphasisColor: .gray700, emphasisFont: .body5)
-        placeHoldLabel.setLabel(style: emphasisLabelStyle)
+        let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
+        let builder = LabelStyleBuilder()
+        let style = builder.setText("\(nickName)님은 아직\n완료된 도장판이 없어요")
+            .setTextColor(.gray700)
+            .setFont(.body3)
+            .setTextAlignment(.center)
+            .setEmphasisRangeArray(emphasisRangeArray)
+            .setEmphasisColor(.gray700)
+            .setEmphasisFont(.body5)
+            .build()
+        placeHoldLabel.setLabel(style: style)
     }
 }
