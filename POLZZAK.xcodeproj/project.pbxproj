@@ -47,6 +47,9 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
+		DA383DCE2A69AE8A001F697E /* RegisterTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA383DCD2A69AE8A001F697E /* RegisterTermsViewController.swift */; };
+		DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA383DCF2A69B0B2001F697E /* AgreementCheckView.swift */; };
+		DA383DD22A69B420001F697E /* AgreementCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA383DD12A69B420001F697E /* AgreementCheckCell.swift */; };
 		DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */; };
 		DA38E60C2A4D60DE00229282 /* RegisterUserTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */; };
 		DA38E60E2A4D713C00229282 /* RegisterNextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E60D2A4D713C00229282 /* RegisterNextButton.swift */; };
@@ -113,6 +116,9 @@
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
+		DA383DCD2A69AE8A001F697E /* RegisterTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTermsViewController.swift; sourceTree = "<group>"; };
+		DA383DCF2A69B0B2001F697E /* AgreementCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementCheckView.swift; sourceTree = "<group>"; };
+		DA383DD12A69B420001F697E /* AgreementCheckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementCheckCell.swift; sourceTree = "<group>"; };
 		DA38E6092A4D464E00229282 /* UserTypeSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeSelectButton.swift; sourceTree = "<group>"; };
 		DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTypeViewController.swift; sourceTree = "<group>"; };
 		DA38E60D2A4D713C00229282 /* RegisterNextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNextButton.swift; sourceTree = "<group>"; };
@@ -330,6 +336,9 @@
 				DA38E60B2A4D60DE00229282 /* RegisterUserTypeViewController.swift */,
 				DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */,
 				DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */,
+				DA383DCD2A69AE8A001F697E /* RegisterTermsViewController.swift */,
+				DA383DCF2A69B0B2001F697E /* AgreementCheckView.swift */,
+				DA383DD12A69B420001F697E /* AgreementCheckCell.swift */,
 				DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */,
 				DA38E6182A4DA78800229282 /* NicknameChecker.swift */,
 			);
@@ -439,6 +448,7 @@
 				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
+				DA383DCE2A69AE8A001F697E /* RegisterTermsViewController.swift in Sources */,
 				DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */,
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
@@ -462,6 +472,8 @@
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
+				DA383DD22A69B420001F697E /* AgreementCheckCell.swift in Sources */,
+				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
