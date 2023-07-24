@@ -15,10 +15,9 @@
 		3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */; };
 		3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */; };
 		3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */; };
-		3900FAE52A3ABE62009EAC52 /* UILabelStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */; };
+		3900FAE52A3ABE62009EAC52 /* EmphasisStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */; };
 		3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */; };
 		3900FB112A409025009EAC52 /* ParentsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB102A409025009EAC52 /* ParentsType.swift */; };
-		390165202A6D904900A193D7 /* LabelStyleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901651F2A6D904900A193D7 /* LabelStyleBuilder.swift */; };
 		39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B292A5AB29600AAFA23 /* EmptyView.swift */; };
 		39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B2A2A5AB29600AAFA23 /* LoadingView.swift */; };
 		39152B302A5AB2C200AAFA23 /* PaddedLabel .swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */; };
@@ -135,13 +134,12 @@
 		3900FADA2A3A9E33009EAC52 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		3900FADE2A3AB6A8009EAC52 /* ReceivedTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedTabCell.swift; sourceTree = "<group>"; };
 		3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentTabCell.swift; sourceTree = "<group>"; };
-		3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelStyleType.swift; sourceTree = "<group>"; };
+		3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmphasisStyle.swift; sourceTree = "<group>"; };
 		3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		3900FAEE2A3B336A009EAC52 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyType.swift; sourceTree = "<group>"; };
 		3900FB102A409025009EAC52 /* ParentsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentsType.swift; sourceTree = "<group>"; };
-		3901651F2A6D904900A193D7 /* LabelStyleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyleBuilder.swift; sourceTree = "<group>"; };
 		39152B292A5AB29600AAFA23 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		39152B2A2A5AB29600AAFA23 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PaddedLabel .swift"; sourceTree = "<group>"; };
@@ -289,7 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				3900FB102A409025009EAC52 /* ParentsType.swift */,
-				3900FAE42A3ABE62009EAC52 /* UILabelStyleType.swift */,
+				3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -575,7 +573,6 @@
 				39152B2E2A5AB2C200AAFA23 /* CustomAlertViewController.swift */,
 				39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */,
 				39152B382A5AB37500AAFA23 /* Toast.swift */,
-				3901651F2A6D904900A193D7 /* LabelStyleBuilder.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -863,10 +860,9 @@
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
 				39152B312A5AB2C200AAFA23 /* CustomAlertViewController.swift in Sources */,
-				390165202A6D904900A193D7 /* LabelStyleBuilder.swift in Sources */,
 				391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
-				3900FAE52A3ABE62009EAC52 /* UILabelStyleType.swift in Sources */,
+				3900FAE52A3ABE62009EAC52 /* EmphasisStyle.swift in Sources */,
 				39152B302A5AB2C200AAFA23 /* PaddedLabel .swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,

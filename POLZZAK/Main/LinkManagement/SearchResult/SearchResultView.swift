@@ -28,6 +28,9 @@ final class SearchResultView: UIView {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = .gray700
+        label.font = .body3
+        label.textAlignment = .center
         return label
     }()
     
@@ -120,17 +123,9 @@ final class SearchResultView: UIView {
         case .nonExist(let nickName):
             imageView.image = .sittingCharacter
             imageView.layer.cornerRadius = 0
-            let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
-            let builder = LabelStyleBuilder()
-            let style = builder.setText("\(nickName)님을\n찾을 수 없어요")
-                .setTextColor(.gray700)
-                .setFont(.body3)
-                .setTextAlignment(.center)
-                .setEmphasisRangeArray(emphasisRangeArray)
-                .setEmphasisColor(.gray700)
-                .setEmphasisFont(.body5)
-                .build()
-            placeholder.setLabel(style: style)
+            placeholder.text = "\(nickName)님을\n찾을 수 없어요"
+            let emphasisRange = [NSRange(location: 0, length: nickName.count)]
+            placeholder.setEmphasisRanges(emphasisRange, color: .gray700, font: .body5)
         case .notSearch:
             break
         }

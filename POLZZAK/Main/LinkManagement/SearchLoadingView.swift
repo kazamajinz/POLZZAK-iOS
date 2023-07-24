@@ -13,6 +13,9 @@ final class SearchLoadingView: UIView {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = .gray800
+        label.font = .body3
+        label.textAlignment = .center
         return label
     }()
     
@@ -37,17 +40,9 @@ final class SearchLoadingView: UIView {
     }
     
     func configure(nickName: String) {
-        let emphasisRangeArray = [NSRange(location: 0, length: nickName.count)]
-        let builder = LabelStyleBuilder()
-        let style = builder.setText("\(nickName)님을\n열심히 찾는 중이에요")
-            .setTextColor(.gray800)
-            .setFont(.body3)
-            .setTextAlignment(.center)
-            .setEmphasisRangeArray(emphasisRangeArray)
-            .setEmphasisColor(.gray800)
-            .setEmphasisFont(.body5)
-            .build()
-        placeholder.setLabel(style: style)
+        placeholder.text = "\(nickName)님을\n열심히 찾는 중이에요"
+        let emphasisRange = [NSRange(location: 0, length: nickName.count)]
+        placeholder.setEmphasisRanges(emphasisRange, color: .gray800, font: .body5)
     }
     
     private func setUI() {

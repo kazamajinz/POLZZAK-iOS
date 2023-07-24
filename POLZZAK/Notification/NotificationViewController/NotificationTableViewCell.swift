@@ -27,7 +27,7 @@ class NotificationTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let iconLabel: UILabel = {
+    private let emojiLabel: UILabel = {
         let label = UILabel()
         label.font = .subtitle1
         return label
@@ -63,6 +63,9 @@ class NotificationTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.preferredMaxLayoutWidth = UIApplication.shared.width - (16 * 4)
+        label.textColor = .gray700
+        label.font = .body2
+        label.textAlignment = .natural
         return label
     }()
     
@@ -261,17 +264,17 @@ extension NotificationTableViewCell {
             headerStackView.addArrangedSubview($0)
         }
         
-        [iconLabel, titleLabel, circleImageView, dateLabel, newAlertImage].forEach {
+        [emojiLabel, titleLabel, circleImageView, dateLabel, newAlertImage].forEach {
             titleView.addSubview($0)
         }
         
-        iconLabel.snp.makeConstraints {
+        emojiLabel.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.equalTo(iconLabel.snp.trailing).offset(4)
+            $0.leading.equalTo(emojiLabel.snp.trailing).offset(4)
         }
         
         circleImageView.snp.makeConstraints {
@@ -338,14 +341,15 @@ extension NotificationTableViewCell {
     
     func configure(data: NotificationModel) {
         let type = data.type
-        iconLabel.text = type.title.0
-        titleLabel.text = type.title.1
+        emojiLabel.text = type.title.emoji
+        titleLabel.text = type.title.title
         dateLabel.text = data.date
         newAlertImage.isHidden = data.isNew
         
         let emphasisText = data.description
-        let style = type.getStyle(emphasisText: emphasisText)
-        descriptionLabel.setLabel(style: style)
+        let style = type.getEmphasisStyle(to: emphasisText)
+        descriptionLabel.text = style.text
+        descriptionLabel.setEmphasisRanges(style.emphasisRange, color: .gray800, font: .body2)
         
         buttonStackView.isHidden = type.isButtonHidden
         bottomView.isHidden = type.isSenderHidden
@@ -360,7 +364,7 @@ extension NotificationTableViewCell {
         buttonStackView.isHidden = false
         completionView.isHidden = true
         bottomView.isHidden = false
-        iconLabel.text = nil
+        emojiLabel.text = nil
         titleLabel.text = nil
         dateLabel.text = nil
         descriptionLabel.text = nil
