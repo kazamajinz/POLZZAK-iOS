@@ -36,6 +36,7 @@ struct Toast {
 
     init(image: UIImage? = .informationButton, text: String) {
         imageView.image = image
+        imageView.tintColor = .white
         toastLabel.text = text
     }
 

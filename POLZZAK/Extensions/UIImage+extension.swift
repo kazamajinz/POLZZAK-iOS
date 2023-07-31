@@ -24,7 +24,7 @@ extension UIImage {
     static let addStampBoardButton = UIImage(named: "addStampBoardButton")
     static let searchButton = UIImage(named: "searchButton")
     static let closeButton = UIImage(named: "closeButton")
-    static let informationButton = UIImage(named: "informationButton")
+    static let informationButton = UIImage(named: "informationButton")?.withRenderingMode(.alwaysTemplate)
     static let notificationSettingButton = UIImage(named: "notificationSettingButton")
     static let trashButton = UIImage(named: "trashButton")
     static let acceptButton = UIImage(named: "acceptButton")
