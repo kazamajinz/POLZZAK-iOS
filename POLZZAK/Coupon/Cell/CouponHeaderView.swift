@@ -49,10 +49,9 @@ extension CouponHeaderView {
         }
     }
     
-    func configure(to family: FamilyMember) {
+    func configure(to family: FamilyMember, type: UserType) {
         setUI()
-        //TODO: - 아이, 부모 처리 정해지면 반영해야함.
-        headerLabel.text = "To" //"From"
+        headerLabel.text = type == .parent ? "To" : "From"
         memberTypeLabel.text = family.memberType.detail
         nickNameLabel.text = family.nickName
     }
