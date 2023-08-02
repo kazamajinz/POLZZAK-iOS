@@ -45,18 +45,11 @@ class EmptyCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        removeDashedBorder()
-    }
 }
 
 extension EmptyCell {
     private func setUI() {
         backgroundColor = .white
-        addBorder(cornerRadius: 8)
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         [imageView, placeHoldLabel].forEach {

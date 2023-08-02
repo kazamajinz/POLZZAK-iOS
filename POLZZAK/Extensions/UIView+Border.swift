@@ -31,11 +31,9 @@ extension UIView {
         shapeLayer.lineDashPattern = [spacing, spacing]
         shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
         
-        shapeLayer.name = "dashedBorder"
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
+
         self.layer.addSublayer(shapeLayer)
-    }
-    
-    func removeDashedBorder() {
-        self.layer.sublayers?.removeAll { $0.name == "dashedBorder" }
     }
 }
