@@ -39,8 +39,10 @@ extension UIImage {
     //MARK: - Common
     
     static let couponCompleted = UIImage(named: "couponCompleted")
+    static let rewardCompleted = UIImage(named: "rewardCompleted")
     static let refreshDragImage = UIImage(named: "refreshDragImage")
     static let searchImage = UIImage(named: "searchImage")
+    static let barcode = UIImage(named: "barcode")
     
     //MARK: - Icon
     static let circle4 = UIImage(named: "circle4")
