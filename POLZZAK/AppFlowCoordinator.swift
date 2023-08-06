@@ -22,9 +22,9 @@ final class AppFlowCoordinator {
             mainNavigationController.navigationBar.standardAppearance = navBarAppearance
             mainNavigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
             
-            let couponViewController = CouponViewController()
-            couponViewController.tabBarItem = UITabBarItem(title: "쿠폰", image: .couponTabBarIcon, tag: 1)
-            let couponNavigationController = UINavigationController(rootViewController: couponViewController)
+            let couponListViewController = CouponListViewController()
+            couponListViewController.tabBarItem = UITabBarItem(title: "쿠폰", image: .couponTabBarIcon, tag: 1)
+            let couponNavigationController = UINavigationController(rootViewController: couponListViewController)
             couponNavigationController.navigationBar.standardAppearance = navBarAppearance
             couponNavigationController.navigationBar.scrollEdgeAppearance = navBarAppearance
             

@@ -21,7 +21,7 @@ final class CouponHeaderView: UICollectionReusableView {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blue500, font: .subtitle16Bd)
+        label.setLabel(text: "To", textColor: .blue500, font: .subtitle16Bd)
         return label
     }()
     
@@ -59,8 +59,13 @@ extension CouponHeaderView {
     }
     
     func configure(to family: FamilyMember, type: UserType) {
-        headerLabel.text = type == .parent ? "To" : "From"
-        memberTypeLabel.text = family.memberType.detail
+        if type == .child {
+            headerLabel.text = "From"
+            memberTypeLabel.text = family.memberType.detail
+        } else {
+            nameStackView.removeArrangedSubview(self.memberTypeLabel)
+            memberTypeLabel.removeFromSuperview()
+        }
         nickNameLabel.text = family.nickName
     }
 }
