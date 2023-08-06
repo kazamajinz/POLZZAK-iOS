@@ -8,7 +8,14 @@
 import UIKit
 
 extension UIView {
-    func addBorder(cornerRadius: CGFloat = 0.0, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear, masksToBounds: Bool = true) {
+    func addBorder(
+        corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
+        cornerRadius: CGFloat = 0.0,
+        borderWidth: CGFloat = 0.0,
+        borderColor: UIColor = .clear,
+        masksToBounds: Bool = true
+    ) {
+        self.layer.maskedCorners = corners
         self.layer.cornerRadius = cornerRadius
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor.cgColor
@@ -33,7 +40,7 @@ extension UIView {
         
         self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
-
+        
         self.layer.addSublayer(shapeLayer)
     }
 }

@@ -70,7 +70,7 @@ extension EmptyCell {
     
     func configure(nickName: String) {
         placeHoldLabel.text = "\(nickName)님은 아직\n완료된 도장판이 없어요"
-        let emphasisRang = [NSRange(location: 0, length: nickName.count)]
-        placeHoldLabel.setEmphasisRanges(emphasisRang, color: .gray700, font: .body5)
+        let emphasisRange = [NSRange(location: 0, length: nickName.count)]
+        placeHoldLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body5)
     }
 }

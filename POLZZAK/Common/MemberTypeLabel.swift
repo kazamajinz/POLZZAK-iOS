@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MemberTypeLabel: PaddedLabel {
+class MemberTypeLabel: PaddedLabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -26,7 +26,7 @@ final class MemberTypeLabel: PaddedLabel {
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
         self.textColor = .gray700
-        self.font = .subtitle18Sbd
+        self.font = .body14Sbd
         self.padding = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
     }
 }

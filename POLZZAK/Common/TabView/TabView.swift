@@ -112,7 +112,7 @@ extension TabView {
         
         tabLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(4)
+            $0.bottom.equalToSuperview().inset(6)
             $0.leading.trailing.equalToSuperview()
         }
         
