@@ -31,6 +31,9 @@ class EmptyCell: UICollectionViewCell {
     private let placeHoldLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
+        label.textColor = .gray700
+        label.font = .body3
+        label.textAlignment = .center
         return label
     }()
     
@@ -52,7 +55,8 @@ class EmptyCell: UICollectionViewCell {
 
 extension EmptyCell {
     private func setUI() {
-        setCustomView(backgroundColor: .white, cornerRadius: 8)
+        backgroundColor = .white
+        addBorder(cornerRadius: 8)
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         [imageView, placeHoldLabel].forEach {
@@ -71,10 +75,9 @@ extension EmptyCell {
         }
     }
     
-    func configure(nickName: String = "") {
-        placeHoldLabel.setLabelForRange(
-            text: nickName, textFont: .body5, textColor: .gray700,
-            rest: nickName == "" ? placeHoldText : nickNamePlaceHoldText, restFont: .body3, restColor: .gray700,
-            textAlignment: .center)
+    func configure(nickName: String) {
+        placeHoldLabel.text = "\(nickName)님은 아직\n완료된 도장판이 없어요"
+        let emphasisRang = [NSRange(location: 0, length: nickName.count)]
+        placeHoldLabel.setEmphasisRanges(emphasisRang, color: .gray700, font: .body5)
     }
 }

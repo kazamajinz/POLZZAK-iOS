@@ -16,19 +16,33 @@ extension UIImage {
     static let notificationTabBarIcon = UIImage(named: "notificationTabBarIcon")
     static let myPageTabBarIcon = UIImage(named: "myPageTabBarIcon")
     
-    //MARK: - Main
+    //MARK: - Button
     
     static let myConnectionsButton = UIImage(named: "myConnectionsButton")
     static let filterButton = UIImage(named: "filterButton")
     static let rightArrowButton = UIImage(named: "rightArrowButton")
     static let addStampBoardButton = UIImage(named: "addStampBoardButton")
-    static let couponCompleted = UIImage(named: "couponCompleted")
+    static let searchButton = UIImage(named: "searchButton")
+    static let closeButton = UIImage(named: "closeButton")
+    static let informationButton = UIImage(named: "informationButton")
+    static let notificationSettingButton = UIImage(named: "notificationSettingButton")
+    static let trashButton = UIImage(named: "trashButton")
+    static let acceptButton = UIImage(named: "acceptButton")
+    static let rejectButton = UIImage(named: "rejectButton")
     
     //MARK: - Character
+    
     static let raisingOneHandCharacter = UIImage(named: "raisingOneHandCharacter")
     static let sittingCharacter = UIImage(named: "sittingCharacter")
+    static let defaultProfileCharacter = UIImage(named: "defaultProfileCharacter")
     
     //MARK: - Common
-    static let refreshDragImage = UIImage(named: "refreshDragImage")
     
+    static let couponCompleted = UIImage(named: "couponCompleted")
+    static let refreshDragImage = UIImage(named: "refreshDragImage")
+    static let searchImage = UIImage(named: "searchImage")
+    
+    //MARK: - Icon
+    static let circle4 = UIImage(named: "circle4")
+    static let circle6 = UIImage(named: "circle6")
 }

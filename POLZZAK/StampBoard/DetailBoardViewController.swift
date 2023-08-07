@@ -15,11 +15,11 @@ class DetailBoardViewController: UIViewController {
     }
     
     var missionList: [MissionListViewable] = [
-        MissionData(missionNumber: 1, missionTitle: "a"),
-        MissionData(missionNumber: 2, missionTitle: "b"),
-        MissionData(missionNumber: 3, missionTitle: "c"),
-        MissionData(missionNumber: 4, missionTitle: "d"),
-        MissionData(missionNumber: 5, missionTitle: "e")
+        MissionData(missionNumber: 1, missionTitle: "미션 제목이 들어가는 자리입니다."),
+        MissionData(missionNumber: 2, missionTitle: "미션 제목이 들어가는 자리입니다."),
+        MissionData(missionNumber: 3, missionTitle: "미션 제목이 들어가는 자리입니다."),
+        MissionData(missionNumber: 4, missionTitle: "미션 제목이 들어가는 자리입니다."),
+        MissionData(missionNumber: 5, missionTitle: "미션 제목이 들어가는 자리입니다.")
     ]
     
     private let scrollView: UIScrollView = {
@@ -52,7 +52,7 @@ class DetailBoardViewController: UIViewController {
     var stampViewHeight: Constraint?
     var missionListViewHeight: Constraint?
     
-    init(stampSize: StampSize = .size40) {
+    init(stampSize: StampSize) {
         self.stampView = StampView(size: stampSize)
         super.init(nibName: nil, bundle: nil)
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIApplication {
-    static var keyWindow: UIWindow? {
+    var keyWindow: UIWindow? {
         return UIApplication
             .shared
             .connectedScenes
@@ -17,15 +17,16 @@ extension UIApplication {
             .first { $0.isKeyWindow }
     }
     
-    static var width: CGFloat {
+    var width: CGFloat {
         return UIApplication
+            .shared
             .keyWindow?
             .screen
             .bounds
             .width ?? 0
     }
     
-    static func getTopViewController(base: UIViewController? = UIApplication.keyWindow?.rootViewController) -> UIViewController? {
+    static func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return getTopViewController(base: nav.visibleViewController)
         } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {

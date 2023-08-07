@@ -97,6 +97,10 @@ extension UIFont {
         return .pretendard(size: 16, family: .medium)
     }
     
+    static var body9: UIFont {
+        return .pretendard(size: 13, family: .semiBold)
+    }
+    
     static var caption1: UIFont {
         return .pretendard(size: 12, family: .semiBold)
     }

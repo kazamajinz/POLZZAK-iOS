@@ -16,27 +16,14 @@ extension UILabel {
         self.backgroundColor = backgroundColor
     }
     
-    func setLabelForRange(
-        text: String, textFont: UIFont, textColor: UIColor,
-        rest: String, restFont: UIFont, restColor: UIColor,
-        textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
-        
-        let totalString = text + rest
-        let attributedString = NSMutableAttributedString(string: totalString)
-        
-        let textRange = NSRange(location: 0, length: text.count)
-        attributedString.addAttribute(.font, value: textFont, range: textRange)
-        attributedString.addAttribute(.foregroundColor, value: textColor, range: textRange)
-        
-        if rest.count > 0 {
-            let restRange = NSRange(location: text.count, length: rest.count)
-            attributedString.addAttribute(.font, value: restFont, range: restRange)
-            attributedString.addAttribute(.foregroundColor, value: restColor, range: restRange)
+    @discardableResult
+    func setEmphasisRanges(_ ranges: [NSRange], color: UIColor, font: UIFont) -> Self {
+        let mutableAttributedString = NSMutableAttributedString(string: self.text ?? "")
+        ranges.forEach { range in
+            mutableAttributedString.addAttributes([.foregroundColor: color, .font: font], range: range)
         }
-        
-        self.textAlignment = textAlignment
-        self.backgroundColor = backgroundColor
-        self.attributedText = attributedString
+        self.attributedText = mutableAttributedString
+        return self
     }
     
     func setLineSpacing(spacing: CGFloat) {
@@ -54,3 +41,4 @@ extension UILabel {
         self.attributedText = attributeString
     }
 }
+

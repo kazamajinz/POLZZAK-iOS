@@ -151,7 +151,7 @@ final class MainViewController: UIViewController {
     
     //MARK: - init
     init(userInformations: [UserInformation]) {
-        //TODO: 테스트 데이터, 삭제할것
+        //TODO: - 테스트 데이터, 삭제할것
         self.userInformations = userInformations
         super.init(nibName: nil, bundle: nil)
     }
@@ -167,7 +167,7 @@ final class MainViewController: UIViewController {
         setNavigation()
         setAction()
         
-        //TODO: 테스트 데이터, 삭제할것
+        //TODO: - 테스트 데이터, 삭제할것
         stampFilter = .all
         stampBoardState = .inProgressAndAll
     }
@@ -176,6 +176,8 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     private func setNavigation() {
         navigationController?.navigationBar.tintColor = .gray800
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
         let rightButtonImage = UIImage.myConnectionsButton
         let rightButton = UIBarButtonItem(image: rightButtonImage, style: .plain, target: self, action: #selector(myConnectionsButtonClicked))
         self.navigationItem.rightBarButtonItem = rightButton
@@ -281,7 +283,10 @@ extension MainViewController {
     
     //MARK: - @objc
     @objc private func myConnectionsButtonClicked() {
-        print("myConnections 버튼 클릭")
+        //TODO: - 보호자로 가정
+        let linkManagementViewController = LinkManagementViewController(userType: .parent)
+        linkManagementViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(linkManagementViewController, animated: true)
     }
     
     @objc private func inProgressTabButtonTapped() {
@@ -302,7 +307,7 @@ extension MainViewController {
     
     @objc private func filterButtonTapped() {
         
-        //TODO: 테스트 코드, 삭제할것
+        //TODO: - 테스트 코드, 삭제할것
         let alertController = UIAlertController(title: "필터", message: "필터링해드림", preferredStyle: .actionSheet)
         
         let okAction = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
@@ -318,7 +323,7 @@ extension MainViewController {
         //섹션2
         let okAction2 = UIAlertAction(title: "해린맘2(섹션2번) 선택", style: .default) { [weak self] _ in
             let num = 2
-            let nickname = self?.userInformations[num].partner.nickname ?? "전체"
+            let nickname = self?.userInformations[num].familyMember.nickName ?? "전체"
             let section = StampSection(id: num, name: nickname, memberType: "조카")
             self?.stampFilter = .section(section)
             
@@ -550,7 +555,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 section = getSection()
             }
             
-            let nickName = userInformations[section].partner.nickname
+            let nickName = userInformations[section].familyMember.nickName
             cell.configure(nickName: nickName)
             return cell
         } else {
@@ -586,14 +591,14 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         switch stampBoardState {
         case .inProgressAndAll, .inProgressAndSection, .unknown:
-            let memberType = userInformations[indexPath.section].partner.memberType
-            let name = userInformations[indexPath.section].partner.nickname
+            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
+            let name = userInformations[indexPath.section].familyMember.nickName
             let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
             
         case .completedAndAll, .completedAndSection:
-            let memberType = userInformations[indexPath.section].partner.memberType
-            let name = userInformations[indexPath.section].partner.nickname
+            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
+            let name = userInformations[indexPath.section].familyMember.nickName
             let totalCount = userInformations[indexPath.section].rewardedStampBoards.count
             headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
         }
@@ -610,5 +615,11 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.customRefreshControl.endRefreshing()
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(DetailBoardViewController(stampSize: .size20), animated: true)
     }
 }
