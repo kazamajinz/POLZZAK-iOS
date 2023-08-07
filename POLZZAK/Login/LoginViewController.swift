@@ -153,23 +153,17 @@ class LoginViewController: UIViewController {
     private func configureBinding() {
         kakaoLoginButton.tapPublisher
             .sink { [weak self] _ in
-                // TODO: Coordinator 써서 RootViewController를 바꿔주는 방식으로 바꿔야 함
-                let navController = UINavigationController(rootViewController: RegisterUserTypeViewController())
-                navController.modalPresentationStyle = .overFullScreen
-                navController.modalTransitionStyle = .crossDissolve
-                navController.navigationBar.tintColor = .gray400
-                self?.present(navController, animated: true)
+                // TODO: 소셜로그인으로 정보 받아와서 가입이 필요하면 가입페이지로, 가입 되어있으면 메인페이지로 이동
+                let vc = RegisterTermsViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
         
         appleLoginButton.tapPublisher
             .sink { [weak self] _ in
-                // TODO: Coordinator 써서 RootViewController를 바꿔주는 방식으로 바꿔야 함
-                let navController = UINavigationController(rootViewController: RegisterUserTypeViewController())
-                navController.modalPresentationStyle = .overFullScreen
-                navController.modalTransitionStyle = .crossDissolve
-                navController.navigationBar.tintColor = .gray400
-                self?.present(navController, animated: true)
+                // TODO: 소셜로그인으로 정보 받아와서 가입이 필요하면 가입페이지로, 가입 되어있으면 메인페이지로 이동
+                let vc = RegisterTermsViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
     }

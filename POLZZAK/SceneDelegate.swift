@@ -19,7 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = RegisterNicknameViewController() // appFlowCoordinator.getRootView()
+        let navController = UINavigationController(rootViewController: LoginViewController())
+        navController.navigationBar.tintColor = .gray700
+        // 아래 4줄은 navController의 title을 안 보이게 하기 위해서 사용함
+        let barButtonItemAppearance = UIBarButtonItem.appearance()
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .normal)
+        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .highlighted)
+        window?.rootViewController = RegisterParentTypeViewController() // appFlowCoordinator.getRootView()
         window?.makeKeyAndVisible()
     }
 

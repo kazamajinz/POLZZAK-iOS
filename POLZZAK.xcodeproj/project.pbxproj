@@ -27,7 +27,6 @@
 		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
 		3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2300A32A0E358700130D1B /* UIColor+extension.swift */; };
 		3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5C92A1B527900D7B9DD /* StampCell.swift */; };
-		3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */; };
 		3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */; };
 		3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* ViewController.swift */; };
 		3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */; };
@@ -38,7 +37,7 @@
 		3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */; };
 		3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */; };
 		3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */; };
-		3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */; };
+		3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */; };
 		3CEE10C52A110F02000C15EC /* MissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE10C42A110F02000C15EC /* MissionCell.swift */; };
 		3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */; };
 		3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */; };
@@ -61,6 +60,8 @@
 		DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
+		DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */; };
+		DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */; };
 		DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
@@ -95,7 +96,6 @@
 		3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+reloadDataWIthAnimation.swift"; sourceTree = "<group>"; };
 		3C2300A32A0E358700130D1B /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		3C43C5C92A1B527900D7B9DD /* StampCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampCell.swift; sourceTree = "<group>"; };
-		3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutFactory.swift; sourceTree = "<group>"; };
 		3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSize.swift; sourceTree = "<group>"; };
 		3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POLZZAK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewModel.swift; sourceTree = "<group>"; };
 		3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
 		3CCEF9EB2A1BA24A009C61E1 /* StampFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampFooterView.swift; sourceTree = "<group>"; };
-		3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+width.swift"; sourceTree = "<group>"; };
+		3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extension.swift"; sourceTree = "<group>"; };
 		3CEE10C42A110F02000C15EC /* MissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCell.swift; sourceTree = "<group>"; };
 		3CF41E452A1F1B5900914421 /* DetailBoardNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardNameView.swift; sourceTree = "<group>"; };
 		3CF41E472A1F43D400914421 /* LabelWithPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithPadding.swift; sourceTree = "<group>"; };
@@ -129,6 +129,8 @@
 		DA38E6182A4DA78800229282 /* NicknameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChecker.swift; sourceTree = "<group>"; };
 		DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
 		DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTerm.swift; sourceTree = "<group>"; };
+		DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectView.swift; sourceTree = "<group>"; };
+		DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectCell.swift; sourceTree = "<group>"; };
 		DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,7 +230,7 @@
 				397366CA2A10FA35007D998F /* UIImage+extension.swift */,
 				3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */,
 				3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */,
-				3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+width.swift */,
+				3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */,
 				397366CC2A112967007D998F /* UILabel+extension.swift */,
 				39AC7DCB2A1839C3007D58F3 /* UIView+extension.swift */,
 			);
@@ -288,7 +290,6 @@
 			children = (
 				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
 				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
-				3C43C5CB2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -338,6 +339,15 @@
 			path = AgreementCheck;
 			sourceTree = "<group>";
 		};
+		DA8532852A795C4A00F0D045 /* ParentTypeSelect */ = {
+			isa = PBXGroup;
+			children = (
+				DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */,
+				DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */,
+			);
+			path = ParentTypeSelect;
+			sourceTree = "<group>";
+		};
 		DAA6D03C2A4B15B000101DCE /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +359,7 @@
 				DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */,
 				DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */,
 				DA383DCD2A69AE8A001F697E /* RegisterTermsViewController.swift */,
+				DA8532852A795C4A00F0D045 /* ParentTypeSelect */,
 				DA85327F2A70CDAC00F0D045 /* AgreementCheck */,
 				DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */,
 				DA38E6182A4DA78800229282 /* NicknameChecker.swift */,
@@ -457,7 +468,8 @@
 				DA38E60E2A4D713C00229282 /* RegisterNextButton.swift in Sources */,
 				3C4515E42A0BF2F900C9BA4F /* ViewController.swift in Sources */,
 				3CF41E482A1F43D500914421 /* LabelWithPadding.swift in Sources */,
-				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+width.swift in Sources */,
+				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */,
+				DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
 				DA383DCE2A69AE8A001F697E /* RegisterTermsViewController.swift in Sources */,
 				DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */,
@@ -482,7 +494,7 @@
 				3C2300A42A0E358700130D1B /* UIColor+extension.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
-				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
+				DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */,
 				DA383DD22A69B420001F697E /* AgreementCheckCell.swift in Sources */,
 				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,

@@ -9,8 +9,13 @@ import Combine
 import UIKit
 
 import CombineCocoa
+import SnapKit
 
 class RegisterUserTypeViewController: UIViewController {
+    enum Constants {
+        static let basicInset: CGFloat = 16
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -24,7 +29,7 @@ class RegisterUserTypeViewController: UIViewController {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .gray800
-        label.font = .title4
+        label.font = .title22Bd
         label.text = "어떤 회원으로 활동하시겠어요?"
         return label
     }()
@@ -33,7 +38,7 @@ class RegisterUserTypeViewController: UIViewController {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .gray600
-        label.font = .body1
+        label.font = .body15Md
         label.text = "나중에 변경이 불가하니 신중하게 선택해 주세요"
         return label
     }()
@@ -75,27 +80,26 @@ class RegisterUserTypeViewController: UIViewController {
         }
         
         labelStackView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            make.horizontalEdges.equalToSuperview().inset(Constants.basicInset)
             make.bottom.equalTo(buttonStackView.snp.top).offset(-89)
         }
         
         buttonStackView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(16)
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(Constants.basicInset)
             make.height.equalTo(230)
         }
         
         nextButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(36)
+            make.horizontalEdges.equalToSuperview().inset(Constants.basicInset)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(Constants.basicInset)
             make.height.equalTo(50)
         }
     }
     
     private func configureView() {
         view.backgroundColor = .gray100
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func configureBinding() {
