@@ -71,7 +71,7 @@ class TempRegisterViewController: UIViewController {
                         print("⚠️ failed register")
                         print("messages: ", messages)
                     default:
-                        print("wtf??: ", statusCode)
+                        print("statusCode: ", statusCode)
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
                         guard let messages = dto?.messages else { return }
                         print(messages)

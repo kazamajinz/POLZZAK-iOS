@@ -38,7 +38,10 @@ extension LoginViewModel {
         }
         
         let appleLogin = input.appleLogin.asyncMap { _ -> (Data, URLResponse)? in
-            guard let topVC = await UIApplication.getTopViewController() else { return nil }
+            let topVC = DispatchQueue.main.sync {
+                UIApplication.getTopViewController()
+            }
+            guard let topVC else { return nil }
             return try? await AuthAPI.appleLogin(appleLoginPresentationAnchorView: topVC)
         }
         
@@ -76,6 +79,10 @@ extension LoginViewModel {
                     print(messages)
                     return .none
                 default:
+                    print("statusCode: ", statusCode)
+                    let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
+                    guard let messages = dto?.messages else { return .none }
+                    print(messages)
                     return .none
                 }
             }

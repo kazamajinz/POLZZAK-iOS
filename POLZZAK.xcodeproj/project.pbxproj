@@ -133,7 +133,6 @@
 		DAC36B882A32DA3900BE5C8D /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */; };
 		DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */; };
 		DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */; };
-		DAC36B952A34BEC100BE5C8D /* LoginTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B942A34BEC100BE5C8D /* LoginTestViewController.swift */; };
 		DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */; };
 /* End PBXBuildFile section */
 
@@ -261,7 +260,6 @@
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
-		DAC36B942A34BEC100BE5C8D /* LoginTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTestViewController.swift; sourceTree = "<group>"; };
 		DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -495,7 +493,6 @@
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
 				3C4515E32A0BF2F900C9BA4F /* AppFlowCoordinator.swift */,
 				397366CE2A114439007D998F /* TabBarController.swift */,
-				DAC36B942A34BEC100BE5C8D /* LoginTestViewController.swift */,
 				DAA6D03C2A4B15B000101DCE /* Login */,
 				DA11FEAE2A41F27F005A469D /* SocialLoginManager */,
 				3CF28D842A2E4A28000B0A91 /* KakaoAPI */,
@@ -871,7 +868,6 @@
 				DABEC1B32A382B4300EAD8CA /* AccessTokenDTO.swift in Sources */,
 				DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */,
 				DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */,
-				DAC36B952A34BEC100BE5C8D /* LoginTestViewController.swift in Sources */,
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
 				DAC36B882A32DA3900BE5C8D /* KakaoLoginManager.swift in Sources */,

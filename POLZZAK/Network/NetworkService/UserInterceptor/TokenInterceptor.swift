@@ -31,9 +31,10 @@ class TokenInterceptor: RequestInterceptor {
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
                let refreshToken = httpResponse.getRefreshTokenFromCookie() {
+                print("🥬🪙 refreshed accessToken: ", accessToken)
+                print("🥬🪙 refreshed refreshToken: ", refreshToken)
                 Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
                 Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
-                print("🪙 refreshToken: ", refreshToken)
                 return .retry
             } else {
                 return .doNotRetry

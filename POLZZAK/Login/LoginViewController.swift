@@ -176,6 +176,7 @@ extension LoginViewController {
             appleLogin: appleLogin.eraseToAnyPublisher()
         )
         let output = viewModel.transform(input)
+        
         output
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
