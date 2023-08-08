@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class AgreementCheckCell: UITableViewCell {
+final class AgreementCheckCell: UITableViewCell {
     static let reuseIdentifier = "AgreementCheckCell"
     
     private let stackView: UIStackView = {

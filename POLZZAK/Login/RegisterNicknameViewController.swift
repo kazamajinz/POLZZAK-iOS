@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterNicknameViewController: UIViewController {
+final class RegisterNicknameViewController: UIViewController {
     private let descriptionLabel1: UILabel = {
         let label = UILabel()
         label.text = "닉네임을 설정해주세요"

@@ -9,14 +9,15 @@ import UIKit
 
 import SnapKit
 
-class RegisterNextButton: UIButton {
+final class RegisterNextButton: UIButton {
+    private let titleAttrs = AttributeContainer([
+        .font: UIFont.subtitle3,
+        .foregroundColor: UIColor.white,
+    ])
+    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         var config = UIButton.Configuration.plain()
-        let titleAttrs = AttributeContainer([
-            .font: UIFont.subtitle3,
-            .foregroundColor: UIColor.white,
-        ])
         config.attributedTitle = AttributedString("다음", attributes: titleAttrs)
         configuration = config
         configurationUpdateHandler = { button in
@@ -34,5 +35,9 @@ class RegisterNextButton: UIButton {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTitle(text: String) {
+        configuration?.attributedTitle = AttributedString(text, attributes: titleAttrs)
     }
 }

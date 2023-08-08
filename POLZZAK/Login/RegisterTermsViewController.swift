@@ -11,7 +11,7 @@ import UIKit
 import CombineCocoa
 import SnapKit
 
-class RegisterTermsViewController: UIViewController {
+final class RegisterTermsViewController: UIViewController {
     enum Constants {
         static let basicInset: CGFloat = 16
     }

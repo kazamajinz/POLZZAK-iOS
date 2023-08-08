@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserTypeSelectButton: UIButton {
+final class UserTypeSelectButton: UIButton {
     private let userType: LoginUserType
     
     init(frame: CGRect = .zero, userType: LoginUserType) {

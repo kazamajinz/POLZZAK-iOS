@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ParentTypeSelectView: UICollectionView {
+final class ParentTypeSelectView: UICollectionView {
     private let types: [String]
     
     init(frame: CGRect = .zero, types: [String]) {

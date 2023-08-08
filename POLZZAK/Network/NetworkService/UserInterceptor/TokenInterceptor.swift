@@ -30,7 +30,7 @@ class TokenInterceptor: RequestInterceptor {
             
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
-               let refreshToken = (httpResponse.allHeaderFields["Set-Cookie"] as? String)?.getRefreshTokenFromCookie() {
+               let refreshToken = httpResponse.getRefreshTokenFromCookie() {
                 Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
                 Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
                 print("🪙 refreshToken: ", refreshToken)

@@ -10,7 +10,7 @@ import UIKit
 
 import CombineCocoa
 
-class NicknameChecker: UIView {
+final class NicknameChecker: UIView {
     private var cancellables = Set<AnyCancellable>()
     
     private let otherEditTextField = PassthroughSubject<Void, Never>()

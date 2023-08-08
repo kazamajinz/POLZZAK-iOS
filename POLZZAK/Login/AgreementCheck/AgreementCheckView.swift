@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class AgreementCheckView: UITableView {
+final class AgreementCheckView: UITableView {
     private var terms: [[AgreementTerm]] = []
     
     private let _allTermsAccepted = PassthroughSubject<Bool, Never>()

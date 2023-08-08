@@ -11,8 +11,12 @@ import UIKit
 import CombineCocoa
 import SnapKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
+    private let viewModel = LoginViewModel()
+    
+    private let kakaoLogin = PassthroughSubject<Void, Never>()
+    private let appleLogin = PassthroughSubject<Void, Never>()
     
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -92,7 +96,7 @@ class LoginViewController: UIViewController {
         button.contentHorizontalAlignment = .fill
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -149,22 +153,51 @@ class LoginViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = .gray100
     }
+}
+
+extension LoginViewController {
+    typealias State = LoginViewModel.State
     
     private func configureBinding() {
         kakaoLoginButton.tapPublisher
             .sink { [weak self] _ in
-                // TODO: 소셜로그인으로 정보 받아와서 가입이 필요하면 가입페이지로, 가입 되어있으면 메인페이지로 이동
-                let vc = RegisterTermsViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.kakaoLogin.send(())
             }
             .store(in: &cancellables)
         
         appleLoginButton.tapPublisher
             .sink { [weak self] _ in
-                // TODO: 소셜로그인으로 정보 받아와서 가입이 필요하면 가입페이지로, 가입 되어있으면 메인페이지로 이동
-                let vc = RegisterTermsViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.appleLogin.send(())
             }
             .store(in: &cancellables)
+        
+        let input = LoginViewModel.Input(
+            kakaoLogin: kakaoLogin.eraseToAnyPublisher(),
+            appleLogin: appleLogin.eraseToAnyPublisher()
+        )
+        let output = viewModel.transform(input)
+        output
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.render($0)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func render(_ state: State) {
+        switch state {
+        case .showMainScreen:
+            // TODO: Main화면으로 transition
+            print("TODO: Main화면으로 transition")
+            break
+        case .showRegisterScreen:
+            // TODO: vc를 RegisterTermsViewController로 원래대로 바꾸기
+//            let vc = RegisterTermsViewController()
+            // 아래는 임시 vc임
+            let vc = TempRegisterViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        case .none:
+            break
+        }
     }
 }

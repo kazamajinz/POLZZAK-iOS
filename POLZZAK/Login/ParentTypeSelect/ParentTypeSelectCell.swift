@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class ParentTypeSelectCell: UICollectionViewCell {
+final class ParentTypeSelectCell: UICollectionViewCell {
     static let reuseIdentifier = "ParentTypeSelectCell"
     
     private let titleLabel: UILabel = {

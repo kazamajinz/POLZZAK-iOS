@@ -11,7 +11,7 @@ import UIKit
 import CombineCocoa
 import SnapKit
 
-class RegisterParentTypeViewController: UIViewController {
+final class RegisterParentTypeViewController: UIViewController {
     enum Constants {
         static let basicInset: CGFloat = 16
     }

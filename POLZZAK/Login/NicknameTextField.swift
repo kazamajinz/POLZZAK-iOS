@@ -10,7 +10,7 @@ import UIKit
 
 import CombineCocoa
 
-class NicknameTextField: UITextField {
+final class NicknameTextField: UITextField {
     enum FirstResponderEvent {
         case become
         case resign
