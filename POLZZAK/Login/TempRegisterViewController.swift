@@ -77,7 +77,6 @@ class TempRegisterViewController: UIViewController {
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
                         guard let messages = dto?.messages else { return }
                         print(messages)
-                        return
                     }
                 }
             }
