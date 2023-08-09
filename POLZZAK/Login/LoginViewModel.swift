@@ -47,7 +47,7 @@ extension LoginViewModel {
         
         return Publishers
             .MergeMany(kakaoLogin, appleLogin)
-            .asyncMap { result -> State in
+            .map { result -> State in
                 guard let (data, response) = result else { return .none }
                 guard let httpResponse = response as? HTTPURLResponse else { return .none }
                 let statusCode = httpResponse.statusCode
