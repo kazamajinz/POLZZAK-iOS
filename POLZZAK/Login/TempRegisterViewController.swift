@@ -65,8 +65,7 @@ class TempRegisterViewController: UIViewController {
                             print("🪙 refreshToken: ", refreshToken)
                             Keychain().create(identifier: POLZZAK.Constants.KeychainKey.refreshToken, value: refreshToken)
                         }
-                        // TODO: Main화면으로 transition
-                        print("TODO: Main화면으로 transition")
+                        AppFlowController.shared.showHome()
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
                         guard let messages = dto?.messages else { return }

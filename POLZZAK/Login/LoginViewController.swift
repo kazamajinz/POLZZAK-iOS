@@ -188,9 +188,7 @@ extension LoginViewController {
     private func render(_ state: State) {
         switch state {
         case .showMainScreen:
-            // TODO: Main화면으로 transition
-            print("TODO: Main화면으로 transition")
-            break
+            AppFlowController.shared.showHome()
         case .showRegisterScreen:
             // TODO: vc를 RegisterTermsViewController로 원래대로 바꾸기
 //            let vc = RegisterTermsViewController()

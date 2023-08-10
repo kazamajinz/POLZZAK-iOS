@@ -96,7 +96,7 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
-		DA0C0C1B2A809B370021714D /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* AppFlowCoordinator.swift */; };
+		DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */; };
 		DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C1D2A809FFC0021714D /* HTTPURLResponse+.swift */; };
 		DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C1F2A80C5580021714D /* LoginViewModel.swift */; };
@@ -199,7 +199,7 @@
 		3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POLZZAK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3C4515E32A0BF2F900C9BA4F /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
+		3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C4515EB2A0BF2FB00C9BA4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C4515ED2A0BF2FB00C9BA4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -491,7 +491,7 @@
 				DA11FEAB2A4190A5005A469D /* POLZZAK.entitlements */,
 				3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */,
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
-				3C4515E32A0BF2F900C9BA4F /* AppFlowCoordinator.swift */,
+				3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */,
 				397366CE2A114439007D998F /* TabBarController.swift */,
 				DAA6D03C2A4B15B000101DCE /* Login */,
 				DA11FEAE2A41F27F005A469D /* SocialLoginManager */,
@@ -821,7 +821,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA0C0C1B2A809B370021714D /* AppFlowCoordinator.swift in Sources */,
+				DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */,
 				DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */,
 				DA0C0C222A828F9B0021714D /* Publisher+.swift in Sources */,
 				DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */,

@@ -12,24 +12,16 @@ import KakaoSDKAuth
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
-    private let appFlowCoordinator = AppFlowCoordinator()
+//    private let appFlowCoordinator = AppFlowController()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
-        
-        window = UIWindow(windowScene: scene)
-        let navController = UINavigationController(rootViewController: LoginViewController())
-        navController.navigationBar.tintColor = .gray700
-        // 아래 4줄은 navController의 BackButton의 title을 안 보이게 하기 위해서 사용함
-        let barButtonItemAppearance = UIBarButtonItem.appearance()
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .normal)
-        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .highlighted)
-        window?.rootViewController = navController // appFlowCoordinator.getRootView()
-        window?.makeKeyAndVisible()
+        let window = UIWindow(windowScene: scene)
+        self.window = window
+        AppFlowController.shared.show(in: window)
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
