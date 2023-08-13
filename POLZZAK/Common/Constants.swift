@@ -20,6 +20,10 @@ enum Constants {
         static let registerSocialType = "registerSocialType"
     }
     
+    enum UserDefaultsKey {
+        static let userInfo = "UserDefaultsUserInfo"
+    }
+    
     enum URL {
         static let baseURL = "https://api.polzzak.co.kr/api/"
     }

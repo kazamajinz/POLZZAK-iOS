@@ -10,82 +10,102 @@ import Foundation
 import UIKit
 
 final class LoginViewModel {
-    struct Input {
-        let kakaoLogin: AnyPublisher<Void, Never>
-        let appleLogin: AnyPublisher<Void, Never>
+    enum Input {
+        case kakaoLogin
+        case appleLogin
     }
     
-    enum State {
+    enum Output {
         case showMainScreen
         case showRegisterScreen
-        case none
     }
     
-    typealias Output = AnyPublisher<State, Never>
+    private var cancellables = Set<AnyCancellable>()
+    let input = PassthroughSubject<Input, Never>()
+    let output = PassthroughSubject<Output, Never>()
     
-    func transform(_ input: Input) -> Output {
-        let login = loginChains(input)
-        return Publishers
-            .MergeMany(login)
-            .eraseToAnyPublisher()
+    init() {
+        bind()
     }
 }
 
 extension LoginViewModel {
-    private func loginChains(_ input: Input) -> Output {
-        let kakaoLogin = input.kakaoLogin.asyncMap { _ -> (Data, URLResponse)? in
-            return try? await AuthAPI.kakaoLogin()
-        }
-        
-        let appleLogin = input.appleLogin.asyncMap { _ -> (Data, URLResponse)? in
-            let topVC = DispatchQueue.main.sync {
-                UIApplication.getTopViewController()
-            }
-            guard let topVC else { return nil }
-            return try? await AuthAPI.appleLogin(appleLoginPresentationAnchorView: topVC)
-        }
-        
-        return Publishers
-            .MergeMany(kakaoLogin, appleLogin)
-            .map { result -> State in
-                guard let (data, response) = result else { return .none }
-                guard let httpResponse = response as? HTTPURLResponse else { return .none }
-                let statusCode = httpResponse.statusCode
-                
-                switch statusCode {
-                case 200..<300: // 로그인 성공
-                    let dto = try? JSONDecoder().decode(BaseResponseDTO<AccessTokenDTO>.self, from: data)
-                    guard let accessToken = dto?.data?.accessToken else { return .none }
-                    print("✅ login success!")
-                    print("🪙 accessToken: ", accessToken)
-                    Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
-                    if let refreshToken = httpResponse.getRefreshTokenFromCookie() {
-                        print("🪙 refreshToken: ", refreshToken)
-                        Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
-                    }
-                    return .showMainScreen
-                case 400: // 회원가입 필요
-                    let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
-                    guard let needRegisterDTO = dto?.data else { return .none }
-                    print("⚠️ need register")
-                    print("username: ", needRegisterDTO.username)
-                    print("socialType: ", needRegisterDTO.socialType)
-                    Keychain().create(identifier: Constants.KeychainKey.registerUsername, value: needRegisterDTO.username)
-                    Keychain().create(identifier: Constants.KeychainKey.registerSocialType, value: needRegisterDTO.socialType)
-                    return .showRegisterScreen
-                case 401: // 소셜 로그인 실패
-                    let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
-                    guard let messages = dto?.messages else { return .none }
-                    print(messages)
-                    return .none
-                default:
-                    print("statusCode: ", statusCode)
-                    let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
-                    guard let messages = dto?.messages else { return .none }
-                    print(messages)
-                    return .none
+    private func bind() {
+        input.sink { [weak self] input in
+            Task { [weak self] in
+                let loginResult: (Data, URLResponse)?
+                switch input {
+                case .kakaoLogin:
+                    loginResult = try? await AuthAPI.kakaoLogin()
+                case .appleLogin:
+                    let topVC = await UIApplication.getTopViewController()
+                    guard let topVC else { return }
+                    loginResult = try? await AuthAPI.appleLogin(appleLoginPresentationAnchorView: topVC)
                 }
+                self?.handleLoginResult(result: loginResult)
             }
-            .eraseToAnyPublisher()
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func handleLoginResult(result: (Data, URLResponse)?) {
+        guard let (data, response) = result else { return }
+        guard let httpResponse = response as? HTTPURLResponse else { return }
+        let statusCode = httpResponse.statusCode
+        
+        switch statusCode {
+        case 200..<300: // 로그인 성공
+            let dto = try? JSONDecoder().decode(BaseResponseDTO<AccessTokenDTO>.self, from: data)
+            guard let accessToken = dto?.data?.accessToken else { return }
+            print("✅ login success!")
+            print("🪙 accessToken: ", accessToken)
+            Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
+            if let refreshToken = httpResponse.getRefreshTokenFromCookie() {
+                print("🪙 refreshToken: ", refreshToken)
+                Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
+            }
+            getUserInfo() // 로그인이 성공했으므로 사용자 정보 조회 API를 날림
+            output.send(.showMainScreen)
+        case 400: // 회원가입 필요
+            let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
+            guard let needRegisterDTO = dto?.data else { return }
+            print("⚠️ need register")
+            print("username: ", needRegisterDTO.username)
+            print("socialType: ", needRegisterDTO.socialType)
+            Keychain().create(identifier: Constants.KeychainKey.registerUsername, value: needRegisterDTO.username)
+            Keychain().create(identifier: Constants.KeychainKey.registerSocialType, value: needRegisterDTO.socialType)
+            output.send(.showRegisterScreen)
+        case 401: // 소셜 로그인 실패
+            let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
+            guard let messages = dto?.messages else { return }
+            print(messages)
+        default:
+            print("statusCode: ", statusCode)
+            let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
+            guard let messages = dto?.messages else { return }
+            print(messages)
+        }
+    }
+    
+    private func getUserInfo() {
+        Task { [weak self] in
+            let result = try? await UserAPI.getUserInfo()
+            self?.handleUserInfoResult(result: result)
+        }
+    }
+    
+    private func handleUserInfoResult(result: (Data, URLResponse)?) {
+        guard let (data, response) = result else { return }
+        guard let httpResponse = response as? HTTPURLResponse else { return }
+        let statusCode = httpResponse.statusCode
+        
+        switch statusCode {
+        case 200..<300:
+            let dto = try? JSONDecoder().decode(UserInfoDTO.self, from: data)
+            guard let data = dto?.data else { return }
+            UserDefaults.standard.saveUserInfo(data.asUserInfoTypeWithoutID()) // UserInfo를 UserDefaults에 저장함
+        default:
+            break
+        }
     }
 }

@@ -100,7 +100,6 @@
 		DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C1D2A809FFC0021714D /* HTTPURLResponse+.swift */; };
 		DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C1F2A80C5580021714D /* LoginViewModel.swift */; };
-		DA0C0C222A828F9B0021714D /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C212A828F9B0021714D /* Publisher+.swift */; };
 		DA0C0C242A82A3370021714D /* TempRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C232A82A3370021714D /* TempRegisterViewController.swift */; };
 		DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEA52A4033D3005A469D /* RegisterTarget.swift */; };
 		DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA11FEA72A4071A9005A469D /* MultipartFormTargetType.swift */; };
@@ -123,6 +122,11 @@
 		DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */; };
 		DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */; };
 		DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAAFC5A32A5D91E9006393D0 /* CombineCocoa */; };
+		DAB2256E2A894FD400113617 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2256D2A894FD400113617 /* UserAPI.swift */; };
+		DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2256F2A89515000113617 /* UserInfoTarget.swift */; };
+		DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225712A8954E200113617 /* UserInfoDTO.swift */; };
+		DAB225742A89560400113617 /* MemberPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225732A89560400113617 /* MemberPoint.swift */; };
+		DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225752A896DC300113617 /* UserDefaults+.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -232,7 +236,6 @@
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
 		DA0C0C1D2A809FFC0021714D /* HTTPURLResponse+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+.swift"; sourceTree = "<group>"; };
 		DA0C0C1F2A80C5580021714D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		DA0C0C212A828F9B0021714D /* Publisher+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+.swift"; sourceTree = "<group>"; };
 		DA0C0C232A82A3370021714D /* TempRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRegisterViewController.swift; sourceTree = "<group>"; };
 		DA11FEA52A4033D3005A469D /* RegisterTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTarget.swift; sourceTree = "<group>"; };
 		DA11FEA72A4071A9005A469D /* MultipartFormTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormTargetType.swift; sourceTree = "<group>"; };
@@ -255,6 +258,11 @@
 		DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectView.swift; sourceTree = "<group>"; };
 		DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectCell.swift; sourceTree = "<group>"; };
 		DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DAB2256D2A894FD400113617 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		DAB2256F2A89515000113617 /* UserInfoTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTarget.swift; sourceTree = "<group>"; };
+		DAB225712A8954E200113617 /* UserInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDTO.swift; sourceTree = "<group>"; };
+		DAB225732A89560400113617 /* MemberPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPoint.swift; sourceTree = "<group>"; };
+		DAB225752A896DC300113617 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
@@ -397,6 +405,7 @@
 			children = (
 				3900FAD92A39FE49009EAC52 /* Main */,
 				39227BE62A23866300C86049 /* testData.swift */,
+				DAB225732A89560400113617 /* MemberPoint.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -464,7 +473,7 @@
 				39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */,
 				3900FAA42A377340009EAC52 /* UIView+Animation.swift */,
 				3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */,
-				DA0C0C212A828F9B0021714D /* Publisher+.swift */,
+				DAB225752A896DC300113617 /* UserDefaults+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -519,6 +528,7 @@
 				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
 				DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */,
 				DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */,
+				DAB225712A8954E200113617 /* UserInfoDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -529,6 +539,7 @@
 				3C74169D2A25ED5E001A1E50 /* TokenTarget.swift */,
 				3CD5F8A92A2DF5FB003E4A67 /* LoginTarget.swift */,
 				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
+				DAB2256F2A89515000113617 /* UserInfoTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -726,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */,
+				DAB2256D2A894FD400113617 /* UserAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -823,7 +835,6 @@
 			files = (
 				DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */,
 				DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */,
-				DA0C0C222A828F9B0021714D /* Publisher+.swift in Sources */,
 				DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */,
 				DA38E60C2A4D60DE00229282 /* RegisterUserTypeViewController.swift in Sources */,
 				39152B482A5AB68B00AAFA23 /* UIFont+PretendardFont.swift in Sources */,
@@ -858,13 +869,16 @@
 				3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */,
 				39152B402A5AB37500AAFA23 /* SearchState.swift in Sources */,
 				DA0C0C242A82A3370021714D /* TempRegisterViewController.swift in Sources */,
+				DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */,
+				DAB2256E2A894FD400113617 /* UserAPI.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
+				DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */,
 				DABEC1B32A382B4300EAD8CA /* AccessTokenDTO.swift in Sources */,
 				DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */,
 				DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */,
@@ -874,6 +888,7 @@
 				DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
+				DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */,
 				3CD5F8AA2A2DF5FB003E4A67 /* LoginTarget.swift in Sources */,
 				DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */,
 				DABEC1B52A382D1800EAD8CA /* NeedRegisterDTO.swift in Sources */,
@@ -918,6 +933,7 @@
 				39152B302A5AB2C200AAFA23 /* PaddedLabel .swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
+				DAB225742A89560400113617 /* MemberPoint.swift in Sources */,
 				DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */,
 				DA383DD22A69B420001F697E /* AgreementCheckCell.swift in Sources */,
 				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,

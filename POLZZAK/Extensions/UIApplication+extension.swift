@@ -26,9 +26,25 @@ extension UIApplication {
             .width ?? 0
     }
     
-    static func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-        if let nav = base as? UINavigationController {
-            return getTopViewController(base: nav.visibleViewController)
+    private var keyWindowRootVC: UIViewController? {
+        if Thread.isMainThread {
+            return UIApplication
+                .shared
+                .keyWindow?
+                .rootViewController
+        } else {
+            return DispatchQueue.main.sync {
+                UIApplication
+                    .shared
+                    .keyWindow?
+                    .rootViewController
+            }
+        }
+    }
+    
+    static func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindowRootVC) -> UIViewController? {
+        if let nav = base as? UINavigationController, let visible = nav.visibleViewController {
+            return getTopViewController(base: visible)
         } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
             return getTopViewController(base: selected)
         } else if let presented = base?.presentedViewController {

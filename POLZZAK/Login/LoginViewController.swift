@@ -15,9 +15,6 @@ final class LoginViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private let viewModel = LoginViewModel()
     
-    private let kakaoLogin = PassthroughSubject<Void, Never>()
-    private let appleLogin = PassthroughSubject<Void, Never>()
-    
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -73,8 +70,6 @@ final class LoginViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    
-    // TODO: 버튼 2개 다 configuration 써서 하도록 바꿔야 할듯
     
     private let kakaoLoginButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -156,28 +151,20 @@ final class LoginViewController: UIViewController {
 }
 
 extension LoginViewController {
-    typealias State = LoginViewModel.State
-    
     private func configureBinding() {
         kakaoLoginButton.tapPublisher
             .sink { [weak self] _ in
-                self?.kakaoLogin.send(())
+                self?.viewModel.input.send(.kakaoLogin)
             }
             .store(in: &cancellables)
         
         appleLoginButton.tapPublisher
             .sink { [weak self] _ in
-                self?.appleLogin.send(())
+                self?.viewModel.input.send(.appleLogin)
             }
             .store(in: &cancellables)
         
-        let input = LoginViewModel.Input(
-            kakaoLogin: kakaoLogin.eraseToAnyPublisher(),
-            appleLogin: appleLogin.eraseToAnyPublisher()
-        )
-        let output = viewModel.transform(input)
-        
-        output
+        viewModel.output
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.render($0)
@@ -185,8 +172,8 @@ extension LoginViewController {
             .store(in: &cancellables)
     }
     
-    private func render(_ state: State) {
-        switch state {
+    private func render(_ output: LoginViewModel.Output) {
+        switch output {
         case .showMainScreen:
             AppFlowController.shared.showHome()
         case .showRegisterScreen:
@@ -195,8 +182,6 @@ extension LoginViewController {
             // 아래는 임시 vc임
             let vc = TempRegisterViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case .none:
-            break
         }
     }
 }

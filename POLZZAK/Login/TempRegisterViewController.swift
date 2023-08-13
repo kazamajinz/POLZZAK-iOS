@@ -65,6 +65,8 @@ class TempRegisterViewController: UIViewController {
                             print("🪙 refreshToken: ", refreshToken)
                             Keychain().create(identifier: POLZZAK.Constants.KeychainKey.refreshToken, value: refreshToken)
                         }
+                        Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerUsername)
+                        Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerSocialType)
                         AppFlowController.shared.showHome()
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
