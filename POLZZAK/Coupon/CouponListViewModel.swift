@@ -8,40 +8,78 @@
 import Combine
 import UIKit
 
-class CouponListViewModel {
-    @Published var inprogressCouponListData: [CouponListData] = []
-    @Published var completedCouponListData: [CouponListData] = []
-    
+final class CouponListViewModel {
+    @Published var isSkeleton: Bool = true
+    @Published var isCenterLoading: Bool = false
+    @Published var couponListData: [CouponListData] = []
     @Published var userType: UserType = .child
     @Published var tabState: TabState = .unknown
-    @Published var inprogressFilterType: FilterType = .all
-    @Published var completedFilterType: FilterType = .all
+    @Published var filterType: FilterType = .unknown
     
-    init() {
-        tempInprogressAPI()
-    }
+    var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
+    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
     
-    func tempInprogressAPI() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.tabState = .inProgress
-            self?.inprogressCouponListData = CouponListData.sampleData.shuffled()
+    func tempInprogressAPI(for centerLoading: Bool = false) {
+        showLoading(for: centerLoading)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+            if false == centerLoading {
+                self.apiFinishedLoadingSubject.send(true)
+            }
+            if isSkeleton == true {
+                self.hideSkeletonView()
+            } else {
+                self.hideLoading(for: centerLoading)
+            }
+            self.couponListData = CouponListData.sampleData.shuffled()
         }
     }
     
-    func tempCompletedAPI() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.completedCouponListData = CouponListData.sampleData.shuffled()
+    func tempCompletedAPI(for centerLoading: Bool = false) {
+        showLoading(for: centerLoading)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+            if false == centerLoading {
+                self.apiFinishedLoadingSubject.send(true)
+            }
+            self.hideLoading(for: centerLoading)
+            self.couponListData = []//CouponListData.sampleData.shuffled()
         }
     }
     
     func preGiftTabSelected() {
-        tabState = .inProgress
+        if tabState != .unknown {
+            tempInprogressAPI()
+        }
+        
+        if tabState != .unknown {
+            tabState = .inProgress
+        }
     }
     
     func postGiftTabSelected() {
-        tabState = .completed
-        if true == completedCouponListData.isEmpty {
-            tempCompletedAPI()
+        if tabState == .inProgress {
+            tabState = .completed
+        }
+    }
+    
+    private func hideSkeletonView() {
+        if filterType == .unknown {
+            self.filterType = .all
+            self.tabState = .inProgress
+            self.isSkeleton = false
+        }
+    }
+    
+    private func showLoading(for centerLoading: Bool) {
+        if centerLoading == true {
+            isCenterLoading = true
+        }
+    }
+    
+    private func hideLoading(for centerLoading: Bool) {
+        if centerLoading == true {
+            isCenterLoading = false
         }
     }
 }

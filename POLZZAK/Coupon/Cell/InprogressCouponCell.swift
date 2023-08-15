@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 final class InprogressCouponCell: UICollectionViewCell {
     static let reuseIdentifier = "InprogressCouponCell"
@@ -15,7 +16,7 @@ final class InprogressCouponCell: UICollectionViewCell {
     
     private let contentSubView: UIView = {
         let view = UIView()
-        view.addBorder(cornerRadius: 10)
+        view.addCornerRadious(cornerRadius: 10)
         return view
     }()
     
@@ -23,7 +24,7 @@ final class InprogressCouponCell: UICollectionViewCell {
         let label = PaddedLabel()
         label.padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         label.setLabel(textColor: .blue500, font: .caption12Bd, backgroundColor: .blue150)
-        label.addBorder(cornerRadius: 4)
+        label.layer.cornerRadius = 4
         return label
     }()
     
@@ -52,7 +53,7 @@ final class InprogressCouponCell: UICollectionViewCell {
     private let rewardRequestButton: UIButton = {
         let button = UIButton()
         button.setTitleLabel(title: "선물 조르기", color: .white, font: .caption12Md, backgroundColor: .blue500)
-        button.addBorder(cornerRadius: 5)
+        button.layer.cornerRadius = 5
         return button
     }()
     
@@ -117,6 +118,7 @@ final class InprogressCouponCell: UICollectionViewCell {
 
 extension InprogressCouponCell {
     private func setUI() {
+        
         contentView.addSubview(contentSubView)
         
         contentSubView.snp.makeConstraints {

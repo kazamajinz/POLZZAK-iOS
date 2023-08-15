@@ -8,6 +8,11 @@
 import UIKit
 
 extension UIView {
+    func addCornerRadious(cornerRadius: CGFloat) {
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
+    }
+    
     func addBorder(
         corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
         cornerRadius: CGFloat = 0.0,
@@ -24,7 +29,6 @@ extension UIView {
     
     func addDashedBorder(borderColor: UIColor, spacing: NSNumber, cornerRadius: CGFloat) {
         let color = borderColor.cgColor
-        
         let shapeLayer:CAShapeLayer = CAShapeLayer()
         let frameSize = self.frame.size
         let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
@@ -40,7 +44,6 @@ extension UIView {
         
         self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
-        
         self.layer.addSublayer(shapeLayer)
     }
 }

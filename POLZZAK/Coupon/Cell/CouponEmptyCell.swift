@@ -33,6 +33,7 @@ extension CouponEmptyCell {
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         contentView.addSubview(placeholderLabel)
+        
         placeholderLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(16)
         }

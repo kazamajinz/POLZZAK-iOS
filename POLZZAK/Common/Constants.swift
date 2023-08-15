@@ -21,4 +21,10 @@ enum Constants {
     enum URL {
         static let baseURL = "https://api.polzzak.co.kr/api/"
     }
+    
+    enum UI {
+        static let initialContentOffsetY: Double = 74.0
+        static let headerTopPadding: Double = 44.0
+        static let filterTopPadding: Double = -23.0
+    }
 }
