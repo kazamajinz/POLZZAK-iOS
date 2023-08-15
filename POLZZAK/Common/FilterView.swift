@@ -7,8 +7,16 @@
 
 import UIKit
 import SnapKit
+import SkeletonView
 
 final class FilterView: UIView {
+    private let contentView: UIView = {
+        let view = UIView()
+        view.skeletonCornerRadius = 8
+        view.isSkeletonable = true
+        return view
+    }()
+    
     let filterStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -57,12 +65,15 @@ final class FilterView: UIView {
     private let filterLabel: UILabel = {
         let label = UILabel()
         label.setLabel(text: "전체", textColor: .gray800, font: .title4, textAlignment: .left)
+        label.isHidden = true
         return label
     }()
     
     private let filterImageView: UIButton = {
         let imageView = UIButton()
         imageView.setImage(.filterButton, for: .normal)
+        imageView.isHidden = true
+        imageView.isUserInteractionEnabled = false
         return imageView
     }()
     
@@ -76,7 +87,16 @@ final class FilterView: UIView {
     }
     
     private func setUI() {
-        addSubview(filterStackView)
+        isSkeletonable = true
+        
+        addSubview(contentView)
+        
+        contentView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(21)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        contentView.addSubview(filterStackView)
         
         [filterLabel, nameStackView, filterImageView].forEach {
             filterStackView.addArrangedSubview($0)
@@ -91,9 +111,9 @@ final class FilterView: UIView {
         }
         
         filterStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(21)
-            $0.leading.equalToSuperview().inset(16)
-            $0.trailing.lessThanOrEqualToSuperview().inset(16).priority(750)
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.trailing.lessThanOrEqualToSuperview().priority(750)
         }
     }
     
@@ -103,6 +123,7 @@ final class FilterView: UIView {
         nickNameLabel.isHidden = true
         sectionStackView.isHidden = true
         memberTypeLabel.isHidden = true
+        filterImageView.isHidden = false
         filterLabel.isHidden = false
     }
     

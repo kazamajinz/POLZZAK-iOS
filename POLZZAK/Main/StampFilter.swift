@@ -20,6 +20,7 @@ struct StampSection {
 
 //TODO: - 타입을 통일할 예정
 enum FilterType {
+    case unknown
     case all
     case section(Int)
 }
@@ -27,6 +28,8 @@ enum FilterType {
 extension FilterType: Equatable {
     static func == (lhs: FilterType, rhs: FilterType) -> Bool {
         switch (lhs, rhs) {
+        case (.unknown, .unknown):
+            return true
         case (.all, .all):
             return true
         case let (.section(leftMember), .section(rightMember)):

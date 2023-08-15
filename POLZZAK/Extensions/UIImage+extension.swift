@@ -35,6 +35,7 @@ extension UIImage {
     static let raisingOneHandCharacter = UIImage(named: "raisingOneHandCharacter")
     static let sittingCharacter = UIImage(named: "sittingCharacter")
     static let defaultProfileCharacter = UIImage(named: "defaultProfileCharacter")
+    static let couponEmptyCharacter = UIImage(named: "couponEmptyCharacter")
     
     //MARK: - Common
     
