@@ -20,6 +20,16 @@ final class FullLoadingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        if self.window != nil {
+            if false == isHidden {
+                loadingView.startRotating()
+            }
+        }
+    }
+    
     private func setupView() {
         backgroundColor = UIColor.black.withAlphaComponent(0.4)
         isHidden = true
@@ -33,11 +43,9 @@ final class FullLoadingView: UIView {
     
     func startLoading() {
         isHidden = false
-//        loadingView.startRotating()
     }
-
+    
     func stopLoading() {
         isHidden = true
-//        loadingView.s()
     }
 }
