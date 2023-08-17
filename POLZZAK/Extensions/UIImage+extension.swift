@@ -48,4 +48,5 @@ extension UIImage {
     //MARK: - Icon
     static let circle4 = UIImage(named: "circle4")
     static let circle6 = UIImage(named: "circle6")
+    static let checkmarkIcon = UIImage(named: "checkmarkIcon")
 }

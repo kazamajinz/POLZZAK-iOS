@@ -1,5 +1,5 @@
 //
-//  CouponViewController.swift
+//  CouponListViewController.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/07/28.
@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 import Combine
 import CombineCocoa
-import SkeletonView
 
 final class CouponListViewController: UIViewController {
     private let viewModel = CouponListViewModel()
@@ -21,6 +20,7 @@ final class CouponListViewController: UIViewController {
     private let customRefreshControl = CustomRefreshControl()
     private let filterView = FilterView()
     private let fullLoadingView = FullLoadingView()
+    private let couponSkeletonView = CouponSkeletonView()
     
     private let headerView: UIView = {
         let view = UIView()
@@ -70,12 +70,10 @@ final class CouponListViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: Constants.UI.initialContentOffsetY, left: 0, bottom: 32, right: 0)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.isSkeletonable = true
         
         collectionView.register(CouponHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CouponHeaderView.reuseIdentifier)
         collectionView.register(CouponFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CouponFooterView.reuseIdentifier)
         collectionView.register(CouponEmptyCell.self, forCellWithReuseIdentifier: CouponEmptyCell.reuseIdentifier)
-        collectionView.register(CouponSkeletonCell.self, forCellWithReuseIdentifier: CouponSkeletonCell.reuseIdentifier)
         collectionView.register(InprogressCouponCell.self, forCellWithReuseIdentifier: InprogressCouponCell.reuseIdentifier)
         collectionView.register(CompletedCouponCell.self, forCellWithReuseIdentifier: CompletedCouponCell.reuseIdentifier)
         
@@ -121,13 +119,13 @@ extension CouponListViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        [collectionView, filterView, headerView, emptyView].forEach {
+        [collectionView, filterView, headerView, emptyView, couponSkeletonView].forEach {
             contentsView.addSubview($0)
         }
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(42)
         }
         
         headerView.addSubview(tabViews)
@@ -145,6 +143,10 @@ extension CouponListViewController {
             $0.top.equalTo(headerView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(74)
+        }
+        
+        couponSkeletonView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         emptyView.snp.makeConstraints {
@@ -182,8 +184,8 @@ extension CouponListViewController {
     }
     
     private func setAction() {
-        let tapInprogressFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(inprogressFilterButtonTapped))
-        filterView.filterStackView.addGestureRecognizer(tapInprogressFilterButtonViewRecognizer)
+        let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
+        filterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
         customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
     
@@ -206,9 +208,6 @@ extension CouponListViewController {
             .store(in: &cancellables)
         
         viewModel.$isCenterLoading
-            .filter { [weak self] _ in
-                self?.viewModel.tabState != .unknown
-            }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.handleLoadingView(for: bool)
@@ -217,7 +216,7 @@ extension CouponListViewController {
         
         viewModel.$couponListData
             .filter { [weak self] _ in
-                self?.viewModel.tabState != .unknown
+                self?.viewModel.isSkeleton == false
             }
             .map { array -> Bool in
                 return array.isEmpty
@@ -247,16 +246,13 @@ extension CouponListViewController {
                 
                 if tabState == .inProgress {
                     self.viewModel.tempInprogressAPI(for: true)
-                } else if tabState == .completed {
-                    self.viewModel.tempCompletedAPI(for: true)
                 } else {
-                    self.viewModel.tempInprogressAPI()
+                    self.viewModel.tempCompletedAPI(for: true)
                 }
             }
             .store(in: &cancellables)
         
         viewModel.$filterType
-            .filter { $0 != .unknown }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] filterType in
                 self?.updateLayout(for: filterType)
@@ -267,42 +263,18 @@ extension CouponListViewController {
             .store(in: &cancellables)
     }
     
-    @objc func handleRefresh() {
-        if viewModel.tabState == .inProgress {
-            viewModel.tempInprogressAPI()
-        } else if viewModel.tabState == .completed {
-            viewModel.tempCompletedAPI()
-        }
-        tabViews.setTouchInteractionEnabled(false)
-    }
-
-    
-    private func handleSkeletonView(for bool: Bool) {
-        tabViews.setTouchInteractionEnabled(!bool)
-        if true == bool {
-            filterView.showAnimatedSkeleton()
-            collectionView.showAnimatedSkeleton()
-        } else {
-            tabViews.initTabViews()
-            filterView.hideSkeleton()
-            collectionView.hideSkeleton()
-            customRefreshControl.isRefresh = false
-        }
-    }
-    
     private func updateLayout(for filterType: FilterType) {
         switch filterType {
         case .all:
             filterView.handleAllFilterButtonTap()
-        case .section(let index):
-            let family = viewModel.couponListData[index].family
+        case .section(let memberId):
+            let idex = viewModel.indexOfMember(with: memberId)
+            let family = viewModel.couponListData[idex].family
             if viewModel.userType == .child {
                 filterView.handleChildSectionFilterButtonTap(with: family)
             } else {
                 filterView.handleParentSectionFilterButtonTap(with: family)
             }
-        case .unknown:
-            return
         }
         Task {
             applySectionFilter()
@@ -324,6 +296,18 @@ extension CouponListViewController {
     private func applySectionFilter() {
         let newLayout = createLayout()
         collectionView.setCollectionViewLayout(newLayout, animated: false)
+        collectionView.reloadData()
+    }
+    
+    private func handleSkeletonView(for bool: Bool) {
+        if true == bool {
+            viewModel.tempInprogressAPI(isFirst: true)
+            couponSkeletonView.showSkeletonView()
+        } else {
+            tabViews.initTabViews()
+            customRefreshControl.isRefresh = false
+            couponSkeletonView.hideSkeletonView()
+        }
     }
     
     private func handleLoadingView(for bool: Bool) {
@@ -349,22 +333,25 @@ extension CouponListViewController {
         }
     }
     
-    //TODO: - 테스트 코드, 삭제할것
-    @objc private func inprogressFilterButtonTapped() {
-        let alertController = UIAlertController(title: "필터", message: "필터링해드림", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
-            self?.viewModel.filterType = .all
+    @objc func handleRefresh() {
+        if viewModel.tabState == .inProgress {
+            viewModel.tempInprogressAPI()
+        } else if viewModel.tabState == .completed {
+            viewModel.tempCompletedAPI()
         }
-        let okAction2 = UIAlertAction(title: "쿼카 선택", style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.filterType = .section(0)
+        tabViews.setTouchInteractionEnabled(false)
+    }
+    
+    @objc private func filterButtonTapped() {
+        let bottomSheet = FilterBottomSheetViewController()
+        bottomSheet.delegate = self
+        bottomSheet.modalPresentationStyle = .custom
+        bottomSheet.transitioningDelegate = bottomSheet
+        bottomSheet.data = viewModel.couponListData.map{ $0.family }
+        if case let .section(memberId) = viewModel.filterType {
+            bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
-        alertController.addAction(okAction)
-        alertController.addAction(okAction2)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
+        present(bottomSheet, animated: true, completion: nil)
     }
     
     @objc private func guideButtonClicked() {
@@ -416,16 +403,12 @@ extension CouponListViewController: UICollectionViewDelegateFlowLayout {
             let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
             let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
             section.boundarySupplementaryItems = [header, sectionFooter]
-        } else if viewModel.tabState == .unknown || viewModel.filterType == .all {
+        } else if viewModel.filterType == .all {
             section.boundarySupplementaryItems = [header]
         }
     }
 
     private func configureContentInsetsAndScrolling(for section: NSCollectionLayoutSection) {
-        if viewModel.tabState == .unknown {
-            return
-        }
-        
         viewModel.filterType != .all
                 ? (section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 26))
                 : (section.orthogonalScrollingBehavior = .groupPaging)
@@ -469,6 +452,17 @@ extension CouponListViewController: TabViewsDelegate {
             viewModel.postGiftTabSelected()
         default:
             break
+        }
+    }
+}
+
+extension CouponListViewController: FilterBottomSheetDelegate {
+    func selectedItem(index: Int) {
+        if index == 0 {
+            viewModel.filterType = .all
+        } else {
+            let memberId = viewModel.couponListData[index-1].family.memberId
+            viewModel.filterType = .section(memberId)
         }
     }
 }

@@ -7,13 +7,10 @@
 
 import UIKit
 import SnapKit
-import SkeletonView
 
 final class FilterView: UIView {
     private let contentView: UIView = {
         let view = UIView()
-        view.skeletonCornerRadius = 8
-        view.isSkeletonable = true
         return view
     }()
     
@@ -44,35 +41,30 @@ final class FilterView: UIView {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "To", textColor: .blue500, font: .subtitle16Bd)
-        label.isHidden = true
+        label.setLabel(textColor: .blue500, font: .subtitle16Bd)
         return label
     }()
     
     private let memberTypeLabel: MemberTypeLabel = {
         let memberTypeLabel = MemberTypeLabel()
-        memberTypeLabel.isHidden = true
         return memberTypeLabel
     }()
     
     private let nickNameLabel: UILabel = {
         let label = UILabel()
         label.setLabel(textColor: .gray800, font: .subtitle18Sbd)
-        label.isHidden = true
         return label
     }()
     
     private let filterLabel: UILabel = {
         let label = UILabel()
         label.setLabel(text: "전체", textColor: .gray800, font: .title4, textAlignment: .left)
-        label.isHidden = true
         return label
     }()
     
     private let filterImageView: UIButton = {
         let imageView = UIButton()
         imageView.setImage(.filterButton, for: .normal)
-        imageView.isHidden = true
         imageView.isUserInteractionEnabled = false
         return imageView
     }()
@@ -87,8 +79,6 @@ final class FilterView: UIView {
     }
     
     private func setUI() {
-        isSkeletonable = true
-        
         addSubview(contentView)
         
         contentView.snp.makeConstraints {
@@ -118,21 +108,16 @@ final class FilterView: UIView {
     }
     
     func handleAllFilterButtonTap() {
-        headerLabel.isHidden = true
         nameStackView.isHidden = true
-        nickNameLabel.isHidden = true
         sectionStackView.isHidden = true
-        memberTypeLabel.isHidden = true
-        filterImageView.isHidden = false
         filterLabel.isHidden = false
     }
     
     func handleChildSectionFilterButtonTap(with family: FamilyMember) {
         nickNameLabel.text = family.nickName
         memberTypeLabel.text = family.memberType.detail
-        headerLabel.isHidden = false
+        headerLabel.text = "From"
         nameStackView.isHidden = false
-        nickNameLabel.isHidden = false
         sectionStackView.isHidden = false
         memberTypeLabel.isHidden = false
         filterLabel.isHidden = true
@@ -140,9 +125,8 @@ final class FilterView: UIView {
     
     func handleParentSectionFilterButtonTap(with family: FamilyMember) {
         nickNameLabel.text = family.nickName
-        headerLabel.isHidden = false
+        headerLabel.text = "To"
         nameStackView.isHidden = false
-        nickNameLabel.isHidden = false
         sectionStackView.isHidden = false
         memberTypeLabel.isHidden = true
         filterLabel.isHidden = true

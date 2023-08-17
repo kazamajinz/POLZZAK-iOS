@@ -6,14 +6,9 @@
 //
 
 import UIKit
-import SkeletonView
 
 class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let viewModel: CouponListViewModel
-    
-    var isDisplayingSkeleton: Bool {
-        return viewModel.isSkeleton
-    }
     
     var isEmptyCollectionView: Bool {
         return viewModel.couponListData.isEmpty
@@ -28,46 +23,46 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if isDisplayingSkeleton {
-            return 3
-        }
-        
         switch viewModel.filterType {
         case .all:
             return viewModel.couponListData.count
-        case .section, .unknown:
+        case .section:
             return 1
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isDisplayingSkeleton {
-            return 1
-        }
-        
         var cellCount: Int = 0
         switch viewModel.filterType {
         case .all:
             cellCount = viewModel.couponListData[section].coupons.count
-        case .section(let index):
+        case .section(let memberId):
             if false == viewModel.couponListData.isEmpty {
+                let index = viewModel.indexOfMember(with: memberId)
                 cellCount = viewModel.couponListData[index].coupons.count
             } else {
                 return 0
             }
-        case .unknown:
-            return 0
         }
         
         return cellCount == 0 ? 1 : cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if true == isDisplayingSkeleton {
-            return dequeueSkeletonCell(in: collectionView, at: indexPath)
+        if case .section(let memberId) = viewModel.filterType {
+            let index = viewModel.indexOfMember(with: memberId)
+            if true == viewModel.couponListData[index].coupons.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
         }
         
-        if true == isEmptyCollectionView || true == viewModel.couponListData[indexPath.section].coupons.isEmpty {
+        if viewModel.filterType == .all {
+            if true == viewModel.couponListData[indexPath.section].coupons.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
+        }
+        
+        if true == isEmptyCollectionView {
             return dequeueEmptyCell(in: collectionView, at: indexPath)
         }
         
@@ -102,11 +97,6 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
     }
     
-    private func dequeueSkeletonCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponSkeletonCell.reuseIdentifier, for: indexPath) as! CouponSkeletonCell
-        return cell
-    }
-
     private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
         return cell
@@ -114,15 +104,29 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
 
     private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedCouponCell.reuseIdentifier, for: indexPath) as! CompletedCouponCell
-        let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
-        cell.configure(with: couponData)
+        switch viewModel.filterType {
+        case .all:
+            let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
+            cell.configure(with: couponData)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let couponData = viewModel.couponListData[index].coupons[indexPath.row]
+            cell.configure(with: couponData)
+        }
         return cell
     }
 
     private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressCouponCell.reuseIdentifier, for: indexPath) as! InprogressCouponCell
-        let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
-        cell.configure(with: couponData, userType: viewModel.userType)
+        switch viewModel.filterType {
+        case .all:
+            let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
+            cell.configure(with: couponData, userType: viewModel.userType)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let couponData = viewModel.couponListData[index].coupons[indexPath.row]
+            cell.configure(with: couponData, userType: viewModel.userType)
+        }
         return cell
     }
 }

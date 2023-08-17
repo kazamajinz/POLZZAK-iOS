@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SkeletonView
 
 final class InprogressCouponCell: UICollectionViewCell {
     static let reuseIdentifier = "InprogressCouponCell"
@@ -108,17 +107,10 @@ final class InprogressCouponCell: UICollectionViewCell {
         
         circleView.layer.cornerRadius = circleViewWidth / 2
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        deadlineLabel.isHidden = true
-        rewardButtonStackView.isHidden = true
-    }
 }
 
 extension InprogressCouponCell {
     private func setUI() {
-        
         contentView.addSubview(contentSubView)
         
         contentSubView.snp.makeConstraints {
@@ -184,12 +176,10 @@ extension InprogressCouponCell {
         ddayLabel.text = couponData.rewardDate.remainingDays()
         rewardNameTextView.text = couponData.reward
         if userType == .parent {
-            deadlineLabel.isHidden = false
             deadlineLabel.text = "\(couponData.rewardDate.shortDateFormat())까지 주기로 약속했어요"
             let emphasisRange = [NSRange(location: 0, length: 8)]
             deadlineLabel.setEmphasisRanges(emphasisRange, color: .blue500, font: .caption12Md)
         } else {
-            rewardButtonStackView.isHidden = false
             rewardNameTextView.snp.remakeConstraints {
                 $0.top.equalTo(ddayLabel.snp.bottom).offset(8)
                 $0.leading.trailing.equalToSuperview().inset(16)

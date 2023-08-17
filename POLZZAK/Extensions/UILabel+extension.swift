@@ -8,8 +8,10 @@
 import UIKit
 
 extension UILabel {
-    func setLabel(text: String = "", textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
-        self.text = text
+    func setLabel(text: String? = nil, textColor: UIColor, font: UIFont, textAlignment: NSTextAlignment = .natural, backgroundColor: UIColor = .clear) {
+        if let text = text {
+            self.text = text
+        }
         self.textColor = textColor
         self.font = font
         self.textAlignment = textAlignment

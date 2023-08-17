@@ -19,5 +19,4 @@ enum StampBoardState {
 enum TabState {
     case inProgress
     case completed
-    case unknown
 }

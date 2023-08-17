@@ -16,7 +16,6 @@ final class TabViews: UIStackView {
     weak var delegate: TabViewsDelegate?
     private var didSetupTabViews = false
     private var selectedTab: TabView?
-    private var firstInit: Bool = true
     
     private let screenWidth = UIApplication.shared.width
     private var tabViews: [TabView]
@@ -142,7 +141,7 @@ extension TabViews {
     }
     
     func initTabViews() {
-        if false == firstInit {
+        if true == tabViews.isEmpty {
             return
         }
         
@@ -155,7 +154,6 @@ extension TabViews {
         tabView.selectLineHeight = selectLineHeight
         selectedTab = tabView
         tabView.selectedTab()
-        firstInit = false
     }
     
     func setTouchInteractionEnabled(_ enabled: Bool) {
