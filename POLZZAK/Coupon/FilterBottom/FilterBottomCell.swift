@@ -11,7 +11,7 @@ import SnapKit
 final class FilterBottomCell: UITableViewCell {
     static let reuseIdentifier = "FilterBottomCell"
     
-    let containerView: UIView = {
+    let contentsView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray100
         view.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray200)
@@ -44,12 +44,12 @@ final class FilterBottomCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         if selected {
             label.setLabel(textColor: .blue600, font: .body14Md)
-            containerView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .blue500)
-            containerView.backgroundColor = .blue100
+            contentsView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .blue500)
+            contentsView.backgroundColor = .blue100
         } else {
             label.setLabel(textColor: .gray800, font: .body14Sbd)
-            containerView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray200)
-            containerView.backgroundColor = .gray100
+            contentsView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray200)
+            contentsView.backgroundColor = .gray100
         }
         checkmarkImageView.isHidden = !selected
     }
@@ -57,15 +57,15 @@ final class FilterBottomCell: UITableViewCell {
     private func setUI() {
         selectionStyle = .none
         
-        addSubview(containerView)
+        addSubview(contentsView)
         
-        containerView.snp.makeConstraints {
+        contentsView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(4)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         
         [label, checkmarkImageView].forEach {
-            containerView.addSubview($0)
+            contentsView.addSubview($0)
         }
         
         label.snp.makeConstraints {

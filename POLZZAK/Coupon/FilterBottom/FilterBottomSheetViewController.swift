@@ -14,7 +14,6 @@ protocol FilterBottomSheetDelegate: AnyObject {
 
 final class FilterBottomSheetViewController: BottomSheetViewController {
     weak var delegate: FilterBottomSheetDelegate?
-    
     var selectedIndex: Int = 0
     
     private let textLabel: UILabel = {
@@ -31,8 +30,16 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
         return tableView
     }()
     
-    var data: [FamilyMember] = []
-    var currentFilterValue = 0
+    var data: [FamilyMember]
+    
+    init(data: [FamilyMember]) {
+        self.data = data
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override var initialHeight: CGFloat {
         return self.view.frame.height / 2
@@ -49,6 +56,12 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
         selectedCell()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        selectedCellScroll()
+    }
+    
     private func setUI() {
         view.addCornerRadious(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
         
@@ -63,12 +76,18 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(textLabel.snp.bottom).offset(16)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
     private func selectedCell() {
-        tableView.selectRow(at: IndexPath(row: 0, section: selectedIndex), animated: false, scrollPosition: .none)
+        let indexPath = IndexPath(row: 0, section: selectedIndex)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+    }
+    
+    private func selectedCellScroll() {
+        let indexPath = IndexPath(row: 0, section: selectedIndex)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 
@@ -76,12 +95,15 @@ extension FilterBottomSheetViewController: UITableViewDelegate, UITableViewDataS
     func numberOfSections(in tableView: UITableView) -> Int {
         return data.count + 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard false == data.isEmpty else {
+            return UITableViewCell()
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterBottomCell.reuseIdentifier, for: indexPath) as! FilterBottomCell
         indexPath.section == 0 ? cell.configure(with: "전체") : cell.configure(with: data[indexPath.section - 1].nickName)
         return cell
@@ -91,5 +113,8 @@ extension FilterBottomSheetViewController: UITableViewDelegate, UITableViewDataS
         delegate?.selectedItem(index: indexPath.section)
         self.dismiss(animated: true, completion: nil)
     }
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55
+    }
 }

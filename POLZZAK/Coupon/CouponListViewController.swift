@@ -343,16 +343,19 @@ extension CouponListViewController {
     }
     
     @objc private func filterButtonTapped() {
-        let bottomSheet = FilterBottomSheetViewController()
+        let data = viewModel.couponListData.map{ $0.family }
+        let bottomSheet = FilterBottomSheetViewController(data: data)
         bottomSheet.delegate = self
         bottomSheet.modalPresentationStyle = .custom
         bottomSheet.transitioningDelegate = bottomSheet
-        bottomSheet.data = viewModel.couponListData.map{ $0.family }
+        
         if case let .section(memberId) = viewModel.filterType {
             bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
         }
+        
         present(bottomSheet, animated: true, completion: nil)
     }
+
     
     @objc private func guideButtonClicked() {
         let couponGuideViewController = CouponGuideViewController()
