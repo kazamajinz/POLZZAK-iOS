@@ -64,7 +64,6 @@ extension LoginViewModel {
                 print("🪙 refreshToken: ", refreshToken)
                 Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
             }
-            getUserInfo() // 로그인이 성공했으므로 사용자 정보 조회 API를 날림
             output.send(.showMainScreen)
         case 400: // 회원가입 필요
             let dto = try? JSONDecoder().decode(BaseResponseDTO<NeedRegisterDTO>.self, from: data)
@@ -84,28 +83,6 @@ extension LoginViewModel {
             let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
             guard let messages = dto?.messages else { return }
             print(messages)
-        }
-    }
-    
-    private func getUserInfo() {
-        Task { [weak self] in
-            let result = try? await UserAPI.getUserInfo()
-            self?.handleUserInfoResult(result: result)
-        }
-    }
-    
-    private func handleUserInfoResult(result: (Data, URLResponse)?) {
-        guard let (data, response) = result else { return }
-        guard let httpResponse = response as? HTTPURLResponse else { return }
-        let statusCode = httpResponse.statusCode
-        
-        switch statusCode {
-        case 200..<300:
-            let dto = try? JSONDecoder().decode(UserInfoDTO.self, from: data)
-            guard let data = dto?.data else { return }
-            UserDefaults.standard.saveUserInfo(data.asUserInfoTypeWithoutID()) // UserInfo를 UserDefaults에 저장함
-        default:
-            break
         }
     }
 }

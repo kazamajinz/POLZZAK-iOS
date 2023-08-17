@@ -22,11 +22,11 @@ extension UserDefaults {
         return nil
     }
     
-    func saveUserInfo(_ value: UserInfoDTO.UserInfoWithoutID) {
+    func saveUserInfo(_ value: UserInfoDTO.UserInfo) {
         self.setValueEncoded(value, forKey: Constants.UserDefaultsKey.userInfo)
     }
     
-    func readUserInfo() -> UserInfoDTO.UserInfoWithoutID? {
-        return self.objectDecoded(type: UserInfoDTO.UserInfoWithoutID.self, forKey: Constants.UserDefaultsKey.userInfo)
+    func readUserInfo() -> UserInfoDTO.UserInfo? {
+        return self.objectDecoded(type: UserInfoDTO.UserInfo.self, forKey: Constants.UserDefaultsKey.userInfo)
     }
 }

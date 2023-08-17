@@ -17,12 +17,16 @@ final class AppFlowController {
         }
     }
     
-    private init() { }
+    private init() {}
     
     func show(in window: UIWindow) {
         self.window = window
         window.makeKeyAndVisible()
-        showScreenOnLoginState()
+        showLoading()
+    }
+    
+    func showLoading() {
+        rootViewController = InitialLoadingViewController()
     }
     
     func showHome() {
@@ -33,23 +37,9 @@ final class AppFlowController {
         rootViewController = getLoginViewController()
     }
     
-    private func showScreenOnLoginState() {
-        showLogin() // TODO: showLogin() 삭제, 밑 주석처리된 부분 활성화
-//        let isLoggedIn = checkLoggedIn()
-//        if isLoggedIn {
-//            showHome()
-//        } else {
-//            showLogin()
-//        }
-    }
-    
-//    private func checkLoggedIn() -> Bool {
-//
-//    }
-    
     private func animateChangingRootViewController(_ rootViewController: UIViewController?) {
         guard let window else { return }
-        UIView.transition(with: window, duration: 0.2, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {
             window.rootViewController = rootViewController
         })
     }

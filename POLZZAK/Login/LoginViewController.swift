@@ -175,7 +175,7 @@ extension LoginViewController {
     private func render(_ output: LoginViewModel.Output) {
         switch output {
         case .showMainScreen:
-            AppFlowController.shared.showHome()
+            AppFlowController.shared.showLoading()
         case .showRegisterScreen:
             // TODO: vc를 RegisterTermsViewController로 원래대로 바꾸기
 //            let vc = RegisterTermsViewController()

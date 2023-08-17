@@ -20,23 +20,5 @@ extension UserInfoDTO {
         let memberType: MemberType
         let profileUrl: String
         let familyCount: Int
-        
-        func asUserInfoTypeWithoutID() -> UserInfoWithoutID {
-            return UserInfoWithoutID(
-                nickname: nickname,
-                memberPoint: memberPoint,
-                memberType: memberType,
-                profileUrl: profileUrl,
-                familyCount: familyCount
-            )
-        }
-    }
-    
-    struct UserInfoWithoutID: Codable {
-        let nickname: String
-        let memberPoint: MemberPoint
-        let memberType: MemberType
-        let profileUrl: String
-        let familyCount: Int
     }
 }

@@ -12,7 +12,7 @@ class TokenInterceptor: RequestInterceptor {
         var urlRequest = urlRequest
         
         if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken) {
-            urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         
         return urlRequest
@@ -24,9 +24,9 @@ class TokenInterceptor: RequestInterceptor {
         }
         
         do {
-            let api = TokenTarget.refreshToken
+            let target = UserInfoTarget.getUserInfo
             let networkService = NetworkService()
-            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: api)
+            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: target)
             
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
@@ -37,6 +37,13 @@ class TokenInterceptor: RequestInterceptor {
                 Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
                 return .retry
             } else {
+                let httpResponse = response as? HTTPURLResponse
+                let cookie = httpResponse?.allHeaderFields["Set-Cookie"] as? String
+                // TODO: - 아래 프린트문 삭제(다른 프린트문들은 log로?)
+                print("cookie: ", cookie)
+                print("refresh token: ", httpResponse?.getRefreshTokenFromCookie())
+                print("refreshed fail - \(data.messages)")
+                print("- code \(data.code)")
                 return .doNotRetry
             }
         } catch {

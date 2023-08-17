@@ -26,6 +26,15 @@ extension UIApplication {
             .width ?? 0
     }
     
+    var height: CGFloat {
+        return UIApplication
+            .shared
+            .keyWindow?
+            .screen
+            .bounds
+            .height ?? 0
+    }
+    
     private var keyWindowRootVC: UIViewController? {
         if Thread.isMainThread {
             return UIApplication

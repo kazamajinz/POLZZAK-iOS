@@ -71,6 +71,11 @@ struct Keychain {
         ]
         
         let status = SecItemDelete(keychainQuery)
+        
+        guard status != errSecItemNotFound else {
+            return
+        }
+        
         assert(status == noErr, "failed to delete the value, status code = \(status)")
     }
 }

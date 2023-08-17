@@ -67,7 +67,7 @@ class TempRegisterViewController: UIViewController {
                         }
                         Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerUsername)
                         Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerSocialType)
-                        AppFlowController.shared.showHome()
+                        AppFlowController.shared.showLoading() // TODO: 이 부분은 폴짝의 세계로! 로딩이 보여야 함
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
                         guard let messages = dto?.messages else { return }
