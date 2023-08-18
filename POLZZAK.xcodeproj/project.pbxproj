@@ -128,6 +128,8 @@
 		DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225752A896DC300113617 /* UserDefaults+.swift */; };
 		DAB225792A8E3B9000113617 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DAB225782A8E3B9000113617 /* launch_logo.png */; };
 		DAB2257B2A8E4B2400113617 /* InitialLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */; };
+		DAB2257F2A8F471700113617 /* MemberPointsTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */; };
+		DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225802A8F497900113617 /* UserInfoInterceptor.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -265,6 +267,8 @@
 		DAB225752A896DC300113617 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		DAB225782A8E3B9000113617 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_logo.png; sourceTree = "<group>"; };
 		DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadingViewController.swift; sourceTree = "<group>"; };
+		DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPointsTarget.swift; sourceTree = "<group>"; };
+		DAB225802A8F497900113617 /* UserInfoInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInterceptor.swift; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
@@ -542,6 +546,7 @@
 				3CD5F8A92A2DF5FB003E4A67 /* LoginTarget.swift */,
 				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
 				DAB2256F2A89515000113617 /* UserInfoTarget.swift */,
+				DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -740,6 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */,
+				DAB225802A8F497900113617 /* UserInfoInterceptor.swift */,
 			);
 			path = UserInterceptor;
 			sourceTree = "<group>";
@@ -859,6 +865,7 @@
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				39152B322A5AB2C200AAFA23 /* FullScreenLoadingView.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
+				DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
@@ -883,6 +890,7 @@
 				DA0C0C242A82A3370021714D /* TempRegisterViewController.swift in Sources */,
 				DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
+				DAB2257F2A8F471700113617 /* MemberPointsTarget.swift in Sources */,
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,

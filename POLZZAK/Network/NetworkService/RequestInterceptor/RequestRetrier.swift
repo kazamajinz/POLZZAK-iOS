@@ -10,7 +10,7 @@ import OSLog
 
 protocol RequestRetrier {
     var maxRetryCount: Int { get }
-    func retry(response: URLResponse) async throws -> RetryResult
+    func retry(previousData: Data, response: URLResponse) async throws -> RetryResult
 }
 
 /// Outcome of determination whether retry is necessary.

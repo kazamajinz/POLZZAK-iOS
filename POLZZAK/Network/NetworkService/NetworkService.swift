@@ -55,7 +55,7 @@ final class NetworkService: NetworkServiceProvider {
         os_log("request", log: .network)
         let (data, response) = try await session.data(for: request)
         os_log("retry", log: .network)
-        let retryResult = try await requestInterceptor.retry(response: response)
+        let retryResult = try await requestInterceptor.retry(previousData: data, response: response)
         
         if retryResult.retryRequired {
             guard continueRetry(request) else {

@@ -13,7 +13,7 @@ struct UserAPI {
     static func getUserInfo() async throws -> APIReturnType {
         do {
             let target = UserInfoTarget.getUserInfo
-            let result = try await NetworkService(requestInterceptor: TokenInterceptor()).request(with: target)
+            let result = try await NetworkService(requestInterceptor: UserInfoInterceptor()).request(with: target)
             return result
         } catch {
             os_log(log: .polzzakAPI, errorDescription: String(describing: error))
