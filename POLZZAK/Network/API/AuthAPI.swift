@@ -29,7 +29,7 @@ struct AuthAPI {
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
             throw error
         }
     }
@@ -53,7 +53,7 @@ struct AuthAPI {
                 throw AuthAPIError.appleLoginNoIdentityToken
             }
         } catch {
-            os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
             throw error
         }
     }
@@ -69,7 +69,7 @@ struct AuthAPI {
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
             throw error
         }
     }
@@ -87,7 +87,7 @@ struct AuthAPI {
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
-            os_log(log: .userAPI, errorDescription: String(describing: error))
+            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
             throw error
         }
     }

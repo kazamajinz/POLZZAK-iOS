@@ -11,8 +11,8 @@ class TokenInterceptor: RequestInterceptor {
     func adapt(for urlRequest: URLRequest) async throws -> URLRequest {
         var urlRequest = urlRequest
         
-        if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken) {
-            urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        if let accessToken = UserInfoManager.readToken(type: .access) {
+            urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         
         return urlRequest
@@ -24,18 +24,27 @@ class TokenInterceptor: RequestInterceptor {
         }
         
         do {
-            let api = TokenTarget.refreshToken
+            let target = UserInfoTarget.getUserInfo
             let networkService = NetworkService()
-            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: api)
+            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: target)
             
             if data.code == 434, let accessToken = data.data,
                let httpResponse = response as? HTTPURLResponse,
-               let refreshToken = (httpResponse.allHeaderFields["Set-Cookie"] as? String)?.getRefreshTokenFromCookie() {
-                Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
-                Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
-                print("🪙 refreshToken: ", refreshToken)
+               let refreshToken = httpResponse.getRefreshTokenFromCookie() {
+                print("TokenInterceptor -")
+                print("🥬🪙 refreshed accessToken: ", accessToken)
+                print("🥬🪙 refreshed refreshToken: ", refreshToken)
+                UserInfoManager.saveToken(accessToken, type: .access)
+                UserInfoManager.saveToken(refreshToken, type: .refresh)
                 return .retry
             } else {
+                let httpResponse = response as? HTTPURLResponse
+                let cookie = httpResponse?.allHeaderFields["Set-Cookie"] as? String
+                // TODO: - 아래 프린트문 삭제(다른 프린트문들은 log로?)
+                print("cookie: ", cookie)
+                print("refresh token: ", httpResponse?.getRefreshTokenFromCookie())
+                print("refreshed fail - \(data.messages)")
+                print("- code \(data.code)")
                 return .doNotRetry
             }
         } catch {

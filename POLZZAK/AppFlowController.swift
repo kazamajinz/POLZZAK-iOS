@@ -1,5 +1,5 @@
 //
-//  AppFlowCoordinator.swift
+//  AppFlowController.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/05/11.
@@ -7,9 +7,44 @@
 
 import UIKit
 
-final class AppFlowCoordinator {
+final class AppFlowController {
+    static let shared = AppFlowController()
     
-    func getRootView() -> TabBarController {
+    private var window: UIWindow?
+    private var rootViewController: UIViewController? {
+        didSet {
+            animateChangingRootViewController(rootViewController)
+        }
+    }
+    
+    private init() {}
+    
+    func show(in window: UIWindow) {
+        self.window = window
+        window.makeKeyAndVisible()
+        showLoading()
+    }
+    
+    func showLoading() {
+        rootViewController = InitialLoadingViewController()
+    }
+    
+    func showHome() {
+        rootViewController = getHomeViewController()
+    }
+    
+    func showLogin() {
+        rootViewController = getLoginViewController()
+    }
+    
+    private func animateChangingRootViewController(_ rootViewController: UIViewController?) {
+        guard let window else { return }
+        UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {
+            window.rootViewController = rootViewController
+        })
+    }
+    
+    private func getHomeViewController() -> TabBarController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.shadowColor = nil
@@ -54,5 +89,16 @@ final class AppFlowCoordinator {
         } else {
             return TabBarController()
         }
+    }
+    
+    private func getLoginViewController() -> UIViewController {
+        let navController = UINavigationController(rootViewController: LoginViewController())
+        navController.navigationBar.tintColor = .gray700
+        // 아래 4줄은 navController의 BackButton의 title을 안 보이게 하기 위해서 사용함
+        let barButtonItemAppearance = UIBarButtonItem.appearance()
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
+        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .normal)
+        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .highlighted)
+        return navController
     }
 }
