@@ -125,11 +125,11 @@
 		DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2256F2A89515000113617 /* UserInfoTarget.swift */; };
 		DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225712A8954E200113617 /* UserInfoDTO.swift */; };
 		DAB225742A89560400113617 /* MemberPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225732A89560400113617 /* MemberPoint.swift */; };
-		DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225752A896DC300113617 /* UserDefaults+.swift */; };
 		DAB225792A8E3B9000113617 /* launch_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DAB225782A8E3B9000113617 /* launch_logo.png */; };
 		DAB2257B2A8E4B2400113617 /* InitialLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */; };
 		DAB2257F2A8F471700113617 /* MemberPointsTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */; };
 		DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225802A8F497900113617 /* UserInfoInterceptor.swift */; };
+		DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225822A90846E00113617 /* UserInfoManager.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -264,11 +264,11 @@
 		DAB2256F2A89515000113617 /* UserInfoTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTarget.swift; sourceTree = "<group>"; };
 		DAB225712A8954E200113617 /* UserInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDTO.swift; sourceTree = "<group>"; };
 		DAB225732A89560400113617 /* MemberPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPoint.swift; sourceTree = "<group>"; };
-		DAB225752A896DC300113617 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		DAB225782A8E3B9000113617 /* launch_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch_logo.png; sourceTree = "<group>"; };
 		DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoadingViewController.swift; sourceTree = "<group>"; };
 		DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPointsTarget.swift; sourceTree = "<group>"; };
 		DAB225802A8F497900113617 /* UserInfoInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInterceptor.swift; sourceTree = "<group>"; };
+		DAB225822A90846E00113617 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
@@ -479,7 +479,6 @@
 				39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */,
 				3900FAA42A377340009EAC52 /* UIView+Animation.swift */,
 				3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */,
-				DAB225752A896DC300113617 /* UserDefaults+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -576,6 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				3CD5F8A12A2DBDEF003E4A67 /* Keychain.swift */,
+				DAB225822A90846E00113617 /* UserInfoManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -888,7 +888,6 @@
 				3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */,
 				39152B402A5AB37500AAFA23 /* SearchState.swift in Sources */,
 				DA0C0C242A82A3370021714D /* TempRegisterViewController.swift in Sources */,
-				DAB225762A896DC300113617 /* UserDefaults+.swift in Sources */,
 				3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */,
 				DAB2257F2A8F471700113617 /* MemberPointsTarget.swift in Sources */,
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
@@ -906,6 +905,7 @@
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
 				DAC36B882A32DA3900BE5C8D /* KakaoLoginManager.swift in Sources */,
 				DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */,
+				DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
 				DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */,

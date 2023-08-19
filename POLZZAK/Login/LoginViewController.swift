@@ -36,6 +36,7 @@ final class LoginViewController: UIViewController {
         label.numberOfLines = 1
         label.text = "참 잘 했어요 도장 쾅!"
         label.textAlignment = .center
+        label.textColor = .gray800
         return label
     }()
     

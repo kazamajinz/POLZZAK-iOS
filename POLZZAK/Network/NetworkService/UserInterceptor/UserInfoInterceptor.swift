@@ -11,7 +11,7 @@ class UserInfoInterceptor: RequestInterceptor {
     func adapt(for urlRequest: URLRequest) async throws -> URLRequest {
         var urlRequest = urlRequest
         
-        if let accessToken = Keychain().read(identifier: Constants.KeychainKey.accessToken) {
+        if let accessToken = UserInfoManager.readToken(type: .access) {
             urlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         
@@ -30,8 +30,8 @@ class UserInfoInterceptor: RequestInterceptor {
         print("UserInfoInterceptor -")
         print("🥬🪙 refreshed accessToken: ", accessToken)
         print("🥬🪙 refreshed refreshToken: ", refreshToken)
-        Keychain().create(identifier: Constants.KeychainKey.accessToken, value: accessToken)
-        Keychain().create(identifier: Constants.KeychainKey.refreshToken, value: refreshToken)
+        UserInfoManager.saveToken(accessToken, type: .access)
+        UserInfoManager.saveToken(refreshToken, type: .refresh)
         
         return .retry
     }

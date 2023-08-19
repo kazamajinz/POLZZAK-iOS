@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class InitialLoadingViewController: UIViewController {
+final class InitialLoadingViewController: UIViewController {
     private let fullScreenLoadingView = FullScreenLoadingView() // TODO: 추후 변경
     
     override func viewDidLoad() {
@@ -50,11 +50,11 @@ class InitialLoadingViewController: UIViewController {
         case 200..<300:
             let dto = try? JSONDecoder().decode(UserInfoDTO.self, from: data)
             guard let data = dto?.data else { return }
-            UserDefaults.standard.saveUserInfo(data) // UserInfo를 UserDefaults에 저장함
+            UserInfoManager.saveUserInfo(data)
             AppFlowController.shared.showHome()
         default: // TODO: 네트워크 연결이 끊겼을 경우 여기를 탈 것으로 예상되는데 그 떄는 로그인 화면으로 가면 안 될듯.. 처리 필요할듯
-            Keychain().delete(identifier: Constants.KeychainKey.accessToken)
-            Keychain().delete(identifier: Constants.KeychainKey.refreshToken)
+            UserInfoManager.deleteToken(type: .access)
+            UserInfoManager.deleteToken(type: .refresh)
             AppFlowController.shared.showLogin()
         }
         

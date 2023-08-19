@@ -45,9 +45,7 @@ class TempRegisterViewController: UIViewController {
     private func configureBinding() {
         nextButton.tapPublisher
             .sink { _ in
-                guard let username = Keychain().read(identifier: POLZZAK.Constants.KeychainKey.registerUsername),
-                      let socialType = Keychain().read(identifier: POLZZAK.Constants.KeychainKey.registerSocialType)
-                else { return }
+                guard let (username, socialType) = UserInfoManager.readRegisterInfo() else { return }
                 
                 Task {
                     let number = Int.random(in: 0...100000)
@@ -60,13 +58,12 @@ class TempRegisterViewController: UIViewController {
                         guard let accessToken = dto?.data?.accessToken else { return }
                         print("✅ register success!")
                         print("🪙 accessToken: ", accessToken)
-                        Keychain().create(identifier: POLZZAK.Constants.KeychainKey.accessToken, value: accessToken)
+                        UserInfoManager.saveToken(accessToken, type: .access)
                         if let refreshToken = httpResponse.getRefreshTokenFromCookie() {
                             print("🪙 refreshToken: ", refreshToken)
-                            Keychain().create(identifier: POLZZAK.Constants.KeychainKey.refreshToken, value: refreshToken)
+                            UserInfoManager.saveToken(refreshToken, type: .refresh)
                         }
-                        Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerUsername)
-                        Keychain().delete(identifier: POLZZAK.Constants.KeychainKey.registerSocialType)
+                        UserInfoManager.deleteRegisterInfo()
                         AppFlowController.shared.showLoading() // TODO: 이 부분은 폴짝의 세계로! 로딩이 보여야 함
                     case 400:
                         let dto = try? JSONDecoder().decode(BaseResponseDTO<String>.self, from: data)
