@@ -57,8 +57,6 @@ final class CarouselLayout: UICollectionViewFlowLayout {
             }
         }
         
-        processCellUI()
-        
         return attributes.map { transformLayoutAttributes(attributes: $0) }
     }
     
@@ -104,37 +102,6 @@ final class CarouselLayout: UICollectionViewFlowLayout {
         minimumLineSpacing = spacing - scaledItemOffset
         
         scrollDirection = CarouselSetting.shared.scrollDirection
-    }
-    
-    private func processCellUI() {
-        guard let centerIndexPath, let collectionView,
-              let cell = collectionView.cellForItem(at: centerIndexPath) as? ParentTypeSelectCell
-        else { return }
-        
-        collectionView
-            .visibleCells
-            .compactMap { $0 as? ParentTypeSelectCell }
-            .forEach {
-                $0.unEmphasizeCell()
-            }
-        
-        collectionView
-            .visibleCells
-            .filter { $0 != cell }
-            .filter {
-                if let index = collectionView.indexPath(for: $0)?.item, abs(centerIndexPath.item - index) > sideItemCount {
-                    return true
-                } else {
-                    return false
-                }
-            }
-            .forEach { cell in
-                UIView.animate(withDuration: 0.2) {
-                    cell.alpha = 0
-                }
-            }
-        
-        cell.emphasizeCell()
     }
     
     private func transformLayoutAttributes(attributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

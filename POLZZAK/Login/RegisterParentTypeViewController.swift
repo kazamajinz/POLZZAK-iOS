@@ -47,7 +47,7 @@ final class RegisterParentTypeViewController: UIViewController {
         return label
     }()
     
-    private let selectView = ParentTypeSelectView(types: ["선택해주세요", "엄마", "아빠", "언니", "오빠", "누나", "형", "할머니", "할아버지", "이모", "고모", "삼촌", "보호자"])
+    private let selectView = ParentTypeSelectView(types: ["엄마", "아빠", "언니", "오빠", "누나", "형", "선택해주세요", "할머니", "할아버지", "이모", "고모", "삼촌", "보호자"])
     
     private let nextButton: RegisterNextButton = {
         let nextButton = RegisterNextButton()
@@ -91,6 +91,10 @@ final class RegisterParentTypeViewController: UIViewController {
     
     private func configureView() {
         view.backgroundColor = .gray100
+        UIView.performWithoutAnimation {
+            selectView.layoutIfNeeded()
+            selectView.scrollToItem(at: IndexPath(item: 6, section: 0), at: .centeredVertically, animated: false)
+        }
     }
     
     private func configureBinding() {
