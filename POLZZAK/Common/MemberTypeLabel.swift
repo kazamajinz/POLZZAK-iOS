@@ -8,17 +8,16 @@
 import UIKit
 
 class MemberTypeLabel: PaddedLabel {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
+    override init(padding: UIEdgeInsets = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)) {
+        super.init(padding: padding)
+        self.setUI()
     }
-
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
+        fatalError("init(coder:) has not been implemented")
     }
-
-    func setup() {
+    
+    func setUI() {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.12).cgColor
         self.layer.backgroundColor = UIColor.gray200.cgColor
@@ -27,7 +26,5 @@ class MemberTypeLabel: PaddedLabel {
         self.clipsToBounds = true
         self.textColor = .gray700
         self.font = .body14Sbd
-        self.padding = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
     }
 }
-

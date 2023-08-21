@@ -15,6 +15,7 @@ extension UIFont {
         case medium = "Medium"
         case semiBold = "SemiBold"
         case regular = "Regular"
+        case extraBold = "ExtraBold"
     }
     
     static func pretendard(size: CGFloat, family: FamilyForPretendard) -> UIFont {
@@ -215,5 +216,11 @@ extension UIFont {
     
     static var caption12Md: UIFont {
         return .pretendard(size: 12, family: .medium)
+    }
+    
+    //TODO: - 디자인시스템에 추가요청함, 추가되면 삭제할 예정
+    
+    static var logoFont: UIFont {
+        return .pretendard(size: 20, family: .extraBold)
     }
 }

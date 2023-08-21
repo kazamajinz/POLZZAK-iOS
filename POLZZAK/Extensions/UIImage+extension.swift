@@ -29,6 +29,7 @@ extension UIImage {
     static let trashButton = UIImage(named: "trashButton")
     static let acceptButton = UIImage(named: "acceptButton")
     static let rejectButton = UIImage(named: "rejectButton")
+    static let pictureButton = UIImage(named: "pictureButton")
     
     //MARK: - Character
     
@@ -49,4 +50,5 @@ extension UIImage {
     static let circle4 = UIImage(named: "circle4")
     static let circle6 = UIImage(named: "circle6")
     static let checkmarkIcon = UIImage(named: "checkmarkIcon")
+    static let chevronRightIcon = UIImage(named: "chevronRightIcon")
 }

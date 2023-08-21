@@ -9,10 +9,15 @@ import UIKit
 
 class PaddedLabel: UILabel {
     
-    var padding = UIEdgeInsets.zero {
-        didSet {
-            invalidateIntrinsicContentSize()
-        }
+    private var padding: UIEdgeInsets
+    
+    init(padding: UIEdgeInsets) {
+        self.padding = padding
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func drawText(in rect: CGRect) {
