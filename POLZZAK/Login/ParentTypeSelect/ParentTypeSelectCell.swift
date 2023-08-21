@@ -32,7 +32,14 @@ final class ParentTypeSelectCell: UICollectionViewCell {
     }
     
     private func configureView() {
-        contentView.backgroundColor = .green
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 8
+        contentView.layer.masksToBounds = true
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.white.cgColor
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowRadius = 5
     }
     
     private func configureLayout() {
@@ -45,5 +52,17 @@ final class ParentTypeSelectCell: UICollectionViewCell {
     
     func configure(title: String) {
         titleLabel.text = title
+    }
+    
+    func emphasizeCell() {
+        contentView.backgroundColor = .blue100
+        titleLabel.textColor = .blue600
+        contentView.layer.borderColor = UIColor.blue500.cgColor
+    }
+    
+    func unEmphasizeCell() {
+        contentView.backgroundColor = .white
+        titleLabel.textColor = .gray300
+        contentView.layer.borderColor = UIColor.white.cgColor
     }
 }

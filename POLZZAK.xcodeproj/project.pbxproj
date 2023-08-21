@@ -130,6 +130,7 @@
 		DAB2257F2A8F471700113617 /* MemberPointsTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */; };
 		DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225802A8F497900113617 /* UserInfoInterceptor.swift */; };
 		DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225822A90846E00113617 /* UserInfoManager.swift */; };
+		DAB225852A922FF400113617 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225842A922FF400113617 /* CarouselLayout.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -269,6 +270,7 @@
 		DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberPointsTarget.swift; sourceTree = "<group>"; };
 		DAB225802A8F497900113617 /* UserInfoInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInterceptor.swift; sourceTree = "<group>"; };
 		DAB225822A90846E00113617 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
+		DAB225842A922FF400113617 /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 		DA8532852A795C4A00F0D045 /* ParentTypeSelect */ = {
 			isa = PBXGroup;
 			children = (
+				DAB225842A922FF400113617 /* CarouselLayout.swift */,
 				DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */,
 				DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */,
 			);
@@ -970,6 +973,7 @@
 				398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 				39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */,
+				DAB225852A922FF400113617 /* CarouselLayout.swift in Sources */,
 				391E23B02A42D11300CA75EF /* SearchResultView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

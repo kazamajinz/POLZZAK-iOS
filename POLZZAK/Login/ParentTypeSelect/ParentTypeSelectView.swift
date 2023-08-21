@@ -30,7 +30,7 @@ final class ParentTypeSelectView: UICollectionView {
         showsVerticalScrollIndicator = false
         backgroundColor = .clear
         isPagingEnabled = false
-        contentInset = Constants.collectionViewContentInset
+//        contentInset = Constants.collectionViewContentInset
         decelerationRate = .fast
 //        contentInsetAdjustmentBehavior = .never
     }
@@ -55,70 +55,18 @@ extension ParentTypeSelectView: UICollectionViewDataSource {
 // MARK: - Delegate
 
 extension ParentTypeSelectView: UICollectionViewDelegate {
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let scrolledOffsetX = targetContentOffset.pointee.x + scrollView.contentInset.left
-        let cellWidth = Constants.itemSize.width + Constants.itemSpacing
-        let index = round(scrolledOffsetX / cellWidth)
-        targetContentOffset.pointee = CGPoint(x: index * cellWidth - scrollView.contentInset.left, y: scrollView.contentInset.top)
-    }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrolledOffsetX = scrollView.contentOffset.x + scrollView.contentInset.left
-        let cellWidth = Constants.itemSize.width + Constants.itemSpacing
-        let index = round(scrolledOffsetX / cellWidth)
-        let indexPath = IndexPath(item: Int(index), section: 0)
-        
-        if let cell = cellForItem(at: indexPath) {
-            animateZooming(cell: cell, zoom: true)
-        }
-        
-        if Int(index) != previousIndex {
-            let previousIndexPath = IndexPath(item: previousIndex, section: 0)
-            if let previousCell = cellForItem(at: previousIndexPath) {
-                animateZooming(cell: previousCell, zoom: false)
-            }
-            previousIndex = Int(index)
-        }
-    }
-    
-    private func animateZooming(cell: UICollectionViewCell, zoom: Bool) {
-        UIView.animate(
-            withDuration: 0.2,
-            delay: 0,
-            options: .curveEaseOut,
-            animations: {
-                if zoom {
-                    cell.transform = .identity
-                } else {
-                    cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                }
-            },
-            completion: nil
-        )
-    }
 }
 
 // MARK: - Layout
 
 extension ParentTypeSelectView: UICollectionViewDelegateFlowLayout {
-    enum Constants {
-        static let itemSize = CGSize(width: 200, height: 500)
-        static let itemSpacing = 20.0
-        
-        static var insetX: CGFloat {
-            return (UIApplication.shared.width - itemSize.width) / 2.0
-        }
-        static var collectionViewContentInset: UIEdgeInsets {
-            return UIEdgeInsets(top: 0, left: insetX, bottom: 0, right: insetX)
-        }
-    }
-    
     static func getLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = Constants.itemSize
-        layout.minimumLineSpacing = Constants.itemSpacing
-        layout.minimumInteritemSpacing = 0
+        let layout = CarouselLayout(scrollDirection: .vertical)
+        layout.itemSize = CGSize(width: 294, height: 52)
+        layout.spacing = -10
+        layout.sideItemScale = 0.7
+        layout.sideItemAlpha = 1
         return layout
     }
 }
