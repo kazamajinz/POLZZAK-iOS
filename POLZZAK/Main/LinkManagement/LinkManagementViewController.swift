@@ -530,8 +530,8 @@ extension LinkManagementViewController: SearchResultViewDelegate {
     func linkRequestCancel(memberId: Int) {
         self.requestCancel(memberId: memberId) { [weak self] in
             guard let self = self else { return }
-            let toast = Toast(text: "요청이 취소됐어요")
-            toast.show(controller: self)
+            let toast = Toast(type: .error("요청이 취소됐어요"))
+            toast.show()
             //TODO: - API연결하고 수정필요, requestCancel을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.
             self.searchResultView.requestCancel()
         }

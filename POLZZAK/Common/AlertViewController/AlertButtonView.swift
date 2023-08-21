@@ -13,8 +13,11 @@ class AlertButtonView: BaseAlertViewController {
         case double
     }
     
-    private let buttonStyle: ButtonStyle
+    enum Constants {
+        static let buttonPadding = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+    }
     
+    private let buttonStyle: ButtonStyle
     typealias AsyncAction = () async -> Void
     var firstButtonAction: AsyncAction?
     var secondButtonAction: AsyncAction?
@@ -54,7 +57,7 @@ class AlertButtonView: BaseAlertViewController {
     }()
     
     let closeButton: PaddedLabel = {
-        let closeButton = PaddedLabel(padding: UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24))
+        let closeButton = PaddedLabel(padding: Constants.buttonPadding)
         closeButton.textColor = .white
         closeButton.textAlignment = .center
         closeButton.font = .subtitle16Sbd
@@ -65,7 +68,7 @@ class AlertButtonView: BaseAlertViewController {
     }()
     
     let confirmButton: PaddedLabel = {
-        let confirmButton = PaddedLabel(padding: UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24))
+        let confirmButton = PaddedLabel(padding: Constants.buttonPadding)
         confirmButton.backgroundColor = .blue500
         confirmButton.textColor = .white
         confirmButton.textAlignment = .center
@@ -115,28 +118,28 @@ class AlertButtonView: BaseAlertViewController {
     }
     
     private func setupButtonStyles() {
-           switch buttonStyle {
-           case .single:
-               setupSingleButtonStyle()
-           case .double:
-               setupDoubleButtonStyle()
-           }
-       }
-       
-       private func setupSingleButtonStyle() {
-           closeButton.backgroundColor = .blue500
-           closeButton.textColor = .white
-           closeButton.snp.makeConstraints {
-               $0.width.equalToSuperview()
-           }
-       }
-       
-       private func setupDoubleButtonStyle() {
-           closeButton.backgroundColor = .gray300
-           closeButton.textColor = .white
-           confirmButton.backgroundColor = .blue500
-           buttonStackView.addArrangedSubview(confirmButton)
-       }
+        switch buttonStyle {
+        case .single:
+            setupSingleButtonStyle()
+        case .double:
+            setupDoubleButtonStyle()
+        }
+    }
+    
+    private func setupSingleButtonStyle() {
+        closeButton.backgroundColor = .blue500
+        closeButton.textColor = .white
+        closeButton.snp.makeConstraints {
+            $0.width.equalToSuperview()
+        }
+    }
+    
+    private func setupDoubleButtonStyle() {
+        closeButton.backgroundColor = .gray300
+        closeButton.textColor = .white
+        confirmButton.backgroundColor = .blue500
+        buttonStackView.addArrangedSubview(confirmButton)
+    }
     
     private func setButtonActions() {
         closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleFirstButtonTap)))
@@ -156,4 +159,3 @@ class AlertButtonView: BaseAlertViewController {
         }
     }
 }
-

@@ -8,7 +8,11 @@
 import UIKit
 
 class MemberTypeLabel: PaddedLabel {
-    override init(padding: UIEdgeInsets = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)) {
+    enum Constants {
+        static let padding = UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
+    }
+    
+    override init(padding: UIEdgeInsets = Constants.padding) {
         super.init(padding: padding)
         self.setUI()
     }
