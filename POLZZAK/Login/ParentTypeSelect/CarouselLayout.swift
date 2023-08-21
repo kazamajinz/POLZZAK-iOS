@@ -14,7 +14,7 @@ final class CarouselLayout: UICollectionViewFlowLayout {
     var sideItemCount: Int = 2
     
     private var isSetup: Bool = false
-    private var centerIndexPath: IndexPath?
+    private(set) var centerIndexPath: IndexPath?
     
     init(scrollDirection: UICollectionView.ScrollDirection) {
         super.init()
@@ -39,8 +39,25 @@ final class CarouselLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let superAttributes = super.layoutAttributesForElements(in: rect),
-              let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes]
+              let attributes = NSArray(array: superAttributes, copyItems: true) as? [UICollectionViewLayoutAttributes],
+              let collectionView
         else { return nil }
+        
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visibleCenter = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        
+        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
+        let center = visibleCenter.xDepends + visibleCenter.yDepends
+        
+        for layoutAttributes in attributes {
+            let itemCenter = layoutAttributes.centerDepends
+            if (itemCenter - center).magnitude < offsetAdjustment.magnitude {
+                offsetAdjustment = itemCenter - center
+                centerIndexPath = layoutAttributes.indexPath
+            }
+        }
+        
+        processCellUI()
         
         return attributes.map { transformLayoutAttributes(attributes: $0) }
     }
@@ -61,17 +78,8 @@ final class CarouselLayout: UICollectionViewFlowLayout {
             let itemCenter = layoutAttributes.centerDepends
             if (itemCenter - center).magnitude < offsetAdjustment.magnitude {
                 offsetAdjustment = itemCenter - center
-                centerIndexPath = layoutAttributes.indexPath
             }
         }
-        
-//        for layoutAttributes in rectAttributes {
-//            if let centerIndexPath, abs(centerIndexPath.item - layoutAttributes.indexPath.item) > sideItemCount {
-//                layoutAttributes.alpha = 0
-//            }
-//        }
-        
-        processCellUI()
         
         switch CarouselSetting.shared.scrollDirection {
         case .vertical:
@@ -92,7 +100,6 @@ final class CarouselLayout: UICollectionViewFlowLayout {
         sectionInset = UIEdgeInsets(top: yInset, left: xInset, bottom: yInset, right: xInset)
         
         let scaledItemOffset = (itemSizeDepends - itemSizeDepends * sideItemScale) / 2
-        let scaledItemOffset2 = (itemSizeDepends - (itemSizeDepends * (sideItemScale + (1 - sideItemScale) / 2))) / 2
         
         minimumLineSpacing = spacing - scaledItemOffset
         
@@ -109,6 +116,22 @@ final class CarouselLayout: UICollectionViewFlowLayout {
             .compactMap { $0 as? ParentTypeSelectCell }
             .forEach {
                 $0.unEmphasizeCell()
+            }
+        
+        collectionView
+            .visibleCells
+            .filter { $0 != cell }
+            .filter {
+                if let index = collectionView.indexPath(for: $0)?.item, abs(centerIndexPath.item - index) > sideItemCount {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            .forEach { cell in
+                UIView.animate(withDuration: 0.2) {
+                    cell.alpha = 0
+                }
             }
         
         cell.emphasizeCell()
