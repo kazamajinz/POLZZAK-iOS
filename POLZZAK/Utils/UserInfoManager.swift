@@ -75,4 +75,16 @@ final class UserInfoManager {
         }
         return nil
     }
+    
+    /// 첫 실행이면 남아있는 token 정보를 삭제한다
+    /// - 앱이 재설치 되었을 경우에 키체인에 토큰 정보가 남아있을 수 있으므로, 삭제하는 로직이 들어가 있음
+    static func checkFirstLaunch() {
+        let hasBeenLaunchedBeforeFlag = "hasBeenLaunchedBeforeFlag"
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasBeenLaunchedBeforeFlag)
+        if isFirstLaunch {
+            deleteToken(type: .access)
+            deleteToken(type: .refresh)
+            UserDefaults.standard.set(true, forKey: hasBeenLaunchedBeforeFlag)
+        }
+    }
 }
