@@ -10,7 +10,7 @@ import UIKit
 class PhotoAccessAlertController: AlertButtonView {
     
     enum Constants {
-        static let contentLabel = "설정 > 폴짝 > 사진에서\n접근권한을 '모든 사진'으로\n허용해 주세요"
+        static let contentLabel = "설정 > 폴짝 > 사진에서\n접근권한을 '사진만 추가'로\n변경해 주세요"
         static let closeButton = "취소"
         static let confirmButton = "설정하기"
     }
@@ -37,7 +37,7 @@ class PhotoAccessAlertController: AlertButtonView {
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         }
     }
 }

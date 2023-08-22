@@ -38,13 +38,12 @@ final class CouponDetailViewController: UIViewController {
         static let childCompletedGift = "선물 받기 완료"
         static let parentCompletedGift = "선물 전달 완료"
         static let logoLabel = "PolZZak!"
-        
-        static let success = Toast(type: .success("쿠폰이 사진첩에 저장됐어요"))
+        static let successText = "쿠폰이 사진첩에 저장됐어요"
     }
     
     private let viewModel: CouponDetailViewModel
     private var cancellables = Set<AnyCancellable>()
-    private var toast: Toast?
+    private var toast = Toast(type: .success(Constants.successText))
     
     private let contentsView: UIView = {
         let view = UIView()
@@ -557,26 +556,40 @@ extension CouponDetailViewController {
             .store(in: &cancellables)
         
         viewModel.permissionSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                self?.requestPhotoLibraryPermission()
+                PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+                    if status == .authorized {
+                        self?.viewModel.captureImageSaveSubject.send()
+                    } else {
+                        self?.viewModel.photoAccessSubject.send()
+                    }
+                }
             }
             .store(in: &cancellables)
         
         viewModel.photoAccessSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.showPhotoAccessAlert()
             }
             .store(in: &cancellables)
         
         viewModel.captureImageSaveSubject
+            .receive(on: DispatchQueue.main)
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                return false == toast.isToastShown
+            }
             .sink { [weak self] _ in
                 self?.captureAndSaveImage()
             }
             .store(in: &cancellables)
         
         viewModel.showSuccessToastSubject
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.showToast()
+                self?.toast.show()
             }
             .store(in: &cancellables)
     }
@@ -697,16 +710,6 @@ extension CouponDetailViewController {
         tempImageView.layoutIfNeeded()
         
         return tempImageView.capture()
-    }
-    
-    //TODO: - 임시코드, 메인에서 권한체크하면 제거할 예정
-    private func requestPhotoLibraryPermission() {
-        PHPhotoLibrary.requestAuthorization { _ in }
-    }
-    
-    private func showToast() {
-        toast = Constants.success
-        toast?.show()
     }
 }
 

@@ -20,6 +20,8 @@ class Toast: NSObject {
         static let toastTime = 3.0
     }
     
+    var isToastShown: Bool = false
+    
     private var isManuallyClosed = false
     
     private let toastContainer: UIView = {
@@ -113,13 +115,13 @@ extension Toast {
     }
     
     func show() {
-        guard toastContainer.superview == nil,
-              let controller = UIApplication.topViewController() else { return }
+        guard let topViewController = UIApplication.topViewController() else { return }
+        topViewController.view.addSubview(toastContainer)
         
-        controller.view.addSubview(toastContainer)
+        isToastShown = true
+        
         setUI()
         setGesture()
-        
         self.toastContainer.transform = CGAffineTransform(translationX: 0, y: Constants.toastHeight + Constants.bottomPadding)
         UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
             self.toastContainer.alpha = 1.0
@@ -157,6 +159,7 @@ extension Toast {
         }) { _ in
             self.toastContainer.removeFromSuperview()
             self.toastContainer.transform = .identity
+            self.isToastShown = false
         }
     }
 }

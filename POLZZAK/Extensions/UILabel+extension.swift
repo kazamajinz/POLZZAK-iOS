@@ -18,14 +18,42 @@ extension UILabel {
         self.backgroundColor = backgroundColor
     }
     
-    @discardableResult
-    func setEmphasisRanges(_ ranges: [NSRange], color: UIColor, font: UIFont) -> Self {
+    func setEmphasisRanges(_ ranges: [NSRange], color: UIColor, font: UIFont) {
         let mutableAttributedString = NSMutableAttributedString(string: self.text ?? "")
         ranges.forEach { range in
             mutableAttributedString.addAttributes([.foregroundColor: color, .font: font], range: range)
         }
         self.attributedText = mutableAttributedString
-        return self
     }
 }
+
+extension UILabel {
+    func setByCharWrapping(text: String) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byCharWrapping
+        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        self.attributedText = attributedString
+    }
+    
+    func setStyledText(
+        text: String,
+        emphasisRanges: [NSRange],
+        color: UIColor,
+        font: UIFont,
+        lineBreakMode: NSLineBreakMode
+    ) {
+        let mutableAttributedString = NSMutableAttributedString(string: text)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = lineBreakMode
+        mutableAttributedString.addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: text.count))
+        
+        emphasisRanges.forEach { range in
+            mutableAttributedString.addAttributes([.foregroundColor: color, .font: font], range: range)
+        }
+        
+        self.attributedText = mutableAttributedString
+    }
+}
+
 

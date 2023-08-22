@@ -58,12 +58,12 @@ final class CouponDetailViewModel {
 
 extension CouponDetailViewModel {
     func handleCaptureButtonTap() {
-        let status = PHPhotoLibrary.authorizationStatus()
+        let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
         
         switch status {
         case .notDetermined:
             permissionSubject.send()
-        case .authorized, .restricted:
+        case .authorized:
             captureImageSaveSubject.send()
         case .denied:
             photoAccessSubject.send()

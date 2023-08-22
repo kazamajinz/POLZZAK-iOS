@@ -16,6 +16,10 @@ final class CouponGuideViewController: BaseAlertViewController {
         static let completedTitle = "‘선물 완료’ 쿠폰은 무엇인가요?"
         static let completedContent = "아이가 도장판을 다 모아서 발급해준 선물 쿠폰에 대해, 보호자님이 실제로 선물을 전달해준 쿠폰입니다.\n\n아이가 선물을 받고 '선물 받기 완료'버튼을 눌러줘야 '선물 완료' 쿠폰으로 구분돼요."
         static let confirmButtonText = "이해됐어요"
+        static let firstCompletedContentEmphasis = NSRange(location: 37, length: 10)
+        static let secondCompletedContentEmphasis = NSRange(location: 58, length: 3)
+        static let thirdCompletedContentEmphasis = NSRange(location: 69, length: 18)
+        static let contentCompletedEmphasisRanges = [firstCompletedContentEmphasis, secondCompletedContentEmphasis, thirdCompletedContentEmphasis]
     }
     
     private let stackView: UIStackView = {
@@ -27,14 +31,14 @@ final class CouponGuideViewController: BaseAlertViewController {
     private let inprogressQnaStackView: QnaStackView = {
         let stackView = QnaStackView()
         stackView.titleLabel.text = Constants.inprogressTitle
-        stackView.setupContentStyle(text: Constants.inprogressContent)
+        stackView.contentLabel.setByCharWrapping(text: Constants.inprogressContent)
         return stackView
     }()
     
     private let completedQnaStackView: QnaStackView = {
         let stackView = QnaStackView()
         stackView.titleLabel.text = Constants.completedTitle
-        stackView.setupContentStyle(text: Constants.completedContent)
+        stackView.contentLabel.setStyledText(text: Constants.completedContent, emphasisRanges: Constants.contentCompletedEmphasisRanges, color: .gray600, font: .body14Bd, lineBreakMode: .byCharWrapping)
         return stackView
     }()
     
@@ -73,6 +77,6 @@ extension CouponGuideViewController {
     }
     
     @objc private func confirmButtonTapped() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
 }

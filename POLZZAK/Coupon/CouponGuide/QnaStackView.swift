@@ -29,7 +29,7 @@ class QnaStackView: UIStackView {
         return label
     }()
     
-    private let contentLabel: UILabel = {
+    let contentLabel: UILabel = {
         let label = UILabel()
         label.setLabel(textColor: .gray600, font: .body14Md)
         label.numberOfLines = 0
@@ -67,12 +67,5 @@ class QnaStackView: UIStackView {
         [titleStackView, contentLabel].forEach {
             addArrangedSubview($0)
         }
-    }
-    
-    func setupContentStyle(text: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byCharWrapping
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
-        contentLabel.attributedText = attributedString
     }
 }
