@@ -7,10 +7,23 @@
 
 import Foundation
 
+import Foundation
+
 extension String {
+    private var customDateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter
+    }
+    
+    private func dateFromCustomString() -> Date? {
+        return customDateFormatter.date(from: self)
+    }
+
     func remainingDays() -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let endDate = dateFormatter.date(from: self) else {
+        guard let endDate = dateFromCustomString() else {
             return "⏰ D-0"
         }
         let calendar = Calendar.current
@@ -24,12 +37,30 @@ extension String {
     }
     
     func shortDateFormat() -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        guard let date = dateFormatter.date(from: self) else {
+        guard let date = dateFromCustomString() else {
             return ""
         }
         let outputFormatter = DateFormatter()
         outputFormatter.dateFormat = "yy.MM.dd"
         return outputFormatter.string(from: date)
+    }
+    
+    func longDateFormat() -> String {
+        guard let date = dateFromCustomString() else {
+            return ""
+        }
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy. MM. dd"
+        return outputFormatter.string(from: date)
+    }
+    
+    func daysDifference(from startDateString: String) -> String {
+        guard let startDate = startDateString.dateFromCustomString(),
+              let endDate = self.dateFromCustomString() else {
+            return "0"
+        }
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: startDate, to: endDate)
+        return String(components.day ?? 0)
     }
 }

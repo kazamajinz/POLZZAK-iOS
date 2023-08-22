@@ -8,7 +8,6 @@
 import UIKit
 
 class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate {
-
     private var initialDragHandlePosition: CGFloat = BottomSheetState.half.position
     private var currentState: BottomSheetState = .half
     private let statusBarHeight = UIApplication.shared.statusBarHeight

@@ -13,24 +13,30 @@ protocol FilterBottomSheetDelegate: AnyObject {
 }
 
 final class FilterBottomSheetViewController: BottomSheetViewController {
+    enum Constants {
+        static let textLabel = "누구에게 선물한 쿠폰을 볼까요?"
+        static let contentInset = UIEdgeInsets(top: -4, left: 0, bottom: -4, right: 0)
+        static let cellHeight = 55.0
+    }
+    
     weak var delegate: FilterBottomSheetDelegate?
     var selectedIndex: Int = 0
     
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "누구에게 선물한 쿠폰을 볼까요?", textColor: .gray700, font: .subtitle16Sbd)
+        label.setLabel(text: Constants.textLabel, textColor: .gray700, font: .subtitle16Sbd)
         return label
     }()
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(FilterBottomCell.self, forCellReuseIdentifier: FilterBottomCell.reuseIdentifier)
-        tableView.contentInset = UIEdgeInsets(top: -4, left: 0, bottom: -4, right: 0)
+        tableView.contentInset = Constants.contentInset
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    var data: [FamilyMember]
+    private let data: [FamilyMember]
     
     init(data: [FamilyMember]) {
         self.data = data
@@ -48,11 +54,8 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        transitioningDelegate = self
-        
         setUI()
+        setTableView()
         selectedCell()
     }
     
@@ -63,6 +66,8 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
     }
     
     private func setUI() {
+        transitioningDelegate = self
+        
         view.addCornerRadious(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
         
         [textLabel, tableView].forEach {
@@ -78,6 +83,11 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
             $0.top.equalTo(textLabel.snp.bottom).offset(16)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    private func setTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func selectedCell() {
@@ -115,6 +125,6 @@ extension FilterBottomSheetViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return Constants.cellHeight
     }
 }

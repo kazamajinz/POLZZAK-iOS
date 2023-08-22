@@ -136,6 +136,10 @@ extension UIFont {
         return .pretendard(size: 20, family: .bold)
     }
     
+    static var title20Xbd: UIFont {
+        return .pretendard(size: 20, family: .extraBold)
+    }
+    
     // MARK: - Subtitle
     
     static var subtitle20Sbd: UIFont {
@@ -216,11 +220,5 @@ extension UIFont {
     
     static var caption12Md: UIFont {
         return .pretendard(size: 12, family: .medium)
-    }
-    
-    //TODO: - 디자인시스템에 추가요청함, 추가되면 삭제할 예정
-    
-    static var logoFont: UIFont {
-        return .pretendard(size: 20, family: .extraBold)
     }
 }

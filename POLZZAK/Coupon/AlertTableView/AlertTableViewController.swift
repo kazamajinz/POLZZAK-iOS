@@ -25,7 +25,6 @@ final class AlertTableViewController: BaseAlertViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        //TODO: - 디자인 요청함, 색상 변경해야함
         label.setLabel(text: "완료한 미션", textColor: .gray800, font: .subtitle16Sbd)
         return label
     }()
@@ -54,15 +53,15 @@ final class AlertTableViewController: BaseAlertViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUI()
-        setTableView()
-        setActions()
+        setupUI()
+        setupTableView()
+        setupActions()
     }
 }
 
 extension AlertTableViewController {
     
-    private func setUI() {
+    private func setupUI() {
         [titleLabel, titleCountLabel].forEach {
             titleStackView.addArrangedSubview($0)
         }
@@ -86,18 +85,18 @@ extension AlertTableViewController {
         }
         
         closeButton.snp.makeConstraints {
-            $0.top.equalTo(tableView.snp.bottom).offset(35)
+            $0.top.equalTo(tableView.snp.bottom).offset(12)
             $0.leading.trailing.bottom.equalToSuperview().inset(16)
         }
     }
     
-    private func setTableView() {
+    private func setupTableView() {
         tableView.separatorInset = .init(top: 14, left: 12, bottom: 14, right: 12)
         tableView.dataSource = self
         tableView.delegate = self
     }
     
-    private func setActions() {
+    private func setupActions() {
         closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabClose)))
     }
     
