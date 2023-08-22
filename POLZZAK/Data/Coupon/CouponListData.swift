@@ -86,6 +86,8 @@ extension CouponListData {
         )
     ]
     
+    static let sampleData3: [CouponListData] = []
+    
     static func getDate(daysAfter: Int) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"

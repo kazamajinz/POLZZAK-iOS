@@ -11,11 +11,17 @@ import Combine
 import CombineCocoa
 
 final class CouponListViewController: UIViewController {
+    enum Constants {
+        static let deviceWidth = UIApplication.shared.width
+        static let collectionViewContentInset = UIEdgeInsets(top: TabConstants.initialContentOffsetY, left: 0, bottom: 32, right: 0)
+        static let tabViewsArray = ["선물 전", "선물 완료"]
+        static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
+    }
+    
     private let viewModel = CouponListViewModel()
     private var dataSource: CouponCollectionViewDataSource
     private var cancellables = Set<AnyCancellable>()
     private var isFirstChange: Bool = true
-    private let deviceWidth = UIApplication.shared.width
     
     private let customRefreshControl = CustomRefreshControl()
     private let filterView = FilterView()
@@ -30,7 +36,7 @@ final class CouponListViewController: UIViewController {
     
     private let tabViews: TabViews = {
         let tabViews = TabViews()
-        tabViews.tabTitles = ["선물 전", "선물 완료"]
+        tabViews.tabTitles = Constants.tabViewsArray
         return tabViews
     }()
     
@@ -40,34 +46,17 @@ final class CouponListViewController: UIViewController {
         return view
     }()
     
-    private let emptyView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.isHidden = true
-        return view
-    }()
-    
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = .couponEmptyCharacter
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let placeHolderLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.textColor = .gray700
-        label.font = .body16Md
-        label.textAlignment = .center
-        return label
+    private let emptyView: CouponListEmptyView = {
+        let emptyView = CouponListEmptyView()
+        emptyView.isHidden = true
+        return emptyView
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.contentInset = UIEdgeInsets(top: Constants.UI.initialContentOffsetY, left: 0, bottom: 32, right: 0)
+        collectionView.contentInset = Constants.collectionViewContentInset
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         
@@ -85,7 +74,6 @@ final class CouponListViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         dataSource = CouponCollectionViewDataSource(viewModel: viewModel)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setNavigation()
     }
     
     required init?(coder: NSCoder) {
@@ -94,15 +82,24 @@ final class CouponListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        setDelegate()
-        setAction()
+        setupUI()
+        setupNavigation()
+        setupTabViews()
+        setupAction()
         bindViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Task {
+            updateFilterView()
+        }
     }
 }
 
 extension CouponListViewController {
-    private func setUI() {
+    private func setupUI() {
         view.backgroundColor = .white
         
         [contentsView, fullLoadingView].forEach {
@@ -154,36 +151,27 @@ extension CouponListViewController {
             $0.leading.trailing.equalToSuperview().inset(26)
             $0.bottom.equalToSuperview().inset(54)
         }
-        
-        [imageView, placeHolderLabel].forEach {
-            emptyView.addSubview($0)
-        }
-        
-        imageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(153)
-            $0.centerX.equalToSuperview()
-        }
-        
-        placeHolderLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(32.24)
-            $0.centerX.equalToSuperview()
-        }
-        
     }
     
-    private func setNavigation() {
-        navigationController?.navigationBar.tintColor = .gray800
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        let rightButtonImage = UIImage.informationButton?.withTintColor(.blue500)
-        let rightButton = UIBarButtonItem(image: rightButtonImage, style: .plain, target: self, action: #selector(guideButtonClicked))
-        self.navigationItem.rightBarButtonItem = rightButton
+    private func setupNavigation() {
+        setNavigationBarStyle()
+        self.navigationController?.navigationBar.tintColor = .blue500
+        let rightButtonImage = UIImage.informationButton?.withRenderingMode(.alwaysTemplate)
+        let rightBarButtonItem = UIBarButtonItem(image: rightButtonImage, style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        rightBarButtonItem.tapPublisher
+            .sink { [weak self] _ in
+                self?.guideButtonTapped()
+            }
+            .store(in: &cancellables)
     }
     
-    private func setDelegate() {
+    private func setupTabViews() {
         tabViews.delegate = self
     }
     
-    private func setAction() {
+    private func setupAction() {
         let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
         filterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
         customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
@@ -283,13 +271,13 @@ extension CouponListViewController {
     
     private func updateFilterView() {
         let currentOffset = collectionView.contentOffset.y
-        let distance = Constants.UI.initialContentOffsetY + currentOffset
-        let newY = max(Constants.UI.headerTopPadding - distance, Constants.UI.filterTopPadding)
+        let distance = TabConstants.initialContentOffsetY + currentOffset
+        let newY = max(TabConstants.headerTopPadding - distance, TabConstants.filterTopPadding)
         
         if distance >= 0 {
             filterView.frame.origin.y = newY
         } else {
-            filterView.frame.origin.y = Constants.UI.headerTopPadding
+            filterView.frame.origin.y = TabConstants.headerTopPadding
         }
     }
     
@@ -328,10 +316,35 @@ extension CouponListViewController {
         emptyView.isHidden = !bool
         
         if true == bool {
+            //TODO: - userType 정의가 되면 변경
+            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
-            placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + "와 연동되면\n쿠폰함이 열려요!"
         }
     }
+    
+    private func couponID(at indexPath: IndexPath) -> Int? {
+        switch viewModel.filterType {
+        case .all:
+            guard false == viewModel.couponListData.isEmpty,
+                  false == viewModel.couponListData[indexPath.section].coupons.isEmpty else {
+                return nil
+            }
+            return viewModel.couponListData[indexPath.section].coupons[indexPath.row].couponID
+        case .section(let memberId):
+            let index = viewModel.couponListData.firstIndex { $0.family.memberId == memberId } ?? 0
+            return viewModel.couponListData[index].coupons[indexPath.row].couponID
+        }
+    }
+    
+    private func handleSelection(at indexPath: IndexPath) {
+        guard let id = couponID(at: indexPath) else { return }
+        
+        let couponDetailViewModel = CouponDetailViewModel(tabState: viewModel.tabState, couponID: id)
+        let couponDetailViewController = CouponDetailViewController(viewModel: couponDetailViewModel)
+        couponDetailViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(couponDetailViewController, animated: false)
+    }
+    
     
     @objc func handleRefresh() {
         if viewModel.tabState == .inProgress {
@@ -355,11 +368,10 @@ extension CouponListViewController {
         
         present(bottomSheet, animated: true, completion: nil)
     }
-
     
-    @objc private func guideButtonClicked() {
+    @objc private func guideButtonTapped() {
         let couponGuideViewController = CouponGuideViewController()
-        present(couponGuideViewController, animated: false)
+        navigationController?.present(couponGuideViewController, animated: false)
     }
 }
 
@@ -367,40 +379,40 @@ extension CouponListViewController: UICollectionViewDelegateFlowLayout {
     func createLayout() -> UICollectionViewLayout {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 32
-
+        
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
-
+            
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-            let groupSizeWidth = self.deviceWidth - 52
+            
+            let groupSizeWidth = Constants.deviceWidth - 52
             let groupSizeHeight = groupSizeWidth * 180 / 323
             let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(groupSizeWidth), heightDimension: .estimated(groupSizeHeight))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-
+            
             let section = NSCollectionLayoutSection(group: group)
             section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
             section.interGroupSpacing = 15
-
+            
             configureSupplementaryItems(for: section, with: sectionIndex)
             handleVisibleItems(for: section, with: groupSizeWidth)
-
+            
             return section
         }, configuration: config)
-
+        
         return layout
     }
     
     private func configureSupplementaryItems(for section: NSCollectionLayoutSection, with sectionIndex: Int) {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(25))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-
+        
         let isDataNotEmpty = !viewModel.couponListData.isEmpty && !viewModel.couponListData[sectionIndex].coupons.isEmpty
         setBoundarySupplementaryItems(for: section, with: sectionHeader, isDataNotEmpty: isDataNotEmpty)
         configureContentInsetsAndScrolling(for: section)
     }
-
+    
     private func setBoundarySupplementaryItems(for section: NSCollectionLayoutSection, with header: NSCollectionLayoutBoundarySupplementaryItem, isDataNotEmpty: Bool) {
         if isDataNotEmpty && viewModel.filterType == .all {
             let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
@@ -410,20 +422,20 @@ extension CouponListViewController: UICollectionViewDelegateFlowLayout {
             section.boundarySupplementaryItems = [header]
         }
     }
-
+    
     private func configureContentInsetsAndScrolling(for section: NSCollectionLayoutSection) {
         viewModel.filterType != .all
-                ? (section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 26))
-                : (section.orthogonalScrollingBehavior = .groupPaging)
+        ? (section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 26))
+        : (section.orthogonalScrollingBehavior = .groupPaging)
     }
-
+    
     private func handleVisibleItems(for section: NSCollectionLayoutSection, with groupSizeWidth: CGFloat) {
         section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, _ in
             guard let self = self, point.x >= 0 else { return }
             
             if let sectionIndex = visibleItems.last?.indexPath.section,
                let footerView = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: sectionIndex)) as? CouponFooterView {
-
+                
                 let cellSizeWidth = groupSizeWidth + 15
                 if Double(point.x).truncatingRemainder(dividingBy: Double(cellSizeWidth)) == 0.0 {
                     let currentCount = Int(Double(point.x) / Double(cellSizeWidth)) + 1
@@ -443,6 +455,10 @@ extension CouponListViewController: UIScrollViewDelegate {
 extension CouponListViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateFilterView()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        handleSelection(at: indexPath)
     }
 }
 

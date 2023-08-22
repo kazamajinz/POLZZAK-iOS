@@ -9,10 +9,12 @@ import Combine
 import UIKit
 
 final class CouponListViewModel {
+    //TODO: - 임시
+    @Published var userType: UserType = .child
+    
     @Published var isSkeleton: Bool = true
     @Published var isCenterLoading: Bool = false
     @Published var couponListData: [CouponListData] = []
-    @Published var userType: UserType = .child
     @Published var tabState: TabState = .inProgress
     @Published var filterType: FilterType = .all
     
@@ -45,7 +47,7 @@ final class CouponListViewModel {
                 self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.couponListData = CouponListData.sampleData2
+            self.couponListData = CouponListData.sampleData3
         }
     }
     

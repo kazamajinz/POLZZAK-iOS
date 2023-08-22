@@ -523,7 +523,6 @@ extension CouponDetailViewController {
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalTo(bottomView.snp.width)
-//            $0.height.equalTo(50)
         }
     }
     

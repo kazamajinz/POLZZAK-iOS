@@ -9,9 +9,16 @@ import UIKit
 import SnapKit
 
 final class InprogressCouponCell: UICollectionViewCell {
+    enum Constants {
+        static let deviceWidth = UIApplication.shared.width
+        static let circleViewWidth = (deviceWidth - 52) * 26.0 / 323.0
+        static let ddayPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        static let rewardRequestButtonText = "선물 조르기"
+        static let rewardConfirmButtonText = "선물 받기 완료"
+        static let deadlineLabelText = "까지 주기로 약속했어요"
+    }
+    
     static let reuseIdentifier = "InprogressCouponCell"
-    private let deviceWidth = UIApplication.shared.width
-    private let circleViewWidth = (UIApplication.shared.width - 52) * 26 / 323
     
     private let contentSubView: UIView = {
         let view = UIView()
@@ -20,10 +27,9 @@ final class InprogressCouponCell: UICollectionViewCell {
     }()
     
     private let ddayLabel: PaddedLabel = {
-        let label = PaddedLabel()
-        label.padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+        let label = PaddedLabel(padding: Constants.ddayPadding)
         label.setLabel(textColor: .blue500, font: .caption12Bd, backgroundColor: .blue150)
-        label.layer.cornerRadius = 4
+        label.addCornerRadious(cornerRadius: 4)
         return label
     }()
     
@@ -42,8 +48,7 @@ final class InprogressCouponCell: UICollectionViewCell {
     
     private let rewardButtonStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 6
+        stackView.setStackView(axis: .horizontal, spacing: 6)
         stackView.distribution = .fillEqually
         stackView.isHidden = true
         return stackView
@@ -51,14 +56,14 @@ final class InprogressCouponCell: UICollectionViewCell {
     
     private let rewardRequestButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "선물 조르기", color: .white, font: .caption12Md, backgroundColor: .blue500)
+        button.setTitleLabel(title: Constants.rewardRequestButtonText, color: .white, font: .caption12Md, backgroundColor: .blue500)
         button.layer.cornerRadius = 5
         return button
     }()
     
     private let rewardConfirmButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "선물 받기 완료", color: .blue600, font: .caption12Md)
+        button.setTitleLabel(title: Constants.rewardConfirmButtonText, color: .blue600, font: .caption12Md)
         button.addBorder(cornerRadius: 5, borderWidth: 1, borderColor: .blue150)
         return button
     }()
@@ -105,7 +110,7 @@ final class InprogressCouponCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        circleView.layer.cornerRadius = circleViewWidth / 2
+        circleView.layer.cornerRadius = Constants.circleViewWidth / 2
     }
 }
 
@@ -132,7 +137,7 @@ extension InprogressCouponCell {
         
         trailView.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
-            $0.width.equalTo(deviceWidth / 2)
+            $0.width.equalTo(Constants.deviceWidth / 2)
         }
         
         ddayLabel.snp.makeConstraints {
@@ -142,10 +147,11 @@ extension InprogressCouponCell {
         rewardNameTextView.snp.makeConstraints {
             $0.top.equalTo(ddayLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(deadlineLabel).inset(8)
+            $0.bottom.equalTo(rewardButtonStackView).inset(8)
         }
         
         deadlineLabel.snp.makeConstraints {
+            $0.top.equalTo(rewardNameTextView.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(24)
         }
@@ -160,9 +166,9 @@ extension InprogressCouponCell {
         }
         
         circleView.snp.makeConstraints {
-            $0.trailing.equalTo(leadView.snp.trailing).offset(circleViewWidth / 2)
+            $0.trailing.equalTo(leadView.snp.trailing).offset(Constants.circleViewWidth / 2)
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(circleViewWidth)
+            $0.width.height.equalTo(Constants.circleViewWidth)
         }
         
         barcodeImageView.snp.makeConstraints {
@@ -176,15 +182,14 @@ extension InprogressCouponCell {
         ddayLabel.text = couponData.rewardDate.remainingDays()
         rewardNameTextView.text = couponData.reward
         if userType == .parent {
-            deadlineLabel.text = "\(couponData.rewardDate.shortDateFormat())까지 주기로 약속했어요"
+            deadlineLabel.text = "\(couponData.rewardDate.shortDateFormat())" + Constants.deadlineLabelText
             let emphasisRange = [NSRange(location: 0, length: 8)]
             deadlineLabel.setEmphasisRanges(emphasisRange, color: .blue500, font: .caption12Md)
+            deadlineLabel.isHidden = false
+            rewardButtonStackView.isHidden = true
         } else {
-            rewardNameTextView.snp.remakeConstraints {
-                $0.top.equalTo(ddayLabel.snp.bottom).offset(8)
-                $0.leading.trailing.equalToSuperview().inset(16)
-                $0.bottom.equalTo(rewardButtonStackView).inset(8)
-            }
+            deadlineLabel.isHidden = true
+            rewardButtonStackView.isHidden = false
         }
     }
 }

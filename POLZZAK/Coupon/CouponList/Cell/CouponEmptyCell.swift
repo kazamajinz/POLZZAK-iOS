@@ -9,11 +9,15 @@ import UIKit
 import SnapKit
 
 final class CouponEmptyCell: UICollectionViewCell {
+    enum Constants {
+        static let placeholdText = "쿠폰이 없어요"
+    }
+    
     static let reuseIdentifier = "CouponEmptyCell"
     
-    private let placeholderLabel: UILabel = {
+    private let placeholdLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "쿠폰이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
+        label.setLabel(text: Constants.placeholdText, textColor: .gray700, font: .body14Md, textAlignment: .center)
         return label
     }()
     
@@ -32,9 +36,9 @@ extension CouponEmptyCell {
         backgroundColor = .white
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
-        contentView.addSubview(placeholderLabel)
+        contentView.addSubview(placeholdLabel)
         
-        placeholderLabel.snp.makeConstraints {
+        placeholdLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(16)
         }
     }

@@ -13,8 +13,7 @@ final class CouponFooterView: UICollectionReusableView {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 2
+        stackView.setStackView(axis: .horizontal, spacing: 2)
         stackView.alignment = .center
         return stackView
     }()

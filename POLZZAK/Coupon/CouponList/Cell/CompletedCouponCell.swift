@@ -9,9 +9,12 @@ import UIKit
 import SnapKit
 
 final class CompletedCouponCell: UICollectionViewCell {
+    enum Constants {
+        static let deviceWidth = UIApplication.shared.width
+        static let leadViewWidthRatio = 235.0 / 323.0
+    }
+    
     static let reuseIdentifier = "CompletedCouponCell"
-    private let deviceWidth = UIApplication.shared.width
-    private let circleViewWidth = (UIApplication.shared.width - 52) * 26 / 323
     
     private let contentSubView: UIView = {
         let view = UIView()
@@ -91,12 +94,12 @@ extension CompletedCouponCell {
         
         leadView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.equalTo(contentView.frame.width * 235 / 323)
+            $0.width.equalTo(contentView.frame.width * Constants.leadViewWidthRatio)
         }
         
         trailView.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
-            $0.width.equalTo(deviceWidth / 2)
+            $0.width.equalTo(Constants.deviceWidth / 2)
         }
         
         rewardNameTextView.snp.makeConstraints {
