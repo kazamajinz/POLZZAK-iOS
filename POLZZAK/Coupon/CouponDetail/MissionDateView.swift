@@ -10,8 +10,7 @@ import UIKit
 class MissionDateView: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         return stackView
     }()
     

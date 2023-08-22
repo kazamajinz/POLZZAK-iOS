@@ -21,6 +21,9 @@ final class CouponDetailViewController: UIViewController {
         static let capturePositionY = (deviceHeight - captureHeight) / 2
         static let captureFrame = CGRect(x: capturePositionX, y: capturePositionY, width: captureWidth, height: captureHeight)
         static let backButtonPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        static let buttonPadding = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
+        static let completedGiftPadding = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+        
         
         static let errorLabel = "쿠폰이 존재하지 않아요."
         static let errorCloseButton = "되돌아가기"
@@ -67,8 +70,7 @@ final class CouponDetailViewController: UIViewController {
     
     private let topStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.setStackView(axis: .vertical, spacing: 10)
         stackView.alignment = .center
         return stackView
     }()
@@ -98,15 +100,13 @@ final class CouponDetailViewController: UIViewController {
     
     private let recipientStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 14
+        stackView.setStackView(axis: .horizontal, spacing: 14)
         return stackView
     }()
     
     private let recipientSubStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         return stackView
     }()
     
@@ -132,15 +132,13 @@ final class CouponDetailViewController: UIViewController {
     
     private let senderStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 14
+        stackView.setStackView(axis: .horizontal, spacing: 14)
         return stackView
     }()
     
     private let senderSubStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         return stackView
     }()
     
@@ -182,8 +180,7 @@ final class CouponDetailViewController: UIViewController {
     
     private let bottomStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 30
+        stackView.setStackView(axis: .horizontal, spacing: 30)
         return stackView
     }()
     
@@ -219,7 +216,7 @@ final class CouponDetailViewController: UIViewController {
     }()
     
     private let completedGift: PaddedLabel = {
-        let label = PaddedLabel(padding: UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12))
+        let label = PaddedLabel(padding: Constants.completedGiftPadding)
         label.setLabel(textColor: .white, font: .body14Sbd, backgroundColor: .blue600)
         label.addCornerRadious(cornerRadius: 16)
         label.isHidden = true
@@ -228,24 +225,25 @@ final class CouponDetailViewController: UIViewController {
     
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 7
+        stackView.setStackView(axis: .horizontal, spacing: 7)
         stackView.distribution = .fillEqually
         stackView.isHidden = true
         return stackView
     }()
     
-    private let requestGiftButton: UIButton = {
-        let button = UIButton()
-        button.setTitleLabel(title: Constants.requestGiftButtonTitle, titleColor: .white, font: .subtitle16Sbd, backgroundColor: .blue600)
+    private let requestGiftButton: PaddedLabel = {
+        let button = PaddedLabel(padding: Constants.buttonPadding)
+        button.setLabel(text: Constants.requestGiftButtonTitle, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue600)
         button.addCornerRadious(cornerRadius: 8)
+        button.isUserInteractionEnabled = true
         return button
     }()
     
-    private let receiveGifitButton: UIButton = {
-        let button = UIButton()
-        button.setTitleLabel(title: Constants.receiveGifitButtonTitle, titleColor: .blue600, font: .subtitle16Sbd, backgroundColor: .white)
+    private let receiveGifitButton: PaddedLabel = {
+        let button = PaddedLabel(padding: Constants.buttonPadding)
+        button.setLabel(text: Constants.receiveGifitButtonTitle, textColor: .blue600, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .white)
         button.addCornerRadious(cornerRadius: 8)
+        button.isUserInteractionEnabled = true
         return button
     }()
     
@@ -525,7 +523,7 @@ extension CouponDetailViewController {
             $0.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.width.equalTo(bottomView.snp.width)
-            $0.height.equalTo(50)
+//            $0.height.equalTo(50)
         }
     }
     

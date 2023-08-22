@@ -24,14 +24,14 @@ class BaseAlertViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overCurrentContext
-        setUI()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUI() {
+    private func setupUI() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         
         view.addSubview(contentView)

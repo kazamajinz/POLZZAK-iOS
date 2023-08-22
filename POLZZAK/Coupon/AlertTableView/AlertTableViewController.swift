@@ -10,22 +10,26 @@ import SnapKit
 
 final class AlertTableViewController: BaseAlertViewController {
     enum Constants {
-        static let alertHeight = UIApplication.shared.height * 460.0 / 812.0
+        static let tableViewContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        static let tableViewSeparatorInset = UIEdgeInsets(top: 14, left: 12, bottom: 14, right: 12)
+        static let tableViewHeight = 282.0
         static let cellHeight = 44.0
+        static let buttonPadding = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
+        static let titleText = "완료한 미션"
+        static let buttonText = "딛기"
     }
     
     private var data: [String] = []
     
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.setStackView(axis: .horizontal, spacing: 8)
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "완료한 미션", textColor: .gray800, font: .subtitle16Sbd)
+        label.setLabel(text: Constants.titleText, textColor: .gray800, font: .subtitle16Sbd)
         return label
     }()
     
@@ -37,14 +41,14 @@ final class AlertTableViewController: BaseAlertViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        tableView.contentInset = Constants.tableViewContentInset
         tableView.register(AlertTableViewCell.self, forCellReuseIdentifier: AlertTableViewCell.reuseIdentifier)
         return tableView
     }()
     
     private let closeButton: PaddedLabel = {
-        let closeButton = PaddedLabel(padding: UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24))
-        closeButton.setLabel(text: "닫기", textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue500)
+        let closeButton = PaddedLabel(padding: Constants.buttonPadding)
+        closeButton.setLabel(text: Constants.buttonText, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue500)
         closeButton.addCornerRadious(cornerRadius: 8)
         closeButton.isUserInteractionEnabled = true
         return closeButton
@@ -70,10 +74,6 @@ extension AlertTableViewController {
             contentView.addSubview($0)
         }
         
-        contentView.snp.makeConstraints{
-            $0.height.equalTo(Constants.alertHeight)
-        }
-        
         titleStackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(30)
             $0.centerX.equalToSuperview()
@@ -82,6 +82,7 @@ extension AlertTableViewController {
         tableView.snp.makeConstraints {
             $0.top.equalTo(titleStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(Constants.tableViewHeight)
         }
         
         closeButton.snp.makeConstraints {
@@ -91,13 +92,13 @@ extension AlertTableViewController {
     }
     
     private func setupTableView() {
-        tableView.separatorInset = .init(top: 14, left: 12, bottom: 14, right: 12)
+        tableView.separatorInset = Constants.tableViewSeparatorInset
         tableView.dataSource = self
         tableView.delegate = self
     }
     
     private func setupActions() {
-        closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tabClose)))
+        closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeButtonTapped)))
     }
     
     func configure(data: [String]) {
@@ -106,7 +107,7 @@ extension AlertTableViewController {
         tableView.reloadData()
     }
     
-    @objc private func tabClose() {
+    @objc private func closeButtonTapped() {
         dismiss(animated: false)
     }
 }

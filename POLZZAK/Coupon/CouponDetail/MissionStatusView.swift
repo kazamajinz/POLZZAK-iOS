@@ -24,8 +24,7 @@ final class MissionStatusView: UIView {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 40
+        stackView.setStackView(axis: .horizontal, spacing: 40)
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -33,16 +32,14 @@ final class MissionStatusView: UIView {
     //MARK: - 완료미션
     private let completedMissionStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         stackView.alignment = .center
         return stackView
     }()
     
     private let completedMissionHeaderView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 2
+        stackView.setStackView(axis: .horizontal, spacing: 2)
         return stackView
     }()
     
@@ -78,8 +75,7 @@ final class MissionStatusView: UIView {
     //MARK: - 모은도장
     private let completedStampStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         stackView.alignment = .center
         return stackView
     }()
@@ -116,8 +112,7 @@ final class MissionStatusView: UIView {
     //MARK: - 걸린기간
     private let durationStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.setStackView(axis: .vertical, spacing: 2)
         stackView.alignment = .center
         return stackView
     }()

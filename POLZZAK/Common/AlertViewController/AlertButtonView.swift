@@ -14,7 +14,7 @@ class AlertButtonView: BaseAlertViewController {
     }
     
     enum Constants {
-        static let buttonPadding = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
+        static let buttonPadding = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
     }
     
     private let buttonStyle: ButtonStyle
@@ -61,7 +61,7 @@ class AlertButtonView: BaseAlertViewController {
         closeButton.textColor = .white
         closeButton.textAlignment = .center
         closeButton.font = .subtitle16Sbd
-        closeButton.layer.cornerRadius = 12
+        closeButton.layer.cornerRadius = 8
         closeButton.layer.masksToBounds = true
         closeButton.isUserInteractionEnabled = true
         return closeButton
@@ -73,7 +73,7 @@ class AlertButtonView: BaseAlertViewController {
         confirmButton.textColor = .white
         confirmButton.textAlignment = .center
         confirmButton.font = .subtitle16Sbd
-        confirmButton.layer.cornerRadius = 12
+        confirmButton.layer.cornerRadius = 8
         confirmButton.layer.masksToBounds = true
         confirmButton.isUserInteractionEnabled = true
         return confirmButton
