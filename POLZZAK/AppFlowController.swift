@@ -30,7 +30,7 @@ final class AppFlowController {
     }
     
     func showHome() {
-        rootViewController = RegisterParentTypeViewController() // getHomeViewController()
+        rootViewController = RegisterProfileImageViewController() // RegisterParentTypeViewController() // getHomeViewController()
     }
     
     func showLogin() {

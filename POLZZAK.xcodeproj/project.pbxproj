@@ -116,6 +116,8 @@
 		DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6182A4DA78800229282 /* NicknameChecker.swift */; };
 		DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
+		DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */; };
+		DA65FDBB2A94EE3000744EC8 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDBA2A94EE3000744EC8 /* RegisterViewModel.swift */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
 		DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */; };
 		DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */; };
@@ -257,6 +259,8 @@
 		DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameViewController.swift; sourceTree = "<group>"; };
 		DA38E6182A4DA78800229282 /* NicknameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChecker.swift; sourceTree = "<group>"; };
 		DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
+		DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewController.swift; sourceTree = "<group>"; };
+		DA65FDBA2A94EE3000744EC8 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTerm.swift; sourceTree = "<group>"; };
 		DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectView.swift; sourceTree = "<group>"; };
 		DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTypeSelectCell.swift; sourceTree = "<group>"; };
@@ -717,6 +721,8 @@
 				DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */,
 				DA383DCD2A69AE8A001F697E /* RegisterTermsViewController.swift */,
 				DA0C0C232A82A3370021714D /* TempRegisterViewController.swift */,
+				DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */,
+				DA65FDBA2A94EE3000744EC8 /* RegisterViewModel.swift */,
 				DA8532852A795C4A00F0D045 /* ParentTypeSelect */,
 				DA85327F2A70CDAC00F0D045 /* AgreementCheck */,
 				DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */,
@@ -870,6 +876,7 @@
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
+				DA65FDBB2A94EE3000744EC8 /* RegisterViewModel.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
@@ -919,6 +926,7 @@
 				39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
 				3CDF64262A2492B7004A87A2 /* TargetType.swift in Sources */,
+				DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
 				DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */,
 				39152B3D2A5AB37500AAFA23 /* SearchBarTextField.swift in Sources */,
