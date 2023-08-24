@@ -107,7 +107,6 @@
 		3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */; };
 		3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */; };
 		3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515F42A0BF40200C9BA4F /* SnapKit */; };
-		3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 3C4515FC2A0BF46B00C9BA4F /* SkeletonView */; };
 		3C6E25A72A2C8FFE0091A929 /* OSLog+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E25A62A2C8FFE0091A929 /* OSLog+extension.swift */; };
 		3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58422A15FF3A005FC66B /* MissionListView.swift */; };
 		3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */; };
@@ -155,7 +154,6 @@
 		DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */; };
 		DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6182A4DA78800229282 /* NicknameChecker.swift */; };
 		DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */; };
-		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
 		DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */; };
 		DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */; };
@@ -362,13 +360,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C4515FD2A0BF46B00C9BA4F /* SkeletonView in Frameworks */,
 				3CE4EF022A2E3CE5008B27AE /* KakaoSDKUser in Frameworks */,
 				3C4515F52A0BF40200C9BA4F /* SnapKit in Frameworks */,
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
 				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
-				DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,25 +525,6 @@
 				39152B382A5AB37500AAFA23 /* Toast.swift */,
 			);
 			path = Toast;
-			sourceTree = "<group>";
-		};
-		39152B262A5AAF9E00AAFA23 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */,
-				391E23B62A43524000CA75EF /* Toast.swift */,
-				3900FAAB2A381E17009EAC52 /* TabViews.swift */,
-				3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */,
-				3900FAA22A37135B009EAC52 /* SearchBar.swift */,
-				391E23A22A40B3D300CA75EF /* SearchState.swift */,
-				3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */,
-				391E23B92A43608C00CA75EF /* FullScreenLoadingView.swift */,
-				3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */,
-				39F60FB22A51ADF0006CDC6A /* PaddedLabel .swift */,
-				3900FAEE2A3B336A009EAC52 /* LoadingView.swift */,
-				3900FA9B2A35DB65009EAC52 /* TabView.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		39152B422A5AB51B00AAFA23 /* TabView */ = {
@@ -1004,11 +981,9 @@
 			name = POLZZAK;
 			packageProductDependencies = (
 				3C4515F42A0BF40200C9BA4F /* SnapKit */,
-				3C4515FC2A0BF46B00C9BA4F /* SkeletonView */,
 				3CE4EEFD2A2E3CE5008B27AE /* KakaoSDKAuth */,
 				3CE4EEFF2A2E3CE5008B27AE /* KakaoSDKCommon */,
 				3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */,
-				DA50F59D2A3D883F00C7B0B0 /* PanModal */,
 				DAAFC5A32A5D91E9006393D0 /* CombineCocoa */,
 			);
 			productName = POLZZAK;
@@ -1042,9 +1017,7 @@
 			mainGroup = 3C4515D32A0BF2F900C9BA4F;
 			packageReferences = (
 				3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */,
 				DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
@@ -1130,7 +1103,6 @@
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */,
-				DAA6D03B2A46C86400101DCE /* String+extension.swift in Sources */,
 				390165532A73AE1F00A193D7 /* CouponListData.swift in Sources */,
 				DAB2256E2A894FD400113617 /* UserAPI.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
@@ -1158,7 +1130,6 @@
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
 				39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */,
 				390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */,
-				3C74169E2A25ED5E001A1E50 /* TokenTarget.swift in Sources */,
 				390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
 				390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */,
@@ -1217,7 +1188,6 @@
 				390F42252A8CBFE4005FC7B2 /* FilterBottomCell.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
 				390165582A78957500A193D7 /* CouponHeaderView.swift in Sources */,
-				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
 				3901655C2A79DEA100A193D7 /* CouponEmptyCell.swift in Sources */,
 				DAB225742A89560400113617 /* MemberPoint.swift in Sources */,
 				DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */,
@@ -1479,27 +1449,11 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
 				branch = master;
-				kind = branch;
-			};
-		};
-		DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/z3rosmith/PanModal.git";
-			requirement = {
-				branch = "use-in-POLZZAK";
 				kind = branch;
 			};
 		};
@@ -1519,11 +1473,6 @@
 			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		3C4515FC2A0BF46B00C9BA4F /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515FB2A0BF46B00C9BA4F /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
-		};
 		3CE4EEFD2A2E3CE5008B27AE /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
@@ -1538,11 +1487,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
-		};
-		DA50F59D2A3D883F00C7B0B0 /* PanModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA50F59C2A3D883F00C7B0B0 /* XCRemoteSwiftPackageReference "PanModal" */;
-			productName = PanModal;
 		};
 		DAAFC5A32A5D91E9006393D0 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -28,24 +28,6 @@
       }
     },
     {
-      "identity" : "panmodal",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/z3rosmith/PanModal.git",
-      "state" : {
-        "branch" : "use-in-POLZZAK",
-        "revision" : "d5b0f16cc49a7f7270c1e6c16a6f8fa0af751c8b"
-      }
-    },
-    {
-      "identity" : "skeletonview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Juanpe/SkeletonView.git",
-      "state" : {
-        "revision" : "739a4f5d78731bebc48811c75fa9e1f4c4cef23e",
-        "version" : "1.30.4"
-      }
-    },
-    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",
