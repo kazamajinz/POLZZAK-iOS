@@ -61,26 +61,35 @@ extension UIApplication {
         }
     }
     
-    static func getTopViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+    static func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindowRootVC) -> UIViewController? {
+        if let nav = base as? UINavigationController, let visible = nav.visibleViewController {
+            return getTopViewController(base: visible)
+        } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return getTopViewController(base: selected)
+        } else if let presented = base?.presentedViewController {
+            return getTopViewController(base: presented)
+        }
+        return base
+    }
+    
+    static func topViewController(controller: UIViewController? = UIApplication.shared.connectedScenes
             .filter { $0.activationState == .foregroundActive }
             .map { $0 as? UIWindowScene }
             .compactMap { $0 }
             .first?.windows
             .filter { $0.isKeyWindow }.first?.rootViewController) -> UIViewController? {
                 
-        if let navigationController = base as? UINavigationController {
-            return getTopViewController(base: navigationController.visibleViewController)
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
         }
-                
-        if let tabController = base as? UITabBarController {
+        if let tabController = controller as? UITabBarController {
             if let selected = tabController.selectedViewController {
-                return getTopViewController(base: selected)
+                return topViewController(controller: selected)
             }
         }
-                
-        if let presented = base?.presentedViewController {
-            return getTopViewController(base: presented)
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
         }
-        return base
+        return controller
     }
 }

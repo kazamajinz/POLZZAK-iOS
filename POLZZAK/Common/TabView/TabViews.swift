@@ -117,7 +117,6 @@ final class TabViews: UIStackView {
 extension TabViews {
     private func setTabViews() {
         let tabWidth = screenWidth / CGFloat(tabViews.count)
-        
         for (index, tabView) in tabViews.enumerated() {
             tabView.delegate = self
             

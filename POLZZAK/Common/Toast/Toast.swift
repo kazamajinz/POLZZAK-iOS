@@ -115,7 +115,7 @@ extension Toast {
     }
     
     func show() {
-        guard let topViewController = UIApplication.getTopViewController() else { return }
+        guard let topViewController = UIApplication.topViewController() else { return }
         topViewController.view.addSubview(toastContainer)
         
         isToastShown = true

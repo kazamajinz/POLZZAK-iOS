@@ -16,7 +16,8 @@ class CouponListEmptyView: UIView {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.setStackView(axis: .vertical, spacing: 12)
+        stackView.axis = .vertical
+        stackView.spacing = 12
         stackView.alignment = .center
         return stackView
     }()
@@ -30,7 +31,9 @@ class CouponListEmptyView: UIView {
     
     let placeHolderLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .body14Md, textAlignment: .center)
+        label.textColor = .gray800
+        label.font = .body14Md
+        label.textAlignment = .center
         label.numberOfLines = 2
         return label
     }()
