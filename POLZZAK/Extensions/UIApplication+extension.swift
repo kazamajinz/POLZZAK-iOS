@@ -12,7 +12,8 @@ extension UIApplication {
         return UIApplication
             .shared
             .connectedScenes
-            .filter { $0.activationState == .foregroundActive }
+        //TODO: - 수정필요
+//            .filter { $0.activationState == .foregroundActive }
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
             .first { $0.isKeyWindow }
