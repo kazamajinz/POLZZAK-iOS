@@ -94,13 +94,22 @@ final class RegisterParentTypeViewController: UIViewController {
         UIView.performWithoutAnimation {
             selectView.layoutIfNeeded()
             selectView.scrollToItem(at: IndexPath(item: 6, section: 0), at: .centeredVertically, animated: false)
+            selectView.configureCurrentType(isInitial: true)
         }
     }
     
     private func configureBinding() {
+        selectView.$currentType.sink { [weak self] type in
+            self?.nextButton.isEnabled = type != nil
+            guard let type else { return }
+//            self?.viewModel.parentType = type
+        }
+        .store(in: &cancellables)
+        
         nextButton.tapPublisher
             .sink { [weak self] _ in
-                
+                let vc = RegisterNicknameViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
     }

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class ParentTypeSelectView: UICollectionView {
     private let types: [String]
+    @Published var currentType: String?
     
     init(frame: CGRect = .zero, types: [String]) {
         self.types = types
@@ -30,6 +32,21 @@ final class ParentTypeSelectView: UICollectionView {
         backgroundColor = .clear
         isPagingEnabled = false
         decelerationRate = .fast
+    }
+    
+    func configureCurrentType(isInitial: Bool = false) {
+        guard let layout = collectionViewLayout as? CarouselLayout else { return }
+        
+        if isInitial {
+            layout.invalidateLayout()
+            layoutIfNeeded()
+        }
+        
+        guard let centerIndexPath = layout.centerIndexPath else { return }
+        
+        // TODO: 아래 조건문 바꿔야할듯
+        let currentType = types[centerIndexPath.item] != "선택해주세요" ? types[centerIndexPath.item] : nil
+        self.currentType = currentType
     }
 }
 
@@ -54,6 +71,7 @@ extension ParentTypeSelectView: UICollectionViewDataSource {
 extension ParentTypeSelectView: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         processCellUI()
+        configureCurrentType()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

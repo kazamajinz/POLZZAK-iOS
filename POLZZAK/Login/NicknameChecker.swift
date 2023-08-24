@@ -11,6 +11,8 @@ import UIKit
 import CombineCocoa
 
 final class NicknameChecker: UIView {
+    @Published var progressAllowed: Bool = false
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let otherEditTextField = PassthroughSubject<Void, Never>()
@@ -67,6 +69,7 @@ final class NicknameChecker: UIView {
         label.text = "0/10"
         label.textAlignment = .right
         label.textColor = .gray500
+        label.isHidden = true
         return label
     }()
     
@@ -75,6 +78,7 @@ final class NicknameChecker: UIView {
         configureLayout()
         configureTextField()
         configureBinding()
+        setCheckButton(status: .inactive)
     }
     
     required init?(coder: NSCoder) {
@@ -127,13 +131,14 @@ final class NicknameChecker: UIView {
         // cancelImageViewTapped인 경우, textPublisher에서 text가 nil인 경우와 동작이 같아서
         // cancelImageViewTapped를 String?을 방출하는 publisher로 설정해서 nil을 방출하게 하였음
         textField.controlEventPublisher(for: .editingChanged).merge(with: otherEditTextField)
-            .sink { [weak self] text in
+            .sink { [weak self] _ in
                 guard let self else { return }
                 let text = textField.text
                 setCheckButton(status: .inactive)
                 setCountLabelText(textCount: text?.count)
                 let validationResult = checkValidity(text: text)
-                setDescriptionUnderTextField(validationResult: validationResult, alwaysHide: textField.isFirstResponder)
+                print(validationResult)
+                setCheckerUI(validationResult: validationResult)
                 
                 switch validationResult {
                 case .pass:
@@ -150,10 +155,9 @@ final class NicknameChecker: UIView {
                 switch firstResponderEvent {
                 case .become:
                     textField.layer.borderColor = UIColor.blue500.cgColor
+                    countLabel.isHidden = false
                 case .resign:
-                    // TODO: 문제 없이 작성한 경우 borderColor를 gray300으로 해줘야 함
-//                    textField.layer.borderColor = UIColor.gray300.cgColor
-                    textField.layer.borderColor = UIColor.error500.cgColor
+                    countLabel.isHidden = true
                     otherEditTextField.send(())
                 }
             }
@@ -167,11 +171,17 @@ final class NicknameChecker: UIView {
         
         checkButton.tapPublisher
             .sink { [weak self] _ in
+                guard let self else { return }
                 // TODO: 추후에 처리
                 // 닉네임체크 api 부르고
                 // 그 결과에 따라
                 // 성공이면 setCheckButton(status: .checked)
                 // 실패면 setCheckButton(status: .inactive)
+                
+                // 성공 가정
+                setCheckButton(status: .checked)
+                setCheckerUI(validationResult: .passAndChecked)
+                progressAllowed = true
             }
             .store(in: &cancellables)
         
@@ -184,8 +194,6 @@ final class NicknameChecker: UIView {
                 self?.endEditing(true)
             }
             .store(in: &cancellables)
-        
-        backgroundColor = .green // TODO: 삭제
     }
     
     private func configureTextField() {
@@ -202,20 +210,24 @@ final class NicknameChecker: UIView {
         return .pass
     }
     
-    private func setDescriptionUnderTextField(validationResult: ValidationResult, alwaysHide: Bool = false) {
+    private func setCheckerUI(validationResult: ValidationResult) {
         descriptionLabel.text = validationResult.description
         
         switch validationResult {
-        case .lessThan2Character, .over10Characters, .notAllowedCharacterIncluded, .nilOrEmpty:
+        case .passAndChecked:
+            textField.layer.borderColor = UIColor.blue500.cgColor
+            descriptionLabel.textColor = .blue500
+            descriptionLabel.isHidden = false
+            checkImageView.isHidden = false
+        case .pass:
+            textField.layer.borderColor = UIColor.blue500.cgColor
+            descriptionLabel.textColor = .blue500
+            descriptionLabel.isHidden = true
+            checkImageView.isHidden = true
+        default:
+            textField.layer.borderColor = UIColor.error500.cgColor
             descriptionLabel.textColor = .error500
             descriptionLabel.isHidden = false
-            checkImageView.isHidden = true
-            
-            if alwaysHide {
-                fallthrough
-            }
-        default:
-            descriptionLabel.isHidden = true
             checkImageView.isHidden = true
         }
     }
@@ -256,10 +268,14 @@ final class NicknameChecker: UIView {
 extension NicknameChecker: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text, text.count + string.count <= 10 else {
-            setDescriptionUnderTextField(validationResult: .over10Characters)
+            setCheckerUI(validationResult: .over10Characters)
             return false
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        progressAllowed = false
     }
 }
 
@@ -272,12 +288,14 @@ extension NicknameChecker {
         case over10Characters
         case notAllowedCharacterIncluded
         case pass
+        case passAndChecked
         
         var description: String? {
             switch self {
             case .lessThan2Character, .nilOrEmpty: return "최소 2글자로 설정해주세요"
             case .over10Characters: return "10자까지만 쓸 수 있어요"
             case .notAllowedCharacterIncluded: return "특수문자(공백)는 쓸 수 없어요"
+            case .passAndChecked: return "사용 가능한 닉네임이에요"
             default: return nil
             }
         }
