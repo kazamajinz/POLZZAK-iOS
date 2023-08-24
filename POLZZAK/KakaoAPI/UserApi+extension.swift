@@ -10,6 +10,8 @@ import Foundation
 import KakaoSDKAuth
 import KakaoSDKUser
 
+typealias KakaoUserAPI = UserApi
+
 enum KakaoUserAPIError: LocalizedError {
     case noResponseData
     

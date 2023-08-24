@@ -9,10 +9,10 @@ import Foundation
 import OSLog
 import Security
 
-/// init의 service parameter는 의도가 있지 않다면 따로 넣어줄 필요 없음
 struct Keychain {
     private let service: String
     
+    /// init의 service parameter는 의도가 있지 않다면 따로 넣어줄 필요 없음
     init(service: String = Bundle.main.bundleIdentifier!) {
         self.service = service
     }
@@ -71,6 +71,11 @@ struct Keychain {
         ]
         
         let status = SecItemDelete(keychainQuery)
+        
+        guard status != errSecItemNotFound else {
+            return
+        }
+        
         assert(status == noErr, "failed to delete the value, status code = \(status)")
     }
 }

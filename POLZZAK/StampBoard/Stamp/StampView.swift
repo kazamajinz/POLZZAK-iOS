@@ -22,7 +22,7 @@ class StampView: UICollectionView {
     
     init(frame: CGRect = .zero, size: StampSize) {
         self.size = size
-        let layout = CollectionViewLayoutFactory.getStampViewLayout(stampViewSize: size)
+        let layout = StampView.getLayout(stampViewSize: size)
         super.init(frame: frame, collectionViewLayout: layout)
         configureView()
         configureLayout()
@@ -31,9 +31,7 @@ class StampView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension StampView: UICollectionViewDataSource {
+    
     private func configureView() {
         register(StampCell.self, forCellWithReuseIdentifier: StampCell.reuseIdentifier)
         register(StampFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampFooterView.reuseIdentifier)
@@ -46,7 +44,11 @@ extension StampView: UICollectionViewDataSource {
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray200.cgColor
     }
-    
+}
+
+// MARK: - DataSource
+
+extension StampView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard size.isMoreStatus == false || showMore == true else { return size.reducedCount }
         return size.count
@@ -70,6 +72,55 @@ extension StampView: UICollectionViewDataSource {
         default:
             return UICollectionReusableView()
         }
+    }
+}
+
+// MARK: - Layout
+
+extension StampView {
+    static func getLayout(stampViewSize: StampSize, sectionInset: CGFloat = 20) -> UICollectionViewLayout {
+        let numberOfItemPerLine = stampViewSize.numberOfItemsPerLine
+        let itemFractionalWidthFraction = 1.0 / CGFloat(numberOfItemPerLine)
+        
+        let screenWidth = UIApplication.shared.width
+        let spacing: CGFloat = screenWidth/(5.86*CGFloat(numberOfItemPerLine))
+        let itemSpacing = spacing == 0 ? 16 : spacing
+        
+        // Item
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(itemFractionalWidthFraction),
+            heightDimension: .fractionalWidth(itemFractionalWidthFraction)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        // Group
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(.greatestFiniteMagnitude)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: numberOfItemPerLine)
+        group.interItemSpacing = .fixed(itemSpacing)
+        
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = itemSpacing
+        section.contentInsets = NSDirectionalEdgeInsets(top: sectionInset, leading: sectionInset, bottom: sectionInset, trailing: sectionInset)
+        
+        // Footer
+        if stampViewSize.isMoreStatus {
+            let footerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(60.0)
+            )
+            let footer = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: footerSize,
+                elementKind: UICollectionView.elementKindSectionFooter,
+                alignment: .bottom
+            )
+            section.boundarySupplementaryItems = [footer]
+        }
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
 }
 

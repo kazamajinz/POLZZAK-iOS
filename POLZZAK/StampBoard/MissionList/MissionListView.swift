@@ -23,7 +23,7 @@ class MissionListView: UICollectionView {
 
     init(frame: CGRect = .zero, horizontalInset: CGFloat = 0) {
         self.horizontalInset = horizontalInset
-        let layout = CollectionViewLayoutFactory.getMissionListViewLayout()
+        let layout = MissionListView.getLayout()
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
     }
@@ -31,15 +31,17 @@ class MissionListView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension MissionListView: UICollectionViewDataSource {
+    
     private func configure() {
         register(MissionCell.self, forCellWithReuseIdentifier: MissionCell.reuseIdentifier)
         register(MissionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MissionHeaderView.reuseIdentifier)
         dataSource = self
     }
-    
+}
+
+// MARK: - DataSource
+
+extension MissionListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let numberOfItems = missionListViewDataSource?.missionListViewNumberOfItems() ?? 0
         guard showMore == true || numberOfItems <= 3 else { return 3 }
@@ -67,6 +69,18 @@ extension MissionListView: UICollectionViewDataSource {
         default:
             return UICollectionReusableView()
         }
+    }
+}
+
+// MARK: - Layout
+
+extension MissionListView {
+    static func getLayout() -> UICollectionViewLayout {
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        config.headerMode = .supplementary
+        config.headerTopPadding = 0
+        config.showsSeparators = false
+        return UICollectionViewCompositionalLayout.list(using: config)
     }
 }
 

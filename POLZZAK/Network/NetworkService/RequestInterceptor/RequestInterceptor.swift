@@ -18,7 +18,7 @@ extension RequestInterceptor {
         return urlRequest
     }
     
-    func retry(response: URLResponse) async throws -> RetryResult {
+    func retry(previousData: Data, response: URLResponse) async throws -> RetryResult {
         return .doNotRetry
     }
 }
