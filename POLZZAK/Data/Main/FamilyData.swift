@@ -25,3 +25,9 @@ struct FamilyMember: Decodable {
             case approve = "APPROVE"
         }
 }
+
+extension FamilyMember: Equatable {
+    static func == (lhs: FamilyMember, rhs: FamilyMember) -> Bool {
+        return lhs.memberId == rhs.memberId
+    }
+}

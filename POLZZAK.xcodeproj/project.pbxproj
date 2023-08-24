@@ -17,7 +17,47 @@
 		3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */; };
 		3900FAE52A3ABE62009EAC52 /* EmphasisStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */; };
 		3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */; };
-		3900FB112A409025009EAC52 /* ParentsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB102A409025009EAC52 /* ParentsType.swift */; };
+		3900FB112A409025009EAC52 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FB102A409025009EAC52 /* UserType.swift */; };
+		390165502A73862100A193D7 /* CouponListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901654F2A73862100A193D7 /* CouponListViewController.swift */; };
+		390165532A73AE1F00A193D7 /* CouponListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165522A73AE1F00A193D7 /* CouponListData.swift */; };
+		390165552A77734B00A193D7 /* CouponListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165542A77734B00A193D7 /* CouponListViewModel.swift */; };
+		390165582A78957500A193D7 /* CouponHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165572A78957500A193D7 /* CouponHeaderView.swift */; };
+		3901655A2A78B13C00A193D7 /* MemberTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165592A78B13C00A193D7 /* MemberTypeLabel.swift */; };
+		3901655C2A79DEA100A193D7 /* CouponEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901655B2A79DEA100A193D7 /* CouponEmptyCell.swift */; };
+		3901655E2A7A142D00A193D7 /* CouponFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901655D2A7A142D00A193D7 /* CouponFooterView.swift */; };
+		390165602A7A4F1200A193D7 /* InprogressCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901655F2A7A4F1200A193D7 /* InprogressCouponCell.swift */; };
+		390165642A7A7A7B00A193D7 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165632A7A7A7B00A193D7 /* String+Date.swift */; };
+		390165662A7E9D3400A193D7 /* CompletedCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165652A7E9D3400A193D7 /* CompletedCouponCell.swift */; };
+		390165682A7EA49300A193D7 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165672A7EA49300A193D7 /* UITextView.swift */; };
+		3901656C2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901656B2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift */; };
+		390165772A7F8B9500A193D7 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165762A7F8B9500A193D7 /* FilterView.swift */; };
+		390165792A7FCFE500A193D7 /* CouponGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165782A7FCFE500A193D7 /* CouponGuideViewController.swift */; };
+		390178432A932790001D0E90 /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178422A932790001D0E90 /* AlertTableViewCell.swift */; };
+		390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178452A938217001D0E90 /* PhotoAccessAlertController.swift */; };
+		390178482A938A46001D0E90 /* AlertTitleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178472A938A46001D0E90 /* AlertTitleButtonView.swift */; };
+		3901784A2A947A15001D0E90 /* QnaStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178492A947A15001D0E90 /* QnaStackView.swift */; };
+		3901784C2A9492BC001D0E90 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901784B2A9492BC001D0E90 /* UIStackView+extension.swift */; };
+		3901784E2A949688001D0E90 /* TabConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901784D2A949688001D0E90 /* TabConstants.swift */; };
+		390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901784F2A9497BB001D0E90 /* CouponListEmptyView.swift */; };
+		390F42162A89DED7005FC7B2 /* FullLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42152A89DED7005FC7B2 /* FullLoadingView.swift */; };
+		390F421B2A8C6E2A005FC7B2 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F421A2A8C6E2A005FC7B2 /* BottomSheetViewController.swift */; };
+		390F421D2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F421C2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift */; };
+		390F42202A8CBB79005FC7B2 /* BottomSheetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F421F2A8CBB79005FC7B2 /* BottomSheetState.swift */; };
+		390F42222A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42212A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift */; };
+		390F42252A8CBFE4005FC7B2 /* FilterBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42242A8CBFE4005FC7B2 /* FilterBottomCell.swift */; };
+		390F42272A8D0A0F005FC7B2 /* SkeletonCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42262A8D0A0F005FC7B2 /* SkeletonCustomView.swift */; };
+		390F42292A8D16EC005FC7B2 /* CouponSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42282A8D16EC005FC7B2 /* CouponSkeletonView.swift */; };
+		390F422B2A8DBE6F005FC7B2 /* CouponDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F422A2A8DBE6F005FC7B2 /* CouponDetail.swift */; };
+		390F422E2A8DFEA5005FC7B2 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F422D2A8DFEA5005FC7B2 /* CouponDetailViewController.swift */; };
+		390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F422F2A8E0F52005FC7B2 /* UIViewController+UINavigation.swift */; };
+		390F42342A8E4FB3005FC7B2 /* MissionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42332A8E4FB3005FC7B2 /* MissionStatusView.swift */; };
+		390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42352A8F0817005FC7B2 /* MissionDateView.swift */; };
+		390F42382A8F14DC005FC7B2 /* CouponDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42372A8F14DC005FC7B2 /* CouponDetailViewModel.swift */; };
+		390F42402A910E01005FC7B2 /* BaseAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F423F2A910E01005FC7B2 /* BaseAlertViewController.swift */; };
+		390F42442A912705005FC7B2 /* AlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42432A912705005FC7B2 /* AlertButtonView.swift */; };
+		390F42492A925D55005FC7B2 /* UIView+Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F42482A925D55005FC7B2 /* UIView+Capture.swift */; };
+		390F424B2A927F6F005FC7B2 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 390F424A2A927F6E005FC7B2 /* Pretendard-ExtraBold.otf */; };
+		390F424E2A928838005FC7B2 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390F424D2A928838005FC7B2 /* AlertTableViewController.swift */; };
 		39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B292A5AB29600AAFA23 /* EmptyView.swift */; };
 		39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B2A2A5AB29600AAFA23 /* LoadingView.swift */; };
 		39152B302A5AB2C200AAFA23 /* PaddedLabel .swift in Sources */ = {isa = PBXBuildFile; fileRef = 39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */; };
@@ -154,7 +194,47 @@
 		3900FAE02A3AB6B3009EAC52 /* SentTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentTabCell.swift; sourceTree = "<group>"; };
 		3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmphasisStyle.swift; sourceTree = "<group>"; };
 		3900FB0B2A408F3D009EAC52 /* LinkEmptyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkEmptyType.swift; sourceTree = "<group>"; };
-		3900FB102A409025009EAC52 /* ParentsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentsType.swift; sourceTree = "<group>"; };
+		3900FB102A409025009EAC52 /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
+		3901654F2A73862100A193D7 /* CouponListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewController.swift; sourceTree = "<group>"; };
+		390165522A73AE1F00A193D7 /* CouponListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListData.swift; sourceTree = "<group>"; };
+		390165542A77734B00A193D7 /* CouponListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewModel.swift; sourceTree = "<group>"; };
+		390165572A78957500A193D7 /* CouponHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponHeaderView.swift; sourceTree = "<group>"; };
+		390165592A78B13C00A193D7 /* MemberTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeLabel.swift; sourceTree = "<group>"; };
+		3901655B2A79DEA100A193D7 /* CouponEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponEmptyCell.swift; sourceTree = "<group>"; };
+		3901655D2A7A142D00A193D7 /* CouponFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponFooterView.swift; sourceTree = "<group>"; };
+		3901655F2A7A4F1200A193D7 /* InprogressCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressCouponCell.swift; sourceTree = "<group>"; };
+		390165632A7A7A7B00A193D7 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
+		390165652A7E9D3400A193D7 /* CompletedCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedCouponCell.swift; sourceTree = "<group>"; };
+		390165672A7EA49300A193D7 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		3901656B2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		390165762A7F8B9500A193D7 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		390165782A7FCFE500A193D7 /* CouponGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGuideViewController.swift; sourceTree = "<group>"; };
+		390178422A932790001D0E90 /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
+		390178452A938217001D0E90 /* PhotoAccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAccessAlertController.swift; sourceTree = "<group>"; };
+		390178472A938A46001D0E90 /* AlertTitleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTitleButtonView.swift; sourceTree = "<group>"; };
+		390178492A947A15001D0E90 /* QnaStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QnaStackView.swift; sourceTree = "<group>"; };
+		3901784B2A9492BC001D0E90 /* UIStackView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
+		3901784D2A949688001D0E90 /* TabConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabConstants.swift; sourceTree = "<group>"; };
+		3901784F2A9497BB001D0E90 /* CouponListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListEmptyView.swift; sourceTree = "<group>"; };
+		390F42152A89DED7005FC7B2 /* FullLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullLoadingView.swift; sourceTree = "<group>"; };
+		390F421A2A8C6E2A005FC7B2 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		390F421C2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomSheetViewController.swift; sourceTree = "<group>"; };
+		390F421F2A8CBB79005FC7B2 /* BottomSheetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetState.swift; sourceTree = "<group>"; };
+		390F42212A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresentationController.swift; sourceTree = "<group>"; };
+		390F42242A8CBFE4005FC7B2 /* FilterBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBottomCell.swift; sourceTree = "<group>"; };
+		390F42262A8D0A0F005FC7B2 /* SkeletonCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCustomView.swift; sourceTree = "<group>"; };
+		390F42282A8D16EC005FC7B2 /* CouponSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponSkeletonView.swift; sourceTree = "<group>"; };
+		390F422A2A8DBE6F005FC7B2 /* CouponDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetail.swift; sourceTree = "<group>"; };
+		390F422D2A8DFEA5005FC7B2 /* CouponDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailViewController.swift; sourceTree = "<group>"; };
+		390F422F2A8E0F52005FC7B2 /* UIViewController+UINavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UINavigation.swift"; sourceTree = "<group>"; };
+		390F42332A8E4FB3005FC7B2 /* MissionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionStatusView.swift; sourceTree = "<group>"; };
+		390F42352A8F0817005FC7B2 /* MissionDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionDateView.swift; sourceTree = "<group>"; };
+		390F42372A8F14DC005FC7B2 /* CouponDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailViewModel.swift; sourceTree = "<group>"; };
+		390F423F2A910E01005FC7B2 /* BaseAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAlertViewController.swift; sourceTree = "<group>"; };
+		390F42432A912705005FC7B2 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
+		390F42482A925D55005FC7B2 /* UIView+Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Capture.swift"; sourceTree = "<group>"; };
+		390F424A2A927F6E005FC7B2 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		390F424D2A928838005FC7B2 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		39152B292A5AB29600AAFA23 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		39152B2A2A5AB29600AAFA23 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PaddedLabel .swift"; sourceTree = "<group>"; };
@@ -320,7 +400,7 @@
 		3900FAD82A39FE30009EAC52 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
-				3900FB102A409025009EAC52 /* ParentsType.swift */,
+				3900FB102A409025009EAC52 /* UserType.swift */,
 				3900FAE42A3ABE62009EAC52 /* EmphasisStyle.swift */,
 			);
 			path = Enum;
@@ -334,6 +414,140 @@
 				3900FAD62A39FDD5009EAC52 /* FamilyData.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		3901654E2A73860C00A193D7 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				390F42472A91305D005FC7B2 /* CouponList */,
+				390F42232A8CBFCA005FC7B2 /* FilterBottom */,
+				390F422C2A8DFE8A005FC7B2 /* CouponDetail */,
+				390178442A9327A6001D0E90 /* AlertTableView */,
+				390F42192A8BE15B005FC7B2 /* CouponGuide */,
+			);
+			path = Coupon;
+			sourceTree = "<group>";
+		};
+		390165512A738E7300A193D7 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				390165522A73AE1F00A193D7 /* CouponListData.swift */,
+				390F422A2A8DBE6F005FC7B2 /* CouponDetail.swift */,
+			);
+			path = Coupon;
+			sourceTree = "<group>";
+		};
+		390165562A78956900A193D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				390165572A78957500A193D7 /* CouponHeaderView.swift */,
+				3901655D2A7A142D00A193D7 /* CouponFooterView.swift */,
+				3901655F2A7A4F1200A193D7 /* InprogressCouponCell.swift */,
+				390165652A7E9D3400A193D7 /* CompletedCouponCell.swift */,
+				3901655B2A79DEA100A193D7 /* CouponEmptyCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		390178442A9327A6001D0E90 /* AlertTableView */ = {
+			isa = PBXGroup;
+			children = (
+				390F424D2A928838005FC7B2 /* AlertTableViewController.swift */,
+				390178422A932790001D0E90 /* AlertTableViewCell.swift */,
+			);
+			path = AlertTableView;
+			sourceTree = "<group>";
+		};
+		390F42192A8BE15B005FC7B2 /* CouponGuide */ = {
+			isa = PBXGroup;
+			children = (
+				390165782A7FCFE500A193D7 /* CouponGuideViewController.swift */,
+				390178492A947A15001D0E90 /* QnaStackView.swift */,
+			);
+			path = CouponGuide;
+			sourceTree = "<group>";
+		};
+		390F421E2A8CBB6A005FC7B2 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				390F421F2A8CBB79005FC7B2 /* BottomSheetState.swift */,
+				390F421A2A8C6E2A005FC7B2 /* BottomSheetViewController.swift */,
+				390F42212A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift */,
+				3901784D2A949688001D0E90 /* TabConstants.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		390F42232A8CBFCA005FC7B2 /* FilterBottom */ = {
+			isa = PBXGroup;
+			children = (
+				390F421C2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift */,
+				390F42242A8CBFE4005FC7B2 /* FilterBottomCell.swift */,
+			);
+			path = FilterBottom;
+			sourceTree = "<group>";
+		};
+		390F422C2A8DFE8A005FC7B2 /* CouponDetail */ = {
+			isa = PBXGroup;
+			children = (
+				390F422D2A8DFEA5005FC7B2 /* CouponDetailViewController.swift */,
+				390F42372A8F14DC005FC7B2 /* CouponDetailViewModel.swift */,
+				390F42332A8E4FB3005FC7B2 /* MissionStatusView.swift */,
+				390F42352A8F0817005FC7B2 /* MissionDateView.swift */,
+			);
+			path = CouponDetail;
+			sourceTree = "<group>";
+		};
+		390F423E2A910DE1005FC7B2 /* AlertViewController */ = {
+			isa = PBXGroup;
+			children = (
+				390F423F2A910E01005FC7B2 /* BaseAlertViewController.swift */,
+				390F42432A912705005FC7B2 /* AlertButtonView.swift */,
+				390178472A938A46001D0E90 /* AlertTitleButtonView.swift */,
+				390178452A938217001D0E90 /* PhotoAccessAlertController.swift */,
+				39152B2E2A5AB2C200AAFA23 /* CustomAlertViewController.swift */,
+			);
+			path = AlertViewController;
+			sourceTree = "<group>";
+		};
+		390F42472A91305D005FC7B2 /* CouponList */ = {
+			isa = PBXGroup;
+			children = (
+				3901654F2A73862100A193D7 /* CouponListViewController.swift */,
+				390165542A77734B00A193D7 /* CouponListViewModel.swift */,
+				3901656B2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift */,
+				390F42282A8D16EC005FC7B2 /* CouponSkeletonView.swift */,
+				3901784F2A9497BB001D0E90 /* CouponListEmptyView.swift */,
+				390165562A78956900A193D7 /* Cell */,
+			);
+			path = CouponList;
+			sourceTree = "<group>";
+		};
+		390F424F2A932064005FC7B2 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				39152B382A5AB37500AAFA23 /* Toast.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		39152B262A5AAF9E00AAFA23 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				3900FA9F2A370F9F009EAC52 /* SearchBarTextField.swift */,
+				391E23B62A43524000CA75EF /* Toast.swift */,
+				3900FAAB2A381E17009EAC52 /* TabViews.swift */,
+				3900FAF02A3B6F1D009EAC52 /* EmptyView.swift */,
+				3900FAA22A37135B009EAC52 /* SearchBar.swift */,
+				391E23A22A40B3D300CA75EF /* SearchState.swift */,
+				3900FA9D2A36FF47009EAC52 /* SearchBarSubView.swift */,
+				391E23B92A43608C00CA75EF /* FullScreenLoadingView.swift */,
+				3900FAEA2A3AEA25009EAC52 /* CustomAlertViewController.swift */,
+				39F60FB22A51ADF0006CDC6A /* PaddedLabel .swift */,
+				3900FAEE2A3B336A009EAC52 /* LoadingView.swift */,
+				3900FA9B2A35DB65009EAC52 /* TabView.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		39152B422A5AB51B00AAFA23 /* TabView */ = {
@@ -362,6 +576,7 @@
 				39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */,
 				39152B2A2A5AB29600AAFA23 /* LoadingView.swift */,
 				39152B2F2A5AB2C200AAFA23 /* FullScreenLoadingView.swift */,
+				390F42152A89DED7005FC7B2 /* FullLoadingView.swift */,
 			);
 			path = LoadingView;
 			sourceTree = "<group>";
@@ -410,6 +625,7 @@
 			isa = PBXGroup;
 			children = (
 				3900FAD92A39FE49009EAC52 /* Main */,
+				390165512A738E7300A193D7 /* Coupon */,
 				39227BE62A23866300C86049 /* testData.swift */,
 				DAB225732A89560400113617 /* MemberPoint.swift */,
 			);
@@ -476,9 +692,14 @@
 				3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */,
 				3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */,
 				397366CC2A112967007D998F /* UILabel+extension.swift */,
+				390165672A7EA49300A193D7 /* UITextView.swift */,
 				39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */,
 				3900FAA42A377340009EAC52 /* UIView+Animation.swift */,
 				3900FAA62A3785FA009EAC52 /* UIButton+extension.swift */,
+				3901784B2A9492BC001D0E90 /* UIStackView+extension.swift */,
+				390165632A7A7A7B00A193D7 /* String+Date.swift */,
+				390F422F2A8E0F52005FC7B2 /* UIViewController+UINavigation.swift */,
+				390F42482A925D55005FC7B2 /* UIView+Capture.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -515,6 +736,7 @@
 				3CD5F8A02A2DBDD9003E4A67 /* Utils */,
 				3CDF64242A249238004A87A2 /* Network */,
 				3C0793452A0E628800087F73 /* Main */,
+				3901654E2A73860C00A193D7 /* Coupon */,
 				398E586C2A5D936B0055CF37 /* Notification */,
 				3C0793462A0E629000087F73 /* StampBoard */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
@@ -588,10 +810,14 @@
 				39152B442A5AB54C00AAFA23 /* LoadingView */,
 				3CE4EF052A2E454B008B27AE /* Constants.swift */,
 				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
+				390165762A7F8B9500A193D7 /* FilterView.swift */,
 				39152B292A5AB29600AAFA23 /* EmptyView.swift */,
-				39152B2E2A5AB2C200AAFA23 /* CustomAlertViewController.swift */,
+				390F423E2A910DE1005FC7B2 /* AlertViewController */,
 				39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */,
-				39152B382A5AB37500AAFA23 /* Toast.swift */,
+				390165592A78B13C00A193D7 /* MemberTypeLabel.swift */,
+				390F424F2A932064005FC7B2 /* Toast */,
+				390F42262A8D0A0F005FC7B2 /* SkeletonCustomView.swift */,
+				390F421E2A8CBB6A005FC7B2 /* BottomSheet */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -665,6 +891,7 @@
 		3CFB472B2A0FEA1C00B03FFD /* Pretendard */ = {
 			isa = PBXGroup;
 			children = (
+				390F424A2A927F6E005FC7B2 /* Pretendard-ExtraBold.otf */,
 				3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */,
 				3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */,
 				3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */,
@@ -836,6 +1063,7 @@
 			files = (
 				3C4515EC2A0BF2FB00C9BA4F /* LaunchScreen.storyboard in Resources */,
 				3CF28D872A306D91000B0A91 /* Pretendard-Regular.otf in Resources */,
+				390F424B2A927F6F005FC7B2 /* Pretendard-ExtraBold.otf in Resources */,
 				3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */,
 				3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */,
 				3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */,
@@ -859,7 +1087,9 @@
 				39152B472A5AB68800AAFA23 /* UIColor+extension.swift in Sources */,
 				39152B462A5AB68500AAFA23 /* MainViewController.swift in Sources */,
 				39152B412A5AB4DA00AAFA23 /* MissionCell.swift in Sources */,
+				390F424E2A928838005FC7B2 /* AlertTableViewController.swift in Sources */,
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
+				390F42402A910E01005FC7B2 /* BaseAlertViewController.swift in Sources */,
 				398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */,
 				39152B3E2A5AB37500AAFA23 /* SearchBar.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
@@ -869,13 +1099,18 @@
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
+				390165662A7E9D3400A193D7 /* CompletedCouponCell.swift in Sources */,
 				DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */,
 				3900FAA72A3785FA009EAC52 /* UIButton+extension.swift in Sources */,
 				398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */,
+				390165642A7A7A7B00A193D7 /* String+Date.swift in Sources */,
+				390F42222A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */,
 				398E58762A5ED1580055CF37 /* NotificationModel.swift in Sources */,
+				390F42342A8E4FB3005FC7B2 /* MissionStatusView.swift in Sources */,
+				3901784A2A947A15001D0E90 /* QnaStackView.swift in Sources */,
 				39227BDF2A1E37FB00C86049 /* StampState.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
@@ -884,6 +1119,7 @@
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */,
 				DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */,
 				3C74169B2A25E849001A1E50 /* ThreadSafeDictionary.swift in Sources */,
+				390165772A7F8B9500A193D7 /* FilterView.swift in Sources */,
 				3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */,
 				3C7416972A25E80A001A1E50 /* RequestAdapter.swift in Sources */,
 				39152B402A5AB37500AAFA23 /* SearchState.swift in Sources */,
@@ -894,6 +1130,8 @@
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */,
+				DAA6D03B2A46C86400101DCE /* String+extension.swift in Sources */,
+				390165532A73AE1F00A193D7 /* CouponListData.swift in Sources */,
 				DAB2256E2A894FD400113617 /* UserAPI.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
@@ -903,28 +1141,41 @@
 				DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */,
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
+				390165682A7EA49300A193D7 /* UITextView.swift in Sources */,
 				DAC36B882A32DA3900BE5C8D /* KakaoLoginManager.swift in Sources */,
 				DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */,
 				DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
+				390F421D2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift in Sources */,
 				DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */,
 				3CD5F8AA2A2DF5FB003E4A67 /* LoginTarget.swift in Sources */,
+				390F42272A8D0A0F005FC7B2 /* SkeletonCustomView.swift in Sources */,
 				DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */,
+				390F42292A8D16EC005FC7B2 /* CouponSkeletonView.swift in Sources */,
 				DABEC1B52A382D1800EAD8CA /* NeedRegisterDTO.swift in Sources */,
+				390178482A938A46001D0E90 /* AlertTitleButtonView.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
 				39152B2B2A5AB29600AAFA23 /* EmptyView.swift in Sources */,
+				390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */,
+				3C74169E2A25ED5E001A1E50 /* TokenTarget.swift in Sources */,
+				390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
+				390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */,
 				3CDF64262A2492B7004A87A2 /* TargetType.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
 				DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */,
 				39152B3D2A5AB37500AAFA23 /* SearchBarTextField.swift in Sources */,
+				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */,
+				390F422B2A8DBE6F005FC7B2 /* CouponDetail.swift in Sources */,
+				390165602A7A4F1200A193D7 /* InprogressCouponCell.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
 				DA383DCE2A69AE8A001F697E /* RegisterTermsViewController.swift in Sources */,
 				DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */,
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
 				3C6E58472A160E73005FC66B /* DetailBoardViewModel.swift in Sources */,
 				3900FB0C2A408F3D009EAC52 /* LinkEmptyType.swift in Sources */,
+				390F42162A89DED7005FC7B2 /* FullLoadingView.swift in Sources */,
 				398E58702A5D93830055CF37 /* NotificationViewModel.swift in Sources */,
 				39152B3F2A5AB37500AAFA23 /* Toast.swift in Sources */,
 				398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */,
@@ -934,11 +1185,14 @@
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
 				391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */,
+				390F42442A912705005FC7B2 /* AlertButtonView.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
 				39D539DF2A16568D0087B2BD /* StampBoardHeaderView.swift in Sources */,
 				39152B3B2A5AB37500AAFA23 /* TabView.swift in Sources */,
+				3901784C2A9492BC001D0E90 /* UIStackView+extension.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
+				390F421B2A8C6E2A005FC7B2 /* BottomSheetViewController.swift in Sources */,
 				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */,
@@ -946,25 +1200,43 @@
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
 				39152B312A5AB2C200AAFA23 /* CustomAlertViewController.swift in Sources */,
+				390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */,
+				390F422E2A8DFEA5005FC7B2 /* CouponDetailViewController.swift in Sources */,
+				390165792A7FCFE500A193D7 /* CouponGuideViewController.swift in Sources */,
 				391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
+				390F42492A925D55005FC7B2 /* UIView+Capture.swift in Sources */,
 				3900FAE52A3ABE62009EAC52 /* EmphasisStyle.swift in Sources */,
 				39152B302A5AB2C200AAFA23 /* PaddedLabel .swift in Sources */,
+				390165502A73862100A193D7 /* CouponListViewController.swift in Sources */,
+				3901656C2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift in Sources */,
+				390165552A77734B00A193D7 /* CouponListViewModel.swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
+				390F42202A8CBB79005FC7B2 /* BottomSheetState.swift in Sources */,
+				390F42252A8CBFE4005FC7B2 /* FilterBottomCell.swift in Sources */,
+				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
+				390165582A78957500A193D7 /* CouponHeaderView.swift in Sources */,
+				3C43C5CC2A1B5EED00D7B9DD /* CollectionViewLayoutFactory.swift in Sources */,
+				3901655C2A79DEA100A193D7 /* CouponEmptyCell.swift in Sources */,
 				DAB225742A89560400113617 /* MemberPoint.swift in Sources */,
 				DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */,
 				DA383DD22A69B420001F697E /* AgreementCheckCell.swift in Sources */,
 				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
-				3900FB112A409025009EAC52 /* ParentsType.swift in Sources */,
+				3901784E2A949688001D0E90 /* TabConstants.swift in Sources */,
+				3900FB112A409025009EAC52 /* UserType.swift in Sources */,
+				3901655E2A7A142D00A193D7 /* CouponFooterView.swift in Sources */,
 				39152B3A2A5AB37500AAFA23 /* TabViews.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
+				390F42382A8F14DC005FC7B2 /* CouponDetailViewModel.swift in Sources */,
 				DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				DAB2257B2A8E4B2400113617 /* InitialLoadingViewController.swift in Sources */,
 				39D539D32A15F4DE0087B2BD /* UserInfomation.swift in Sources */,
+				3901655A2A78B13C00A193D7 /* MemberTypeLabel.swift in Sources */,
+				390178432A932790001D0E90 /* AlertTableViewCell.swift in Sources */,
 				DA38E6152A4D81CE00229282 /* RegisterParentTypeViewController.swift in Sources */,
 				39227BE32A20A10700C86049 /* StampFilter.swift in Sources */,
 				398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */,
@@ -1117,6 +1389,7 @@
 				DEVELOPMENT_TEAM = 2W776SPR4X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앱에서 쿠폰 이미지를 저장하기 위해 \"확인\"을 눌러주세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1151,6 +1424,7 @@
 				DEVELOPMENT_TEAM = 2W776SPR4X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POLZZAK/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앱에서 쿠폰 이미지를 저장하기 위해 \"확인\"을 눌러주세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

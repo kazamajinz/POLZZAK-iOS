@@ -15,6 +15,7 @@ extension UIFont {
         case medium = "Medium"
         case semiBold = "SemiBold"
         case regular = "Regular"
+        case extraBold = "ExtraBold"
     }
     
     static func pretendard(size: CGFloat, family: FamilyForPretendard) -> UIFont {
@@ -133,6 +134,10 @@ extension UIFont {
     
     static var title20Bd: UIFont {
         return .pretendard(size: 20, family: .bold)
+    }
+    
+    static var title20Xbd: UIFont {
+        return .pretendard(size: 20, family: .extraBold)
     }
     
     // MARK: - Subtitle

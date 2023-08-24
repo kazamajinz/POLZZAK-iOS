@@ -34,7 +34,7 @@ final class SearchResultView: UIView {
         return label
     }()
     
-    let button = PaddedLabel()
+    let button = PaddedLabel(padding: UIEdgeInsets(top: 13, left: 12, bottom: 13, right: 12))
     
     var underLineButton: UIButton = {
         let button = UIButton()
@@ -97,7 +97,7 @@ final class SearchResultView: UIView {
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
             button.setLabel(text: "연동요청", textColor: .white, font: .caption3, textAlignment: .center, backgroundColor: .blue500)
             button.addBorder(cornerRadius: 4)
-            button.padding = UIEdgeInsets(top: 13, left: 12, bottom: 13, right: 12)
+            
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
             button.isUserInteractionEnabled = true
             button.addGestureRecognizer(tapGesture)
@@ -109,7 +109,6 @@ final class SearchResultView: UIView {
             placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
             button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption3, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
-            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
             button.isUserInteractionEnabled = true
             button.addGestureRecognizer(tapGesture)
@@ -119,7 +118,6 @@ final class SearchResultView: UIView {
             imageView.layer.cornerRadius = 50
             button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption3, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
-            button.padding = UIEdgeInsets(top: 13, left: 24, bottom: 13, right: 24)
         case .nonExist(let nickName):
             imageView.image = .sittingCharacter
             imageView.layer.cornerRadius = 0

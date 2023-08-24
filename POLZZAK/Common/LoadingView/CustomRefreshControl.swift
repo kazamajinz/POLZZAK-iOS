@@ -8,22 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol CustomRefreshControlDelegate: AnyObject {
-    func didFinishDragging()
-}
-
-class CustomRefreshControl: UIRefreshControl {
-    
-    //MARK: - Delegate
-    weak var delegate: CustomRefreshControlDelegate?
-    
-    //MARK: - let, var
+final class CustomRefreshControl: UIRefreshControl {
+    var isRefresh: Bool = true
     private let initialContentOffsetY: Double = 74.0
     private let headerTabHeight: Double = 61.0
-    private var isRefresh: Bool = false
     private var observation: NSKeyValueObservation?
+    private var initialOffset: CGFloat?
     
-    //MARK: - UI
     private let refreshImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.alpha = 0.0
@@ -35,10 +26,11 @@ class CustomRefreshControl: UIRefreshControl {
         let refreshIndicator = UIActivityIndicatorView(style: .large)
         refreshIndicator.color = .blue400
         refreshIndicator.hidesWhenStopped = true
+        refreshIndicator.isHidden = true
+        refreshIndicator.stopAnimating()
         return refreshIndicator
     }()
     
-    // MARK: - Initialization
     init(topPadding: CGFloat = 0.0) {
         super.init()
         setupUI(topPadding: topPadding)
@@ -52,24 +44,20 @@ class CustomRefreshControl: UIRefreshControl {
         observation?.invalidate()
     }
     
-    // MARK: - Control Events
     override func beginRefreshing() {
         super.beginRefreshing()
-
-        isRefresh = false
-        refreshImageView.alpha = 0.0
+        refreshImageView.alpha = 0
         refreshIndicator.startAnimating()
+        isRefresh = true
     }
     
     override func endRefreshing() {
         super.endRefreshing()
-        
         refreshIndicator.stopAnimating()
     }
 }
 
 extension CustomRefreshControl {
-    
     private func setupUI(topPadding: CGFloat = 0) {
         tintColor = .clear
         
@@ -78,16 +66,13 @@ extension CustomRefreshControl {
         }
         
         refreshImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().inset(topPadding)
+            $0.center.equalToSuperview()
         }
         
         refreshIndicator.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().inset(topPadding)
+            $0.center.equalToSuperview()
         }
     }
-    
     
     func observe(scrollView: UIScrollView) {
         observation = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, _ in
@@ -95,16 +80,24 @@ extension CustomRefreshControl {
             let currentOffset = scrollView.contentOffset.y
             let distance = -(initialContentOffsetY + currentOffset)
             
-            if distance > 0 {
-                if false == refreshIndicator.isAnimating && true == isRefresh {
-                    refreshImageView.alpha = min(distance, headerTabHeight) / headerTabHeight
-                    if refreshImageView.alpha == 1 {
-                        beginRefreshing()
+            if false == refreshIndicator.isAnimating {
+                if false == isRefresh {
+                    refreshImageView.alpha = distance / headerTabHeight
+                    if distance > headerTabHeight {
+                        triggerRefresh()
+                    }
+                } else {
+                    if 0 == distance {
+                        isRefresh = false
                     }
                 }
-            } else if distance == 0 {
-                isRefresh = true
             }
         }
+    }
+    
+    private func triggerRefresh() {
+        isRefresh = true
+        beginRefreshing()
+        sendActions(for: .valueChanged)
     }
 }

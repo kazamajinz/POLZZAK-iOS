@@ -14,3 +14,9 @@ enum StampBoardState {
     case completedAndSection
     case unknown
 }
+
+//TODO: - 타입을 통일할 예정
+enum TabState {
+    case inProgress
+    case completed
+}

@@ -8,7 +8,23 @@
 import UIKit
 
 extension UIView {
-    func addBorder(cornerRadius: CGFloat = 0.0, borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear, masksToBounds: Bool = true) {
+    func addCornerRadious(
+        corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
+        cornerRadius: CGFloat
+    ) {
+        self.layer.maskedCorners = corners
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
+    }
+    
+    func addBorder(
+        corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
+        cornerRadius: CGFloat = 0.0,
+        borderWidth: CGFloat = 0.0,
+        borderColor: UIColor = .clear,
+        masksToBounds: Bool = true
+    ) {
+        self.layer.maskedCorners = corners
         self.layer.cornerRadius = cornerRadius
         self.layer.borderWidth = borderWidth
         self.layer.borderColor = borderColor.cgColor
@@ -17,7 +33,6 @@ extension UIView {
     
     func addDashedBorder(borderColor: UIColor, spacing: NSNumber, cornerRadius: CGFloat) {
         let color = borderColor.cgColor
-        
         let shapeLayer:CAShapeLayer = CAShapeLayer()
         let frameSize = self.frame.size
         let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
@@ -31,11 +46,8 @@ extension UIView {
         shapeLayer.lineDashPattern = [spacing, spacing]
         shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: cornerRadius).cgPath
         
-        shapeLayer.name = "dashedBorder"
+        self.layer.cornerRadius = cornerRadius
+        self.layer.masksToBounds = true
         self.layer.addSublayer(shapeLayer)
-    }
-    
-    func removeDashedBorder() {
-        self.layer.sublayers?.removeAll { $0.name == "dashedBorder" }
     }
 }

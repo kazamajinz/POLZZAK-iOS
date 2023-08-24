@@ -16,17 +16,6 @@ final class TabViews: UIStackView {
     weak var delegate: TabViewsDelegate?
     private var didSetupTabViews = false
     private var selectedTab: TabView?
-    var index: Int = 0
-    
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .white
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        return stackView
-    }()
     
     private let screenWidth = UIApplication.shared.width
     private var tabViews: [TabView]
@@ -38,7 +27,7 @@ final class TabViews: UIStackView {
                 tabView.tabLabel.text = title
                 tabViews.append(tabView)
             }
-            setTabviews()
+            setTabViews()
         }
     }
     
@@ -117,7 +106,7 @@ final class TabViews: UIStackView {
     init(frame: CGRect = .zero, tabViews: [TabView] = []) {
         self.tabViews = tabViews
         super.init(frame: frame)
-        setTabviews()
+        setTabViews()
     }
     
     required init(coder: NSCoder) {
@@ -126,9 +115,8 @@ final class TabViews: UIStackView {
 }
 
 extension TabViews {
-    func setTabviews() {
+    private func setTabViews() {
         let tabWidth = screenWidth / CGFloat(tabViews.count)
-        
         for (index, tabView) in tabViews.enumerated() {
             tabView.delegate = self
             
@@ -139,27 +127,36 @@ extension TabViews {
                 $0.width.equalTo(tabWidth)
             }
             
-            if index == 0 {
-                tabView.isSelected = true
-                tabView.selectLineHeight = selectLineHeight
-                tabView.selectTextColor = selectTextColor
-                tabView.selectFont = selectFont
-                tabView.selectLineColor = selectLineColor
-                tabView.selectLineHeight = selectLineHeight
-                selectedTab = tabView
-                tabView.selectedTab()
-            } else {
-                tabView.isSelected = false
-                tabView.deselectLineHeight = deselectLineHeight
-                tabView.deselectTextColor = deselectTextColor
-                tabView.deselectFont = deselectFont
-                tabView.deselectLineColor = deselectLineColor
-                tabView.deselectLineHeight = deselectLineHeight
-                tabView.deselectedTab()
-            }
+            tabView.isSelected = false
+            tabView.deselectLineHeight = deselectLineHeight
+            tabView.deselectTextColor = deselectTextColor
+            tabView.deselectFont = deselectFont
+            tabView.deselectLineColor = deselectLineColor
+            tabView.deselectLineHeight = deselectLineHeight
+            tabView.deselectedTab()
             
             addArrangedSubview(tabView)
         }
+    }
+    
+    func initTabViews() {
+        if true == tabViews.isEmpty {
+            return
+        }
+        
+        let tabView = tabViews[0]
+        tabView.isSelected = true
+        tabView.selectLineHeight = selectLineHeight
+        tabView.selectTextColor = selectTextColor
+        tabView.selectFont = selectFont
+        tabView.selectLineColor = selectLineColor
+        tabView.selectLineHeight = selectLineHeight
+        selectedTab = tabView
+        tabView.selectedTab()
+    }
+    
+    func setTouchInteractionEnabled(_ enabled: Bool) {
+        isUserInteractionEnabled = enabled
     }
 }
 
