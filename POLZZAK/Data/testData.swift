@@ -8,8 +8,8 @@
 import Foundation
 //TODO: - 테스트 코드, 메인데이터
 
-let dummyUserInformations = (1...5).map { i -> UserInformation in
-    UserInformation(
+let dummyUserInformations = (1...5).map { i -> UserStampBoardList in
+    UserStampBoardList(
         familyMember: FamilyMember(
             memberId: i,
             nickName: "해린맘\(i)",
@@ -30,7 +30,7 @@ let dummyUserInformations = (1...5).map { i -> UserInformation in
     )
 }
 
-let tempDummyData = [UserInformation(familyMember: FamilyMember(memberId: 0,
+let tempDummyData = [UserStampBoardList(familyMember: FamilyMember(memberId: 0,
                                                                 nickName: "이정환",
                                                                 memberType: MemberType(name: "KID", detail: "아이"),
                                                                 profileURL: "https://as1.ftcdn.net/v2/jpg/02/16/27/30/1000_F_216273016_EBLZScZQ5Zu5Yw7W3RO48bdYbsynnjur.jpg", familyStatus: nil),
@@ -56,7 +56,7 @@ let tempDummyData = [UserInformation(familyMember: FamilyMember(memberId: 0,
                                                                              missionCompleteCount: 2,
                                                                              isRewarded: false)]),
                      
-                     UserInformation(familyMember: FamilyMember(memberId: 0,
+                     UserStampBoardList(familyMember: FamilyMember(memberId: 0,
                                                                 nickName: "김홍근",
                                                                 memberType: MemberType(name: "KID2", detail: "아이"),
                                                                 profileURL: "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/81e05244-a040-436d-9608-319861ea2e51.png", familyStatus: nil),
@@ -82,7 +82,7 @@ let tempDummyData = [UserInformation(familyMember: FamilyMember(memberId: 0,
                                                                              missionCompleteCount: 5,
                                                                              isRewarded: false)]),
                      
-                     UserInformation(familyMember: FamilyMember(memberId: 0,
+                     UserStampBoardList(familyMember: FamilyMember(memberId: 0,
                                                                 nickName: "조준모",
                                                                 memberType: MemberType(name: "KID3", detail: "사촌"),
                                                                 profileURL: "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/81e05244-a040-436d-9608-319861ea2e51.png", familyStatus: nil),

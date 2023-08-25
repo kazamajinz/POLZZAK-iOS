@@ -60,10 +60,16 @@ final class LoadingView: UIView {
     }
     
     func startRotating() {
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotationAnimation.byValue = Float.pi * 2
-        rotationAnimation.duration = 1
-        rotationAnimation.repeatCount = .infinity
-        rotatingView.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        if rotatingView.layer.animation(forKey: "rotationAnimation") == nil {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.byValue = Float.pi * 2
+            rotationAnimation.duration = 1
+            rotationAnimation.repeatCount = .infinity
+            rotatingView.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        }
+    }
+    
+    func stopRotating() {
+        rotatingView.layer.removeAnimation(forKey: "rotationAnimation")
     }
 }

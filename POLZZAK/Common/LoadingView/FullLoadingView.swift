@@ -22,11 +22,11 @@ final class FullLoadingView: UIView {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        
-        if self.window != nil {
-            if false == isHidden {
-                loadingView.startRotating()
-            }
+            
+        if self.window != nil && false == isHidden {
+            loadingView.startRotating()
+        } else {
+            loadingView.stopRotating()
         }
     }
     
@@ -43,9 +43,11 @@ final class FullLoadingView: UIView {
     
     func startLoading() {
         isHidden = false
+        loadingView.startRotating()
     }
     
     func stopLoading() {
         isHidden = true
+        loadingView.stopRotating()
     }
 }

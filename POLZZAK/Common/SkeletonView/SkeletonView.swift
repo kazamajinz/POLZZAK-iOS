@@ -1,5 +1,5 @@
 //
-//  SkeletonCustomView.swift
+//  SkeletonView.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/08/16.
@@ -8,7 +8,7 @@
 import UIKit
 
 //TODO: - 라이브러리 제거 후 네이밍 변경
-class SkeletonCustomView: UIView {
+class SkeletonView: UIView {
     private var didStartShimmering = false
     
     override init(frame: CGRect) {
