@@ -17,16 +17,15 @@ final class CouponListViewModel {
     @Published var couponListData: [CouponListData] = []
     @Published var tabState: TabState = .inProgress
     @Published var filterType: FilterType = .all
-    
-    var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
+    @Published var apiFinishedLoadingSubject: Bool = false
+    @Published var didEndDraggingSubject: Bool = false
     
     func tempInprogressAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
         showLoading(for: centerLoading)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading && false == isFirst {
-                self.apiFinishedLoadingSubject.send(true)
+                self.apiFinishedLoadingSubject = true
             }
             
             if isSkeleton == true {
@@ -44,7 +43,7 @@ final class CouponListViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading {
-                self.apiFinishedLoadingSubject.send(true)
+                self.apiFinishedLoadingSubject = true
             }
             self.hideLoading(for: centerLoading)
             self.couponListData = CouponListData.sampleData3
@@ -81,5 +80,38 @@ final class CouponListViewModel {
         if centerLoading == true {
             isCenterLoading = false
         }
+    }
+    
+    func resetSubjects() {
+        self.apiFinishedLoadingSubject = false
+        self.didEndDraggingSubject = false
+    }
+    
+    func refreshData() {
+        switch tabState {
+        case .inProgress:
+            tempInprogressAPI()
+        case .completed:
+            tempCompletedAPI()
+        }
+    }
+    
+    func couponID(at indexPath: IndexPath) -> Int? {
+        switch filterType {
+        case .all:
+            guard false == couponListData.isEmpty,
+                  false == couponListData[indexPath.section].coupons.isEmpty else {
+                return nil
+            }
+            return couponListData[indexPath.section].coupons[indexPath.row].couponID
+        case .section(let memberId):
+            let index = couponListData.firstIndex { $0.family.memberId == memberId } ?? 0
+            return couponListData[index].coupons[indexPath.row].couponID
+        }
+    }
+    
+    func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
+        guard let id = couponID(at: indexPath) else { return nil }
+        return CouponDetailViewModel(tabState: self.tabState, couponID: id)
     }
 }
