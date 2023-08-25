@@ -45,7 +45,7 @@ final class SearchBarSubView: UIView {
         }
     }
     
-    var font: UIFont = .body3 {
+    var font: UIFont = .body14Md {
         didSet {
             searchBarTextField.font = font
         }

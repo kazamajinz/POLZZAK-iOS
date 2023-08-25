@@ -26,7 +26,7 @@ final class LinkListTabCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .body2)
+        label.setLabel(textColor: .gray800, font: .body14Sbd)
         return label
     }()
     

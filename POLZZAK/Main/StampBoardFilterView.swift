@@ -43,7 +43,7 @@ final class StampBoardFilterView: UIView {
     
     private let filterLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "전체", textColor: .gray800, font: .title4, textAlignment: .left)
+        label.setLabel(text: "전체", textColor: .gray800, font: .title22Bd, textAlignment: .left)
         return label
     }()
     

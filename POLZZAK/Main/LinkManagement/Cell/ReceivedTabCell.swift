@@ -26,7 +26,7 @@ final class ReceivedTabCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .body2)
+        label.setLabel(textColor: .gray800, font: .body14Sbd)
         return label
     }()
     
@@ -37,14 +37,14 @@ final class ReceivedTabCell: UITableViewCell {
     
     private let acceptButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "수락", color: .white, font: .body2, backgroundColor: .blue500)
+        button.setTitleLabel(title: "수락", color: .white, font: .body14Sbd, backgroundColor: .blue500)
         button.addBorder(cornerRadius: 6)
         return button
     }()
     
     private let rejectButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "취소", color: .white, font: .body2, backgroundColor: .error500)
+        button.setTitleLabel(title: "취소", color: .white, font: .body14Sbd, backgroundColor: .error500)
         button.addBorder(cornerRadius: 6)
         return button
     }()

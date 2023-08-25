@@ -16,14 +16,14 @@ final class NotificationSettingViewController: UIViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "모든알림", textColor: .gray800, font: .subtitle3)
+        label.setLabel(text: "모든알림", textColor: .gray800, font: .subtitle16Sbd)
         return label
     }()
     
     let detailLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
-        label.setLabel(textColor: .gray500, font: .caption2)
+        label.setLabel(textColor: .gray500, font: .caption12Md)
         return label
     }()
     

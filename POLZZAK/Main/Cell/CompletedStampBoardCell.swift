@@ -13,7 +13,7 @@ class CompletedStampBoardCell: UICollectionViewCell {
     
     private let stampNameLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blindTextColor, font: .title1)
+        label.setLabel(textColor: .blindTextColor, font: .title24Sbd)
         return label
     }()
     
@@ -35,13 +35,13 @@ class CompletedStampBoardCell: UICollectionViewCell {
     private let rewardLabel: UILabel = {
         let label = UILabel()
         
-        label.setLabel(text: "보상", textColor: .blue600, font: .caption1, textAlignment: .center)
+        label.setLabel(text: "보상", textColor: .blue600, font: .caption12Sbd, textAlignment: .center)
         return label
     }()
     
     private let rewardTitleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blindTextColor, font: .body2)
+        label.setLabel(textColor: .blindTextColor, font: .body14Sbd)
         return label
     }()
     

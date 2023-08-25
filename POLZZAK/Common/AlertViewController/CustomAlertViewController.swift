@@ -32,7 +32,7 @@ final class CustomAlertViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .gray700
-        label.font = .body7
+        label.font = .body18Md
         label.textAlignment = .center
         return label
     }()
@@ -50,7 +50,7 @@ final class CustomAlertViewController: UIViewController {
     let firstButton: UIButton = {
         let button = UIButton()
         button.setTitle("아니요", for: .normal)
-        button.titleLabel?.font = .subtitle3
+        button.titleLabel?.font = .subtitle16Sbd
         button.backgroundColor = .gray300
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
@@ -59,7 +59,7 @@ final class CustomAlertViewController: UIViewController {
     
     let secondButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = .subtitle3
+        button.titleLabel?.font = .subtitle16Sbd
         button.backgroundColor = .blue500
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true

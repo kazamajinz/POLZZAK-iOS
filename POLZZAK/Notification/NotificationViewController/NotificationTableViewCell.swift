@@ -29,13 +29,13 @@ class NotificationTableViewCell: UITableViewCell {
     
     private let emojiLabel: UILabel = {
         let label = UILabel()
-        label.font = .subtitle1
+        label.font = .subtitle18Sbd
         return label
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .subtitle2)
+        label.setLabel(textColor: .gray800, font: .subtitle16Bd)
         return label
     }()
     
@@ -47,7 +47,7 @@ class NotificationTableViewCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray500, font: .caption2)
+        label.setLabel(textColor: .gray500, font: .caption12Md)
         return label
     }()
     
@@ -64,7 +64,7 @@ class NotificationTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.preferredMaxLayoutWidth = UIApplication.shared.width - (16 * 4)
         label.textColor = .gray700
-        label.font = .body2
+        label.font = .body14Sbd
         label.textAlignment = .natural
         return label
     }()
@@ -79,14 +79,14 @@ class NotificationTableViewCell: UITableViewCell {
     
     private let acceptButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "수락", color: .white, font: .body8, backgroundColor: .blue500)
+        button.setTitleLabel(title: "수락", color: .white, font: .body16Md, backgroundColor: .blue500)
         button.addBorder(cornerRadius: 8)
         return button
     }()
     
     private let rejectButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "거절", color: .white, font: .body8, backgroundColor: .error500)
+        button.setTitleLabel(title: "거절", color: .white, font: .body16Md, backgroundColor: .error500)
         button.addBorder(cornerRadius: 8)
         return button
     }()
@@ -124,7 +124,7 @@ class NotificationTableViewCell: UITableViewCell {
     
     private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray500, font: .caption2)
+        label.setLabel(textColor: .gray500, font: .caption12Md)
         return label
     }()
     
@@ -349,7 +349,7 @@ extension NotificationTableViewCell {
         let emphasisText = data.description
         let style = type.getEmphasisStyle(to: emphasisText)
         descriptionLabel.text = style.text
-        descriptionLabel.setEmphasisRanges(style.emphasisRange, color: .gray800, font: .body2)
+        descriptionLabel.setEmphasisRanges(style.emphasisRange, color: .gray800, font: .body14Sbd)
         
         buttonStackView.isHidden = type.isButtonHidden
         bottomView.isHidden = type.isSenderHidden
@@ -375,11 +375,11 @@ extension NotificationTableViewCell {
     private func updateUIForCompletion(_ bool: Bool) {
         if true == bool {
             completionImageView.image = .acceptButton
-            completionLabel.setLabel(text: "수락했어요",textColor: .blue500, font: .subtitle2)
+            completionLabel.setLabel(text: "수락했어요",textColor: .blue500, font: .subtitle16Bd)
             completionView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .blue500)
         } else {
             completionImageView.image = .rejectButton
-            completionLabel.setLabel(text: "거절했어요",textColor: .error500, font: .subtitle2)
+            completionLabel.setLabel(text: "거절했어요",textColor: .error500, font: .subtitle16Bd)
             completionView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .error500)
         }
         

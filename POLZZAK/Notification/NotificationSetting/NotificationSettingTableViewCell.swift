@@ -25,13 +25,13 @@ final class NotificationSettingTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .body8)
+        label.setLabel(textColor: .gray800, font: .body16Md)
         return label
     }()
     
     let detailLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray500, font: .caption2)
+        label.setLabel(textColor: .gray500, font: .caption12Md)
         return label
     }()
     

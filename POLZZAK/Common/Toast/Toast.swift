@@ -44,7 +44,7 @@ class Toast: NSObject {
     
     private let toastLabel: UILabel = {
         let label = UILabel()
-        label.font = .body2
+        label.font = .body14Sbd
         label.textColor = .white
         return label
     }()
