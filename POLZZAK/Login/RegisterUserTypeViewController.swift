@@ -16,6 +16,8 @@ final class RegisterUserTypeViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let viewModel = RegisterViewModel()
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -105,30 +107,34 @@ final class RegisterUserTypeViewController: UIViewController {
     private func configureBinding() {
         parentButton.tapPublisher
             .sink { [weak self] _ in
-                self?.determineButtonSelection(parentButtonSelected: true)
+                guard let self else { return }
+                viewModel.state.userType = parentButton.userType // TODO: 이게 아니라.. api에서 받아온 Int인 memberType이어야 함
+                determineButtonSelection(parentButtonSelected: true)
             }
             .store(in: &cancellables)
         
         childButton.tapPublisher
             .sink { [weak self] _ in
-                self?.determineButtonSelection(parentButtonSelected: false)
+                guard let self else { return }
+                viewModel.state.userType = childButton.userType // TODO: 이게 아니라.. api에서 받아온 Int인 memberType이어야 함
+                determineButtonSelection(parentButtonSelected: false)
             }
             .store(in: &cancellables)
         
         parentButton.tapPublisher.merge(with: childButton.tapPublisher)
             .sink { [weak self] _ in
                 guard let self else { return }
-                self.nextButton.isEnabled = self.parentButton.isSelected || self.childButton.isSelected
+                nextButton.isEnabled = parentButton.isSelected || childButton.isSelected
             }
             .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
                 guard let self else { return }
-                if self.parentButton.isSelected {
-                    self.navigationController?.pushViewController(RegisterParentTypeViewController(), animated: true)
-                } else if self.childButton.isSelected {
-                    self.navigationController?.pushViewController(RegisterNicknameViewController(), animated: true)
+                if parentButton.isSelected {
+                    navigationController?.pushViewController(RegisterParentTypeViewController(viewModel: viewModel), animated: true)
+                } else if childButton.isSelected {
+                    navigationController?.pushViewController(RegisterNicknameViewController(viewModel: viewModel), animated: true)
                 }
             }
             .store(in: &cancellables)

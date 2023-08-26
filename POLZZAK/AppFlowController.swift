@@ -39,7 +39,7 @@ final class AppFlowController {
         barButtonItemAppearance.setTitleTextAttributes(attributes, for: .normal)
         barButtonItemAppearance.setTitleTextAttributes(attributes, for: .highlighted)
         //
-        rootViewController = navController // getHomeViewController()
+        rootViewController = RegisterNicknameViewController(viewModel: .init()) // navController // getHomeViewController()
     }
     
     func showLogin() {

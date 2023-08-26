@@ -13,6 +13,8 @@ final class RegisterNicknameViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let viewModel: RegisterViewModel
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -49,13 +51,22 @@ final class RegisterNicknameViewController: UIViewController {
         return label
     }()
     
-    private let nicknameChecker = NicknameChecker()
+    private let nicknameChecker = NicknameCheckView()
     
     private let nextButton: RegisterNextButton = {
         let nextButton = RegisterNextButton()
         nextButton.isEnabled = false
         return nextButton
     }()
+    
+    init(viewModel: RegisterViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,16 +111,28 @@ final class RegisterNicknameViewController: UIViewController {
     }
     
     private func configureBinding() {
-        nicknameChecker.$progressAllowed
-            .sink { [weak self] allowed in
-                self?.nextButton.isEnabled = allowed
+        nicknameChecker.$validText
+            .sink { [weak self] text in
+                guard let self else { return }
+                nextButton.isEnabled = text != nil
+                viewModel.state.nickname = text
             }
             .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
-                let vc = RegisterProfileImageViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                guard let self else { return }
+                let vc = RegisterProfileImageViewController(viewModel: viewModel)
+                navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &cancellables)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        view.addGestureRecognizer(tapGesture)
+        
+        tapGesture.tapPublisher
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
             }
             .store(in: &cancellables)
     }

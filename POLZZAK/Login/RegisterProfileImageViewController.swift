@@ -18,6 +18,8 @@ final class RegisterProfileImageViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let viewModel: RegisterViewModel
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -68,6 +70,15 @@ final class RegisterProfileImageViewController: UIViewController {
     
     private var imagePicker: PHPickerViewController?
     private var loadedImage: UIImage?
+    
+    init(viewModel: RegisterViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,6 +172,7 @@ final class RegisterProfileImageViewController: UIViewController {
                 guard let self else { return }
                 nextButton.isEnabled = false
                 nextButton.setTitle(text: "회원가입 처리 중 ...")
+                viewModel.input.send(.register)
             }
             .store(in: &cancellables)
     }
@@ -174,11 +186,18 @@ extension RegisterProfileImageViewController: PHPickerViewControllerDelegate {
            itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                 guard let self else { return }
-                self.loadedImage = image as? UIImage
-                DispatchQueue.main.async {
-                    self.selectImageButton1.setImageForButton(self.loadedImage)
-                }
+                setLoadedImage(image as? UIImage)
             }
+        } else {
+            setLoadedImage(nil)
+        }
+    }
+    
+    func setLoadedImage(_ image: UIImage?) {
+        loadedImage = image
+        viewModel.state.profileImage = loadedImage
+        DispatchQueue.main.async {
+            self.selectImageButton1.setImageForButton(self.loadedImage)
         }
     }
 }

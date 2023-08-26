@@ -95,6 +95,7 @@
 		3CFB472F2A0FEA2B00B03FFD /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472C2A0FEA2B00B03FFD /* Pretendard-Bold.otf */; };
 		3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */; };
 		3CFB47312A0FEA2B00B03FFD /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */; };
+		DA0919E12A9A169E00A60AB6 /* NicknameTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0919E02A9A169E00A60AB6 /* NicknameTarget.swift */; };
 		DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */; };
 		DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF41E472A1F43D400914421 /* LabelWithPadding.swift */; };
 		DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C0C1D2A809FFC0021714D /* HTTPURLResponse+.swift */; };
@@ -113,7 +114,7 @@
 		DA38E6132A4D80E000229282 /* LoginUserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6122A4D80E000229282 /* LoginUserType.swift */; };
 		DA38E6152A4D81CE00229282 /* RegisterParentTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */; };
 		DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */; };
-		DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6182A4DA78800229282 /* NicknameChecker.swift */; };
+		DA38E6192A4DA78800229282 /* NicknameCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E6182A4DA78800229282 /* NicknameCheckView.swift */; };
 		DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */; };
 		DA50F59E2A3D883F00C7B0B0 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA50F59D2A3D883F00C7B0B0 /* PanModal */; };
 		DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */; };
@@ -239,6 +240,7 @@
 		3CFB472D2A0FEA2B00B03FFD /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3CFB472E2A0FEA2B00B03FFD /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3CFB47322A0FEBE200B03FFD /* UIFont+PretendardFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+PretendardFont.swift"; sourceTree = "<group>"; };
+		DA0919E02A9A169E00A60AB6 /* NicknameTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTarget.swift; sourceTree = "<group>"; };
 		DA0C0C1D2A809FFC0021714D /* HTTPURLResponse+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+.swift"; sourceTree = "<group>"; };
 		DA0C0C1F2A80C5580021714D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DA0C0C232A82A3370021714D /* TempRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRegisterViewController.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 		DA38E6122A4D80E000229282 /* LoginUserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserType.swift; sourceTree = "<group>"; };
 		DA38E6142A4D81CE00229282 /* RegisterParentTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterParentTypeViewController.swift; sourceTree = "<group>"; };
 		DA38E6162A4D821100229282 /* RegisterNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNicknameViewController.swift; sourceTree = "<group>"; };
-		DA38E6182A4DA78800229282 /* NicknameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChecker.swift; sourceTree = "<group>"; };
+		DA38E6182A4DA78800229282 /* NicknameCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameCheckView.swift; sourceTree = "<group>"; };
 		DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameTextField.swift; sourceTree = "<group>"; };
 		DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewController.swift; sourceTree = "<group>"; };
 		DA65FDBA2A94EE3000744EC8 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
 				DAB2256F2A89515000113617 /* UserInfoTarget.swift */,
 				DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */,
+				DA0919E02A9A169E00A60AB6 /* NicknameTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -726,7 +729,7 @@
 				DA8532852A795C4A00F0D045 /* ParentTypeSelect */,
 				DA85327F2A70CDAC00F0D045 /* AgreementCheck */,
 				DA38E61A2A4DABEF00229282 /* NicknameTextField.swift */,
-				DA38E6182A4DA78800229282 /* NicknameChecker.swift */,
+				DA38E6182A4DA78800229282 /* NicknameCheckView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -876,6 +879,7 @@
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
+				DA0919E12A9A169E00A60AB6 /* NicknameTarget.swift in Sources */,
 				DA65FDBB2A94EE3000744EC8 /* RegisterViewModel.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
@@ -953,7 +957,7 @@
 				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */,
-				DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */,
+				DA38E6192A4DA78800229282 /* NicknameCheckView.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
 				39152B312A5AB2C200AAFA23 /* CustomAlertViewController.swift in Sources */,

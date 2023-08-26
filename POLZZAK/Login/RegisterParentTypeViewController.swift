@@ -16,6 +16,8 @@ final class RegisterParentTypeViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let viewModel: RegisterViewModel
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -54,7 +56,16 @@ final class RegisterParentTypeViewController: UIViewController {
         nextButton.isEnabled = false
         return nextButton
     }()
-
+    
+    init(viewModel: RegisterViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -100,16 +111,17 @@ final class RegisterParentTypeViewController: UIViewController {
     
     private func configureBinding() {
         selectView.$currentType.sink { [weak self] type in
-            self?.nextButton.isEnabled = type != nil
-            guard let type else { return }
-//            self?.viewModel.parentType = type
+            guard let self else { return }
+            nextButton.isEnabled = type != nil
+            viewModel.state.parentType = type // TODO: 이게 아니라.. api에서 받아온 Int인 memberType이어야 함
         }
         .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
-                let vc = RegisterNicknameViewController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                guard let self else { return }
+                let vc = RegisterNicknameViewController(viewModel: viewModel)
+                navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
     }
