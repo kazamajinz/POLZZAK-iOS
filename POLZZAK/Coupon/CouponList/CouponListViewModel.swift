@@ -5,36 +5,53 @@
 //  Created by 이정환 on 2023/07/31.
 //
 
+import Foundation
 import Combine
-import UIKit
 
-final class CouponListViewModel {
-    //TODO: - 임시
-    @Published var userType: UserType = .child
+final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
+    typealias DataListType = CouponListData
+    var dataList = CurrentValueSubject<[CouponListData], Never>([])
+    var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    @Published var isSkeleton: Bool = true
-    @Published var isCenterLoading: Bool = false
-    @Published var couponListData: [CouponListData] = []
-    @Published var tabState: TabState = .inProgress
-    @Published var filterType: FilterType = .all
-    @Published var apiFinishedLoadingSubject: Bool = false
-    @Published var didEndDraggingSubject: Bool = false
+    var isFirstChange: Bool = true
+    var userType = CurrentValueSubject<UserType, Never>(.parent)
+    var isSkeleton = CurrentValueSubject<Bool, Never>(true)
+    var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
+    var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
+    var filterType = CurrentValueSubject<FilterType, Never>(.all)
+    var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
+    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
+    var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    
+    init() {
+        setupBindings()
+    }
+    
+    func loadData(for centerLoading: Bool = false) {
+        guard false == isSkeleton.value else { return }
+        switch tabState.value {
+        case .inProgress:
+            tempInprogressAPI(for: centerLoading)
+        case .completed:
+            tempCompletedAPI(for: centerLoading)
+        }
+    }
     
     func tempInprogressAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
         showLoading(for: centerLoading)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading && false == isFirst {
-                self.apiFinishedLoadingSubject = true
+                self.apiFinishedLoadingSubject.send(true)
             }
             
-            if isSkeleton == true {
+            if isSkeleton.value == true {
                 self.hideSkeletonView()
             } else {
                 self.hideLoading(for: centerLoading)
             }
             
-            self.couponListData = CouponListData.sampleData
+            self.dataList.send(CouponListData.sampleData)
         }
     }
     
@@ -43,75 +60,37 @@ final class CouponListViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading {
-                self.apiFinishedLoadingSubject = true
+                self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.couponListData = CouponListData.sampleData3
+            self.dataList.send(CouponListData.sampleData)
         }
     }
     
     func indexOfMember(with memberId: Int) -> Int {
-        return couponListData.firstIndex { $0.family.memberId == memberId } ?? 0
-    }
-    
-    func preGiftTabSelected() {
-        if tabState != .inProgress {
-            tabState = .inProgress
-        }
-    }
-    
-    func postGiftTabSelected() {
-        if tabState != .completed {
-            tabState = .completed
-        }
-    }
-    
-    private func hideSkeletonView() {
-        isSkeleton = false
-    }
-    
-    private func showLoading(for centerLoading: Bool) {
-        if centerLoading == true {
-            isCenterLoading = true
-        }
-    }
-    
-    private func hideLoading(for centerLoading: Bool) {
-        if centerLoading == true {
-            isCenterLoading = false
-        }
-    }
-    
-    func resetSubjects() {
-        self.apiFinishedLoadingSubject = false
-        self.didEndDraggingSubject = false
-    }
-    
-    func refreshData() {
-        switch tabState {
-        case .inProgress:
-            tempInprogressAPI()
-        case .completed:
-            tempCompletedAPI()
-        }
+        return dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
     }
     
     func couponID(at indexPath: IndexPath) -> Int? {
-        switch filterType {
+        switch filterType.value {
         case .all:
-            guard false == couponListData.isEmpty,
-                  false == couponListData[indexPath.section].coupons.isEmpty else {
+            guard false == dataList.value.isEmpty,
+                  false == dataList.value[indexPath.section].coupons.isEmpty else {
                 return nil
             }
-            return couponListData[indexPath.section].coupons[indexPath.row].couponID
+            return dataList.value[indexPath.section].coupons[indexPath.row].couponID
         case .section(let memberId):
-            let index = couponListData.firstIndex { $0.family.memberId == memberId } ?? 0
-            return couponListData[index].coupons[indexPath.row].couponID
+            let index = dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
+            return dataList.value[index].coupons[indexPath.row].couponID
         }
     }
     
     func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
         guard let id = couponID(at: indexPath) else { return nil }
-        return CouponDetailViewModel(tabState: self.tabState, couponID: id)
+        return CouponDetailViewModel(tabState: tabState.value, couponID: id)
+    }
+    
+    func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
+        return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].coupons.isEmpty
     }
 }

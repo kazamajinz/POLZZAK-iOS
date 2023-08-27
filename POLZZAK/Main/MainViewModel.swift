@@ -5,37 +5,53 @@
 //  Created by 이정환 on 2023/08/23.
 //
 
-import UIKit
+import Foundation
 import Combine
 
-final class MainViewModel {
-    //TODO: - 임시
-    @Published var userType: UserType = .child
+final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
+    typealias DataListType = UserStampBoardList
+    var dataList = CurrentValueSubject<[UserStampBoardList], Never>([])
+    var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    @Published var isSkeleton: Bool = true
-    @Published var isCenterLoading: Bool = false
-    @Published var stampBoardListData: [UserStampBoardList] = []
-    @Published var tabState: TabState = .inProgress
-    @Published var filterType: FilterType = .all
+    var isFirstChange: Bool = true
+    var userType = CurrentValueSubject<UserType, Never>(.child)
+    var isSkeleton = CurrentValueSubject<Bool, Never>(true)
+    var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
+    var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
+    var filterType = CurrentValueSubject<FilterType, Never>(.all)
+    var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
+    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
+    var shouldEndRefreshing = PassthroughSubject<Void, Never>()
     
-    @Published var apiFinishedLoadingSubject: Bool = false
-    @Published var didEndDraggingSubject: Bool = false
+    init() {
+        setupBindings()
+    }
+    
+    func loadData(for centerLoading: Bool = false) {
+        guard false == isSkeleton.value else { return }
+        switch tabState.value {
+        case .inProgress:
+            tempInprogressAPI(for: centerLoading)
+        case .completed:
+            tempCompletedAPI(for: centerLoading)
+        }
+    }
     
     func tempInprogressAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
         showLoading(for: centerLoading)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading && false == isFirst {
-                self.apiFinishedLoadingSubject = true
+                self.apiFinishedLoadingSubject.send(true)
             }
             
-            if isSkeleton == true {
+            if isSkeleton.value == true {
                 self.hideSkeletonView()
             } else {
                 self.hideLoading(for: centerLoading)
             }
             
-            self.stampBoardListData = UserStampBoardList.sampleData
+            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
@@ -44,56 +60,18 @@ final class MainViewModel {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             if false == centerLoading {
-                self.apiFinishedLoadingSubject = true
+                self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.stampBoardListData = UserStampBoardList.sampleData3
+            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
     func indexOfMember(with memberId: Int) -> Int {
-        return stampBoardListData.firstIndex { $0.familyMember.memberId == memberId } ?? 0
+        return dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
     }
     
-    func preGiftTabSelected() {
-        if tabState != .inProgress {
-            tabState = .inProgress
-        }
-    }
-    
-    func postGiftTabSelected() {
-        if tabState != .completed {
-            tabState = .completed
-        }
-    }
-    
-    private func hideSkeletonView() {
-        isSkeleton = false
-    }
-    
-    private func showLoading(for centerLoading: Bool) {
-        if centerLoading == true {
-            isCenterLoading = true
-        }
-    }
-    
-    private func hideLoading(for centerLoading: Bool) {
-        if centerLoading == true {
-            isCenterLoading = false
-        }
-    }
-    
-    func resetSubjects() {
-        apiFinishedLoadingSubject = false
-        didEndDraggingSubject = false
-    }
-    
-    func refreshData() {
-        switch tabState {
-        case .inProgress:
-            tempInprogressAPI()
-        case .completed:
-            tempCompletedAPI()
-        }
+    func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
+        return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].stampBoardSummaries.isEmpty
     }
 }

@@ -94,6 +94,14 @@
 		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
 		39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */; };
 		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
+		39C572F92A99EC4D00CD6362 /* TabFilterViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C572F82A99EC4D00CD6362 /* TabFilterViewModelProtocol.swift */; };
+		39C572FE2A9B044B00CD6362 /* TabFilterLoadingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C572FD2A9B044B00CD6362 /* TabFilterLoadingViewModelProtocol.swift */; };
+		39C573002A9B45E400CD6362 /* LoadingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C572FF2A9B45E400CD6362 /* LoadingViewModelProtocol.swift */; };
+		39C573042A9B4EE900CD6362 /* CollectionConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573032A9B4EE900CD6362 /* CollectionConfigurable.swift */; };
+		39C573082A9BC49D00CD6362 /* BaseFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573072A9BC49D00CD6362 /* BaseFilterView.swift */; };
+		39C5730A2A9BC4DD00CD6362 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573092A9BC4DD00CD6362 /* Filterable.swift */; };
+		39C5730C2A9BC50B00CD6362 /* StampBoardFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5730B2A9BC50B00CD6362 /* StampBoardFilterView.swift */; };
+		39C5730E2A9BC61700CD6362 /* CouponFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5730D2A9BC61700CD6362 /* CouponFilterView.swift */; };
 		39D539D62A16032D0087B2BD /* MemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539D52A16032D0087B2BD /* MemberType.swift */; };
 		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D724982A97771600D5409D /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724972A97771600D5409D /* EmptyView.swift */; };
@@ -103,11 +111,9 @@
 		39D724A02A97786E00D5409D /* StampBoardCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D7249F2A97786E00D5409D /* StampBoardCollectionViewDataSource.swift */; };
 		39D724A22A9778FC00D5409D /* StampBoardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A12A9778FC00D5409D /* StampBoardHeaderView.swift */; };
 		39D724A42A97790700D5409D /* StampBoardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A32A97790700D5409D /* StampBoardFooterView.swift */; };
-		39D724A62A97795C00D5409D /* StampBoardFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A52A97795C00D5409D /* StampBoardFilterView.swift */; };
 		39D724A82A97797A00D5409D /* StampBoardSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A72A97797A00D5409D /* StampBoardSkeletonView.swift */; };
 		39D724AA2A9779A100D5409D /* TabState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A92A9779A100D5409D /* TabState.swift */; };
 		39D724AD2A9779BE00D5409D /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724AC2A9779BE00D5409D /* FilterType.swift */; };
-		39D724AF2A977A8C00D5409D /* CouponFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724AE2A977A8C00D5409D /* CouponFilterView.swift */; };
 		39D724B32A97825C00D5409D /* Task+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724B22A97825C00D5409D /* Task+extension.swift */; };
 		39D724B62A97B64900D5409D /* BaseFilterSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */; };
 		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
@@ -275,6 +281,14 @@
 		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
 		39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
+		39C572F82A99EC4D00CD6362 /* TabFilterViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabFilterViewModelProtocol.swift; sourceTree = "<group>"; };
+		39C572FD2A9B044B00CD6362 /* TabFilterLoadingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabFilterLoadingViewModelProtocol.swift; sourceTree = "<group>"; };
+		39C572FF2A9B45E400CD6362 /* LoadingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModelProtocol.swift; sourceTree = "<group>"; };
+		39C573032A9B4EE900CD6362 /* CollectionConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionConfigurable.swift; sourceTree = "<group>"; };
+		39C573072A9BC49D00CD6362 /* BaseFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilterView.swift; sourceTree = "<group>"; };
+		39C573092A9BC4DD00CD6362 /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
+		39C5730B2A9BC50B00CD6362 /* StampBoardFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardFilterView.swift; sourceTree = "<group>"; };
+		39C5730D2A9BC61700CD6362 /* CouponFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponFilterView.swift; sourceTree = "<group>"; };
 		39D539D52A16032D0087B2BD /* MemberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberType.swift; sourceTree = "<group>"; };
 		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
 		39D724972A97771600D5409D /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -284,11 +298,9 @@
 		39D7249F2A97786E00D5409D /* StampBoardCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		39D724A12A9778FC00D5409D /* StampBoardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardHeaderView.swift; sourceTree = "<group>"; };
 		39D724A32A97790700D5409D /* StampBoardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardFooterView.swift; sourceTree = "<group>"; };
-		39D724A52A97795C00D5409D /* StampBoardFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardFilterView.swift; sourceTree = "<group>"; };
 		39D724A72A97797A00D5409D /* StampBoardSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardSkeletonView.swift; sourceTree = "<group>"; };
 		39D724A92A9779A100D5409D /* TabState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabState.swift; sourceTree = "<group>"; };
 		39D724AC2A9779BE00D5409D /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
-		39D724AE2A977A8C00D5409D /* CouponFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponFilterView.swift; sourceTree = "<group>"; };
 		39D724B22A97825C00D5409D /* Task+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+extension.swift"; sourceTree = "<group>"; };
 		39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilterSkeletonView.swift; sourceTree = "<group>"; };
 		3C0793472A0E637700087F73 /* MissionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHeaderView.swift; sourceTree = "<group>"; };
@@ -530,7 +542,7 @@
 				3901654F2A73862100A193D7 /* CouponListViewController.swift */,
 				390165542A77734B00A193D7 /* CouponListViewModel.swift */,
 				3901656B2A7F2A7500A193D7 /* CouponCollectionViewDataSource.swift */,
-				39D724AE2A977A8C00D5409D /* CouponFilterView.swift */,
+				39C5730D2A9BC61700CD6362 /* CouponFilterView.swift */,
 				3901784F2A9497BB001D0E90 /* CouponListEmptyView.swift */,
 				390F42282A8D16EC005FC7B2 /* CouponSkeletonView.swift */,
 				390165562A78956900A193D7 /* Cell */,
@@ -618,6 +630,35 @@
 			path = NotificationViewController;
 			sourceTree = "<group>";
 		};
+		39C572FA2A9AFBD700CD6362 /* TabFilter */ = {
+			isa = PBXGroup;
+			children = (
+				39C573022A9B4D9F00CD6362 /* ViewProtocol */,
+				39C573012A9B46CD00CD6362 /* ViewModelProtocol */,
+				39152B422A5AB51B00AAFA23 /* TabView */,
+				39D724AB2A9779AE00D5409D /* FilterView */,
+			);
+			path = TabFilter;
+			sourceTree = "<group>";
+		};
+		39C573012A9B46CD00CD6362 /* ViewModelProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				39C572F82A99EC4D00CD6362 /* TabFilterViewModelProtocol.swift */,
+				39C572FF2A9B45E400CD6362 /* LoadingViewModelProtocol.swift */,
+				39C572FD2A9B044B00CD6362 /* TabFilterLoadingViewModelProtocol.swift */,
+			);
+			path = ViewModelProtocol;
+			sourceTree = "<group>";
+		};
+		39C573022A9B4D9F00CD6362 /* ViewProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				39C573032A9B4EE900CD6362 /* CollectionConfigurable.swift */,
+			);
+			path = ViewProtocol;
+			sourceTree = "<group>";
+		};
 		39D539D12A15F4CB0087B2BD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,6 +696,8 @@
 			children = (
 				390165762A7F8B9500A193D7 /* FilterView.swift */,
 				39D724AC2A9779BE00D5409D /* FilterType.swift */,
+				39C573092A9BC4DD00CD6362 /* Filterable.swift */,
+				39C573072A9BC49D00CD6362 /* BaseFilterView.swift */,
 			);
 			path = FilterView;
 			sourceTree = "<group>";
@@ -674,7 +717,7 @@
 				3C07934F2A0E63C500087F73 /* MainViewController.swift */,
 				39D7249D2A97781800D5409D /* MainViewModel.swift */,
 				39D7249F2A97786E00D5409D /* StampBoardCollectionViewDataSource.swift */,
-				39D724A52A97795C00D5409D /* StampBoardFilterView.swift */,
+				39C5730B2A9BC50B00CD6362 /* StampBoardFilterView.swift */,
 				39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */,
 				39D724A72A97797A00D5409D /* StampBoardSkeletonView.swift */,
 				39D539DB2A1654680087B2BD /* Cell */,
@@ -833,12 +876,10 @@
 		3CD5F8A32A2DC905003E4A67 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				39152B422A5AB51B00AAFA23 /* TabView */,
 				39152B432A5AB52D00AAFA23 /* SearchBar */,
 				39152B442A5AB54C00AAFA23 /* LoadingView */,
 				3CE4EF052A2E454B008B27AE /* Constants.swift */,
 				39227BE42A21915D00C86049 /* MemberTypeView.swift */,
-				39D724AB2A9779AE00D5409D /* FilterView */,
 				39D724962A97770B00D5409D /* EmptyView */,
 				390F423E2A910DE1005FC7B2 /* AlertViewController */,
 				39152B2D2A5AB2C200AAFA23 /* PaddedLabel .swift */,
@@ -846,6 +887,7 @@
 				390F424F2A932064005FC7B2 /* Toast */,
 				39D724B42A97B5ED00D5409D /* SkeletonView */,
 				390F421E2A8CBB6A005FC7B2 /* BottomSheet */,
+				39C572FA2A9AFBD700CD6362 /* TabFilter */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1112,12 +1154,14 @@
 				39152B472A5AB68800AAFA23 /* UIColor+extension.swift in Sources */,
 				39152B462A5AB68500AAFA23 /* MainViewController.swift in Sources */,
 				39D724B32A97825C00D5409D /* Task+extension.swift in Sources */,
+				39C573002A9B45E400CD6362 /* LoadingViewModelProtocol.swift in Sources */,
 				39152B412A5AB4DA00AAFA23 /* MissionCell.swift in Sources */,
 				390F424E2A928838005FC7B2 /* AlertTableViewController.swift in Sources */,
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
 				390F42402A910E01005FC7B2 /* BaseAlertViewController.swift in Sources */,
 				398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */,
 				39152B3E2A5AB37500AAFA23 /* SearchBar.swift in Sources */,
+				39C573042A9B4EE900CD6362 /* CollectionConfigurable.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
 				39152B322A5AB2C200AAFA23 /* FullScreenLoadingView.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
@@ -1141,6 +1185,7 @@
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
 				39227BE72A23866300C86049 /* testData.swift in Sources */,
 				39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */,
+				39C572FE2A9B044B00CD6362 /* TabFilterLoadingViewModelProtocol.swift in Sources */,
 				DA38E60E2A4D713C00229282 /* RegisterNextButton.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */,
 				DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */,
@@ -1166,7 +1211,6 @@
 				DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */,
 				DABEC1B32A382B4300EAD8CA /* AccessTokenDTO.swift in Sources */,
 				39D724A82A97797A00D5409D /* StampBoardSkeletonView.swift in Sources */,
-				39D724AF2A977A8C00D5409D /* CouponFilterView.swift in Sources */,
 				DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */,
 				DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */,
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
@@ -1194,7 +1238,10 @@
 				390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */,
 				3CDF64262A2492B7004A87A2 /* TargetType.swift in Sources */,
 				3C7416992A25E816001A1E50 /* RequestRetrier.swift in Sources */,
+				39C5730E2A9BC61700CD6362 /* CouponFilterView.swift in Sources */,
 				DA11FEA62A4033D3005A469D /* RegisterTarget.swift in Sources */,
+				39C572F92A99EC4D00CD6362 /* TabFilterViewModelProtocol.swift in Sources */,
+				39C573082A9BC49D00CD6362 /* BaseFilterView.swift in Sources */,
 				39152B3D2A5AB37500AAFA23 /* SearchBarTextField.swift in Sources */,
 				3CCEF9EE2A1CA2BE009C61E1 /* UIApplication+extension.swift in Sources */,
 				390F422B2A8DBE6F005FC7B2 /* CouponDetail.swift in Sources */,
@@ -1215,13 +1262,13 @@
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
 				391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */,
+				39C5730C2A9BC50B00CD6362 /* StampBoardFilterView.swift in Sources */,
 				390F42442A912705005FC7B2 /* AlertButtonView.swift in Sources */,
 				39D724A02A97786E00D5409D /* StampBoardCollectionViewDataSource.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
 				39D724982A97771600D5409D /* EmptyView.swift in Sources */,
 				39152B3B2A5AB37500AAFA23 /* TabView.swift in Sources */,
 				3901784C2A9492BC001D0E90 /* UIStackView+extension.swift in Sources */,
-				39D724A62A97795C00D5409D /* StampBoardFilterView.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
 				390F421B2A8C6E2A005FC7B2 /* BottomSheetViewController.swift in Sources */,
@@ -1231,6 +1278,7 @@
 				DA38E6192A4DA78800229282 /* NicknameChecker.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
+				39C5730A2A9BC4DD00CD6362 /* Filterable.swift in Sources */,
 				39152B312A5AB2C200AAFA23 /* CustomAlertViewController.swift in Sources */,
 				390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */,
 				390F422E2A8DFEA5005FC7B2 /* CouponDetailViewController.swift in Sources */,

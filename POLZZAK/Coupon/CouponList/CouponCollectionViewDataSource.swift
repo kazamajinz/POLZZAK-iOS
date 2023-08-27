@@ -11,11 +11,11 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let viewModel: CouponListViewModel
     
     var isEmptyCollectionView: Bool {
-        return viewModel.couponListData.isEmpty
+        return viewModel.dataList.value.isEmpty
     }
     
     var tabState: TabState {
-        return viewModel.tabState
+        return viewModel.tabState.value
     }
     
     init(viewModel: CouponListViewModel) {
@@ -23,9 +23,9 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            return viewModel.couponListData.count
+            return viewModel.dataList.value.count
         case .section:
             return 1
         }
@@ -33,13 +33,13 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var cellCount: Int = 0
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            cellCount = viewModel.couponListData[section].coupons.count
+            cellCount = viewModel.dataList.value[section].coupons.count
         case .section(let memberId):
-            if false == viewModel.couponListData.isEmpty {
+            if false == viewModel.dataList.value.isEmpty {
                 let index = viewModel.indexOfMember(with: memberId)
-                cellCount = viewModel.couponListData[index].coupons.count
+                cellCount = viewModel.dataList.value[index].coupons.count
             } else {
                 return 0
             }
@@ -49,15 +49,15 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if case .section(let memberId) = viewModel.filterType {
+        if case .section(let memberId) = viewModel.filterType.value {
             let index = viewModel.indexOfMember(with: memberId)
-            if true == viewModel.couponListData[index].coupons.isEmpty {
+            if true == viewModel.dataList.value[index].coupons.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
         }
         
-        if viewModel.filterType == .all {
-            if true == viewModel.couponListData[indexPath.section].coupons.isEmpty {
+        if viewModel.filterType.value == .all {
+            if true == viewModel.dataList.value[indexPath.section].coupons.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
         }
@@ -79,14 +79,14 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CouponHeaderView.reuseIdentifier, for: indexPath) as! CouponHeaderView
-            if false == viewModel.couponListData.isEmpty {
-                let family = viewModel.couponListData[indexPath.section].family
-                headerView.configure(to: family, type: viewModel.userType)
+            if false == viewModel.dataList.value.isEmpty {
+                let family = viewModel.dataList.value[indexPath.section].family
+                headerView.configure(to: family, type: viewModel.userType.value)
             }
             return headerView
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CouponFooterView.reuseIdentifier, for: indexPath) as! CouponFooterView
-            let totalCount = viewModel.couponListData[indexPath.section].coupons.count
+            let totalCount = viewModel.dataList.value[indexPath.section].coupons.count
             if totalCount != 0 {
                 footerView.configure(with: totalCount)
             }
@@ -104,13 +104,13 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedCouponCell.reuseIdentifier, for: indexPath) as! CompletedCouponCell
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
+            let couponData = viewModel.dataList.value[indexPath.section].coupons[indexPath.row]
             cell.configure(with: couponData)
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
-            let couponData = viewModel.couponListData[index].coupons[indexPath.row]
+            let couponData = viewModel.dataList.value[index].coupons[indexPath.row]
             cell.configure(with: couponData)
         }
         return cell
@@ -118,14 +118,14 @@ class CouponCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressCouponCell.reuseIdentifier, for: indexPath) as! InprogressCouponCell
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            let couponData = viewModel.couponListData[indexPath.section].coupons[indexPath.row]
-            cell.configure(with: couponData, userType: viewModel.userType)
+            let couponData = viewModel.dataList.value[indexPath.section].coupons[indexPath.row]
+            cell.configure(with: couponData, userType: viewModel.userType.value)
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
-            let couponData = viewModel.couponListData[index].coupons[indexPath.row]
-            cell.configure(with: couponData, userType: viewModel.userType)
+            let couponData = viewModel.dataList.value[index].coupons[indexPath.row]
+            cell.configure(with: couponData, userType: viewModel.userType.value)
         }
         return cell
     }

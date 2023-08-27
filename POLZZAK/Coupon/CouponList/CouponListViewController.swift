@@ -10,18 +10,17 @@ import SnapKit
 import Combine
 import CombineCocoa
 
-import UIKit
-import SnapKit
-import Combine
-import CombineCocoa
-
 final class CouponListViewController: UIViewController {
     enum Constants {
         static let deviceWidth = UIApplication.shared.width
         static let collectionViewContentInset = UIEdgeInsets(top: TabConstants.initialContentOffsetY, left: 0, bottom: 32, right: 0)
-        static let interSectionSpacing = 32.0
-        static let headerViewHeight = 42.0
-        static let filterHeight = 74.0
+        static let groupSizeWidth: CGFloat = deviceWidth - 52.0
+        static let groupSizeHeight: CGFloat = groupSizeWidth * 180.0 / 323.0
+        static let contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
+        static let interGroupSpacing: CGFloat = 15.0
+        static let interSectionSpacing: CGFloat = 32.0
+        static let headerViewHeight: CGFloat = 42.0
+        static let filterHeight: CGFloat = 74.0
         
         static let tabTitles = ["선물 전", "선물 완료"]
         static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
@@ -30,10 +29,9 @@ final class CouponListViewController: UIViewController {
     private let viewModel = CouponListViewModel()
     private var dataSource: CouponCollectionViewDataSource
     private var cancellables = Set<AnyCancellable>()
-    private var isFirstChange: Bool = true
     
     private let customRefreshControl = CustomRefreshControl()
-    private let filterView = FilterView()
+    private let filterView = CouponFilterView()
     private let fullLoadingView = FullLoadingView()
     private let couponSkeletonView = CouponSkeletonView()
     
@@ -187,33 +185,29 @@ extension CouponListViewController {
     }
     
     private func bindViewModel() {
-        Publishers.CombineLatest(viewModel.$apiFinishedLoadingSubject, viewModel.$didEndDraggingSubject)
-            .filter {
-                return $0 && $1
-            }
-            .sink { [weak self] (apiFinished, didEndDragging) in
+        viewModel.shouldEndRefreshing
+            .sink { [weak self] in
                 self?.customRefreshControl.endRefreshing()
-                self?.viewModel.resetSubjects()
             }
             .store(in: &cancellables)
         
-        viewModel.$isSkeleton
+        viewModel.isSkeleton
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.handleSkeletonView(for: bool)
             }
             .store(in: &cancellables)
         
-        viewModel.$isCenterLoading
+        viewModel.isCenterLoading
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.handleLoadingView(for: bool)
             }
             .store(in: &cancellables)
         
-        viewModel.$couponListData
+        viewModel.dataList
             .filter { [weak self] _ in
-                self?.viewModel.isSkeleton == false
+                self?.viewModel.isSkeleton.value == false
             }
             .map { array -> Bool in
                 return array.isEmpty
@@ -229,27 +223,7 @@ extension CouponListViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$tabState
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink {
-                [weak self] tabState in
-                guard let self = self else { return }
-                if self.isFirstChange && tabState == .inProgress {
-                    self.isFirstChange = false
-                    self.viewModel.resetSubjects()
-                    return
-                }
-                
-                if tabState == .inProgress {
-                    self.viewModel.tempInprogressAPI(for: true)
-                } else {
-                    self.viewModel.tempCompletedAPI(for: true)
-                }
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$filterType
+        viewModel.filterType
             .receive(on: DispatchQueue.main)
             .sink { [weak self] filterType in
                 self?.updateLayout(for: filterType)
@@ -266,8 +240,8 @@ extension CouponListViewController {
             filterView.handleAllFilterButtonTap()
         case .section(let memberId):
             let idex = viewModel.indexOfMember(with: memberId)
-            let family = viewModel.couponListData[idex].family
-            if viewModel.userType == .child {
+            let family = viewModel.dataList.value[idex].family
+            if viewModel.userType.value == .child {
                 filterView.handleChildSectionFilterButtonTap(with: family)
             } else {
                 filterView.handleParentSectionFilterButtonTap(with: family)
@@ -321,7 +295,7 @@ extension CouponListViewController {
         
         if true == bool {
             //TODO: - userType 정의가 되면 변경
-            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
+            emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         }
     }
@@ -334,18 +308,18 @@ extension CouponListViewController {
     }
     
     @objc func handleRefresh() {
-        viewModel.refreshData()
+        viewModel.loadData()
         tabViews.setTouchInteractionEnabled(false)
     }
     
     @objc private func filterButtonTapped() {
-        let data = viewModel.couponListData.map{ $0.family }
+        let data = viewModel.dataList.value.map{ $0.family }
         let bottomSheet = FilterBottomSheetViewController(data: data)
         bottomSheet.delegate = self
         bottomSheet.modalPresentationStyle = .custom
         bottomSheet.transitioningDelegate = bottomSheet
         
-        if case let .section(memberId) = viewModel.filterType {
+        if case let .section(memberId) = viewModel.filterType.value {
             bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
         }
         
@@ -358,80 +332,58 @@ extension CouponListViewController {
     }
 }
 
-extension CouponListViewController: UICollectionViewDelegateFlowLayout {
+extension CouponListViewController: CollectionLayoutConfigurable {
     func createLayout() -> UICollectionViewLayout {
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = Constants.interSectionSpacing
         
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
+        let layoutProvider: UICollectionViewCompositionalLayoutSectionProvider = { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSizeWidth = Constants.deviceWidth - 52
-            let groupSizeHeight = groupSizeWidth * 180.0 / 323.0
-            let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(groupSizeWidth), heightDimension: .estimated(groupSizeHeight))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
-            section.interGroupSpacing = 15
-            
-            configureSupplementaryItems(for: section, with: sectionIndex)
-            handleVisibleItems(for: section, with: groupSizeWidth)
-            
-            return section
-        }, configuration: config)
+            return self.createSection(for: sectionIndex)
+        }
         
-        return layout
+        return UICollectionViewCompositionalLayout(sectionProvider: layoutProvider, configuration: config)
     }
     
-    private func configureSupplementaryItems(for section: NSCollectionLayoutSection, with sectionIndex: Int) {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(25))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(Constants.groupSizeWidth), heightDimension: .estimated(Constants.groupSizeHeight))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = Constants.contentInsets
+        section.interGroupSpacing = Constants.interGroupSpacing
         
-        let isDataNotEmpty = !viewModel.couponListData.isEmpty && !viewModel.couponListData[sectionIndex].coupons.isEmpty
-        configureBoundarySupplementaryItems(for: section, with: sectionHeader, isDataNotEmpty: isDataNotEmpty)
-        configureContentInsetsAndScrolling(for: section)
+        let isDataNotEmpty = viewModel.isDataNotEmpty(forSection: sectionIndex)
+        configureHeaderAndFooter(for: section, isDataNotEmpty: isDataNotEmpty, filterType: viewModel.filterType.value)
+        handleVisibleItems(for: section, with: Constants.groupSizeWidth)
+        
+        return section
     }
     
-    private func configureBoundarySupplementaryItems(for section: NSCollectionLayoutSection, with header: NSCollectionLayoutBoundarySupplementaryItem, isDataNotEmpty: Bool) {
-        if isDataNotEmpty && viewModel.filterType == .all {
-            let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
-            let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-            section.boundarySupplementaryItems = [header, sectionFooter]
-        } else if viewModel.filterType == .all {
-            section.boundarySupplementaryItems = [header]
+    func handleVisibleItems(for section: NSCollectionLayoutSection, with groupSizeWidth: CGFloat) {
+        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, _ in
+            self?.updateFooterViewBasedOnVisibleItems(visibleItems, with: groupSizeWidth, at: point)
         }
     }
     
-    private func configureContentInsetsAndScrolling(for section: NSCollectionLayoutSection) {
-        viewModel.filterType != .all
-        ? (section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 26))
-        : (section.orthogonalScrollingBehavior = .groupPaging)
-    }
-    
-    private func handleVisibleItems(for section: NSCollectionLayoutSection, with groupSizeWidth: CGFloat) {
-        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, _ in
-            guard let self = self, point.x >= 0 else { return }
-            
-            if let sectionIndex = visibleItems.last?.indexPath.section,
-               let footerView = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: sectionIndex)) as? CouponFooterView {
-                
-                let cellSizeWidth = groupSizeWidth + 15
-                if Double(point.x).truncatingRemainder(dividingBy: Double(cellSizeWidth)) == 0.0 {
-                    let currentCount = Int(Double(point.x) / Double(cellSizeWidth)) + 1
-                    footerView.updateCurrentCount(with: currentCount)
-                }
-            }
+    func updateFooterViewBasedOnVisibleItems(_ visibleItems: [NSCollectionLayoutVisibleItem], with groupSizeWidth: CGFloat, at point: CGPoint) {
+        guard let sectionIndex = visibleItems.last?.indexPath.section, point.x >= 0,
+              let footerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: sectionIndex)) as? StampBoardFooterView else {
+            return
+        }
+        
+        let cellSizeWidth = groupSizeWidth + 15
+        if CGFloat(point.x).truncatingRemainder(dividingBy: CGFloat(cellSizeWidth)) == 0.0 {
+            let currentCount = Int(CGFloat(point.x) / CGFloat(cellSizeWidth)) + 1
+            footerView.updateCurrentCount(with: currentCount)
         }
     }
 }
 
 extension CouponListViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        viewModel.didEndDraggingSubject = true
+        viewModel.didEndDraggingSubject.send(true)
     }
 }
 
@@ -449,9 +401,9 @@ extension CouponListViewController: TabViewsDelegate {
     func tabViews(_ tabViews: TabViews, didSelectTabAtIndex index: Int) {
         switch index {
         case 0:
-            viewModel.preGiftTabSelected()
+            viewModel.setInProgressTab()
         case 1:
-            viewModel.postGiftTabSelected()
+            viewModel.setCompletedTab()
         default:
             break
         }
@@ -461,10 +413,10 @@ extension CouponListViewController: TabViewsDelegate {
 extension CouponListViewController: FilterBottomSheetDelegate {
     func selectedItem(index: Int) {
         if index == 0 {
-            viewModel.filterType = .all
+            viewModel.filterType.send(.all)
         } else {
-            let memberId = viewModel.couponListData[index-1].family.memberId
-            viewModel.filterType = .section(memberId)
+            let memberId = viewModel.dataList.value[index-1].family.memberId
+            viewModel.filterType.send(.section(memberId))
         }
     }
 }

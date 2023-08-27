@@ -41,10 +41,10 @@ final class LinkManagementViewController: UIViewController {
                 case .sentTab:
                     tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
                 }
-
+                
                 tableView.backgroundView = tableEmptyView
                 tableView.reloadData()
-
+                
                 self.fullScreenLoadingView.stopLoading()
             }
         }
@@ -278,21 +278,21 @@ extension LinkManagementViewController {
     
     private func linkListTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .linkListTab
     }
     
     private func receivedTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .receivedTab
     }
     
     private func sentTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .sentTab
     }
@@ -393,10 +393,10 @@ extension LinkManagementViewController: UITableViewDataSource {
         workItem = DispatchWorkItem { [weak self] in
             self?.searchState = .afterSearch
             if text == "연동" {
-                let tempFamilyMember = tempDummyData.first!.familyMember
+                let tempFamilyMember = tempDummyData.first!.family
                 self?.searchResultState = .linked(tempFamilyMember)
             } else if text == "미연동" {
-                let tempFamilyMember = tempDummyData.first!.familyMember
+                let tempFamilyMember = tempDummyData.first!.family
                 self?.searchResultState = .unlinked(tempFamilyMember)
             } else {
                 self?.searchResultState = .nonExist(text)

@@ -8,24 +8,24 @@
 import UIKit
 
 class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    let viewModel: MainViewModel
+    let viewModel: StampBoardViewModel
     
     var isEmptyCollectionView: Bool {
-        return viewModel.stampBoardListData.isEmpty
+        return viewModel.dataList.value.isEmpty
     }
     
     var tabState: TabState {
-        return viewModel.tabState
+        return viewModel.tabState.value
     }
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: StampBoardViewModel) {
         self.viewModel = viewModel
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            return viewModel.stampBoardListData.count
+            return viewModel.dataList.value.count
         case .section:
             return 1
         }
@@ -33,13 +33,13 @@ class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var cellCount: Int = 0
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            cellCount = viewModel.stampBoardListData[section].stampBoardSummaries.count
+            cellCount = viewModel.dataList.value[section].stampBoardSummaries.count
         case .section(let memberId):
-            if false == viewModel.stampBoardListData.isEmpty {
+            if false == viewModel.dataList.value.isEmpty {
                 let index = viewModel.indexOfMember(with: memberId)
-                cellCount = viewModel.stampBoardListData[index].stampBoardSummaries.count
+                cellCount = viewModel.dataList.value[index].stampBoardSummaries.count
             } else {
                 return 0
             }
@@ -49,15 +49,15 @@ class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if case .section(let memberId) = viewModel.filterType {
+        if case .section(let memberId) = viewModel.filterType.value {
             let index = viewModel.indexOfMember(with: memberId)
-            if true == viewModel.stampBoardListData[index].stampBoardSummaries.isEmpty {
+            if true == viewModel.dataList.value[index].stampBoardSummaries.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
         }
         
-        if viewModel.filterType == .all {
-            if true == viewModel.stampBoardListData[indexPath.section].stampBoardSummaries.isEmpty {
+        if viewModel.filterType.value == .all {
+            if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
         }
@@ -79,14 +79,14 @@ class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier, for: indexPath) as! StampBoardHeaderView
-            if false == viewModel.stampBoardListData.isEmpty {
-                let family = viewModel.stampBoardListData[indexPath.section].familyMember
-                headerView.configure(to: family, type: viewModel.userType)
+            if false == viewModel.dataList.value.isEmpty {
+                let family = viewModel.dataList.value[indexPath.section].family
+                headerView.configure(to: family, type: viewModel.userType.value)
             }
             return headerView
         case UICollectionView.elementKindSectionFooter:
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardFooterView.reuseIdentifier, for: indexPath) as! StampBoardFooterView
-            let totalCount = viewModel.stampBoardListData[indexPath.section].stampBoardSummaries.count
+            let totalCount = viewModel.dataList.value[indexPath.section].stampBoardSummaries.count
             if totalCount != 0 {
                 footerView.configure(with: totalCount)
             }
@@ -104,13 +104,13 @@ class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            let boardData = viewModel.stampBoardListData[indexPath.section].stampBoardSummaries[indexPath.row]
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
-            let boardData = viewModel.stampBoardListData[index].stampBoardSummaries[indexPath.row]
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
         }
         return cell
@@ -118,13 +118,13 @@ class StampBoardCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
-        switch viewModel.filterType {
+        switch viewModel.filterType.value {
         case .all:
-            let boardData = viewModel.stampBoardListData[indexPath.section].stampBoardSummaries[indexPath.row]
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
-            let boardData = viewModel.stampBoardListData[index].stampBoardSummaries[indexPath.row]
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
         }
         return cell
