@@ -153,15 +153,6 @@ final class NicknameCheckView: UIView {
             .store(in: &cancellables)
         
         textField.firstResponderChanged
-            .filter { $0 == .become }
-            .sink { [weak self] _ in
-                guard let self else { return }
-                setCheckViewUI(status: currentCheckViewStatus)
-            }
-            .store(in: &cancellables)
-        
-        textField.firstResponderChanged
-            .filter { $0 == .resign }
             .sink { [weak self] _ in
                 guard let self else { return }
                 setCheckViewUI(status: currentCheckViewStatus)
