@@ -189,13 +189,11 @@ final class NicknameCheckView: UIView {
         guard let code else { return }
         
         if code == 204 {
-            let status: CheckViewStatus = .passAndChecked
-            currentCheckViewStatus = status
+            currentCheckViewStatus = .passAndChecked
             validText = text
         } else if code == 400 {
-            let status: CheckViewStatus = .checkedButInvalid
-            currentCheckViewStatus = status
-            validText = text
+            currentCheckViewStatus = .checkedButInvalid
+            validText = nil
         }
     }
     

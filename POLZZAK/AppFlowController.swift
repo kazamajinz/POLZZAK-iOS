@@ -30,16 +30,7 @@ final class AppFlowController {
     }
     
     func showHome() {
-        //
-        let navController = UINavigationController(rootViewController: RegisterTermsViewController())
-        navController.navigationBar.tintColor = .gray700
-        // 아래 4줄은 navController의 BackButton의 title을 안 보이게 하기 위해서 사용함
-        let barButtonItemAppearance = UIBarButtonItem.appearance()
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.clear]
-        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .normal)
-        barButtonItemAppearance.setTitleTextAttributes(attributes, for: .highlighted)
-        //
-        rootViewController = RegisterNicknameViewController(viewModel: .init()) // navController // getHomeViewController()
+        rootViewController = getHomeViewController()
     }
     
     func showLogin() {
@@ -48,9 +39,11 @@ final class AppFlowController {
     
     private func animateChangingRootViewController(_ rootViewController: UIViewController?) {
         guard let window else { return }
-        UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {
-            window.rootViewController = rootViewController
-        })
+        DispatchQueue.main.async {
+            UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {
+                window.rootViewController = rootViewController
+            })
+        }
     }
     
     private func getHomeViewController() -> TabBarController {

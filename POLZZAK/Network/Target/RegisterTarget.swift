@@ -22,7 +22,7 @@ enum RegisterTargetError: LocalizedError {
 
 enum RegisterTarget {
     case register(username: String, socialType: String, memberType: Int, nickname: String)
-    case registerWithImage(username: String, socialType: String, memberType: Int, nickname: String, image: UIImage, mimeType: String)
+    case registerWithImage(username: String, socialType: String, memberType: Int, nickname: String, image: UIImage)
 }
 
 extension RegisterTarget: MultipartFormTargetType {
@@ -65,7 +65,7 @@ extension RegisterTarget: MultipartFormTargetType {
                 )
                 
                 return [registerData]
-            case .registerWithImage(let username, let socialType, let memberType, let nickname, let image, let mimeType):
+            case .registerWithImage(let username, let socialType, let memberType, let nickname, let image):
                 let registerData = try RegisterTarget.register(
                     username: username,
                     socialType: socialType,
@@ -74,12 +74,12 @@ extension RegisterTarget: MultipartFormTargetType {
                 ).formData?.first
                 
                 guard let registerData else { throw RegisterTargetError.noRegsiterData }
-                guard let pngImage = image.pngData() else { throw RegisterTargetError.cannotConvertToPNG }
+                guard let pngImage = image.resize(newWidth: 100).pngData() else { throw RegisterTargetError.cannotConvertToPNG }
                 
                 let imageData = FormData(
                     name: "profile",
-                    filename: "originalFilename",
-                    contentType: mimeType,
+                    filename: "\(UUID().uuidString).png",
+                    contentType: "image/png",
                     data: pngImage
                 )
                 

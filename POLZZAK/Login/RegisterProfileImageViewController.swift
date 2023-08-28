@@ -18,7 +18,8 @@ final class RegisterProfileImageViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
-    private let viewModel: RegisterViewModel
+    private let registerModel: RegisterModel
+    private let viewModel: RegisterProfileImageViewModel
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -71,8 +72,9 @@ final class RegisterProfileImageViewController: UIViewController {
     private var imagePicker: PHPickerViewController?
     private var loadedImage: UIImage?
     
-    init(viewModel: RegisterViewModel) {
-        self.viewModel = viewModel
+    init(registerModel: RegisterModel) {
+        self.registerModel = registerModel
+        self.viewModel = .init(registerModel: registerModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -175,6 +177,16 @@ final class RegisterProfileImageViewController: UIViewController {
                 viewModel.input.send(.register)
             }
             .store(in: &cancellables)
+        
+        viewModel.output
+            .receive(on: DispatchQueue.main)
+            .sink { output in
+                switch output {
+                case .showMain:
+                    AppFlowController.shared.showLoading() // TODO: 이 부분은 폴짝의 세계로! 로딩이 보여야 함
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -195,7 +207,7 @@ extension RegisterProfileImageViewController: PHPickerViewControllerDelegate {
     
     func setLoadedImage(_ image: UIImage?) {
         loadedImage = image
-        viewModel.state.profileImage = loadedImage
+        registerModel.profileImage = loadedImage
         DispatchQueue.main.async {
             self.selectImageButton1.setImageForButton(self.loadedImage)
         }

@@ -61,33 +61,20 @@ struct AuthAPI {
     }
     
     // MARK: - 2. 회원가입 API
-    
     static func register(
         username: String,
         socialType: String,
         memberType: Int,
-        nickname: String
-    ) async throws -> APIReturnType {
-        do {
-            let target = RegisterTarget.register(username: username, socialType: socialType, memberType: memberType, nickname: nickname)
-            let result = try await NetworkService().request(with: target)
-            return result
-        } catch {
-            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
-            throw error
-        }
-    }
-    
-    static func registerWithImage(
-        username: String,
-        socialType: String,
-        memberType: Int,
         nickname: String,
-        image: UIImage,
-        mimeType: String
+        image: UIImage?
     ) async throws -> APIReturnType {
         do {
-            let target = RegisterTarget.registerWithImage(username: username, socialType: socialType, memberType: memberType, nickname: nickname, image: image, mimeType: mimeType)
+            let target: RegisterTarget
+            if let image {
+                target = RegisterTarget.registerWithImage(username: username, socialType: socialType, memberType: memberType, nickname: nickname, image: image)
+            } else {
+                target = RegisterTarget.register(username: username, socialType: socialType, memberType: memberType, nickname: nickname)
+            }
             let result = try await NetworkService().request(with: target)
             return result
         } catch {

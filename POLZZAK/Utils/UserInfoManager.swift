@@ -62,12 +62,14 @@ final class UserInfoManager {
     
     // MARK: - UserDefaults
     
+    // TODO: UserInfoDTO 직접 사용하지 말고 Domain Object로 변환해서 사용하도록 고치기
     static func saveUserInfo(_ value: UserInfoDTO.UserInfo) {
         if let encoded = try? JSONEncoder().encode(value) {
             UserDefaults.standard.setValue(encoded, forKey: Constants.UserDefaultsKey.userInfo)
         }
     }
     
+    // TODO: UserInfoDTO 직접 사용하지 말고 Domain Object로 변환해서 사용하도록 고치기
     static func readUserInfo() -> UserInfoDTO.UserInfo? {
         if let saved = UserDefaults.standard.object(forKey: Constants.UserDefaultsKey.userInfo) as? Data,
            let decoded = try? JSONDecoder().decode(UserInfoDTO.UserInfo.self, from: saved) {

@@ -76,7 +76,7 @@ final class RegisterTermsViewController: UIViewController {
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
-                let vc = RegisterUserTypeViewController()
+                let vc = RegisterUserTypeViewController(registerModel: .init())
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)

@@ -9,14 +9,23 @@ import UIKit
 import Combine
 
 final class ParentTypeSelectView: UICollectionView {
-    private let types: [String]
-    @Published var currentType: String?
+    private let types: [MemberTypeDetail]
+    @Published var currentType: MemberTypeDetail?
+    private var isInitialLoading = true
     
-    init(frame: CGRect = .zero, types: [String]) {
+    init(frame: CGRect = .zero, types: [MemberTypeDetail]) {
         self.types = types
         let layout = ParentTypeSelectView.getLayout()
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isInitialLoading {
+            setUICenter()
+            isInitialLoading = false
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -34,19 +43,27 @@ final class ParentTypeSelectView: UICollectionView {
         decelerationRate = .fast
     }
     
-    func configureCurrentType(isInitial: Bool = false) {
-        guard let layout = collectionViewLayout as? CarouselLayout else { return }
+    private func setUICenter() {
+        guard let layout = collectionViewLayout as? CarouselLayout,
+              let index = types.firstIndex(where: { $0.detail == "선택해주세요" }) // TODO: 하드코딩 줄이기
+        else { return }
         
-        if isInitial {
-            layout.invalidateLayout()
-            layoutIfNeeded()
+        DispatchQueue.main.async {
+            UIView.performWithoutAnimation {
+                self.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredVertically, animated: false)
+                layout.invalidateLayout()
+                self.layoutIfNeeded()
+                self.configureCurrentType()
+            }
         }
+    }
+    
+    func configureCurrentType() {
+        guard let layout = collectionViewLayout as? CarouselLayout,
+              let centerIndexPath = layout.centerIndexPath
+        else { return }
         
-        guard let centerIndexPath = layout.centerIndexPath else { return }
-        
-        // TODO: 아래 조건문 바꿔야할듯
-        let currentType = types[centerIndexPath.item] != "선택해주세요" ? types[centerIndexPath.item] : nil
-        self.currentType = currentType
+        currentType = types[centerIndexPath.item]
     }
 }
 
@@ -61,7 +78,7 @@ extension ParentTypeSelectView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ParentTypeSelectCell.reuseIdentifier, for: indexPath) as? ParentTypeSelectCell else {
             fatalError("Cannot dequeue cell as ParentTypeSelectCell")
         }
-        cell.configure(title: types[indexPath.item])
+        cell.configure(title: types[indexPath.item].detail)
         return cell
     }
 }

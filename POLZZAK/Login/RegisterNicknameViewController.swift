@@ -13,7 +13,7 @@ final class RegisterNicknameViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
-    private let viewModel: RegisterViewModel
+    private let registerModel: RegisterModel
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -59,8 +59,8 @@ final class RegisterNicknameViewController: UIViewController {
         return nextButton
     }()
     
-    init(viewModel: RegisterViewModel) {
-        self.viewModel = viewModel
+    init(registerModel: RegisterModel) {
+        self.registerModel = registerModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -112,17 +112,17 @@ final class RegisterNicknameViewController: UIViewController {
     
     private func configureBinding() {
         nicknameChecker.$validText
-            .sink { [weak self] text in
+            .sink { [weak self] validNickname in
                 guard let self else { return }
-                nextButton.isEnabled = text != nil
-                viewModel.state.nickname = text
+                nextButton.isEnabled = validNickname != nil
+                registerModel.nickname = validNickname
             }
             .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
                 guard let self else { return }
-                let vc = RegisterProfileImageViewController(viewModel: viewModel)
+                let vc = RegisterProfileImageViewController(registerModel: registerModel)
                 navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)

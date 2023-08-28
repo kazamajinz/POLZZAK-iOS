@@ -16,7 +16,7 @@ final class RegisterParentTypeViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
-    private let viewModel: RegisterViewModel
+    private let registerModel: RegisterModel
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -49,7 +49,7 @@ final class RegisterParentTypeViewController: UIViewController {
         return label
     }()
     
-    private let selectView = ParentTypeSelectView(types: ["엄마", "아빠", "언니", "오빠", "누나", "형", "선택해주세요", "할머니", "할아버지", "이모", "고모", "삼촌", "보호자"])
+    private let selectView: ParentTypeSelectView
     
     private let nextButton: RegisterNextButton = {
         let nextButton = RegisterNextButton()
@@ -57,8 +57,9 @@ final class RegisterParentTypeViewController: UIViewController {
         return nextButton
     }()
     
-    init(viewModel: RegisterViewModel) {
-        self.viewModel = viewModel
+    init(registerModel: RegisterModel) {
+        self.registerModel = registerModel
+        self.selectView = .init(types: registerModel.memberTypeDetailList ?? [])
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -102,25 +103,20 @@ final class RegisterParentTypeViewController: UIViewController {
     
     private func configureView() {
         view.backgroundColor = .gray100
-        UIView.performWithoutAnimation {
-            selectView.layoutIfNeeded()
-            selectView.scrollToItem(at: IndexPath(item: 6, section: 0), at: .centeredVertically, animated: false)
-            selectView.configureCurrentType(isInitial: true)
-        }
     }
     
     private func configureBinding() {
         selectView.$currentType.sink { [weak self] type in
             guard let self else { return }
-            nextButton.isEnabled = type != nil
-            viewModel.state.parentType = type // TODO: 이게 아니라.. api에서 받아온 Int인 memberType이어야 함
+            nextButton.isEnabled = type?.memberTypeDetailId != nil
+            registerModel.memberType = type?.memberTypeDetailId
         }
         .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
                 guard let self else { return }
-                let vc = RegisterNicknameViewController(viewModel: viewModel)
+                let vc = RegisterNicknameViewController(registerModel: registerModel)
                 navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
