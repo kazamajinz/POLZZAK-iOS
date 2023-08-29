@@ -62,7 +62,9 @@ extension CouponFooterView {
     func configure(with total: Int) {
         totalPage.text = "\(total)"
     }
-    
+}
+
+extension CouponFooterView: FooterViewUpdatable {
     func updateCurrentCount(with count: Int) {
         guard let totalCountText = totalPage.text else { return }
         guard let totalCount = Int(totalCountText) else { return }

@@ -28,7 +28,6 @@ final class MainViewController: UIViewController {
     }
     
     private let viewModel = StampBoardViewModel()
-    private var dataSource: StampBoardCollectionViewDataSource
     private var cancellables = Set<AnyCancellable>()
     
     private let customRefreshControl = CustomRefreshControl()
@@ -67,13 +66,12 @@ final class MainViewController: UIViewController {
         return button
     }()
     
-    //MARK: - collectionView
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private lazy var mainCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout(spacing: Constants.interSectionSpacing))
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.contentInset = Constants.collectionViewContentInset
-        collectionView.dataSource = dataSource
+        collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(StampBoardHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier)
@@ -87,9 +85,7 @@ final class MainViewController: UIViewController {
         return collectionView
     }()
     
-    //MARK: - init
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        dataSource = StampBoardCollectionViewDataSource(viewModel: viewModel)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -110,9 +106,7 @@ final class MainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        Task {
-            updateFilterView()
-        }
+        updateFilterView()
     }
 }
 
@@ -134,7 +128,7 @@ extension MainViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        [collectionView, stampBoardFilterView, headerView, emptyView, addStampBoardButton, stampBoardSkeletonView].forEach {
+        [mainCollectionView, stampBoardFilterView, headerView, emptyView, addStampBoardButton, stampBoardSkeletonView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -149,7 +143,7 @@ extension MainViewController {
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        collectionView.snp.makeConstraints {
+        mainCollectionView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
@@ -228,12 +222,10 @@ extension MainViewController {
             }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
-                self?.collectionView.reloadData()
+                self?.mainCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
-                Task {
-                    self?.updateFilterView()
-                }
+                self?.updateFilterView()
             }
             .store(in: &cancellables)
         
@@ -241,9 +233,8 @@ extension MainViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] filterType in
                 self?.updateLayout(for: filterType)
-                Task {
-                    self?.updateFilterView()
-                }
+                self?.updateFilterView()
+                
             }
             .store(in: &cancellables)
     }
@@ -261,19 +252,17 @@ extension MainViewController {
                 stampBoardFilterView.handleParentSectionFilterButtonTap(with: family)
             }
         }
-        Task {
-            applySectionFilter()
-        }
+        applySectionFilter()
     }
     
     private func applySectionFilter() {
-        let newLayout = createLayout()
-        collectionView.setCollectionViewLayout(newLayout, animated: false)
-        collectionView.reloadData()
+        let newLayout = createLayout(spacing: Constants.interSectionSpacing)
+        mainCollectionView.setCollectionViewLayout(newLayout, animated: false)
+        mainCollectionView.reloadData()
     }
     
     private func updateFilterView() {
-        let currentOffset = collectionView.contentOffset.y
+        let currentOffset = mainCollectionView.contentOffset.y
         let distance = TabConstants.initialContentOffsetY + currentOffset
         let newY = max(TabConstants.headerTopPadding - distance, TabConstants.filterTopPadding)
         
@@ -320,14 +309,6 @@ extension MainViewController {
         tabViews.setTouchInteractionEnabled(false)
     }
     
-    //MARK: - @objc
-    private func myConnectionsButtonTapped() {
-        //TODO: - 보호자로 가정
-        let linkManagementViewController = LinkManagementViewController(userType: .parent)
-        linkManagementViewController.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(linkManagementViewController, animated: true)
-    }
-    
     @objc private func filterButtonTapped() {
         let data = viewModel.dataList.value.map{ $0.family }
         let bottomSheet = FilterBottomSheetViewController(data: data)
@@ -342,22 +323,126 @@ extension MainViewController {
         present(bottomSheet, animated: true, completion: nil)
     }
     
-    private func updateLayout() {
-        let newLayout = createLayout()
-        collectionView.setCollectionViewLayout(newLayout, animated: false)
+    private func myConnectionsButtonTapped() {
+        let linkManagementViewController = LinkManagementViewController(userType: .parent)
+        linkManagementViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(linkManagementViewController, animated: true)
+    }
+}
+
+extension MainViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        switch viewModel.filterType.value {
+        case .all:
+            return viewModel.dataList.value.count
+        case .section:
+            return 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var cellCount: Int = 0
+        switch viewModel.filterType.value {
+        case .all:
+            cellCount = viewModel.dataList.value[section].stampBoardSummaries.count
+        case .section(let memberId):
+            if false == viewModel.dataList.value.isEmpty {
+                let index = viewModel.indexOfMember(with: memberId)
+                cellCount = viewModel.dataList.value[index].stampBoardSummaries.count
+            } else {
+                return 0
+            }
+        }
+        
+        return cellCount == 0 ? 1 : cellCount
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if case .section(let memberId) = viewModel.filterType.value {
+            let index = viewModel.indexOfMember(with: memberId)
+            if true == viewModel.dataList.value[index].stampBoardSummaries.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
+        }
+        
+        if viewModel.filterType.value == .all {
+            if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
+        }
+        
+        if true == viewModel.dataList.value.isEmpty {
+            return dequeueEmptyCell(in: collectionView, at: indexPath)
+        }
+        
+        switch viewModel.tabState.value {
+        case .completed:
+            return dequeueCompletedCouponCell(in: collectionView, at: indexPath)
+        default:
+            return dequeueInProgressCouponCell(in: collectionView, at: indexPath)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier, for: indexPath) as! StampBoardHeaderView
+            if false == viewModel.dataList.value.isEmpty {
+                let family = viewModel.dataList.value[indexPath.section].family
+                headerView.configure(to: family, type: viewModel.userType.value)
+            }
+            return headerView
+        case UICollectionView.elementKindSectionFooter:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardFooterView.reuseIdentifier, for: indexPath) as! StampBoardFooterView
+            let totalCount = viewModel.dataList.value[indexPath.section].stampBoardSummaries.count
+            if totalCount != 0 {
+                footerView.configure(with: totalCount)
+            }
+            
+            return footerView
+        default:
+            return UICollectionReusableView()
+        }
+    }
+    
+    private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
+        return cell
+    }
+    
+    private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
+        switch viewModel.filterType.value {
+        case .all:
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        }
+        return cell
+    }
+    
+    private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
+        switch viewModel.filterType.value {
+        case .all:
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        }
+        return cell
     }
 }
 
 extension MainViewController: CollectionLayoutConfigurable {
-    func createLayout() -> UICollectionViewLayout {
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = Constants.interSectionSpacing
-        
-        let layoutProvider: UICollectionViewCompositionalLayoutSectionProvider = { [weak self] (sectionIndex, environment) -> NSCollectionLayoutSection? in
-            return self?.createSection(for: sectionIndex)
-        }
-        
-        return UICollectionViewCompositionalLayout(sectionProvider: layoutProvider, configuration: config)
+    var collectionView: UICollectionView! {
+        return self.mainCollectionView
     }
     
     func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
@@ -375,25 +460,6 @@ extension MainViewController: CollectionLayoutConfigurable {
         handleVisibleItems(for: section, with: Constants.groupSizeWidth)
         
         return section
-    }
-    
-    func handleVisibleItems(for section: NSCollectionLayoutSection, with groupSizeWidth: CGFloat) {
-        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, _ in
-            self?.updateFooterViewBasedOnVisibleItems(visibleItems, with: groupSizeWidth, at: point)
-        }
-    }
-    
-    func updateFooterViewBasedOnVisibleItems(_ visibleItems: [NSCollectionLayoutVisibleItem], with groupSizeWidth: CGFloat, at point: CGPoint) {
-        guard let sectionIndex = visibleItems.last?.indexPath.section, point.x >= 0,
-              let footerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: sectionIndex)) as? StampBoardFooterView else {
-            return
-        }
-        
-        let cellSizeWidth = groupSizeWidth + 15
-        if CGFloat(point.x).truncatingRemainder(dividingBy: CGFloat(cellSizeWidth)) == 0.0 {
-            let currentCount = Int(CGFloat(point.x) / CGFloat(cellSizeWidth)) + 1
-            footerView.updateCurrentCount(with: currentCount)
-        }
     }
 }
 

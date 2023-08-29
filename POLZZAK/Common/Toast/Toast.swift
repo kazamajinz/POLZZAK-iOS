@@ -133,11 +133,11 @@ extension Toast {
             self.toastContainer.transform = .identity
         }, completion: { [weak self] _ in
             guard let self = self else { return }
-            self.currentCloseTask = Task {
-                await Task.asyncSleep(seconds: Constants.toastDuringTime)
-                if Task.isCancelled { return }
+            self.currentCloseTask = Task.init(priority: .userInitiated, operation: {
+                try? await Task.sleep(nanoseconds: UInt64(Constants.toastDuringTime * 1_000_000_000))
+                if self.currentCloseTask?.isCancelled == true { return }
                 await self.closeToast()
-            }
+            })
         })
     }
     
