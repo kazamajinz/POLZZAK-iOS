@@ -104,7 +104,7 @@ final class NicknameTextField: UITextField {
                 guard let self else { return }
                 text = nil
                 cancelImageView.isHidden = true
-                _cancelImageViewTapped.send(())
+                _cancelImageViewTapped.send()
             }
             .store(in: &cancellables)
         
