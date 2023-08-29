@@ -8,6 +8,14 @@
 import UIKit
 
 extension UIButton {
+    func setTitleLabel(title: String = "", titleColor: UIColor, font: UIFont, backgroundColor: UIColor = .white) {
+        self.backgroundColor = backgroundColor
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(titleColor, for: .normal)
+        self.titleLabel?.font = font
+    }
+    
+    //TODO: - 통일후 지울예정
     func setTitleLabel(title: String = "", color: UIColor, font: UIFont, backgroundColor: UIColor = .white) {
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)

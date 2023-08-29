@@ -12,6 +12,8 @@ extension UIApplication {
         return UIApplication
             .shared
             .connectedScenes
+        //TODO: - 수정필요
+//            .filter { $0.activationState == .foregroundActive }
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
             .first { $0.isKeyWindow }
@@ -32,6 +34,16 @@ extension UIApplication {
             .keyWindow?
             .screen
             .bounds
+            .height ?? 0
+    }
+    
+    var statusBarHeight: CGFloat {
+        return UIApplication
+            .shared
+            .keyWindow?
+            .windowScene?
+            .statusBarManager?
+            .statusBarFrame
             .height ?? 0
     }
     

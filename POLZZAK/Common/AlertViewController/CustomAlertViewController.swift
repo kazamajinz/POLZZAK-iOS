@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-enum ButtonCount {
-    case single
-    case double
-}
-
 final class CustomAlertViewController: UIViewController {
+    enum ButtonStyle {
+        case singleButton
+        case doubleButton
+    }
+    
     var firstButtonAction: (() -> Void)?
     var secondButtonAction: (() -> Void)?
     
@@ -72,7 +72,7 @@ final class CustomAlertViewController: UIViewController {
         return loadingView
     }()
     
-    var buttonStyle: ButtonCount = .double
+    var buttonStyle: ButtonStyle = .doubleButton
     
     var isLoadingView: Bool = false
     
@@ -135,7 +135,7 @@ extension CustomAlertViewController {
     }
     
     private func setSecondButton() {
-        if buttonStyle == .double {
+        if buttonStyle == .doubleButton {
             buttonStackView.addArrangedSubview(secondButton)
             secondButton.addTarget(self, action: #selector(secondButtonTapped), for: .touchUpInside)
         }
