@@ -16,6 +16,7 @@ import SnapKit
 final class RegisterProfileImageViewController: UIViewController {
     enum Constants {
         static let basicInset: CGFloat = 16
+        static let button1Image = UIImage(named: "select_profile_image1")
     }
     
     private let registerModel: RegisterModel
@@ -52,7 +53,7 @@ final class RegisterProfileImageViewController: UIViewController {
     
     private let selectImageButton1: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImageForButton(UIImage(named: "select_profile_image1"))
+        button.setImageForButton(Constants.button1Image)
         button.imageView?.contentMode = .scaleAspectFill
         return button
     }()
@@ -201,7 +202,7 @@ extension RegisterProfileImageViewController: PHPickerViewControllerDelegate {
                 setLoadedImage(image as? UIImage)
             }
         } else {
-            setLoadedImage(nil)
+            setLoadedImage(Constants.button1Image)
         }
     }
     
