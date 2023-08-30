@@ -99,7 +99,7 @@ final class MainViewController: UIViewController {
         setUI()
         setupNavigation()
         setupTabViews()
-        setAction()
+        setupAction()
         bindViewModel()
     }
     
@@ -186,7 +186,7 @@ extension MainViewController {
         tabViews.delegate = self
     }
     
-    private func setAction() {
+    private func setupAction() {
         let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
         stampBoardFilterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
         customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)

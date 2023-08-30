@@ -1,5 +1,5 @@
 //
-//  NicknameChecker.swift
+//  NicknameCheckView.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/06/29.
@@ -10,10 +10,14 @@ import UIKit
 
 import CombineCocoa
 
-final class NicknameChecker: UIView {
+final class NicknameCheckView: UIView {
+    /// NicknameCheckResult는 StatusCode (Int) 임
+    typealias NicknameCheckResult = Int
+    
     private var cancellables = Set<AnyCancellable>()
     
-    private let otherEditTextField = PassthroughSubject<Void, Never>()
+    @Published var validText: String? = nil
+    @Published private var currentCheckViewStatus: CheckViewStatus = .initial
     
     private let upperStackView: UIStackView = {
         let stackView = UIStackView()
@@ -67,14 +71,20 @@ final class NicknameChecker: UIView {
         label.text = "0/10"
         label.textAlignment = .right
         label.textColor = .gray500
+        label.isHidden = true
         return label
     }()
+    
+    var text: String? {
+        return textField.text
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayout()
         configureTextField()
         configureBinding()
+        setCheckButton(status: currentCheckViewStatus)
     }
     
     required init?(coder: NSCoder) {
@@ -124,75 +134,65 @@ final class NicknameChecker: UIView {
     }
     
     private func configureBinding() {
-        // cancelImageViewTapped인 경우, textPublisher에서 text가 nil인 경우와 동작이 같아서
-        // cancelImageViewTapped를 String?을 방출하는 publisher로 설정해서 nil을 방출하게 하였음
-        textField.controlEventPublisher(for: .editingChanged).merge(with: otherEditTextField)
-            .sink { [weak self] text in
+        Publishers.Merge(textField.controlEventPublisher(for: .editingChanged), textField.cancelImageViewTapped)
+            .sink { [weak self] _ in
                 guard let self else { return }
-                let text = textField.text
-                setCheckButton(status: .inactive)
+                validText = nil
                 setCountLabelText(textCount: text?.count)
-                let validationResult = checkValidity(text: text)
-                setDescriptionUnderTextField(validationResult: validationResult, alwaysHide: textField.isFirstResponder)
-                
-                switch validationResult {
-                case .pass:
-                    setCheckButton(status: .active)
-                default:
-                    setCheckButton(status: .inactive)
-                }
+                let checkViewStatus = checkValidity(text: text)
+                currentCheckViewStatus = checkViewStatus
+            }
+            .store(in: &cancellables)
+        
+        $currentCheckViewStatus
+            .sink { [weak self] status in
+                guard let self else { return }
+                setCheckButton(status: status)
+                setCheckViewUI(status: status)
             }
             .store(in: &cancellables)
         
         textField.firstResponderChanged
-            .sink { [weak self] firstResponderEvent in
-                guard let self else { return }
-                switch firstResponderEvent {
-                case .become:
-                    textField.layer.borderColor = UIColor.blue500.cgColor
-                case .resign:
-                    // TODO: 문제 없이 작성한 경우 borderColor를 gray300으로 해줘야 함
-//                    textField.layer.borderColor = UIColor.gray300.cgColor
-                    textField.layer.borderColor = UIColor.error500.cgColor
-                    otherEditTextField.send(())
-                }
-            }
-            .store(in: &cancellables)
-        
-        textField.cancelImageViewTapped
             .sink { [weak self] _ in
-                self?.otherEditTextField.send(())
+                guard let self else { return }
+                setCheckViewUI(status: currentCheckViewStatus)
             }
             .store(in: &cancellables)
         
         checkButton.tapPublisher
             .sink { [weak self] _ in
-                // TODO: 추후에 처리
-                // 닉네임체크 api 부르고
-                // 그 결과에 따라
-                // 성공이면 setCheckButton(status: .checked)
-                // 실패면 setCheckButton(status: .inactive)
+                Task { [weak self] in
+                    guard let self, let text else { return }
+                    let result = await checkNicknameValid(nickname: text)
+                    setUIOnNicknameValidation(checkResult: result)
+                }
             }
             .store(in: &cancellables)
+    }
+    
+    private func checkNicknameValid(nickname text: String) async -> NicknameCheckResult? {
+        guard let (_, response) = try? await AuthAPI.checkNicknameDuplicate(nickname: text) else { return nil }
+        let statusCode = (response as? HTTPURLResponse)?.statusCode
+        return statusCode
+    }
+    
+    private func setUIOnNicknameValidation(checkResult code: NicknameCheckResult?) {
+        guard let code else { return }
         
-        // TODO: 아래 TapGesture를 RegisterNicknameViewController로 옮기기
-        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
-        addGestureRecognizer(tapGesture)
-        
-        tapGesture.tapPublisher
-            .sink { [weak self] _ in
-                self?.endEditing(true)
-            }
-            .store(in: &cancellables)
-        
-        backgroundColor = .green // TODO: 삭제
+        if code == 204 {
+            currentCheckViewStatus = .passAndChecked
+            validText = text
+        } else if code == 400 {
+            currentCheckViewStatus = .checkedButInvalid
+            validText = nil
+        }
     }
     
     private func configureTextField() {
         textField.delegate = self
     }
     
-    private func checkValidity(text: String?) -> ValidationResult {
+    private func checkValidity(text: String?) -> CheckViewStatus {
         guard let text, !text.isEmpty else { return .nilOrEmpty }
         let range = NSRange(location: 0, length: text.count)
         let regex = try! NSRegularExpression(pattern: "^[가-힣a-zA-Z0-9]+$")
@@ -202,42 +202,52 @@ final class NicknameChecker: UIView {
         return .pass
     }
     
-    private func setDescriptionUnderTextField(validationResult: ValidationResult, alwaysHide: Bool = false) {
-        descriptionLabel.text = validationResult.description
+    private func setCheckViewUI(status: CheckViewStatus) {
+        let isTextFieldFirstResponder = textField.isFirstResponder
+        descriptionLabel.text = status.description
+        countLabel.isHidden = !isTextFieldFirstResponder
         
-        switch validationResult {
-        case .lessThan2Character, .over10Characters, .notAllowedCharacterIncluded, .nilOrEmpty:
+        switch status {
+        case .initial:
+            textField.layer.borderColor = isTextFieldFirstResponder ? UIColor.blue500.cgColor : UIColor.gray300.cgColor
+            descriptionLabel.isHidden = true
+            checkImageView.isHidden = true
+        case .passAndChecked:
+            textField.layer.borderColor = isTextFieldFirstResponder ? UIColor.blue500.cgColor : UIColor.gray300.cgColor
+            descriptionLabel.textColor = .blue500
+            descriptionLabel.isHidden = false
+            checkImageView.isHidden = false
+        case .pass:
+            textField.layer.borderColor = isTextFieldFirstResponder ? UIColor.blue500.cgColor : UIColor.gray300.cgColor
+            descriptionLabel.textColor = .blue500
+            descriptionLabel.isHidden = !isTextFieldFirstResponder
+            checkImageView.isHidden = true
+        default:
+            textField.layer.borderColor = UIColor.error500.cgColor
             descriptionLabel.textColor = .error500
             descriptionLabel.isHidden = false
-            checkImageView.isHidden = true
-            
-            if alwaysHide {
-                fallthrough
-            }
-        default:
-            descriptionLabel.isHidden = true
             checkImageView.isHidden = true
         }
     }
     
-    private func setCheckButton(status: CheckButtonStatus) {
+    private func setCheckButton(status: CheckViewStatus) {
         let titleAttrs = AttributeContainer([
             .font: UIFont.body2,
             .foregroundColor: UIColor.white,
         ])
         
         switch status {
-        case .active:
+        case .pass:
             checkButton.configuration?.attributedTitle = AttributedString("중복 확인", attributes: titleAttrs)
             checkButton.configuration?.background.backgroundColor = .blue500
             checkButton.isEnabled = true
-        case .inactive:
-            checkButton.configuration?.attributedTitle = AttributedString("중복 확인", attributes: titleAttrs)
-            checkButton.configuration?.background.backgroundColor = .gray300
-            checkButton.isEnabled = false
-        case .checked:
+        case .passAndChecked:
             checkButton.configuration?.attributedTitle = AttributedString("사용 가능", attributes: titleAttrs)
             checkButton.configuration?.background.backgroundColor = .blue200
+            checkButton.isEnabled = false
+        default:
+            checkButton.configuration?.attributedTitle = AttributedString("중복 확인", attributes: titleAttrs)
+            checkButton.configuration?.background.backgroundColor = .gray300
             checkButton.isEnabled = false
         }
     }
@@ -253,10 +263,10 @@ final class NicknameChecker: UIView {
     }
 }
 
-extension NicknameChecker: UITextFieldDelegate {
+extension NicknameCheckView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text, text.count + string.count <= 10 else {
-            setDescriptionUnderTextField(validationResult: .over10Characters)
+        guard let text, text.count + string.count <= 10 else {
+            setCheckViewUI(status: .over10Characters)
             return false
         }
         return true
@@ -265,27 +275,26 @@ extension NicknameChecker: UITextFieldDelegate {
 
 // MARK: - Nested Types
 
-extension NicknameChecker {
-    enum ValidationResult {
+extension NicknameCheckView {
+    enum CheckViewStatus {
+        case initial
         case nilOrEmpty
         case lessThan2Character
         case over10Characters
         case notAllowedCharacterIncluded
         case pass
+        case passAndChecked
+        case checkedButInvalid
         
         var description: String? {
             switch self {
             case .lessThan2Character, .nilOrEmpty: return "최소 2글자로 설정해주세요"
             case .over10Characters: return "10자까지만 쓸 수 있어요"
             case .notAllowedCharacterIncluded: return "특수문자(공백)는 쓸 수 없어요"
+            case .passAndChecked: return "사용 가능한 닉네임이에요"
+            case .checkedButInvalid: return "이미 사용되고 있는 닉네임이에요"
             default: return nil
             }
         }
-    }
-    
-    enum CheckButtonStatus {
-        case active
-        case inactive
-        case checked
     }
 }

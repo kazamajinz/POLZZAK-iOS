@@ -16,7 +16,12 @@ final class RegisterUserTypeViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let registerModel: RegisterModel
+    private let viewModel: RegisterUserTypeViewModel
+    
     private var cancellables = Set<AnyCancellable>()
+    
+    private let fullScreenLoadingView = FullScreenLoadingView() // TODO: 추후 변경
     
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
@@ -58,11 +63,26 @@ final class RegisterUserTypeViewController: UIViewController {
         nextButton.isEnabled = false
         return nextButton
     }()
-
+    
+    init(registerModel: RegisterModel) {
+        self.registerModel = registerModel
+        self.viewModel = .init(registerModel: registerModel)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        print("RegisterUserTypeViewController deinit")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         configureView()
+        configureLoadingView()
         configureBinding()
     }
     
@@ -102,36 +122,68 @@ final class RegisterUserTypeViewController: UIViewController {
         view.backgroundColor = .gray100
     }
     
+    private func configureLoadingView() {
+        view.addSubview(fullScreenLoadingView)
+        
+        fullScreenLoadingView.topSpacing = 350
+        
+        fullScreenLoadingView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
     private func configureBinding() {
         parentButton.tapPublisher
             .sink { [weak self] _ in
-                self?.determineButtonSelection(parentButtonSelected: true)
+                guard let self else { return }
+                viewModel.state.currentUserType = parentButton.userType
+                determineButtonSelection(parentButtonSelected: true)
             }
             .store(in: &cancellables)
         
         childButton.tapPublisher
             .sink { [weak self] _ in
-                self?.determineButtonSelection(parentButtonSelected: false)
+                guard let self else { return }
+                viewModel.state.currentUserType = childButton.userType
+                determineButtonSelection(parentButtonSelected: false)
             }
             .store(in: &cancellables)
         
         parentButton.tapPublisher.merge(with: childButton.tapPublisher)
             .sink { [weak self] _ in
                 guard let self else { return }
-                self.nextButton.isEnabled = self.parentButton.isSelected || self.childButton.isSelected
+                nextButton.isEnabled = parentButton.isSelected || childButton.isSelected
             }
             .store(in: &cancellables)
         
         nextButton.tapPublisher
             .sink { [weak self] _ in
                 guard let self else { return }
-                if self.parentButton.isSelected {
-                    self.navigationController?.pushViewController(RegisterParentTypeViewController(), animated: true)
-                } else if self.childButton.isSelected {
-                    self.navigationController?.pushViewController(RegisterNicknameViewController(), animated: true)
+                viewModel.input.send(.nextButtonTapped)
+                if parentButton.isSelected {
+                    navigationController?.pushViewController(RegisterParentTypeViewController(registerModel: registerModel), animated: true)
+                } else if childButton.isSelected {
+                    navigationController?.pushViewController(RegisterNicknameViewController(registerModel: registerModel), animated: true)
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.state.$isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLoading in
+                guard let self else {
+                    self?.fullScreenLoadingView.stopLoading()
+                    return
+                }
+                if isLoading {
+                    fullScreenLoadingView.startLoading()
+                } else {
+                    fullScreenLoadingView.stopLoading()
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.input.send(.getMemberTypes)
     }
     
     private func determineButtonSelection(parentButtonSelected: Bool) {

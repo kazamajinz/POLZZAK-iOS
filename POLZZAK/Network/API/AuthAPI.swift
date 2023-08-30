@@ -22,6 +22,8 @@ enum AuthAPIError: LocalizedError {
 struct AuthAPI {
     typealias APIReturnType = (Data, URLResponse)
     
+    // MARK: - 1. 로그인 API
+    
     static func kakaoLogin() async throws -> APIReturnType {
         do {
             let oAuthAccessToken = try await KakaoLoginManager.loginWithKakao()
@@ -58,14 +60,21 @@ struct AuthAPI {
         }
     }
     
+    // MARK: - 2. 회원가입 API
     static func register(
         username: String,
         socialType: String,
         memberType: Int,
-        nickname: String
+        nickname: String,
+        image: UIImage?
     ) async throws -> APIReturnType {
         do {
-            let target = RegisterTarget.register(username: username, socialType: socialType, memberType: memberType, nickname: nickname)
+            let target: RegisterTarget
+            if let image {
+                target = RegisterTarget.registerWithImage(username: username, socialType: socialType, memberType: memberType, nickname: nickname, image: image)
+            } else {
+                target = RegisterTarget.register(username: username, socialType: socialType, memberType: memberType, nickname: nickname)
+            }
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
@@ -74,16 +83,11 @@ struct AuthAPI {
         }
     }
     
-    static func registerWithImage(
-        username: String,
-        socialType: String,
-        memberType: Int,
-        nickname: String,
-        image: UIImage,
-        mimeType: String
-    ) async throws -> APIReturnType {
+    // MARK: - 3. 닉네임 중복 확인 API
+    
+    static func checkNicknameDuplicate(nickname: String) async throws -> APIReturnType {
         do {
-            let target = RegisterTarget.registerWithImage(username: username, socialType: socialType, memberType: memberType, nickname: nickname, image: image, mimeType: mimeType)
+            let target = NicknameTarget.checkDuplicate(nickname: nickname)
             let result = try await NetworkService().request(with: target)
             return result
         } catch {

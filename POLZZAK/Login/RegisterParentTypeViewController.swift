@@ -16,6 +16,8 @@ final class RegisterParentTypeViewController: UIViewController {
         static let basicInset: CGFloat = 16
     }
     
+    private let registerModel: RegisterModel
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let labelStackView: UIStackView = {
@@ -47,14 +49,24 @@ final class RegisterParentTypeViewController: UIViewController {
         return label
     }()
     
-    private let selectView = ParentTypeSelectView(types: ["선택해주세요", "엄마", "아빠", "언니", "오빠", "누나", "형", "할머니", "할아버지", "이모", "고모", "삼촌", "보호자"])
+    private let selectView: ParentTypeSelectView
     
     private let nextButton: RegisterNextButton = {
         let nextButton = RegisterNextButton()
         nextButton.isEnabled = false
         return nextButton
     }()
-
+    
+    init(registerModel: RegisterModel) {
+        self.registerModel = registerModel
+        self.selectView = .init(types: registerModel.memberTypeDetailList ?? [])
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -94,9 +106,18 @@ final class RegisterParentTypeViewController: UIViewController {
     }
     
     private func configureBinding() {
+        selectView.$currentType.sink { [weak self] type in
+            guard let self else { return }
+            nextButton.isEnabled = type?.memberTypeDetailId != nil
+            registerModel.memberType = type?.memberTypeDetailId
+        }
+        .store(in: &cancellables)
+        
         nextButton.tapPublisher
             .sink { [weak self] _ in
-                
+                guard let self else { return }
+                let vc = RegisterNicknameViewController(registerModel: registerModel)
+                navigationController?.pushViewController(vc, animated: true)
             }
             .store(in: &cancellables)
     }

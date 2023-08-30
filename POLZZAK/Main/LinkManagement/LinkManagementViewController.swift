@@ -7,26 +7,25 @@
 
 import UIKit
 import SnapKit
-
-//TODO: - 임시
-enum LinkTabStyle {
-    case linkListTab
-    case receivedTab
-    case sentTab
-}
+import Combine
 
 final class LinkManagementViewController: UIViewController {
+    enum Constants {
+//        static let deviceWidth = UIApplication.shared.width
+        static let backButtonPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+    }
     
-    //MARK: - let, var
+    private let viewModel = LinkManagementViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    
     var userType: UserType
-    let screenWidth = UIApplication.shared.width
     private var workItem: DispatchWorkItem?
     
     //TODO: - 임시코드, 새로운 API통신을 했다는 가정
-    private var linkManagementTabState: LinkTabStyle = .linkListTab {
+    private var linkManagementTabState: LinkTabState = .linkListTab {
         didSet {
             
-            if 0 == testData.count {
+            if 0 == viewModel.dataList.count {
                 return
             }
             //TODO: - 새로운 API통신을 했다는 가정
@@ -40,6 +39,8 @@ final class LinkManagementViewController: UIViewController {
                     tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
                 case .sentTab:
                     tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
+                case .unknwon:
+                    break
                 }
                 
                 tableView.backgroundView = tableEmptyView
@@ -47,18 +48,6 @@ final class LinkManagementViewController: UIViewController {
                 
                 self.fullScreenLoadingView.stopLoading()
             }
-        }
-    }
-    
-    //TODO: - 임시데이터
-    private var testData: [FamilyMember] = dummyFmailyData.families {
-        didSet {
-            if testData.isEmpty {
-                tableEmptyView.showBackgroundView()
-            } else {
-                tableEmptyView.hideBackgroundView()
-            }
-            tableView.reloadData()
         }
     }
     
@@ -155,6 +144,7 @@ final class LinkManagementViewController: UIViewController {
     private let tabViews: TabViews = {
         let tabViews = TabViews()
         tabViews.tabTitles = ["연동 목록", "받은 목록", "보낸 목록"]
+        tabViews.setTouchInteractionEnabled(true)
         return tabViews
     }()
     
@@ -175,10 +165,6 @@ final class LinkManagementViewController: UIViewController {
     init(userType: UserType) {
         self.userType = userType
         super.init(nibName: nil, bundle: nil)
-        
-        setNavigation()
-        setUI()
-        setDelegate()
     }
     
     required init?(coder: NSCoder) {
@@ -190,22 +176,17 @@ final class LinkManagementViewController: UIViewController {
         
         //TODO: - API통신
         linkManagementTabState = .linkListTab
-        setAction()
+        
+        setupUI()
+        setupNavigationBar()
+        setupDelegate()
+        setupAction()
+        bindViewModel()
     }
 }
 
 extension LinkManagementViewController {
-    private func setNavigation() {
-        title = "연동 관리"
-        
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.titleTextAttributes = [
-                .font: UIFont.subtitle1
-            ]
-        }
-    }
-    
-    private func setUI() {
+    private func setupUI() {
         view.backgroundColor = .white
         
         [searchBar, tabContentView, searchEmptyView, searchLoadingView, searchResultView, fullScreenLoadingView].forEach {
@@ -263,38 +244,92 @@ extension LinkManagementViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
     }
     
-    private func setDelegate() {
+    private func setupNavigationBar() {
+        setNavigationBarStyle()
+        
+        var configuration = UIButton.Configuration.plain()
+        let backButtonImage = UIImage(systemName: "chevron.backward")?.withAlignmentRectInsets(Constants.backButtonPadding)
+        configuration.image = backButtonImage
+        
+        let backButton = UIButton(configuration: configuration, primaryAction: UIAction(handler: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: false)
+        }))
+        backButton.tintColor = .black
+        
+        let leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        title = "연동 관리"
+        
+        if let navigationBar = self.navigationController?.navigationBar {
+            navigationBar.titleTextAttributes = [
+                .font: UIFont.subtitle18Sbd
+            ]
+        }
+    }
+    
+    private func setupDelegate() {
         tabViews.delegate = self
         searchBar.delegate = self
         searchResultView.delegate = self
     }
     
-    private func setAction() {
+    private func setupAction() {
         searchLoadingView.cancelButton.addTarget(self, action: #selector(searchCancel), for: .touchUpInside)
     }
     
-    private func linkListTabTapped() {
-        //TODO: - 새로운 API통신을 했다는 가정
-        //        beforeState = linkManagementTabState
+    private func bindViewModel() {
+//        viewModel.shouldEndRefreshing
+//            .sink { [weak self] in
+//                self?.customRefreshControl.endRefreshing()
+//            }
+//            .store(in: &cancellables)
+//
+//        viewModel.isSkeleton
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] bool in
+//                self?.handleSkeletonView(for: bool)
+//            }
+//            .store(in: &cancellables)
+//
+//        viewModel.isCenterLoading
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] bool in
+//                self?.handleLoadingView(for: bool)
+//            }
+//            .store(in: &cancellables)
+//
+        viewModel.$isTabLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bool in
+                self?.viewModel.handleTabLoading(for: bool)
+            }
+            .store(in: &cancellables)
         
-        linkManagementTabState = .linkListTab
-    }
-    
-    private func receivedTabTapped() {
-        //TODO: - 새로운 API통신을 했다는 가정
-        //        beforeState = linkManagementTabState
+        viewModel.$linkTabState
+            .receive(on: DispatchQueue.main)
+            .sink {
+                self?.viewModel.handletab
+            }
+            .store(in: &cancellables)
         
-        linkManagementTabState = .receivedTab
-    }
-    
-    private func sentTabTapped() {
-        //TODO: - 새로운 API통신을 했다는 가정
-        //        beforeState = linkManagementTabState
-        
-        linkManagementTabState = .sentTab
+        viewModel.$dataList
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
+//
+//        viewModel.filterType
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] filterType in
+//                self?.updateLayout(for: filterType)
+//                self?.updateFilterView()
+//
+//            }
+//            .store(in: &cancellables)
     }
 }
 
@@ -302,11 +337,11 @@ extension LinkManagementViewController: TabViewsDelegate {
     func tabViews(_ tabViews: TabViews, didSelectTabAtIndex index: Int) {
         switch index {
         case 0:
-            linkListTabTapped()
+            viewModel.linkListTabTapped()
         case 1:
-            receivedTabTapped()
+            viewModel.receivedTabTapped()
         case 2:
-            sentTabTapped()
+            viewModel.sentTabTapped()
         default:
             break
         }
@@ -315,11 +350,11 @@ extension LinkManagementViewController: TabViewsDelegate {
 
 extension LinkManagementViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testData.count
+        return viewModel.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let family = testData[indexPath.row]
+        let family = viewModel.dataList[indexPath.row]
         switch linkManagementTabState {
         case .linkListTab:
             let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier, for: indexPath) as! LinkListTabCell
@@ -336,6 +371,8 @@ extension LinkManagementViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(family: family)
             return cell
+        case .unknwon:
+            return UITableViewCell()
         }
     }
     
@@ -352,38 +389,38 @@ extension LinkManagementViewController: UITableViewDataSource {
     
     // TODO: - 임시 삭제 API 함수
     func tempRemove(memberId: Int = -1, completion: (() -> Void)? = nil) {
-        if memberId == -1 {
-            testData = dummyFmailyData.families
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                self?.testData.remove(at: memberId)
-                completion?()
-            }
-        }
+//        if memberId == -1 {
+//            testData = dummyFmailyData.families
+//        } else {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//                self?.testData.remove(at: memberId)
+//                completion?()
+//            }
+//        }
     }
     
     //TODO: - 임시 연동요청 API 함수
     func tempLinkRequest(memberId: Int = -1, completion: @escaping () -> Void) {
-        if memberId == -1 {
-            testData = dummyFmailyData.families
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                completion()
-            }
-        }
+//        if memberId == -1 {
+//            testData = dummyFmailyData.families
+//        } else {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                completion()
+//            }
+//        }
     }
     
     //TODO: - 임시 요청취소 API 함수
     @objc private func requestCancel(memberId: Int = -1, completion: @escaping () -> Void) {
-        if memberId == -1 {
-            testData = dummyFmailyData.families
-        } else {
-            fullScreenLoadingView.startLoading()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.fullScreenLoadingView.stopLoading()
-                completion()
-            }
-        }
+//        if memberId == -1 {
+//            testData = dummyFmailyData.families
+//        } else {
+//            fullScreenLoadingView.startLoading()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                self.fullScreenLoadingView.stopLoading()
+//                completion()
+//            }
+//        }
     }
     
     //TODO: - 임시데이터를 포함한 검색로직
