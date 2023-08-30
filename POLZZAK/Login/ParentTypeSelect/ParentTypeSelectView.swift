@@ -112,7 +112,7 @@ extension ParentTypeSelectView: UICollectionViewDelegate {
 
 // MARK: - Layout
 
-extension ParentTypeSelectView: UICollectionViewDelegateFlowLayout {
+extension ParentTypeSelectView {
     enum Constants {
         static let sideItemCount = 2
     }

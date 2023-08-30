@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import UIKit
 
 final class RegisterUserTypeViewModel {
     enum Input {
