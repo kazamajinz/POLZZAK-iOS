@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 protocol TabFilterViewModelProtocol: AnyObject {
-    var isFirstChange: Bool { get set }
     var cancellables: Set<AnyCancellable> { get set }
     var tabState: CurrentValueSubject<TabState, Never> { get }
     var filterType: CurrentValueSubject<FilterType, Never> { get }

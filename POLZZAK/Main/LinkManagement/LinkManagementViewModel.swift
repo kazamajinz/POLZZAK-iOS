@@ -11,7 +11,7 @@ import Combine
 final class LinkManagementViewModel {
     @Published var dataList: [FamilyMember] = []
     @Published var isTabLoading: Bool = true
-    @Published var linkTabState: LinkTabState = .unknwon
+    @Published var linkTabState: LinkTabState = .linkListTab
     
     //TODO: - 3가지 API가 필요
     func tempAPI() {
@@ -23,13 +23,31 @@ final class LinkManagementViewModel {
         }
     }
     
-    func handleTabLoading(for isLoading: Bool) {
-        if false == isLoading {
+    func tempAPI2() {
+        showLoading()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self = self else { return }
+            self.dataList = FamilyData.sampleData.families
             hideLoading()
-        } else {
-            showLoading()
         }
     }
+    
+    func tempAPI3() {
+        showLoading()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self = self else { return }
+            self.dataList = FamilyData.sampleData.families
+            hideLoading()
+        }
+    }
+    
+//    func handleTabLoading(for isLoading: Bool) {
+//        if false == isLoading {
+//            hideLoading()
+//        } else {
+//            showLoading()
+//        }
+//    }
     
     func showLoading() {
         isTabLoading = true
@@ -49,5 +67,16 @@ final class LinkManagementViewModel {
     
     func sentTabTapped() {
         linkTabState = .sentTab
+    }
+    
+    func handleTabState(for tabState: LinkTabState) {
+        switch tabState {
+        case .linkListTab:
+            tempAPI()
+        case .receivedTab:
+            tempAPI2()
+        case .sentTab:
+            tempAPI3()
+        }
     }
 }

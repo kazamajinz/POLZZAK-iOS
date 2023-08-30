@@ -21,35 +21,35 @@ final class LinkManagementViewController: UIViewController {
     var userType: UserType
     private var workItem: DispatchWorkItem?
     
-    //TODO: - 임시코드, 새로운 API통신을 했다는 가정
-    private var linkManagementTabState: LinkTabState = .linkListTab {
-        didSet {
-            
-            if 0 == viewModel.dataList.count {
-                return
-            }
-            //TODO: - 새로운 API통신을 했다는 가정
-            fullScreenLoadingView.startLoading()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                guard let self = self else { return }
-                switch linkManagementTabState {
-                case .linkListTab:
-                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-                case .receivedTab:
-                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-                case .sentTab:
-                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-                case .unknwon:
-                    break
-                }
-                
-                tableView.backgroundView = tableEmptyView
-                tableView.reloadData()
-                
-                self.fullScreenLoadingView.stopLoading()
-            }
-        }
-    }
+//    //TODO: - 임시코드, 새로운 API통신을 했다는 가정
+//    private var linkManagementTabState: LinkTabState = .linkListTab {
+//        didSet {
+//
+//            if 0 == viewModel.dataList.count {
+//                return
+//            }
+//            //TODO: - 새로운 API통신을 했다는 가정
+////            fullLoadingView.startLoading()
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//                guard let self = self else { return }
+//                switch linkManagementTabState {
+//                case .linkListTab:
+//                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
+//                case .receivedTab:
+//                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
+//                case .sentTab:
+//                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
+//                case .unknwon:
+//                    break
+//                }
+//
+//                tableView.backgroundView = tableEmptyView
+//                tableView.reloadData()
+//
+//                self.fullScreenLoadingView.stopLoading()
+//            }
+//        }
+//    }
     
     private var searchState: SearchState = .beforeSearch(isSearchBarActive: false) {
         didSet {
@@ -120,7 +120,7 @@ final class LinkManagementViewController: UIViewController {
         return emptyView
     }()
     private var searchResultView: SearchResultView = SearchResultView()
-    private let fullScreenLoadingView = FullScreenLoadingView()
+    private let fullLoadingView = FullLoadingView(backgroundColor: .white.withAlphaComponent(0.4))
     
     private let searchLoadingView: SearchLoadingView = {
         let searchLoadingView = SearchLoadingView()
@@ -144,6 +144,7 @@ final class LinkManagementViewController: UIViewController {
     private let tabViews: TabViews = {
         let tabViews = TabViews()
         tabViews.tabTitles = ["연동 목록", "받은 목록", "보낸 목록"]
+        tabViews.initTabViews()
         tabViews.setTouchInteractionEnabled(true)
         return tabViews
     }()
@@ -174,9 +175,6 @@ final class LinkManagementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODO: - API통신
-        linkManagementTabState = .linkListTab
-        
         setupUI()
         setupNavigationBar()
         setupDelegate()
@@ -189,7 +187,7 @@ extension LinkManagementViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        [searchBar, tabContentView, searchEmptyView, searchLoadingView, searchResultView, fullScreenLoadingView].forEach {
+        [searchBar, tabContentView, searchEmptyView, searchLoadingView, searchResultView, fullLoadingView].forEach {
             view.addSubview($0)
         }
         
@@ -239,7 +237,7 @@ extension LinkManagementViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        fullScreenLoadingView.snp.makeConstraints {
+        fullLoadingView.snp.makeConstraints {
             $0.top.equalTo(tabViews.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -281,37 +279,17 @@ extension LinkManagementViewController {
     }
     
     private func bindViewModel() {
-//        viewModel.shouldEndRefreshing
-//            .sink { [weak self] in
-//                self?.customRefreshControl.endRefreshing()
-//            }
-//            .store(in: &cancellables)
-//
-//        viewModel.isSkeleton
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] bool in
-//                self?.handleSkeletonView(for: bool)
-//            }
-//            .store(in: &cancellables)
-//
-//        viewModel.isCenterLoading
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] bool in
-//                self?.handleLoadingView(for: bool)
-//            }
-//            .store(in: &cancellables)
-//
         viewModel.$isTabLoading
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
-                self?.viewModel.handleTabLoading(for: bool)
+                self?.handleLoadingView(for: bool)
             }
             .store(in: &cancellables)
         
         viewModel.$linkTabState
             .receive(on: DispatchQueue.main)
-            .sink {
-                self?.viewModel.handletab
+            .sink { [weak self] state in
+                self?.viewModel.handleTabState(for: state)
             }
             .store(in: &cancellables)
         
@@ -321,15 +299,18 @@ extension LinkManagementViewController {
                 self?.tableView.reloadData()
             }
             .store(in: &cancellables)
-//
-//        viewModel.filterType
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] filterType in
-//                self?.updateLayout(for: filterType)
-//                self?.updateFilterView()
-//
-//            }
-//            .store(in: &cancellables)
+    }
+    
+    private func handleLoadingView(for bool: Bool) {
+        if true == bool {
+            fullLoadingView.startLoading()
+            tabViews.setTouchInteractionEnabled(!bool)
+            searchBar.isUserInteractionEnabled = !bool
+        } else {
+            fullLoadingView.stopLoading()
+            tabViews.setTouchInteractionEnabled(!bool)
+            searchBar.isUserInteractionEnabled = !bool
+        }
     }
 }
 
@@ -355,7 +336,7 @@ extension LinkManagementViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let family = viewModel.dataList[indexPath.row]
-        switch linkManagementTabState {
+        switch viewModel.linkTabState {
         case .linkListTab:
             let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier, for: indexPath) as! LinkListTabCell
             cell.delegate = self
@@ -371,8 +352,6 @@ extension LinkManagementViewController: UITableViewDataSource {
             cell.delegate = self
             cell.configure(family: family)
             return cell
-        case .unknwon:
-            return UITableViewCell()
         }
     }
     

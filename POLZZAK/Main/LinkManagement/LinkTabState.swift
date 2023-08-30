@@ -11,5 +11,4 @@ enum LinkTabState {
     case linkListTab
     case receivedTab
     case sentTab
-    case unknwon
 }
