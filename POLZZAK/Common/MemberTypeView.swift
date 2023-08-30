@@ -11,7 +11,7 @@ import SnapKit
 class MemberTypeView: UIView {
     private let memberTypeLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor:.gray700, font: .body2, textAlignment: .center)
+        label.setLabel(textColor:.gray700, font: .body14Sbd, textAlignment: .center)
         return label
     }()
     

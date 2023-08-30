@@ -17,12 +17,14 @@ class Toast: NSObject {
     enum Constants {
         static let toastHeight = 42.0
         static let bottomPadding = 36.0
-        static let toastTime = 3.0
+        static let toastStartTime = 0.5
+        static let toastEndTime = 0.5
+        static let toastDuringTime = 2.0
     }
     
-    var isToastShown: Bool = false
+    private var currentCloseTask: Task<Void, Never>?
     
-    private var isManuallyClosed = false
+    var isToastShown: Bool = false
     
     private let toastContainer: UIView = {
         let view = UIView()
@@ -42,7 +44,7 @@ class Toast: NSObject {
     
     private let toastLabel: UILabel = {
         let label = UILabel()
-        label.font = .body2
+        label.font = .body14Sbd
         label.textColor = .white
         return label
     }()
@@ -115,6 +117,7 @@ extension Toast {
     }
     
     func show() {
+        guard false == isToastShown else  { return }
         guard let topViewController = UIApplication.getTopViewController() else { return }
         topViewController.view.addSubview(toastContainer)
         
@@ -122,38 +125,43 @@ extension Toast {
         
         setUI()
         setGesture()
+        
         self.toastContainer.transform = CGAffineTransform(translationX: 0, y: Constants.toastHeight + Constants.bottomPadding)
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
+        
+        UIView.animate(withDuration: Constants.toastStartTime, delay: 0.0, options: .curveEaseIn, animations: {
             self.toastContainer.alpha = 1.0
             self.toastContainer.transform = .identity
-        }, completion: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.toastTime) { [weak self] in
-                guard let self = self else { return }
-                if false == self.isManuallyClosed {
-                    self.closeToast()
-                }
-            }
+        }, completion: { [weak self] _ in
+            guard let self = self else { return }
+            self.currentCloseTask = Task.init(priority: .userInitiated, operation: {
+                try? await Task.sleep(nanoseconds: UInt64(Constants.toastDuringTime * 1_000_000_000))
+                if self.currentCloseTask?.isCancelled == true { return }
+                await self.closeToast()
+            })
         })
     }
     
+    
+    @MainActor
     @objc private func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: toastContainer)
         if recognizer.state == .changed {
             toastContainer.transform = CGAffineTransform(translationX: 0, y: translation.y)
         } else if recognizer.state == .ended || recognizer.state == .cancelled {
+            self.currentCloseTask?.cancel()
             if translation.y > 0 {
-                isManuallyClosed = true
                 closeToast()
             } else {
-                UIView.animate(withDuration: 0.5) {
+                UIView.animate(withDuration: Constants.toastStartTime) {
                     self.toastContainer.transform = .identity
                 }
             }
         }
     }
     
+    @MainActor
     private func closeToast() {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: Constants.toastEndTime, animations: {
             self.toastContainer.alpha = 0.0
             self.toastContainer.transform = CGAffineTransform(translationX: 0, y: self.toastContainer.frame.height)
         }) { _ in

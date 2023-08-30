@@ -48,7 +48,7 @@ final class AppFlowController {
     
     private func getHomeViewController() -> TabBarController {
         //TODO: - 로그인 및 회원상태에 따라 분기처리할 예정
-        let mainViewController = MainViewController(userInformations: tempDummyData)
+        let mainViewController = MainViewController()
         mainViewController.tabBarItem = UITabBarItem(title: "메인", image: .mainTabBarIcon, tag: 0)
         let mainNavigationController = UINavigationController(rootViewController: mainViewController)
         mainNavigationController.setNavigationBarStyle()

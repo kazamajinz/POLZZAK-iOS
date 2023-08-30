@@ -1,20 +1,20 @@
 //
-//  CouponListViewModel.swift
+//  MainViewModel.swift
 //  POLZZAK
 //
-//  Created by 이정환 on 2023/07/31.
+//  Created by 이정환 on 2023/08/23.
 //
 
 import Foundation
 import Combine
 
-final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
-    typealias DataListType = CouponListData
-    var dataList = CurrentValueSubject<[CouponListData], Never>([])
+final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
+    typealias DataListType = UserStampBoardList
+    var dataList = CurrentValueSubject<[UserStampBoardList], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     var isFirstChange: Bool = true
-    var userType = CurrentValueSubject<UserType, Never>(.parent)
+    var userType = CurrentValueSubject<UserType, Never>(.child)
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
     var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
@@ -51,7 +51,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
                 self.hideLoading(for: centerLoading)
             }
             
-            self.dataList.send(CouponListData.sampleData)
+            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
@@ -63,7 +63,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
                 self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.dataList.send(CouponListData.sampleData)
+            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
@@ -71,26 +71,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
         return dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
     }
     
-    func couponID(at indexPath: IndexPath) -> Int? {
-        switch filterType.value {
-        case .all:
-            guard false == dataList.value.isEmpty,
-                  false == dataList.value[indexPath.section].coupons.isEmpty else {
-                return nil
-            }
-            return dataList.value[indexPath.section].coupons[indexPath.row].couponID
-        case .section(let memberId):
-            let index = dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
-            return dataList.value[index].coupons[indexPath.row].couponID
-        }
-    }
-    
-    func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
-        guard let id = couponID(at: indexPath) else { return nil }
-        return CouponDetailViewModel(tabState: tabState.value, couponID: id)
-    }
-    
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
-        return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].coupons.isEmpty
+        return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].stampBoardSummaries.isEmpty
     }
 }

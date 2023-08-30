@@ -33,7 +33,7 @@ final class TabView: UIView {
         }
     }
     
-    var selectFont: UIFont = .subtitle2 {
+    var selectFont: UIFont = .subtitle16Bd {
         didSet {
             if true == isSelected {
                 tabLabel.font = selectFont
@@ -65,7 +65,7 @@ final class TabView: UIView {
         }
     }
     
-    var deselectFont: UIFont = .subtitle2 {
+    var deselectFont: UIFont = .subtitle16Bd {
         didSet {
             if false == isSelected {
                 tabLabel.font = deselectFont

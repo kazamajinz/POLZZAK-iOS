@@ -39,7 +39,7 @@ final class TabViews: UIStackView {
         }
     }
     
-    var selectFont: UIFont = .subtitle2 {
+    var selectFont: UIFont = .subtitle16Bd {
         didSet {
             tabViews.forEach {
                 $0.selectFont = selectFont
@@ -79,7 +79,7 @@ final class TabViews: UIStackView {
         }
     }
     
-    var deselectFont: UIFont = .subtitle2 {
+    var deselectFont: UIFont = .subtitle16Bd {
         didSet {
             tabViews.forEach {
                 $0.deselectFont = deselectFont

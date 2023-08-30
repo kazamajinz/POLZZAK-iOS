@@ -33,7 +33,7 @@ final class SearchBar: UIView {
         }
     }
     
-    var font: UIFont = .body3 {
+    var font: UIFont = .body14Md {
         didSet {
             searchBarSubView.font = font
         }
@@ -47,7 +47,7 @@ final class SearchBar: UIView {
     
     private let cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "취소", color: .gray600, font: .body2)
+        button.setTitleLabel(title: "취소", color: .gray600, font: .body14Sbd)
         return button
         
     }()

@@ -14,7 +14,7 @@ final class SearchLoadingView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .gray800
-        label.font = .body3
+        label.font = .body14Md
         label.textAlignment = .center
         return label
     }()
@@ -23,7 +23,7 @@ final class SearchLoadingView: UIView {
         let button = UIButton()
         button.setTitle("취소", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .caption3
+        button.titleLabel?.font = .caption12Bd
         button.backgroundColor = .blue500
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
@@ -42,7 +42,7 @@ final class SearchLoadingView: UIView {
     func configure(nickName: String) {
         placeholder.text = "\(nickName)님을\n열심히 찾는 중이에요"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        placeholder.setEmphasisRanges(emphasisRange, color: .gray800, font: .body5)
+        placeholder.setEmphasisRanges(emphasisRange, color: .gray800, font: .body14Bd)
     }
     
     private func setUI() {

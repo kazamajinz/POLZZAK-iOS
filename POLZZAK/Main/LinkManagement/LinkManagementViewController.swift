@@ -35,16 +35,16 @@ final class LinkManagementViewController: UIViewController {
                 guard let self = self else { return }
                 switch linkManagementTabState {
                 case .linkListTab:
-                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
+                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
                 case .receivedTab:
-                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
+                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
                 case .sentTab:
-                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
+                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
                 }
-
+                
                 tableView.backgroundView = tableEmptyView
                 tableView.reloadData()
-
+                
                 self.fullScreenLoadingView.stopLoading()
             }
         }
@@ -125,7 +125,7 @@ final class LinkManagementViewController: UIViewController {
     private lazy var searchEmptyView: EmptyView = {
         let emptyView = EmptyView()
         emptyView.topSpacing = 229
-        emptyView.label.setLabel(text: "연동된 \(userType.string)에게\n칭안 도장판을 만들어 줄 수 있어요", textColor: .gray500, font: .caption2, textAlignment: .center)
+        emptyView.label.setLabel(text: "연동된 \(userType.string)에게\n칭안 도장판을 만들어 줄 수 있어요", textColor: .gray500, font: .caption12Md, textAlignment: .center)
         emptyView.imageView.image = .searchImage
         emptyView.isHidden = true
         return emptyView
@@ -278,21 +278,21 @@ extension LinkManagementViewController {
     
     private func linkListTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .linkListTab
     }
     
     private func receivedTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .receivedTab
     }
     
     private func sentTabTapped() {
         //TODO: - 새로운 API통신을 했다는 가정
-//        beforeState = linkManagementTabState
+        //        beforeState = linkManagementTabState
         
         linkManagementTabState = .sentTab
     }
@@ -393,10 +393,10 @@ extension LinkManagementViewController: UITableViewDataSource {
         workItem = DispatchWorkItem { [weak self] in
             self?.searchState = .afterSearch
             if text == "연동" {
-                let tempFamilyMember = tempDummyData.first!.familyMember
+                let tempFamilyMember = tempDummyData.first!.family
                 self?.searchResultState = .linked(tempFamilyMember)
             } else if text == "미연동" {
-                let tempFamilyMember = tempDummyData.first!.familyMember
+                let tempFamilyMember = tempDummyData.first!.family
                 self?.searchResultState = .unlinked(tempFamilyMember)
             } else {
                 self?.searchResultState = .nonExist(text)
@@ -418,7 +418,7 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
         let alert = CustomAlertViewController()
         alert.contentLabel.text = "\(nickName)님과\n연동을 해제하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body6)
+        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         alert.secondButton.setTitle("네, 해제할래요", for: .normal)
         alert.isLoadingView = true
         alert.secondButtonAction = { [weak self] in
@@ -437,7 +437,7 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
         let alert = CustomAlertViewController()
         alert.contentLabel.text = "\(nickName)님의\n연동 요청을 수락하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body6)
+        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         alert.secondButton.setTitle("네, 좋아요!", for: .normal)
         alert.isLoadingView = true
         alert.secondButtonAction = { [weak self] in
@@ -453,7 +453,7 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
         let alert = CustomAlertViewController()
         alert.contentLabel.text = "\(nickName)님의\n연동 요청을 거절하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body6)
+        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         alert.secondButton.setTitle("네, 거절할래요", for: .normal)
         alert.secondButtonAction = { [weak self] in
             self?.tempRemove(memberId: indexPath)
@@ -471,7 +471,7 @@ extension LinkManagementViewController: SentTabCellDelegate {
         let alert = CustomAlertViewController()
         alert.contentLabel.text = "\(nickName)님에게 보낸\n연동 요청을 취소하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body6)
+        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         alert.secondButton.setTitle("네, 취소할래요", for: .normal)
         alert.isLoadingView = true
         alert.secondButtonAction = { [weak self] in
@@ -514,7 +514,7 @@ extension LinkManagementViewController: SearchResultViewDelegate {
         let alert = CustomAlertViewController()
         alert.contentLabel.text = "\(nickName)님에게\n연동 오쳥을 보낼까요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body6)
+        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         alert.secondButton.setTitle("네, 좋아요!", for: .normal)
         alert.isLoadingView = true
         //TODO: - API연결하고 수정필요, requestCompletion을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.

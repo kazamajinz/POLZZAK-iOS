@@ -29,7 +29,7 @@ final class SearchResultView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .gray700
-        label.font = .body3
+        label.font = .body14Md
         label.textAlignment = .center
         return label
     }()
@@ -39,7 +39,7 @@ final class SearchResultView: UIView {
     var underLineButton: UIButton = {
         let button = UIButton()
         button.isHidden = true
-        button.setUnderlinedTitle(text: "앗 실수, 요청 취소 할래요", textColor: .gray500, font: .body9)
+        button.setUnderlinedTitle(text: "앗 실수, 요청 취소 할래요", textColor: .gray500, font: .body13Sbd)
         return button
     }()
     
@@ -94,8 +94,8 @@ final class SearchResultView: UIView {
             familyMember = member
             imageView.loadImage(from: member.profileURL)
             imageView.layer.cornerRadius = 50
-            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
-            button.setLabel(text: "연동요청", textColor: .white, font: .caption3, textAlignment: .center, backgroundColor: .blue500)
+            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body14Bd)
+            button.setLabel(text: "연동요청", textColor: .white, font: .caption12Bd, textAlignment: .center, backgroundColor: .blue500)
             button.addBorder(cornerRadius: 4)
             
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
@@ -106,8 +106,8 @@ final class SearchResultView: UIView {
             familyMember = member
             imageView.loadImage(from: member.profileURL)
             imageView.layer.cornerRadius = 50
-            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body5)
-            button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption3, textAlignment: .center)
+            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body14Bd)
+            button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption12Bd, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
             button.isUserInteractionEnabled = true
@@ -116,14 +116,14 @@ final class SearchResultView: UIView {
             familyMember = member
             imageView.loadImage(from: member.profileURL)
             imageView.layer.cornerRadius = 50
-            button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption3, textAlignment: .center)
+            button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption12Bd, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
         case .nonExist(let nickName):
             imageView.image = .sittingCharacter
             imageView.layer.cornerRadius = 0
             placeholder.text = "\(nickName)님을\n찾을 수 없어요"
             let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-            placeholder.setEmphasisRanges(emphasisRange, color: .gray700, font: .body5)
+            placeholder.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
         case .notSearch:
             break
         }

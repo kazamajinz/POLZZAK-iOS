@@ -25,13 +25,13 @@ final class SentTabCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .body2)
+        label.setLabel(textColor: .gray800, font: .body14Sbd)
         return label
     }()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitleLabel(title: "요청 취소", color: .white, font: .body2, backgroundColor: .error500)
+        button.setTitleLabel(title: "요청 취소", color: .white, font: .body14Sbd, backgroundColor: .error500)
         button.addBorder(cornerRadius: 6)
         return button
     }()

@@ -7,113 +7,44 @@
 
 import UIKit
 import SnapKit
+import Combine
+import CombineCocoa
 
 final class MainViewController: UIViewController {
-    
-    //MARK: - let, var
-    private var userInformations: [UserInformation]
-    
-    private var initialContentOffsetY: Double = 74.0
-    private var headerTabHeight: Double = 44.0
-    private var filterTopPadding: Double = -23.0
-    private var refreshPadding: Double = -84.0
-    private let customRefreshControl = CustomRefreshControl(topPadding: -20)
-    private let deviceWidth = UIScreen.main.bounds.width
-    private let deviceHeight = UIScreen.main.bounds.height
-    
-    private var stampBoardState: StampBoardState = .unknown {
-        didSet {
-            collectionView.reloadData()
-            setTabButton()
-            updateLayout()
-            DispatchQueue.main.async {
-                self.updateFrames()
-            }
-        }
+    enum Constants {
+        static let deviceWidth = UIApplication.shared.width
+        static let collectionViewContentInset = UIEdgeInsets(top: TabConstants.initialContentOffsetY, left: 0, bottom: 32, right: 0)
+        static let groupSizeWidth: CGFloat = deviceWidth - 52.0
+        static let inprogressGroupSizeHeight: CGFloat = groupSizeWidth * 377.0 / 323.0
+        static let completedGroupSizeHeight: CGFloat = groupSizeWidth * 180.0 / 323.0
+        static let contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
+        static let interGroupSpacing: CGFloat = 15.0
+        static let interSectionSpacing: CGFloat  = 32.0
+        static let headerViewHeight: CGFloat  = 42.0
+        static let filterHeight: CGFloat  = 74.0
+        
+        static let tabTitles = ["진행중", "완료"]
+        static let placeHolderLabelText = "와 연동되면\n도장판을 만들 수 있어요!"
     }
     
-    private var stampFilter: StampFilter = .all {
-        didSet {
-            updateMemberLabel()
-        }
-    }
+    private let viewModel = StampBoardViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
-    //MARK: - headerTabStackView UI
-    private let headerTabStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .white
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        return stackView
-    }()
+    private let customRefreshControl = CustomRefreshControl()
+    private let stampBoardFilterView = StampBoardFilterView()
+    private let fullLoadingView = FullLoadingView()
+    private let stampBoardSkeletonView = StampBoardSkeletonView()
     
-    private let inProgressTabView: UIView = {
+    private let headerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         return view
     }()
     
-    private let inProgressTabLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(text: "진행 중", textColor: .gray300, font: .subtitle2, textAlignment: .center)
-        return label
-    }()
-    
-    private let inProgressUnderlineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray300
-        return view
-    }()
-    
-    private let completedTabView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private let completedTabLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(text: "완료", textColor: .gray300, font: .subtitle2, textAlignment: .center)
-        return label
-    }()
-    
-    private let completedUnderlineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray300
-        return view
-    }()
-    
-    //MARK: - filterView UI
-    private let filterStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        return stackView
-    }()
-    
-    private let nameStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 6
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    private let filterLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(text: "전체", textColor: .gray800, font: .title4, textAlignment: .left)
-        return label
-    }()
-    
-    private let filterImageView: UIButton = {
-        let imageView = UIButton()
-        imageView.setImage(.filterButton, for: .normal)
-        return imageView
-    }()
-    
-    private let filterButtonView: UIView = {
-        let view = UIView()
-        return view
+    private let tabViews: TabViews = {
+        let tabViews = TabViews()
+        tabViews.tabTitles = Constants.tabTitles
+        return tabViews
     }()
     
     private let contentsView: UIView = {
@@ -122,38 +53,40 @@ final class MainViewController: UIViewController {
         return view
     }()
     
+    private let emptyView: CollectionEmptyView = {
+        let emptyView = CollectionEmptyView()
+        emptyView.isHidden = true
+        return emptyView
+    }()
+    
     private let addStampBoardButton: UIButton = {
         let button = UIButton()
         button.setImage(.addStampBoardButton, for: .normal)
+        button.isHidden = true
         return button
     }()
     
-    //MARK: - collectionView
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private lazy var mainCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout(spacing: Constants.interSectionSpacing))
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.contentInset = UIEdgeInsets(top: initialContentOffsetY, left: 0, bottom: 0, right: 0)
-        
-        customRefreshControl.observe(scrollView: collectionView)
-        collectionView.refreshControl = customRefreshControl
-        
+        collectionView.contentInset = Constants.collectionViewContentInset
         collectionView.dataSource = self
         collectionView.delegate = self
         
         collectionView.register(StampBoardHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier)
+        collectionView.register(StampBoardFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampBoardFooterView.reuseIdentifier)
         collectionView.register(EmptyCell.self, forCellWithReuseIdentifier: EmptyCell.reuseIdentifier)
         collectionView.register(InprogressStampBoardCell.self, forCellWithReuseIdentifier: InprogressStampBoardCell.reuseIdentifier)
         collectionView.register(CompletedStampBoardCell.self, forCellWithReuseIdentifier: CompletedStampBoardCell.reuseIdentifier)
         
+        customRefreshControl.observe(scrollView: collectionView)
+        collectionView.refreshControl = customRefreshControl
         return collectionView
     }()
     
-    //MARK: - init
-    init(userInformations: [UserInformation]) {
-        //TODO: - 테스트 데이터, 삭제할것
-        self.userInformations = userInformations
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder: NSCoder) {
@@ -164,462 +97,408 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setUI()
-        setNavigation()
+        setupNavigation()
+        setupTabViews()
         setAction()
+        bindViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        //TODO: - 테스트 데이터, 삭제할것
-        stampFilter = .all
-        stampBoardState = .inProgressAndAll
+        updateFilterView()
     }
 }
 
 extension MainViewController {
-    private func setNavigation() {
-        navigationController?.navigationBar.tintColor = .gray800
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
-        let rightButtonImage = UIImage.myConnectionsButton
-        let rightButton = UIBarButtonItem(image: rightButtonImage, style: .plain, target: self, action: #selector(myConnectionsButtonClicked))
-        self.navigationItem.rightBarButtonItem = rightButton
-    }
-    
     private func setUI() {
         view.backgroundColor = .white
         
-        //MARK: - headerTabStackView UI
-        [inProgressTabView, completedTabView].forEach {
-            headerTabStackView.addArrangedSubview($0)
+        [contentsView, fullLoadingView].forEach {
+            view.addSubview($0)
         }
-        
-        [inProgressTabLabel, inProgressUnderlineView].forEach {
-            inProgressTabView.addSubview($0)
-        }
-        
-        inProgressTabLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(14)
-            $0.bottom.equalToSuperview().inset(4)
-            $0.centerX.equalToSuperview()
-        }
-        
-        inProgressUnderlineView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        [completedTabLabel, completedUnderlineView].forEach {
-            completedTabView.addSubview($0)
-        }
-        
-        completedTabLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(14)
-            $0.bottom.equalToSuperview().inset(4)
-            $0.centerX.equalToSuperview()
-        }
-        
-        completedUnderlineView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        //MARK: - 전체 UI
-        view.addSubview(contentsView)
         
         contentsView.snp.makeConstraints {
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
         
-        //MARK: - contents UI
-        [filterStackView, collectionView, addStampBoardButton, filterButtonView, headerTabStackView].forEach {
+        fullLoadingView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        [mainCollectionView, stampBoardFilterView, headerView, emptyView, addStampBoardButton, stampBoardSkeletonView].forEach {
             contentsView.addSubview($0)
         }
         
-        headerTabStackView.snp.makeConstraints {
+        headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(Constants.headerViewHeight)
         }
         
-        filterStackView.snp.makeConstraints {
-            $0.top.equalTo(headerTabStackView.snp.bottom)
-            $0.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(74)
-        }
+        headerView.addSubview(tabViews)
         
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(headerTabStackView.snp.bottom)
+        tabViews.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        mainCollectionView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        stampBoardFilterView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(Constants.filterHeight)
         }
         
         addStampBoardButton.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview().inset(16)
         }
         
-        filterButtonView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.height.equalTo(26)
-            $0.width.equalTo(filterStackView.snp.width)
+        stampBoardSkeletonView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
-        //MARK: - filter UI
-        [nameStackView, filterImageView].forEach {
-            filterStackView.addArrangedSubview($0)
+        emptyView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(34)
+            $0.leading.trailing.equalToSuperview().inset(26)
+            $0.bottom.equalToSuperview().inset(54)
         }
+    }
+    
+    private func setupNavigation() {
+        setNavigationBarStyle()
+        self.navigationController?.navigationBar.tintColor = .gray800
+        let rightBarButtonItem = UIBarButtonItem(image: .myConnectionsButton, style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
-        [filterLabel].forEach {
-            nameStackView.addArrangedSubview($0)
-        }
+        rightBarButtonItem.tapPublisher
+            .sink { [weak self] _ in
+                self?.myConnectionsButtonTapped()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func setupTabViews() {
+        tabViews.delegate = self
     }
     
     private func setAction() {
-        let tapInProgressTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(inProgressTabButtonTapped))
-        inProgressTabView.addGestureRecognizer(tapInProgressTabRecognizer)
-        
-        let tapCompletedTabRecognizer = UITapGestureRecognizer(target: self, action: #selector(completedTabButtonTapped))
-        completedTabView.addGestureRecognizer(tapCompletedTabRecognizer)
-        
         let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
-        filterButtonView.addGestureRecognizer(tapFilterButtonViewRecognizer)
+        stampBoardFilterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
+        customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
     
-    //MARK: - @objc
-    @objc private func myConnectionsButtonClicked() {
-        //TODO: - 보호자로 가정
+    private func bindViewModel() {
+        viewModel.shouldEndRefreshing
+            .sink { [weak self] in
+                self?.customRefreshControl.endRefreshing()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isSkeleton
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bool in
+                self?.handleSkeletonView(for: bool)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isCenterLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bool in
+                self?.handleLoadingView(for: bool)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.dataList
+            .filter { [weak self] _ in
+                self?.viewModel.isSkeleton.value == false
+            }
+            .map { array -> Bool in
+                return array.isEmpty
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bool in
+                self?.mainCollectionView.reloadData()
+                self?.tabViews.setTouchInteractionEnabled(true)
+                self?.handleEmptyView(for: bool)
+                self?.updateFilterView()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.filterType
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] filterType in
+                self?.updateLayout(for: filterType)
+                self?.updateFilterView()
+                
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func updateLayout(for filterType: FilterType) {
+        switch filterType {
+        case .all:
+            stampBoardFilterView.handleAllFilterButtonTap()
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let family = viewModel.dataList.value[index].family
+            if viewModel.userType.value == .child {
+                stampBoardFilterView.handleChildSectionFilterButtonTap(with: family)
+            } else {
+                stampBoardFilterView.handleParentSectionFilterButtonTap(with: family)
+            }
+        }
+        applySectionFilter()
+    }
+    
+    private func applySectionFilter() {
+        let newLayout = createLayout(spacing: Constants.interSectionSpacing)
+        mainCollectionView.setCollectionViewLayout(newLayout, animated: false)
+        mainCollectionView.reloadData()
+    }
+    
+    private func updateFilterView() {
+        let currentOffset = mainCollectionView.contentOffset.y
+        let distance = TabConstants.initialContentOffsetY + currentOffset
+        let newY = max(TabConstants.headerTopPadding - distance, TabConstants.filterTopPadding)
+        
+        if distance >= 0 {
+            stampBoardFilterView.frame.origin.y = newY
+        } else {
+            stampBoardFilterView.frame.origin.y = TabConstants.headerTopPadding
+        }
+    }
+    
+    private func handleSkeletonView(for bool: Bool) {
+        if true == bool {
+            viewModel.tempInprogressAPI(isFirst: true)
+            stampBoardSkeletonView.showSkeletonView()
+        } else {
+            tabViews.initTabViews()
+            customRefreshControl.isRefresh = false
+            stampBoardSkeletonView.hideSkeletonView()
+            addStampBoardButton.isHidden = false
+        }
+    }
+    
+    private func handleLoadingView(for bool: Bool) {
+        if true == bool {
+            fullLoadingView.startLoading()
+        } else {
+            fullLoadingView.stopLoading()
+        }
+    }
+    
+    private func handleEmptyView(for bool: Bool) {
+        stampBoardFilterView.isHidden = bool
+        emptyView.isHidden = !bool
+        
+        if true == bool {
+            //TODO: - userType 정의가 되면 변경
+            emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
+            emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
+        }
+    }
+    
+    @objc func handleRefresh() {
+        viewModel.loadData()
+        tabViews.setTouchInteractionEnabled(false)
+    }
+    
+    @objc private func filterButtonTapped() {
+        let data = viewModel.dataList.value.map{ $0.family }
+        let bottomSheet = FilterBottomSheetViewController(data: data)
+        bottomSheet.delegate = self
+        bottomSheet.modalPresentationStyle = .custom
+        bottomSheet.transitioningDelegate = bottomSheet
+        
+        if case let .section(memberId) = viewModel.filterType.value {
+            bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
+        }
+        
+        present(bottomSheet, animated: true, completion: nil)
+    }
+    
+    private func myConnectionsButtonTapped() {
         let linkManagementViewController = LinkManagementViewController(userType: .parent)
         linkManagementViewController.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(linkManagementViewController, animated: true)
     }
-    
-    @objc private func inProgressTabButtonTapped() {
-        if stampBoardState == .completedAndAll {
-            stampBoardState = .inProgressAndAll
-        } else if stampBoardState == .completedAndSection {
-            stampBoardState = .inProgressAndSection
-        }
-    }
-    
-    @objc private func completedTabButtonTapped() {
-        if stampBoardState == .inProgressAndAll {
-            stampBoardState = .completedAndAll
-        } else if stampBoardState == .inProgressAndSection {
-            stampBoardState = .completedAndSection
-        }
-    }
-    
-    @objc private func filterButtonTapped() {
-        
-        //TODO: - 테스트 코드, 삭제할것
-        let alertController = UIAlertController(title: "필터", message: "필터링해드림", preferredStyle: .actionSheet)
-        
-        let okAction = UIAlertAction(title: "전체", style: .default) { [weak self] _ in
-            self?.stampFilter = .all
-            
-            if self?.stampBoardState == .inProgressAndSection {
-                self?.stampBoardState = .inProgressAndAll
-            } else if self?.stampBoardState == .completedAndSection {
-                self?.stampBoardState = .completedAndAll
-            }
-        }
-        
-        //섹션2
-        let okAction2 = UIAlertAction(title: "해린맘2(섹션2번) 선택", style: .default) { [weak self] _ in
-            let num = 2
-            let nickname = self?.userInformations[num].familyMember.nickName ?? "전체"
-            let section = StampSection(id: num, name: nickname, memberType: "조카")
-            self?.stampFilter = .section(section)
-            
-            if self?.stampBoardState == .inProgressAndAll {
-                self?.stampBoardState = .inProgressAndSection
-            } else if self?.stampBoardState == .completedAndAll {
-                self?.stampBoardState = .completedAndSection
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
-        alertController.addAction(okAction)
-        alertController.addAction(okAction2)
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    private func setTabButton() {
-        switch stampBoardState {
-            
-        case .inProgressAndAll, .inProgressAndSection:
-            inProgressTabLabel.textColor = .blue400
-            inProgressUnderlineView.backgroundColor = .blue400
-            completedTabLabel.textColor = .gray300
-            completedUnderlineView.backgroundColor = .gray300
-            
-        case .completedAndAll, .completedAndSection:
-            inProgressTabLabel.textColor = .gray300
-            inProgressUnderlineView.backgroundColor = .gray300
-            completedTabLabel.textColor = .blue400
-            completedUnderlineView.backgroundColor = .blue400
-            
-        case .unknown:
-            inProgressTabLabel.textColor = .gray300
-            inProgressUnderlineView.backgroundColor = .gray300
-            completedTabLabel.textColor = .gray300
-            completedUnderlineView.backgroundColor = .gray300
-        }
-    }
-    
-    private func updateLayout() {
-        let newLayout = createLayout()
-        collectionView.setCollectionViewLayout(newLayout, animated: false)
-    }
-    
-    private func getSection() -> Int {
-        switch stampFilter {
-        case .all:
-            return -1
-        case .section(let section):
-            return section.id
-        }
-    }
-    
-    private func updateFrames() {
-        let currentOffset = collectionView.contentOffset.y
-        let distance = initialContentOffsetY + currentOffset
-        let newY = max(headerTabHeight - distance, filterTopPadding)
-
-        if distance >= 0 {
-            filterStackView.frame.origin.y = newY
-            filterButtonView.frame.origin.y = newY + 24
-        } else {
-            filterStackView.frame.origin.y = headerTabHeight
-            filterButtonView.frame.origin.y = headerTabHeight + 24
-        }
-    }
-
-    private func updateMemberLabel() {
-        switch stampFilter {
-            
-        case .all:
-            guard nameStackView.arrangedSubviews.count != 1 else {
-                return
-            }
-            
-            guard let firstSubView = nameStackView.arrangedSubviews.first else {
-                return
-            }
-            
-            firstSubView.removeFromSuperview()
-            filterLabel.text = "전체"
-            
-        case .section(let stampSection):
-            if nameStackView.arrangedSubviews.count == 2 {
-                guard let firstSubView = nameStackView.arrangedSubviews.first else {
-                    return
-                }
-                
-                firstSubView.removeFromSuperview()
-            }
-            
-            let view = MemberTypeView(with: stampSection.memberType)
-            self.nameStackView.insertArrangedSubview(view, at: 0)
-            filterLabel.text = stampSection.name
-        }
-    }
 }
 
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func createLayout() -> UICollectionViewLayout {
-        let section: NSCollectionLayoutSection
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let collectionViewHeight = 180.0/600.0
-        
-        let collectionViewWidth = deviceWidth - 52 + 15
-        
-        switch stampBoardState {
-        case .inProgressAndAll, .unknown:
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 7.5, bottom: 0, trailing: 7.5)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(collectionViewWidth), heightDimension: .estimated(collectionViewWidth * 377.0 / 323.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(28))
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem( layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18.5, bottom: 32, trailing: 18.5)
-            section.orthogonalScrollingBehavior = .groupPaging
-            section.boundarySupplementaryItems = [sectionHeader]
-            
-        case .inProgressAndSection:
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 7.5, bottom: 22, trailing: 7.5)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension:  .fractionalWidth(1), heightDimension: .estimated(collectionViewWidth * 377.0 / 323.0))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 18.5, bottom: 0, trailing: 18.5)
-            section = NSCollectionLayoutSection(group: group)
-            
-        case .completedAndAll:
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 7.5, bottom: 0, trailing: 7.5)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(collectionViewWidth/deviceWidth), heightDimension: .fractionalHeight(collectionViewHeight))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(28))
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem( layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18.5, bottom: 32, trailing: 18.5)
-            section.orthogonalScrollingBehavior = .groupPaging
-            section.boundarySupplementaryItems = [sectionHeader]
-            
-        case .completedAndSection:
-            let collectionViewHeight = 180.0/600.0
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 7.5, bottom: 22, trailing: 7.5)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(collectionViewHeight))
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
-            
-            section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18.5, bottom: 32, trailing: 18.5)
-        }
-        
-        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, point, _ in
-            if let sectionIndex = visibleItems.last?.indexPath.section,
-               let headerView = self?.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: sectionIndex)) as? StampBoardHeaderView {
-                
-                if point.x < 0 {
-                    return
-                }
-                
-                if Double(point.x).truncatingRemainder(dividingBy: Double(collectionViewWidth)) <= 1.0 {
-                    let currentCount = Int(Double(point.x) / Double(collectionViewWidth)) + 1
-                    headerView.updateCurrentCount(with: currentCount)
-                }
-            }
-        }
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
-    }
-    
+extension MainViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        var sectionCount: Int
-        
-        switch stampBoardState {
-        case .inProgressAndAll, .completedAndAll, .unknown:
-            sectionCount = userInformations.count
-        case .inProgressAndSection, .completedAndSection:
+        switch viewModel.filterType.value {
+        case .all:
+            return viewModel.dataList.value.count
+        case .section:
             return 1
         }
-        
-        return sectionCount == 0 ? 1 : sectionCount
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var cellCount: Int
-        
-        switch stampBoardState {
-        case .inProgressAndAll, .unknown:
-            cellCount = userInformations[section].unRewardedStampBoards.count
-        case .inProgressAndSection:
-            let num = getSection()
-            cellCount = userInformations[num].unRewardedStampBoards.count
-        case .completedAndAll:
-            cellCount = userInformations[section].rewardedStampBoards.count
-        case .completedAndSection:
-            let num = getSection()
-            cellCount = userInformations[num].rewardedStampBoards.count
+        var cellCount: Int = 0
+        switch viewModel.filterType.value {
+        case .all:
+            cellCount = viewModel.dataList.value[section].stampBoardSummaries.count
+        case .section(let memberId):
+            if false == viewModel.dataList.value.isEmpty {
+                let index = viewModel.indexOfMember(with: memberId)
+                cellCount = viewModel.dataList.value[index].stampBoardSummaries.count
+            } else {
+                return 0
+            }
         }
         
         return cellCount == 0 ? 1 : cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        var cellCount: Int
-        
-        switch stampBoardState {
-        case .inProgressAndAll, .unknown:
-            cellCount = userInformations[indexPath.section].unRewardedStampBoards.count
-        case .inProgressAndSection:
-            let num = getSection()
-            cellCount = userInformations[num].unRewardedStampBoards.count
-        case .completedAndAll:
-            cellCount = userInformations[indexPath.section].rewardedStampBoards.count
-        case .completedAndSection:
-            let num = getSection()
-            cellCount = userInformations[num].rewardedStampBoards.count
+        if case .section(let memberId) = viewModel.filterType.value {
+            let index = viewModel.indexOfMember(with: memberId)
+            if true == viewModel.dataList.value[index].stampBoardSummaries.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
         }
         
-        if cellCount == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyCell.reuseIdentifier, for: indexPath) as! EmptyCell
-            var section: Int
-            
-            switch stampBoardState {
-            case .inProgressAndAll, .completedAndAll, .unknown:
-                section = indexPath.section
-            case .inProgressAndSection, .completedAndSection:
-                section = getSection()
+        if viewModel.filterType.value == .all {
+            if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
-            
-            let nickName = userInformations[section].familyMember.nickName
-            cell.configure(nickName: nickName)
-            return cell
-        } else {
-            switch stampBoardState {
-            case .inProgressAndAll, .unknown:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
-                let stampBoardSummary = userInformations[indexPath.section].unRewardedStampBoards[indexPath.row]
-                cell.configure(with: stampBoardSummary)
-                return cell
-            case .inProgressAndSection:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
-                let num = getSection()
-                let stampBoardSummary = userInformations[num].unRewardedStampBoards[indexPath.row]
-                cell.configure(with: stampBoardSummary)
-                return cell
-            case .completedAndAll:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
-                let stampBoardSummary = userInformations[indexPath.section].rewardedStampBoards[indexPath.row]
-                cell.configure(with: stampBoardSummary)
-                return cell
-            case .completedAndSection:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
-                let num = getSection()
-                let stampBoardSummary = userInformations[num].rewardedStampBoards[indexPath.row]
-                cell.configure(with: stampBoardSummary)
-                return cell
-            }
+        }
+        
+        if true == viewModel.dataList.value.isEmpty {
+            return dequeueEmptyCell(in: collectionView, at: indexPath)
+        }
+        
+        switch viewModel.tabState.value {
+        case .completed:
+            return dequeueCompletedCouponCell(in: collectionView, at: indexPath)
+        default:
+            return dequeueInProgressCouponCell(in: collectionView, at: indexPath)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier, for: indexPath) as! StampBoardHeaderView
         
-        switch stampBoardState {
-        case .inProgressAndAll, .inProgressAndSection, .unknown:
-            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
-            let name = userInformations[indexPath.section].familyMember.nickName
-            let totalCount = userInformations[indexPath.section].unRewardedStampBoards.count
-            headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier, for: indexPath) as! StampBoardHeaderView
+            if false == viewModel.dataList.value.isEmpty {
+                let family = viewModel.dataList.value[indexPath.section].family
+                headerView.configure(to: family, type: viewModel.userType.value)
+            }
+            return headerView
+        case UICollectionView.elementKindSectionFooter:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardFooterView.reuseIdentifier, for: indexPath) as! StampBoardFooterView
+            let totalCount = viewModel.dataList.value[indexPath.section].stampBoardSummaries.count
+            if totalCount != 0 {
+                footerView.configure(with: totalCount)
+            }
             
-        case .completedAndAll, .completedAndSection:
-            let memberType = userInformations[indexPath.section].familyMember.memberType.detail
-            let name = userInformations[indexPath.section].familyMember.nickName
-            let totalCount = userInformations[indexPath.section].rewardedStampBoards.count
-            headerView.configure(memberType: memberType, nickName: name, totalCount: totalCount)
+            return footerView
+        default:
+            return UICollectionReusableView()
         }
-        
-        return headerView
-        
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateFrames()
+    private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
+        return cell
+    }
+    
+    private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
+        switch viewModel.filterType.value {
+        case .all:
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        }
+        return cell
+    }
+    
+    private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
+        switch viewModel.filterType.value {
+        case .all:
+            let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        case .section(let memberId):
+            let index = viewModel.indexOfMember(with: memberId)
+            let boardData = viewModel.dataList.value[index].stampBoardSummaries[indexPath.row]
+            cell.configure(with: boardData)
+        }
+        return cell
+    }
+}
+
+extension MainViewController: CollectionLayoutConfigurable {
+    var collectionView: UICollectionView! {
+        return self.mainCollectionView
+    }
+    
+    func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSizeHeight = viewModel.tabState.value == .inProgress ? Constants.inprogressGroupSizeHeight : Constants.completedGroupSizeHeight
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(Constants.groupSizeWidth), heightDimension: .estimated(groupSizeHeight))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = Constants.contentInsets
+        section.interGroupSpacing = Constants.interGroupSpacing
+        
+        let isDataNotEmpty = viewModel.isDataNotEmpty(forSection: sectionIndex)
+        configureHeaderAndFooter(for: section, isDataNotEmpty: isDataNotEmpty, filterType: viewModel.filterType.value)
+        handleVisibleItems(for: section, with: Constants.groupSizeWidth)
+        
+        return section
     }
 }
 
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.customRefreshControl.endRefreshing()
+        viewModel.didEndDraggingSubject.send(true)
     }
 }
 
 extension MainViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateFilterView()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.pushViewController(DetailBoardViewController(stampSize: .size20), animated: true)
+    }
+}
+
+extension MainViewController: TabViewsDelegate {
+    func tabViews(_ tabViews: TabViews, didSelectTabAtIndex index: Int) {
+        switch index {
+        case 0:
+            viewModel.setInProgressTab()
+        case 1:
+            viewModel.setCompletedTab()
+        default:
+            break
+        }
+    }
+}
+
+extension MainViewController: FilterBottomSheetDelegate {
+    func selectedItem(index: Int) {
+        if index == 0 {
+            viewModel.filterType.send(.all)
+        } else {
+            let memberId = viewModel.dataList.value[index-1].family.memberId
+            viewModel.filterType.send(.section(memberId))
+        }
     }
 }

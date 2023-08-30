@@ -1,15 +1,15 @@
 //
-//  CouponFooterView.swift
+//  StampBoardFooterView.swift
 //  POLZZAK
 //
-//  Created by 이정환 on 2023/08/02.
+//  Created by 이정환 on 2023/08/24.
 //
 
 import UIKit
 import SnapKit
 
-final class CouponFooterView: UICollectionReusableView {
-    static let reuseIdentifier = "CouponFooterView"
+final class StampBoardFooterView: UICollectionReusableView {
+    static let reuseIdentifier = "StampBoardFooterView"
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -46,7 +46,7 @@ final class CouponFooterView: UICollectionReusableView {
     }
 }
 
-extension CouponFooterView {
+extension StampBoardFooterView {
     private func setUI() {
         [currentPage, perLabel, totalPage].forEach {
             stackView.addArrangedSubview($0)
@@ -64,7 +64,7 @@ extension CouponFooterView {
     }
 }
 
-extension CouponFooterView: FooterViewUpdatable {
+extension StampBoardFooterView: FooterViewUpdatable {
     func updateCurrentCount(with count: Int) {
         guard let totalCountText = totalPage.text else { return }
         guard let totalCount = Int(totalCountText) else { return }

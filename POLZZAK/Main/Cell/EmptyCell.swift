@@ -10,9 +10,13 @@ import SnapKit
 
 class EmptyCell: UICollectionViewCell {
     static let reuseIdentifier = "EmptyCell"
-    private let placeHoldText = "완료된 도장판이 없어요"
-    private let nickNamePlaceHoldText = "님은 아직\n완료된 도장판이 없어요"
-    private let width = UIScreen.main.bounds.width * 60.0 / 375.0
+    
+    enum Constants {
+        static let deviceWidth = UIApplication.shared.width
+        static let childPlaceholdText = "완료된 도장판이 없어요"
+        static let parentPlaceholdText = "님은 아직\n완료된 도장판이 없어요"
+        static let imageViewWidth = deviceWidth * 60.0 / 375.0
+    }
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,11 +32,11 @@ class EmptyCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let placeHoldLabel: UILabel = {
+    private let placeholdLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.textColor = .gray700
-        label.font = .body3
+        label.font = .body14Md
         label.textAlignment = .center
         return label
     }()
@@ -52,12 +56,12 @@ extension EmptyCell {
         backgroundColor = .white
         addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
-        [imageView, placeHoldLabel].forEach {
+        [imageView, placeholdLabel].forEach {
             stackView.addArrangedSubview($0)
         }
         
         imageView.snp.makeConstraints {
-            $0.height.equalTo(width)
+            $0.height.equalTo(Constants.imageViewWidth)
         }
         
         addSubview(stackView)
@@ -69,8 +73,8 @@ extension EmptyCell {
     }
     
     func configure(nickName: String) {
-        placeHoldLabel.text = "\(nickName)님은 아직\n완료된 도장판이 없어요"
+        placeholdLabel.text = "\(nickName)" + Constants.parentPlaceholdText
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        placeHoldLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body5)
+        placeholdLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
     }
 }

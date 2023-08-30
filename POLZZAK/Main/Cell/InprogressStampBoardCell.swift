@@ -20,7 +20,7 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let stampNameLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray700, font: .title3)
+        label.setLabel(textColor: .gray700, font: .title20Bd)
         return label
     }()
     
@@ -44,19 +44,19 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let currentCountLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blue400, font: .title1)
+        label.setLabel(textColor: .blue400, font: .title24Sbd)
         return label
     }()
     
     private let perLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(text: "/" ,textColor: .gray400, font: .subtitle3)
+        label.setLabel(text: "/" ,textColor: .gray400, font: .subtitle16Sbd)
         return label
     }()
     
     private let totalCountLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray400, font: .subtitle3)
+        label.setLabel(textColor: .gray400, font: .subtitle16Sbd)
         return label
     }()
     
@@ -85,7 +85,7 @@ class InprogressStampBoardCell: UICollectionViewCell {
     
     private let stampRequestLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blue600, font: .caption1, textAlignment: .center)
+        label.setLabel(textColor: .blue600, font: .caption12Sbd, textAlignment: .center)
         return label
     }()
     
@@ -101,13 +101,13 @@ class InprogressStampBoardCell: UICollectionViewCell {
     private let rewardLabel: UILabel = {
         let label = UILabel()
         label.addBorder(cornerRadius: 4)
-        label.setLabel(text: "보상", textColor: .white, font: .caption1, textAlignment: .center, backgroundColor: .blue400)
+        label.setLabel(text: "보상", textColor: .white, font: .caption12Sbd, textAlignment: .center, backgroundColor: .blue400)
         return label
     }()
     
     private let rewardTitleLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray700, font: .body2)
+        label.setLabel(textColor: .gray700, font: .body14Sbd)
         return label
     }()
 

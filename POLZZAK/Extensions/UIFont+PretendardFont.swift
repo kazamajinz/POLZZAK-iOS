@@ -204,6 +204,10 @@ extension UIFont {
         return .pretendard(size: 13, family: .medium)
     }
     
+    static var body13Sbd: UIFont {
+        return .pretendard(size: 13, family: .semiBold)
+    }
+    
     // MARK: - Caption
     
     static var caption13Sbd: UIFont {
