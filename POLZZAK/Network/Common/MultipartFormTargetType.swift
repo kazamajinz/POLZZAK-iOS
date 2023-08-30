@@ -20,7 +20,7 @@ protocol MultipartFormTargetType: TargetType {
 
 extension MultipartFormTargetType {
     var headers: [String : String]? {
-        return ["Content-Type": "multipart/form-data"]
+        return ["Content-Type": "multipart/form-data; charset=UTF-8"]
     }
     
     func getURLRequest() throws -> URLRequest {
@@ -34,7 +34,7 @@ extension MultipartFormTargetType {
             for formData in formData {
                 data.append(Self.formData(formData: formData, using: boundary))
             }
-            data.append("--\(boundary)--".data(using: .utf8)!)
+            data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
             
             urlRequest.httpBody = data
         }

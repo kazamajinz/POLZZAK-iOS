@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Kakao iOS SDK 사용을 위해 초기화
         KakaoSDK.initSDK(appKey: Constants.KakaoKey.nativeAppKey)
+        UserInfoManager.checkFirstLaunch()
         return true
     }
 

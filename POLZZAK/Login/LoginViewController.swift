@@ -178,10 +178,7 @@ extension LoginViewController {
         case .showMainScreen:
             AppFlowController.shared.showLoading()
         case .showRegisterScreen:
-            // TODO: vc를 RegisterTermsViewController로 원래대로 바꾸기
-//            let vc = RegisterTermsViewController()
-            // 아래는 임시 vc임
-            let vc = TempRegisterViewController()
+            let vc = RegisterTermsViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
     }
