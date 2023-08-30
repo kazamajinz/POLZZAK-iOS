@@ -314,7 +314,6 @@ extension MainViewController {
         let bottomSheet = FilterBottomSheetViewController(data: data)
         bottomSheet.delegate = self
         bottomSheet.modalPresentationStyle = .custom
-        bottomSheet.transitioningDelegate = bottomSheet
         
         if case let .section(memberId) = viewModel.filterType.value {
             bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
