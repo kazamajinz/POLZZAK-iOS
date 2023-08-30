@@ -8,19 +8,19 @@
 import UIKit
 
 class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate {
-    private var initialDragHandlePosition: CGFloat = BottomSheetState.half.position
-    private var currentState: BottomSheetState = .half
+    private var initialDragHandlePosition: CGFloat = 0 // BottomSheetState.half.position
     private let statusBarHeight = UIApplication.shared.statusBarHeight
+    private lazy var initialState: BottomSheetState = .short(height: initialHeight)
     
     var initialHeight: CGFloat {
         return self.view.frame.height / 4
     }
     
     private let contentsView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .white
-            return view
-        }()
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     
     private let dragHandleView: UIView = {
         let view = UIView()
@@ -70,20 +70,20 @@ class BottomSheetViewController: UIViewController, UIGestureRecognizerDelegate, 
 
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return BottomSheetPresentationController(presentedViewController: presented, presenting: presenting)
+        return BottomSheetPresentationController(presentedViewController: presented, presenting: presenting, initialState: initialState)
     }
 
     func changeState(to endPosition: CGFloat) {
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             switch endPosition {
-            case ...(BottomSheetState.half.position - 100):
+            case ...(self.initialState.position - 100):
                 self.view.frame.origin.y = BottomSheetState.full.position
                 self.view.frame.size.height = BottomSheetState.full.height
-            case (BottomSheetState.half.position - 100)...(BottomSheetState.half.position + 100):
-                self.view.frame.origin.y = BottomSheetState.half.position
-                self.view.frame.size.height = BottomSheetState.half.height
-            case (BottomSheetState.half.position + 100)...:
+            case (self.initialState.position - 100)...(self.initialState.position + 100):
+                self.view.frame.origin.y = self.initialState.position
+                self.view.frame.size.height = self.initialState.height
+            case (self.initialState.position + 100)...:
                 dismiss(animated: true)
             default:
                 return

@@ -9,15 +9,15 @@ import UIKit
 
 enum BottomSheetState {
     case zero
-    case half
+    case short(height: CGFloat)
     case full
     
     var height: CGFloat {
         switch self {
         case .zero:
             return 0
-        case .half:
-            return (UIApplication.shared.height - UIApplication.shared.statusBarHeight) / 2
+        case .short(let height):
+            return height
         case .full:
             return UIApplication.shared.height - UIApplication.shared.statusBarHeight
         }
@@ -27,8 +27,8 @@ enum BottomSheetState {
         switch self {
         case .zero:
             return UIApplication.shared.height
-        case .half:
-            return (UIApplication.shared.height - UIApplication.shared.statusBarHeight) / 2 + UIApplication.shared.statusBarHeight
+        case .short(let height):
+            return UIApplication.shared.height - height
         case .full:
             return UIApplication.shared.statusBarHeight
         }
