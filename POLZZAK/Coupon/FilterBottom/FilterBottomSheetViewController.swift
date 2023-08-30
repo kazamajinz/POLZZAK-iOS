@@ -66,8 +66,6 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
     }
     
     private func setUI() {
-        transitioningDelegate = self
-        
         view.addCornerRadious(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
         
         [textLabel, tableView].forEach {

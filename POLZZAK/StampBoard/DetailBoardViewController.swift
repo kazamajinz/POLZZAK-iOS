@@ -81,6 +81,7 @@ extension DetailBoardViewController {
     
     private func configureView() {
         stampView.isScrollEnabled = false
+        stampView.stampViewDelegate = self
         missionListView.isScrollEnabled = false
         missionListView.missionListViewDataSource = self
     }
@@ -125,6 +126,8 @@ extension DetailBoardViewController {
     }
 }
 
+// MARK: - HeightConstraintDelegates
+
 extension DetailBoardViewController: MissionListViewHeightConstraintDelegate, StampViewHeightConstraintDelegate {
     private func setHeightConstraintDelegate() {
         missionListView.heightConstraintDelegate = self
@@ -132,8 +135,10 @@ extension DetailBoardViewController: MissionListViewHeightConstraintDelegate, St
     }
 }
 
+// MARK: - MissionListViewDataSource
+
 extension DetailBoardViewController: MissionListViewDataSource {
-    func missionListViewNumberOfItems() -> Int {
+    func missionListView(numberOfItemsInSection section: Int) -> Int {
         return missionList.count
     }
 
@@ -142,6 +147,17 @@ extension DetailBoardViewController: MissionListViewDataSource {
         return data
     }
 }
+
+// MARK: - StampViewDelegate
+
+extension DetailBoardViewController: StampViewDelegate {
+    func stampView(_ stampView: StampView, didSelectItemAt indexPath: IndexPath) {
+        
+//        present(bottomSheet, animated: true)
+    }
+}
+
+// MARK: - MissionListViewable
 
 struct MissionData: MissionListViewable {
     let missionNumber: Int

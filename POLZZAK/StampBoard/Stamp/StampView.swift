@@ -19,6 +19,7 @@ class StampView: UICollectionView {
     }
     
     weak var heightConstraintDelegate: StampViewHeightConstraintDelegate?
+    weak var stampViewDelegate: StampViewDelegate?
     
     init(frame: CGRect = .zero, size: StampSize) {
         self.size = size
@@ -36,6 +37,7 @@ class StampView: UICollectionView {
         register(StampCell.self, forCellWithReuseIdentifier: StampCell.reuseIdentifier)
         register(StampFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampFooterView.reuseIdentifier)
         dataSource = self
+        delegate = self
     }
     
     private func configureLayout() {
@@ -72,6 +74,14 @@ extension StampView: UICollectionViewDataSource {
         default:
             return UICollectionReusableView()
         }
+    }
+}
+
+// MARK: - Delegate
+
+extension StampView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        stampViewDelegate?.stampView(self, didSelectItemAt: indexPath)
     }
 }
 
@@ -124,6 +134,8 @@ extension StampView {
     }
 }
 
+// MARK: - StampViewHeightConstraintDelegate
+
 protocol StampViewHeightConstraintDelegate: UIViewController {
     var stampView: StampView { get }
     var stampViewHeight: Constraint? { get set }
@@ -142,5 +154,17 @@ extension StampViewHeightConstraintDelegate {
         stampView.snp.makeConstraints { make in
             stampViewHeight = make.height.equalTo(stampViewContentSizeHeight).constraint
         }
+    }
+}
+
+// MARK: - StampViewDelegate
+
+protocol StampViewDelegate: AnyObject {
+    func stampView(_ stampView: StampView, didSelectItemAt indexPath: IndexPath)
+}
+
+extension StampViewDelegate {
+    func stampView(_ stampView: StampView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
