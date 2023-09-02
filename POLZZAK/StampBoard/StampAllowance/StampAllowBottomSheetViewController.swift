@@ -10,53 +10,40 @@ import Foundation
 import UIKit
 
 import CombineCocoa
+import PanModal
 
-final class StampAllowBottomSheetViewController: UIViewController {
-    private var cancellables = Set<AnyCancellable>()
-    
-    private let nextButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .blue500
-        button.setTitle("다음", for: .normal)
-        return button
-    }()
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+final class StampAllowBottomSheetViewController: StampBasicBottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureLayout()
         configureBinding()
     }
     
     private func configureView() {
-        
-    }
-    
-    private func configureLayout() {
-        view.addCornerRadious(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
-        
-        [nextButton].forEach {
-            view.addSubview($0)
-        }
-        
-        nextButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+        setTitleLabel(text: "미션 직접 선택")
+        setStepLabel(text: "1/2")
+        setRightButton(text: "다음")
+        setLeftButton(text: "닫기")
     }
     
     private func configureBinding() {
-        nextButton.tapPublisher
-            .sink { [weak self] _ in
-                
-            }
-            .store(in: &cancellables)
+        setRightButtonTapAction { [weak self] in
+            let vc = StampChoiceBottomSheetViewController()
+            self?.navigationController?.pushViewController(vc, animated: false)
+        }
+        
+        setLeftButtonTapAction {
+            
+        }
+    }
+    
+    // MARK: - PanModalPresentable
+    
+    override var panScrollable: UIScrollView? {
+        return nil
+    }
+    
+    override var longFormHeight: PanModalHeight {
+        return .contentHeight(UIApplication.shared.height * 0.85)
     }
 }

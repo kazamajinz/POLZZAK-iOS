@@ -152,8 +152,8 @@ extension DetailBoardViewController: MissionListViewDataSource {
 
 extension DetailBoardViewController: StampViewDelegate {
     func stampView(_ stampView: StampView, didSelectItemAt indexPath: IndexPath) {
-        
-//        present(bottomSheet, animated: true)
+        let vc = StampAllowNavigationController()
+        presentPanModal(vc)
     }
 }
 

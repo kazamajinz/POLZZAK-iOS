@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "panmodal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/z3rosmith/PanModal.git",
+      "state" : {
+        "branch" : "use-in-POLZZAK",
+        "revision" : "d5b0f16cc49a7f7270c1e6c16a6f8fa0af751c8b"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

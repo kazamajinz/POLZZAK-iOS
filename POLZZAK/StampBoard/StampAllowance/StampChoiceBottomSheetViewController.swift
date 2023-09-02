@@ -10,50 +10,39 @@ import Foundation
 import UIKit
 
 import CombineCocoa
+import PanModal
 
-final class StampChoiceBottomSheetViewController: UIViewController {
-    private var cancellables = Set<AnyCancellable>()
-    
-    private let nextButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .blue500
-        button.setTitle("다음", for: .normal)
-        return button
-    }()
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+final class StampChoiceBottomSheetViewController: StampBasicBottomSheetViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
+        configureView()
         configureBinding()
     }
     
     private func configureView() {
-        view.backgroundColor = .blue150
-    }
-    
-    private func configureLayout() {
-        [nextButton].forEach {
-            view.addSubview($0)
-        }
-        
-        nextButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+        setTitleLabel(text: "도장 선택")
+        setStepLabel(text: "2/2")
+        setRightButton(text: "도장 찍기")
+        setLeftButton(text: "이전")
     }
     
     private func configureBinding() {
-        nextButton.tapPublisher
-            .sink { [weak self] _ in
-                
-            }
-            .store(in: &cancellables)
+        setRightButtonTapAction { [weak self] in
+            
+        }
+        
+        setLeftButtonTapAction { [weak self] in
+            self?.navigationController?.popViewController(animated: false)
+        }
+    }
+    
+    // MARK: - PanModalPresentable
+    
+    override var panScrollable: UIScrollView? {
+        return nil
+    }
+    
+    override var longFormHeight: PanModalHeight {
+        return .contentHeight(UIApplication.shared.height * 0.7)
     }
 }
