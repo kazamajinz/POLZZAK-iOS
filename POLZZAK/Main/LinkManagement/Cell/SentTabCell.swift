@@ -59,8 +59,8 @@ final class SentTabCell: UITableViewCell {
         reset()
     }
     
-    override func setNeedsLayout() {
-        super.setNeedsLayout()
+    override func layoutSubviews() {
+        super.layoutSubviews()
         profileImage.addBorder(cornerRadius: profileImage.bounds.width / 2)
     }
     
@@ -92,7 +92,7 @@ final class SentTabCell: UITableViewCell {
     
     func configure(family: FamilyMember) {
         profileImage.loadImage(from: family.profileURL)
-        titleLabel.text = family.nickName
+        titleLabel.text = family.nickname
     }
     
     private func reset() {

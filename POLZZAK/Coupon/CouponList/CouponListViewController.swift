@@ -487,8 +487,8 @@ extension CouponListViewController: FilterBottomSheetDelegate {
         if index == 0 {
             viewModel.filterType.send(.all)
         } else {
-            let memberId = viewModel.dataList.value[index-1].family.memberId
-            viewModel.filterType.send(.section(memberId))
+            let memberID = viewModel.dataList.value[index-1].family.memberID
+            viewModel.filterType.send(.section(memberID))
         }
     }
 }

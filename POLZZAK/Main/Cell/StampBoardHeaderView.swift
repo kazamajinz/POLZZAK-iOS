@@ -58,6 +58,6 @@ extension StampBoardHeaderView {
             nameStackView.removeArrangedSubview(self.memberTypeLabel)
             memberTypeLabel.removeFromSuperview()
         }
-        nickNameLabel.text = family.nickName
+        nickNameLabel.text = family.nickname
     }
 }

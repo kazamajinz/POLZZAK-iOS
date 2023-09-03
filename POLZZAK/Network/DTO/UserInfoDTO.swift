@@ -17,7 +17,8 @@ extension UserInfoDTO {
         let memberId: Int
         let nickname: String
         let memberPoint: MemberPoint
-        let memberType: MemberType
+        //TODO: - 진영님꼐 말씀드려야함
+        let memberType: MemberTypeDTO
         let profileUrl: String
         let familyCount: Int
     }

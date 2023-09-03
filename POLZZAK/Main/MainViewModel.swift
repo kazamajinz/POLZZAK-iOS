@@ -9,11 +9,10 @@ import Foundation
 import Combine
 
 final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
-    typealias DataListType = UserStampBoardList
-    var dataList = CurrentValueSubject<[UserStampBoardList], Never>([])
+    typealias DataListType = StampBoardList
+    var dataList = CurrentValueSubject<[DataListType], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    var isFirstChange: Bool = true
     var userType = CurrentValueSubject<UserType, Never>(.child)
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
     var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
@@ -51,7 +50,7 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
                 self.hideLoading(for: centerLoading)
             }
             
-            self.dataList.send(UserStampBoardList.sampleData)
+//            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
@@ -63,12 +62,12 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
                 self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.dataList.send(UserStampBoardList.sampleData)
+//            self.dataList.send(UserStampBoardList.sampleData)
         }
     }
     
-    func indexOfMember(with memberId: Int) -> Int {
-        return dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
+    func indexOfMember(with memberID: Int) -> Int {
+        return dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
     }
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {

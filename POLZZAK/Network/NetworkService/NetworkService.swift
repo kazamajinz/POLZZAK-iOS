@@ -10,6 +10,7 @@ import OSLog
 
 protocol NetworkServiceProvider {
     func request(with target: TargetType) async throws -> (Data, URLResponse)
+    func sendRequest(with target: TargetType) async throws
 }
 
 extension NetworkServiceProvider {
@@ -23,8 +24,21 @@ extension NetworkServiceProvider {
     }
     
     func requestData<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> T {
-        let (data, _) = try await request(with: target)
+        let (data, response) = try await request(with: target)
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+            case 200...299:
+                break
+            default:
+                try PolzzakError.validate(code: httpResponse.statusCode)
+            }
+        }
         return try JSONDecoder().decode(T.self, from: data)
+    }
+    
+    func sendRequest(with target: TargetType) async throws {
+        _ = try await request(with: target)
     }
 }
 

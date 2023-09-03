@@ -94,7 +94,7 @@ final class LinkListTabCell: UITableViewCell {
     func configure(with family: FamilyMember) {
 //        self.family = family
         profileImage.loadImage(from: family.profileURL)
-        titleLabel.text = family.nickName
+        titleLabel.text = family.nickname
     }
     
     private func reset() {

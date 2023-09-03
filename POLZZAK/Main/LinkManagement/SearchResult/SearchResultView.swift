@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 protocol SearchResultViewDelegate: AnyObject {
-    func linkRequest(nickName: String, memberId: Int)
-    func linkRequestCancel(memberId: Int)
+    func linkRequest(nickName: String, memberID: Int)
+    func linkRequestCancel(memberID: Int)
 }
 
 final class SearchResultView: UIView {
@@ -27,10 +27,8 @@ final class SearchResultView: UIView {
     
     private let placeholder: UILabel = {
         let label = UILabel()
+        label.setLabel(textColor: .gray700, font: .body14Md, textAlignment: .center)
         label.numberOfLines = 0
-        label.textColor = .gray700
-        label.font = .body14Md
-        label.textAlignment = .center
         return label
     }()
     
@@ -87,14 +85,14 @@ final class SearchResultView: UIView {
             $0.centerX.equalToSuperview()
         }
     }
-    
-    func setType(type: SearchResultState) {
-        switch type {
+    /*
+    func handleSearchResult(for state: SearchResultState) {
+        switch state {
         case .unlinked(let member):
             familyMember = member
             imageView.loadImage(from: member.profileURL)
             imageView.layer.cornerRadius = 50
-            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body14Bd)
+            placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
             button.setLabel(text: "연동요청", textColor: .white, font: .caption12Bd, textAlignment: .center, backgroundColor: .blue500)
             button.addBorder(cornerRadius: 4)
             
@@ -106,7 +104,7 @@ final class SearchResultView: UIView {
             familyMember = member
             imageView.loadImage(from: member.profileURL)
             imageView.layer.cornerRadius = 50
-            placeholder.setLabel(text: member.nickName, textColor: .black, font: .body14Bd)
+            placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
             button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption12Bd, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
@@ -118,11 +116,11 @@ final class SearchResultView: UIView {
             imageView.layer.cornerRadius = 50
             button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption12Bd, textAlignment: .center)
             button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
-        case .nonExist(let nickName):
+        case .nonExist(let nickname):
             imageView.image = .sittingCharacter
             imageView.layer.cornerRadius = 0
-            placeholder.text = "\(nickName)님을\n찾을 수 없어요"
-            let emphasisRange = [NSRange(location: 0, length: nickName.count)]
+            placeholder.text = "\(nickname)님을\n찾을 수 없어요"
+            let emphasisRange = [NSRange(location: 0, length: nickname.count)]
             placeholder.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
         case .notSearch:
             break
@@ -130,28 +128,103 @@ final class SearchResultView: UIView {
         
         underLineButton.addTarget(self, action: #selector(linkRequestCancel), for: .touchUpInside)
     }
-    
+    */
+    func handleSearchResult(for state: SearchResultState) {
+        resetViews()
+        switch state {
+        case .unlinked(let member):
+            setupUnlinked(member)
+        case .linked(let member):
+            setupLinked(member)
+        case .linkRequestCompleted(let member):
+            setupLinkedRequestComplete(member)
+        case .nonExist(let nickname):
+            setupNonExist(nickname)
+        case .notSearch:
+            break
+        }
+        underLineButton.addTarget(self, action: #selector(linkRequestCancel), for: .touchUpInside)
+    }
+
+    private func resetViews() {
+        placeholder.setLabel(textColor: .gray700, font: .body14Md, textAlignment: .center)
+        button.isHidden = true
+        button.isUserInteractionEnabled = true
+        button.gestureRecognizers?.forEach(button.removeGestureRecognizer)
+        underLineButton.isHidden = true
+        underLineButton.removeTarget(self, action: nil, for: .allEvents)
+        imageView.layer.cornerRadius = 50
+    }
+
+    private func setupUnlinked(_ member: FamilyMember) {
+        familyMember = member
+        imageView.loadImage(from: member.profileURL)
+        imageView.layer.cornerRadius = 50
+        placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
+        button.isHidden = false
+        button.setLabel(text: "연동요청", textColor: .white, font: .caption12Bd, textAlignment: .center, backgroundColor: .blue500)
+        button.addBorder(cornerRadius: 4)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
+        button.isUserInteractionEnabled = true
+        button.addGestureRecognizer(tapGesture)
+        
+        underLineButton.isHidden = true
+    }
+
+    private func setupLinked(_ member: FamilyMember) {
+        familyMember = member
+        imageView.loadImage(from: member.profileURL)
+        imageView.layer.cornerRadius = 50
+        placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
+        button.isHidden = false
+        button.setLabel(text: "이미 연동됐어요", textColor: .gray400, font: .caption12Bd, textAlignment: .center)
+        button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .gray400)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(linkRequest))
+        button.isUserInteractionEnabled = true
+        button.addGestureRecognizer(tapGesture)
+    }
+
+    private func setupLinkedRequestComplete(_ member: FamilyMember?) {
+        if let member {
+            familyMember = member
+            imageView.loadImage(from: member.profileURL)
+            imageView.layer.cornerRadius = 50
+            placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
+        }
+        button.isHidden = false
+        button.setLabel(text: "연동 요청 완료!", textColor: .blue500, font: .caption12Bd, textAlignment: .center)
+        button.addBorder(cornerRadius: 4, borderWidth: 1, borderColor: .blue400)
+        underLineButton.isHidden = false
+    }
+
+    private func setupNonExist(_ nickname: String) {
+        imageView.image = .sittingCharacter
+        imageView.layer.cornerRadius = 0
+        placeholder.text = "\(nickname)님을\n찾을 수 없어요"
+        let emphasisRange = [NSRange(location: 0, length: nickname.count)]
+        placeholder.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
+    }
+
     @objc private func linkRequest() {
-        if let nickName = familyMember?.nickName, let memberId = familyMember?.memberId {
-            delegate?.linkRequest(nickName: nickName, memberId: memberId)
+        if let nickName = familyMember?.nickname, let memberID = familyMember?.memberID {
+            delegate?.linkRequest(nickName: nickName, memberID: memberID)
         }
     }
     
     @objc private func linkRequestCancel() {
-        if let memberId = familyMember?.memberId {
-            delegate?.linkRequestCancel(memberId: memberId)
+        if let memberID = familyMember?.memberID {
+            delegate?.linkRequestCancel(memberID: memberID)
         }
     }
     
-    func requestCompletion() {
-        guard let familyMember = familyMember else { return }
-        setType(type: .linkedRequestComplete(familyMember))
-        underLineButton.isHidden = false
-    }
-    
+//    private func requestCompletion() {
+//        guard let familyMember = familyMember else { return }
+//        handleSearchResult(for: .linkRequestCompleted)
+//    }
+
     func requestCancel() {
         guard let familyMember = familyMember else { return }
-        setType(type: .unlinked(familyMember))
+        handleSearchResult(for: .unlinked(familyMember))
         underLineButton.isHidden = true
     }
 }

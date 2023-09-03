@@ -11,110 +11,31 @@ import Combine
 
 final class LinkManagementViewController: UIViewController {
     enum Constants {
-//        static let deviceWidth = UIApplication.shared.width
+        //        static let deviceWidth = UIApplication.shared.width
         static let backButtonPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        
+        //        static let placeHolderLabelText = "연동된"
     }
     
-    private let viewModel = LinkManagementViewModel()
+    private let viewModel = LinkManagementViewModel(useCase: DefaultFamilyMemberUseCase(repository: FamilyMemberDataRepository()))
     private var cancellables = Set<AnyCancellable>()
-    
-    var userType: UserType
     private var workItem: DispatchWorkItem?
     
-//    //TODO: - 임시코드, 새로운 API통신을 했다는 가정
-//    private var linkManagementTabState: LinkTabState = .linkListTab {
-//        didSet {
-//
-//            if 0 == viewModel.dataList.count {
-//                return
-//            }
-//            //TODO: - 새로운 API통신을 했다는 가정
-////            fullLoadingView.startLoading()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-//                guard let self = self else { return }
-//                switch linkManagementTabState {
-//                case .linkListTab:
-//                    tableEmptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-//                case .receivedTab:
-//                    tableEmptyView.label.setLabel(text: "받은 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-//                case .sentTab:
-//                    tableEmptyView.label.setLabel(text: "보낸 요청이 없어요", textColor: .gray700, font: .body14Md, textAlignment: .center)
-//                case .unknwon:
-//                    break
-//                }
-//
-//                tableView.backgroundView = tableEmptyView
-//                tableView.reloadData()
-//
-//                self.fullScreenLoadingView.stopLoading()
-//            }
-//        }
-//    }
-    
-    private var searchState: SearchState = .beforeSearch(isSearchBarActive: false) {
-        didSet {
-            switch searchState {
-            case .beforeSearch(isSearchBarActive: let isSearchBarActive):
-                if false == isSearchBarActive {
-                    searchEmptyView.isHidden = true
-                    tableView.isHidden = false
-                    searchLoadingView.isHidden = true
-                    searchResultView.isHidden = true
-                } else {
-                    searchEmptyView.isHidden = false
-                    tableView.isHidden = true
-                    searchLoadingView.isHidden = true
-                    searchResultView.isHidden = true
-                }
-            case .searching(let text):
-                searchEmptyView.isHidden = true
-                tableView.isHidden = true
-                searchLoadingView.isHidden = false
-                searchResultView.isHidden = true
-                searching(text: text ?? "")
-            case .afterSearch:
-                searchEmptyView.isHidden = true
-                tableView.isHidden = true
-                searchLoadingView.isHidden = true
-                searchResultView.isHidden = false
-            }
-        }
-    }
-    
-    private var searchResultState: SearchResultState = .notSearch {
-        didSet {
-            switch searchResultState {
-            case .linked(let familyMember):
-                let type = SearchResultState.linked(familyMember)
-                searchResultView.setType(type: type)
-            case .unlinked(let familyMember):
-                let type = SearchResultState.unlinked(familyMember)
-                searchResultView.setType(type: type)
-            case .linkedRequestComplete(let familyMember):
-                let type = SearchResultState.linkedRequestComplete(familyMember)
-                searchResultView.setType(type: type)
-            case .nonExist(let nickname):
-                let type = SearchResultState.nonExist(nickname)
-                searchResultView.setType(type: type)
-            case .notSearch:
-                return
-            }
-            searchCancel(keyboard: false)
-        }
-    }
+    private var toast: Toast?
     
     //MARK: - UI
     private var tableEmptyView: EmptyView = {
         let emptyView = EmptyView()
-        emptyView.label.setLabel(text: "연동된 아이가 없어요", textColor: .gray700, font: .body3, textAlignment: .center)
+        emptyView.label.setLabel(textColor: .gray700, font: .body3, textAlignment: .center)
         emptyView.imageView.image = .sittingCharacter
+        emptyView.isHidden = true
         return emptyView
     }()
     
     private lazy var searchEmptyView: EmptyView = {
         let emptyView = EmptyView()
         emptyView.topSpacing = 229
-        emptyView.label.setLabel(text: "연동된 \(userType.string)에게\n칭안 도장판을 만들어 줄 수 있어요", textColor: .gray500, font: .caption12Md, textAlignment: .center)
+        emptyView.label.setLabel(text: "연동된 \(viewModel.userType.string)에게\n칭안 도장판을 만들어 줄 수 있어요", textColor: .gray500, font: .caption12Md, textAlignment: .center)
         emptyView.imageView.image = .searchImage
         emptyView.isHidden = true
         return emptyView
@@ -132,7 +53,8 @@ final class LinkManagementViewController: UIViewController {
     private lazy var searchBar: SearchBar = {
         let screenWidth = UIApplication.shared.width
         let searchBar = SearchBar(frame: CGRect(x: 16, y: 0, width: screenWidth - 32, height: 44))
-        searchBar.placeholder = userType.string
+        let addtionTypeString = viewModel.userType == .parent ? UserType.child.string : UserType.parent.string
+        searchBar.placeholder = addtionTypeString + " 추가"
         return searchBar
     }()
     
@@ -163,9 +85,8 @@ final class LinkManagementViewController: UIViewController {
         return tableView
     }()
     
-    init(userType: UserType) {
-        self.userType = userType
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder: NSCoder) {
@@ -294,9 +215,50 @@ extension LinkManagementViewController {
             .store(in: &cancellables)
         
         viewModel.$dataList
+            .map { array -> Bool in
+                return array.isEmpty
+            }
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] bool in
                 self?.tableView.reloadData()
+                self?.handleEmptyView(for: bool)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.showErrorAlertSubject
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { error in
+                print("error", error)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$searchState
+            .receive(on: DispatchQueue.main)
+            .scan((previous: nil as SearchState?, current: viewModel.searchState)) { last, new in
+                return (last.current, new)
+            }
+            .sink { [weak self] previousState, currentState in
+                guard let self = self else { return }
+                self.handleSearchState(for: currentState)
+                if previousState != .inactive && currentState == .inactive  {
+                    self.viewModel.handleTabState(for: self.viewModel.linkTabState)
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$searchResultState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.searchResultView.handleSearchResult(for: state)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.toastAppearSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] type in
+                self?.toast = Toast(type: type)
+                self?.toast?.show()
             }
             .store(in: &cancellables)
     }
@@ -310,6 +272,55 @@ extension LinkManagementViewController {
             fullLoadingView.stopLoading()
             tabViews.setTouchInteractionEnabled(!bool)
             searchBar.isUserInteractionEnabled = !bool
+        }
+    }
+    
+    private func handleEmptyView(for bool: Bool) {
+        tableEmptyView.isHidden = !bool
+        
+        if true == bool {
+            switch viewModel.linkTabState {
+            case .linkListTab:
+                tableEmptyView.label.text = "연동된 " + (viewModel.userType == .child ? "아이" : "보호자") + "가 없어요"
+            case .receivedTab:
+                tableEmptyView.label.text = "받은 요청이 없어요"
+            case .sentTab:
+                tableEmptyView.label.text = "보낸 요청이 없어요"
+            }
+            
+            tableView.backgroundView = tableEmptyView
+        }
+    }
+    
+    private func handleSearchState(for state: SearchState) {
+        switch state {
+        case .inactive:
+            searchEmptyView.isHidden = true
+            tableView.isHidden = false
+            searchLoadingView.isHidden = true
+            searchResultView.isHidden = true
+            searchLoadingView.isHidden = true
+            searchResultView.isHidden = true
+        case .activated:
+            searchEmptyView.isHidden = false
+            tableView.isHidden = true
+            searchLoadingView.isHidden = true
+            searchResultView.isHidden = true
+        case .searching(_):
+            searchEmptyView.isHidden = true
+            tableView.isHidden = true
+            searchLoadingView.isHidden = false
+            searchResultView.isHidden = true
+        case .completed:
+            searchEmptyView.isHidden = true
+            tableView.isHidden = true
+            searchLoadingView.isHidden = true
+            searchResultView.isHidden = false
+            
+            //            searchCancel(keyboard: false)
+            
+            searchBar.isCancelState.toggle()
+            searchBar.activate(bool: true, keyboard: false)
         }
     }
 }
@@ -359,69 +370,12 @@ extension LinkManagementViewController: UITableViewDataSource {
     @objc func searchCancel(keyboard: Bool = true) {
         workItem?.cancel()
         //TODO: - 커밋전에 체크
-        if searchState == .searching() {
-            searchState = .beforeSearch(isSearchBarActive: true)
-        }
+        //        if viewModel.searchState == .searching() {
+        //            viewModel.searchState = .beforeSearch(isSearchBarActive: true)
+        //        }
+        viewModel.searchState = .activated
         searchBar.isCancelState.toggle()
         searchBar.activate(bool: true, keyboard: keyboard)
-    }
-    
-    // TODO: - 임시 삭제 API 함수
-    func tempRemove(memberId: Int = -1, completion: (() -> Void)? = nil) {
-//        if memberId == -1 {
-//            testData = dummyFmailyData.families
-//        } else {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-//                self?.testData.remove(at: memberId)
-//                completion?()
-//            }
-//        }
-    }
-    
-    //TODO: - 임시 연동요청 API 함수
-    func tempLinkRequest(memberId: Int = -1, completion: @escaping () -> Void) {
-//        if memberId == -1 {
-//            testData = dummyFmailyData.families
-//        } else {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                completion()
-//            }
-//        }
-    }
-    
-    //TODO: - 임시 요청취소 API 함수
-    @objc private func requestCancel(memberId: Int = -1, completion: @escaping () -> Void) {
-//        if memberId == -1 {
-//            testData = dummyFmailyData.families
-//        } else {
-//            fullScreenLoadingView.startLoading()
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                self.fullScreenLoadingView.stopLoading()
-//                completion()
-//            }
-//        }
-    }
-    
-    //TODO: - 임시데이터를 포함한 검색로직
-    private func searching(text: String) {
-        workItem?.cancel()
-        
-        workItem = DispatchWorkItem { [weak self] in
-            self?.searchState = .afterSearch
-            if text == "연동" {
-                let tempFamilyMember = tempDummyData.first!.family
-                self?.searchResultState = .linked(tempFamilyMember)
-            } else if text == "미연동" {
-                let tempFamilyMember = tempDummyData.first!.family
-                self?.searchResultState = .unlinked(tempFamilyMember)
-            } else {
-                self?.searchResultState = .nonExist(text)
-            }
-        }
-        
-        if let workItem = workItem {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: workItem)
-        }
     }
 }
 
@@ -429,18 +383,23 @@ extension LinkManagementViewController: UITableViewDataSource {
 extension LinkManagementViewController: LinkListTabCellDelegate {
     func didTapClose(on cell: LinkListTabCell) {
         guard let nickName = cell.titleLabel.text else { return }
-        guard let indexPath = tableView.indexPath(for: cell)?.row else { return }
+        guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let alert = CustomAlertViewController()
-        alert.contentLabel.text = "\(nickName)님과\n연동을 해제하시겠어요?"
+        let confirmAlert = AlertDoubleButtonLoadingView()
+        confirmAlert.contentLabel.text = "\(nickName)님과\n연동을 해제하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
-        alert.secondButton.setTitle("네, 해제할래요", for: .normal)
-        alert.isLoadingView = true
-        alert.secondButtonAction = { [weak self] in
-            self?.tempRemove(memberId: indexPath)
+        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.confirmButton.text = "네, 해제할래요"
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                let memberID = self.viewModel.dataList[indexPathRow].memberID
+                await self.viewModel.unlinkRequestDidTap(for: memberID)
+                confirmAlert.dismiss(animated: false, completion: nil)
+                self.tableView.reloadData()
+            }
         }
-        present(alert, animated: false)
+        present(confirmAlert, animated: false)
     }
 }
 
@@ -448,52 +407,69 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
 extension LinkManagementViewController: ReceivedTabCellDelegate {
     func didTapAccept(on cell: ReceivedTabCell) {
         guard let nickName = cell.titleLabel.text else { return }
-        guard let indexPath = tableView.indexPath(for: cell)?.row else { return }
+        guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let alert = CustomAlertViewController()
-        alert.contentLabel.text = "\(nickName)님의\n연동 요청을 수락하시겠어요?"
+        let confirmAlert = AlertDoubleButtonLoadingView()
+        confirmAlert.contentLabel.text = "\(nickName)님의\n연동 요청을 수락하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
-        alert.secondButton.setTitle("네, 좋아요!", for: .normal)
-        alert.isLoadingView = true
-        alert.secondButtonAction = { [weak self] in
-            self?.tempRemove(memberId: indexPath)
+        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.confirmButton.text = "네, 좋아요!"
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                let memberID = self.viewModel.dataList[indexPathRow].memberID
+                await self.viewModel.linkApproveDidTap(for: memberID)
+                confirmAlert.dismiss(animated: false, completion: nil)
+                self.tableView.reloadData()
+            }
         }
-        present(alert, animated: false)
+        present(confirmAlert, animated: false)
     }
     
     func didTapReject(on cell: ReceivedTabCell) {
         guard let nickName = cell.titleLabel.text else { return }
-        guard let indexPath = tableView.indexPath(for: cell)?.row else { return }
+        guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let alert = CustomAlertViewController()
-        alert.contentLabel.text = "\(nickName)님의\n연동 요청을 거절하시겠어요?"
+        let confirmAlert = AlertDoubleButtonLoadingView()
+        confirmAlert.contentLabel.text = "\(nickName)님의\n연동 요청을 거절하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
-        alert.secondButton.setTitle("네, 거절할래요", for: .normal)
-        alert.secondButtonAction = { [weak self] in
-            self?.tempRemove(memberId: indexPath)
+        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.confirmButton.text = "네, 거절할래요"
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                let memberID = self.viewModel.dataList[indexPathRow].memberID
+                await self.viewModel.linkRejectDidTap(for: memberID)
+                confirmAlert.dismiss(animated: false, completion: nil)
+                self.tableView.reloadData()
+            }
         }
-        present(alert, animated: false)
+        present(confirmAlert, animated: false)
     }
 }
 
 //MARK: - SentTabCellDelegate
 extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
-        guard let nickName = cell.titleLabel.text else { return }
-        guard let indexPath = tableView.indexPath(for: cell)?.row else { return }
+        let confirmAlert = AlertDoubleButtonLoadingView()
+        guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let alert = CustomAlertViewController()
-        alert.contentLabel.text = "\(nickName)님에게 보낸\n연동 요청을 취소하시겠어요?"
-        let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
-        alert.secondButton.setTitle("네, 취소할래요", for: .normal)
-        alert.isLoadingView = true
-        alert.secondButtonAction = { [weak self] in
-            self?.tempRemove(memberId: indexPath)
+        let nickname = viewModel.dataList[indexPathRow].nickname
+        confirmAlert.contentLabel.text = "\(nickname)님에게 보낸\n연동 요청을 취소하시겠어요?"
+        let emphasisRange = [NSRange(location: 0, length: nickname.count)]
+        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.confirmButton.text = "네, 취소할래요"
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                let memberID = self.viewModel.dataList[indexPathRow].memberID
+                await self.viewModel.linkCancelDidTap(for: memberID)
+                confirmAlert.dismiss(animated: false, completion: nil)
+                self.tableView.reloadData()
+            }
         }
-        present(alert, animated: false)
+        
+        navigationController?.present(confirmAlert, animated: false)
     }
 }
 
@@ -503,53 +479,58 @@ extension LinkManagementViewController: SearchBarDelegate {
         print("searchBarDidBeginEditing")
         if searchBar.searchBarSubView.searchBarTextField.text == "" {
             print("searchBarDidBeginEditing_searchBarTextField.text.isEmpty")
-            searchState = .beforeSearch(isSearchBarActive: true)
+            viewModel.searchState = .activated
         }
     }
     
     func searchBarDidEndEditing(_ searchBar: SearchBar) {
-        print("searchBarDidEndEditing")
-        if searchState == .searching() {
+        switch viewModel.searchState {
+        case .searching(_):
             searchEmptyView.isHidden = false
             tableView.isHidden = true
             searchLoadingView.isHidden = true
-        } else {
-            searchState = .beforeSearch(isSearchBarActive: false)
+        default:
+            viewModel.searchState = .inactive
         }
     }
     
     func search(_ searchBar: SearchBar, searchText: String) {
         searchLoadingView.configure(nickName: searchText)
-        searchState = .searching(nickName: searchText)
+        viewModel.searchUserByNickname(searchText)
     }
 }
 
 //MARK: - SearchResultViewDelegate
 extension LinkManagementViewController: SearchResultViewDelegate {
-    func linkRequest(nickName: String, memberId: Int) {
-        let alert = CustomAlertViewController()
-        alert.contentLabel.text = "\(nickName)님에게\n연동 오쳥을 보낼까요?"
-        let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        alert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
-        alert.secondButton.setTitle("네, 좋아요!", for: .normal)
-        alert.isLoadingView = true
-        //TODO: - API연결하고 수정필요, requestCompletion을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.
-        alert.secondButtonAction = { [weak self] in
-            self?.tempLinkRequest(memberId: memberId) {
-                self?.searchResultView.requestCompletion()
+    func linkRequest(nickName: String, memberID: Int) {
+        if let familyStatus = searchResultView.familyMember?.familyStatus, familyStatus == .received {
+            viewModel.toastAppearSubject.send(.error("이미 해당 회원에게 연동 요청을 받았어요"))
+        } else {
+            let confirmAlert = AlertDoubleButtonLoadingView()
+            confirmAlert.contentLabel.text = "\(nickName)님에게\n연동 요청을 보낼까요?"
+            let emphasisRange = [NSRange(location: 0, length: nickName.count)]
+            confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+            confirmAlert.confirmButton.text = "네, 좋아요!"
+            confirmAlert.secondButtonAction = { [weak self] in
+                guard let self = self else { return }
+                Task {
+                    await self.viewModel.linkRequestDidTap(for: memberID)
+                    confirmAlert.dismiss(animated: false, completion: nil)
+                    self.tableView.reloadData()
+                }
             }
+            
+            present(confirmAlert, animated: false)
         }
-        
-        present(alert, animated: false)
     }
     
-    func linkRequestCancel(memberId: Int) {
-        self.requestCancel(memberId: memberId) { [weak self] in
-            guard let self = self else { return }
-            let toast = Toast(type: .error("요청이 취소됐어요"))
-            toast.show()
-            //TODO: - API연결하고 수정필요, requestCancel을 통해서 연동취소버튼을 노출/미노출, API연결이 안된상태에서 체크하기위해 하드코딩되어있음, 버그도있음.
-            self.searchResultView.requestCancel()
+    @MainActor func linkRequestCancel(memberID: Int) {
+        Task {
+            viewModel.showLoading()
+            await viewModel.linkCancelDidTap(for: memberID)
+            viewModel.hideLoading()
+            searchResultView.requestCancel()
+            viewModel.toastAppearSubject.send(.success("요청이 취소됐어요"))
         }
     }
 }

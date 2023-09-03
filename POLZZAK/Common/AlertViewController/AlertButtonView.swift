@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class AlertButtonView: BaseAlertViewController {
     enum ButtonStyle {
@@ -18,12 +19,12 @@ class AlertButtonView: BaseAlertViewController {
     }
     
     private let buttonStyle: ButtonStyle
-    typealias AsyncAction = () async -> Void
-    var firstButtonAction: AsyncAction?
-    var secondButtonAction: AsyncAction?
+    typealias ButtonAction = () -> Void
+    var firstButtonAction: ButtonAction?
+    @MainActor var secondButtonAction: ButtonAction?
+    var bottomConstraint: Constraint?
     
-    
-    private let stackView: UIStackView = {
+    let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 40
@@ -47,7 +48,7 @@ class AlertButtonView: BaseAlertViewController {
         return label
     }()
     
-    private let buttonStackView: UIStackView = {
+    let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 11
@@ -102,7 +103,8 @@ class AlertButtonView: BaseAlertViewController {
         
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(40)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            bottomConstraint = $0.bottom.equalToSuperview().inset(16).constraint
         }
         
         [contentStackView, buttonStackView].forEach {
@@ -149,13 +151,13 @@ class AlertButtonView: BaseAlertViewController {
     @objc private func handleFirstButtonTap() {
         dismiss(animated: false)
         Task {
-            await firstButtonAction?()
+            firstButtonAction?()
         }
     }
     
     @objc private func handleSecondButtonTap() {
         Task {
-            await secondButtonAction?()
+            secondButtonAction?()
         }
     }
 }

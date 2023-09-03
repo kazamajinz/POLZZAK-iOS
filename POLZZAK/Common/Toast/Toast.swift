@@ -7,13 +7,7 @@
 
 import UIKit
 import SnapKit
-
 class Toast: NSObject {
-    enum ToastType {
-        case success(String, UIImage? = nil)
-        case error(String, UIImage? = nil)
-    }
-    
     enum Constants {
         static let toastHeight = 42.0
         static let bottomPadding = 36.0
@@ -72,6 +66,11 @@ class Toast: NSObject {
             }
         }
     }
+    
+    deinit {
+        print("Toast object is being deallocated")
+    }
+
 }
 
 extension Toast {
@@ -120,7 +119,6 @@ extension Toast {
         guard false == isToastShown else  { return }
         guard let topViewController = UIApplication.getTopViewController() else { return }
         topViewController.view.addSubview(toastContainer)
-        
         isToastShown = true
         
         setUI()
@@ -133,17 +131,19 @@ extension Toast {
             self.toastContainer.transform = .identity
         }, completion: { [weak self] _ in
             guard let self = self else { return }
-            self.currentCloseTask = Task.init(priority: .userInitiated, operation: {
-                try? await Task.sleep(nanoseconds: UInt64(Constants.toastDuringTime * 1_000_000_000))
-                if self.currentCloseTask?.isCancelled == true { return }
-                await self.closeToast()
-            })
+            self.startCloseTask()
         })
     }
     
+    func startCloseTask() {
+        currentCloseTask = Task.init(priority: .userInitiated, operation: { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(Constants.toastDuringTime * 1_000_000_000))
+            if self?.currentCloseTask?.isCancelled == true { return }
+            await self?.closeToast()
+        })
+    }
     
-    @MainActor
-    @objc private func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+    @MainActor @objc private func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: toastContainer)
         if recognizer.state == .changed {
             toastContainer.transform = CGAffineTransform(translationX: 0, y: translation.y)
@@ -159,8 +159,7 @@ extension Toast {
         }
     }
     
-    @MainActor
-    private func closeToast() {
+    @MainActor private func closeToast() {
         UIView.animate(withDuration: Constants.toastEndTime, animations: {
             self.toastContainer.alpha = 0.0
             self.toastContainer.transform = CGAffineTransform(translationX: 0, y: self.toastContainer.frame.height)

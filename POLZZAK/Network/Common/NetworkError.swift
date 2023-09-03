@@ -12,7 +12,7 @@ enum NetworkError: LocalizedError {
     case invalidHTTPStatusCode(Int)
     case components
     case doNotRetryButEmptyDataOrResponse
-
+    
     var errorDescription: String? {
         switch self {
         case .unknownError: return "알수 없는 에러입니다."

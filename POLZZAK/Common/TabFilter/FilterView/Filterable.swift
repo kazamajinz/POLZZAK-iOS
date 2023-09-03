@@ -20,7 +20,7 @@ extension Filterable where Self: BaseFilterView {
     }
     
     func handleChildSectionFilterButtonTap(with family: FamilyMember) {
-        nickNameLabel.text = family.nickName
+        nickNameLabel.text = family.nickname
         memberTypeLabel.text = family.memberType.detail
         sectionStackView.isHidden = false
         memberTypeLabel.isHidden = false
@@ -28,7 +28,7 @@ extension Filterable where Self: BaseFilterView {
     }
     
     func handleParentSectionFilterButtonTap(with family: FamilyMember) {
-        nickNameLabel.text = family.nickName
+        nickNameLabel.text = family.nickname
         sectionStackView.isHidden = false
         memberTypeLabel.isHidden = true
         filterLabel.isHidden = true

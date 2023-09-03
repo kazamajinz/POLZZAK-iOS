@@ -9,11 +9,10 @@ import Foundation
 import Combine
 
 final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
-    typealias DataListType = CouponListData
-    var dataList = CurrentValueSubject<[CouponListData], Never>([])
+    typealias DataListType = CouponList
+    var dataList = CurrentValueSubject<[DataListType], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    var isFirstChange: Bool = true
     var userType = CurrentValueSubject<UserType, Never>(.parent)
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
     var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
@@ -51,7 +50,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
                 self.hideLoading(for: centerLoading)
             }
             
-            self.dataList.send(CouponListData.sampleData)
+//            self.dataList.send(CouponListData.sampleData)
         }
     }
     
@@ -63,12 +62,12 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
                 self.apiFinishedLoadingSubject.send(true)
             }
             self.hideLoading(for: centerLoading)
-            self.dataList.send(CouponListData.sampleData)
+//            self.dataList.send(CouponListData.sampleData)
         }
     }
     
-    func indexOfMember(with memberId: Int) -> Int {
-        return dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
+    func indexOfMember(with memberID: Int) -> Int {
+        return dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
     }
     
     func couponID(at indexPath: IndexPath) -> Int? {
@@ -79,8 +78,8 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
                 return nil
             }
             return dataList.value[indexPath.section].coupons[indexPath.row].couponID
-        case .section(let memberId):
-            let index = dataList.value.firstIndex { $0.family.memberId == memberId } ?? 0
+        case .section(let memberID):
+            let index = dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
             return dataList.value[index].coupons[indexPath.row].couponID
         }
     }
