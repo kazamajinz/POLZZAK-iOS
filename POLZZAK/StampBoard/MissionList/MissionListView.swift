@@ -49,7 +49,9 @@ extension MissionListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as! MissionCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as? MissionCell else {
+            fatalError("MissionCell dequeue failed")
+        }
         let data = missionListViewDataSource?.missionListView(dataForItemAt: indexPath)
         cell.titleLabel.text = data?.missionTitle
         cell.updateHorizontalInset(inset: horizontalInset)

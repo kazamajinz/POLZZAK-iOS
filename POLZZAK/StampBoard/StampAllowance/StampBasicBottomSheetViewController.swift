@@ -113,7 +113,7 @@ class StampBasicBottomSheetViewController: UIViewController, PanModalPresentable
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(labelStackView.snp.bottom).offset(25)
+            make.top.equalTo(labelStackView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(Constants.basicInset)
             make.bottom.equalTo(buttonStackView.snp.top).offset(-10)
         }
@@ -136,7 +136,7 @@ class StampBasicBottomSheetViewController: UIViewController, PanModalPresentable
     }
 }
 
-// MARK: - For Inherited Instance
+// MARK: - For Inherited Object
 
 extension StampBasicBottomSheetViewController {
     final func setContentView(view: UIView) {

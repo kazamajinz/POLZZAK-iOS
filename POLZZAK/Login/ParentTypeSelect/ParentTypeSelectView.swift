@@ -44,6 +44,7 @@ final class ParentTypeSelectView: UICollectionView {
     }
     
     private func setUICenter() {
+        // TODO: types.count == 0 인 경우 처리하기?
         guard let layout = collectionViewLayout as? CarouselLayout,
               let index = types.firstIndex(where: { $0.detail == "선택해주세요" }) // TODO: 하드코딩 줄이기
         else { return }
@@ -56,14 +57,6 @@ final class ParentTypeSelectView: UICollectionView {
                 self.configureCurrentType()
             }
         }
-    }
-    
-    func configureCurrentType() {
-        guard let layout = collectionViewLayout as? CarouselLayout,
-              let centerIndexPath = layout.centerIndexPath
-        else { return }
-        
-        currentType = types[centerIndexPath.item]
     }
 }
 
@@ -107,6 +100,14 @@ extension ParentTypeSelectView: UICollectionViewDelegate {
             }
         
         cell.emphasizeCell()
+    }
+    
+    private func configureCurrentType() {
+        guard let layout = collectionViewLayout as? CarouselLayout,
+              let centerIndexPath = layout.centerIndexPath
+        else { return }
+        
+        currentType = types[centerIndexPath.item]
     }
 }
 

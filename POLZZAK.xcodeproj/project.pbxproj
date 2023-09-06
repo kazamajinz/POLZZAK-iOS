@@ -179,6 +179,8 @@
 		DA5927D72A9F7D4700836126 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DA5927D62A9F7D4700836126 /* PanModal */; };
 		DA5927D92AA073B200836126 /* StampAllowNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927D82AA073B200836126 /* StampAllowNavigationController.swift */; };
 		DA5927DB2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927DA2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift */; };
+		DA5927DF2AA3AD1600836126 /* StampAllowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */; };
+		DA5927E12AA7504900836126 /* StampSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927E02AA7504900836126 /* StampSelectionCell.swift */; };
 		DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */; };
 		DA65FDBB2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
@@ -386,6 +388,8 @@
 		DA5927D32A9F63BD00836126 /* StampChoiceBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampChoiceBottomSheetViewController.swift; sourceTree = "<group>"; };
 		DA5927D82AA073B200836126 /* StampAllowNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampAllowNavigationController.swift; sourceTree = "<group>"; };
 		DA5927DA2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBasicBottomSheetViewController.swift; sourceTree = "<group>"; };
+		DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampAllowCell.swift; sourceTree = "<group>"; };
+		DA5927E02AA7504900836126 /* StampSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSelectionCell.swift; sourceTree = "<group>"; };
 		DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewController.swift; sourceTree = "<group>"; };
 		DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTypeViewModel.swift; sourceTree = "<group>"; };
 		DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTerm.swift; sourceTree = "<group>"; };
@@ -1014,10 +1018,28 @@
 			children = (
 				DA5927D82AA073B200836126 /* StampAllowNavigationController.swift */,
 				DA5927DA2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift */,
-				DA5927D12A9F20EC00836126 /* StampAllowBottomSheetViewController.swift */,
-				DA5927D32A9F63BD00836126 /* StampChoiceBottomSheetViewController.swift */,
+				DA5927DC2AA3AC8000836126 /* StampAllow */,
+				DA5927DD2AA3AC8800836126 /* StampChoice */,
 			);
 			path = StampAllowance;
+			sourceTree = "<group>";
+		};
+		DA5927DC2AA3AC8000836126 /* StampAllow */ = {
+			isa = PBXGroup;
+			children = (
+				DA5927D12A9F20EC00836126 /* StampAllowBottomSheetViewController.swift */,
+				DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */,
+			);
+			path = StampAllow;
+			sourceTree = "<group>";
+		};
+		DA5927DD2AA3AC8800836126 /* StampChoice */ = {
+			isa = PBXGroup;
+			children = (
+				DA5927D32A9F63BD00836126 /* StampChoiceBottomSheetViewController.swift */,
+				DA5927E02AA7504900836126 /* StampSelectionCell.swift */,
+			);
+			path = StampChoice;
 			sourceTree = "<group>";
 		};
 		DA85327F2A70CDAC00F0D045 /* AgreementCheck */ = {
@@ -1204,12 +1226,14 @@
 				39152B472A5AB68800AAFA23 /* UIColor+extension.swift in Sources */,
 				39152B462A5AB68500AAFA23 /* MainViewController.swift in Sources */,
 				39C573292A9DEB6600CD6362 /* FooterViewUpdatable.swift in Sources */,
+				DA5927DF2AA3AD1600836126 /* StampAllowCell.swift in Sources */,
 				39C573002A9B45E400CD6362 /* LoadingViewModelProtocol.swift in Sources */,
 				39152B412A5AB4DA00AAFA23 /* MissionCell.swift in Sources */,
 				390F424E2A928838005FC7B2 /* AlertTableViewController.swift in Sources */,
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
 				DA0919EF2A9CB03C00A60AB6 /* UIImage+resize.swift in Sources */,
 				DA5927DB2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift in Sources */,
+				DA5927E12AA7504900836126 /* StampSelectionCell.swift in Sources */,
 				390F42402A910E01005FC7B2 /* BaseAlertViewController.swift in Sources */,
 				398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */,
 				39152B3E2A5AB37500AAFA23 /* SearchBar.swift in Sources */,
