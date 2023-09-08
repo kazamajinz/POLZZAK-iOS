@@ -17,9 +17,8 @@ final class LinkManagementViewController: UIViewController {
         //        static let placeHolderLabelText = "연동된"
     }
     
-    private let viewModel = LinkManagementViewModel(useCase: DefaultFamilyMemberUseCase(repository: FamilyMemberDataRepository()))
+    private let viewModel = LinkManagementViewModel(useCase: DefaultLinkManagementUseCase(repository: LinkManagementDataRepository()))
     private var cancellables = Set<AnyCancellable>()
-    private var workItem: DispatchWorkItem?
     
     private var toast: Toast?
     
@@ -261,6 +260,14 @@ extension LinkManagementViewController {
                 self?.toast?.show()
             }
             .store(in: &cancellables)
+        
+        viewModel.newAlertSubject
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newAlerts in
+                self?.handleNewAlert(for: newAlerts)
+            }
+            .store(in: &cancellables)
     }
     
     private func handleLoadingView(for bool: Bool) {
@@ -323,6 +330,13 @@ extension LinkManagementViewController {
             searchBar.activate(bool: true, keyboard: false)
         }
     }
+    
+    private func handleNewAlert(for newAlerts: CheckLinkRequest) {
+        let receivedState = newAlerts.isFamilyReceived
+        tabViews.updateNewAlert(index: 1, state: receivedState)
+        let sentState = newAlerts.isFamilySent
+        tabViews.updateNewAlert(index: 2, state: sentState)
+    }
 }
 
 extension LinkManagementViewController: TabViewsDelegate {
@@ -342,16 +356,22 @@ extension LinkManagementViewController: TabViewsDelegate {
 
 extension LinkManagementViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("viewModel.dataList.count", viewModel.dataList.count)
         return viewModel.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("viewModel.dataList", viewModel.dataList)
+        guard false == viewModel.dataList.isEmpty else {
+            return UITableViewCell()
+        }
+        
         let family = viewModel.dataList[indexPath.row]
         switch viewModel.linkTabState {
         case .linkListTab:
             let cell = tableView.dequeueReusableCell(withIdentifier: LinkListTabCell.reuseIdentifier, for: indexPath) as! LinkListTabCell
             cell.delegate = self
-            cell.configure(with: family)
+            cell.configure(family: family)
             return cell
         case .receivedTab:
             let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedTabCell.reuseIdentifier, for: indexPath) as! ReceivedTabCell
@@ -366,14 +386,8 @@ extension LinkManagementViewController: UITableViewDataSource {
         }
     }
     
-    //    TODO: - API통신 취소 기능 추가
     @objc func searchCancel(keyboard: Bool = true) {
-        workItem?.cancel()
-        //TODO: - 커밋전에 체크
-        //        if viewModel.searchState == .searching() {
-        //            viewModel.searchState = .beforeSearch(isSearchBarActive: true)
-        //        }
-        viewModel.searchState = .activated
+        viewModel.cancelSearchRequest()
         searchBar.isCancelState.toggle()
         searchBar.activate(bool: true, keyboard: keyboard)
     }
@@ -419,6 +433,7 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
             Task {
                 let memberID = self.viewModel.dataList[indexPathRow].memberID
                 await self.viewModel.linkApproveDidTap(for: memberID)
+                await self.viewModel.checkNewLinkRequest()
                 confirmAlert.dismiss(animated: false, completion: nil)
                 self.tableView.reloadData()
             }
@@ -440,6 +455,7 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
             Task {
                 let memberID = self.viewModel.dataList[indexPathRow].memberID
                 await self.viewModel.linkRejectDidTap(for: memberID)
+                await self.viewModel.checkNewLinkRequest()
                 confirmAlert.dismiss(animated: false, completion: nil)
                 self.tableView.reloadData()
             }
@@ -464,6 +480,7 @@ extension LinkManagementViewController: SentTabCellDelegate {
             Task {
                 let memberID = self.viewModel.dataList[indexPathRow].memberID
                 await self.viewModel.linkCancelDidTap(for: memberID)
+                await self.viewModel.checkNewLinkRequest()
                 confirmAlert.dismiss(animated: false, completion: nil)
                 self.tableView.reloadData()
             }
@@ -496,7 +513,9 @@ extension LinkManagementViewController: SearchBarDelegate {
     
     func search(_ searchBar: SearchBar, searchText: String) {
         searchLoadingView.configure(nickName: searchText)
-        viewModel.searchUserByNickname(searchText)
+        Task {
+            await viewModel.searchUserByNickname(searchText)
+        }
     }
 }
 

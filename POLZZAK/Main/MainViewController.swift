@@ -27,7 +27,7 @@ final class MainViewController: UIViewController {
         static let placeHolderLabelText = "와 연동되면\n도장판을 만들 수 있어요!"
     }
     
-    private let viewModel = StampBoardViewModel()
+    private let viewModel = StampBoardViewModel(useCase: DefaultStampBoardsUseCase(repository: StampBoardsDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
     private let customRefreshControl = CustomRefreshControl()
@@ -194,6 +194,7 @@ extension MainViewController {
     
     private func bindViewModel() {
         viewModel.shouldEndRefreshing
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.customRefreshControl.endRefreshing()
             }
@@ -214,13 +215,13 @@ extension MainViewController {
             .store(in: &cancellables)
         
         viewModel.dataList
+            .receive(on: DispatchQueue.main)
             .filter { [weak self] _ in
                 self?.viewModel.isSkeleton.value == false
             }
             .map { array -> Bool in
                 return array.isEmpty
             }
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.mainCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
@@ -234,7 +235,14 @@ extension MainViewController {
             .sink { [weak self] filterType in
                 self?.updateLayout(for: filterType)
                 self?.updateFilterView()
-                
+            }
+            .store(in: &cancellables)
+        
+        viewModel.showErrorAlertSubject
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { error in
+                print("error", error)
             }
             .store(in: &cancellables)
     }
@@ -275,7 +283,7 @@ extension MainViewController {
     
     private func handleSkeletonView(for bool: Bool) {
         if true == bool {
-            viewModel.tempInprogressAPI(isFirst: true)
+            viewModel.fetchStampBoardListAPI(isFirst: true)
             stampBoardSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
@@ -298,7 +306,6 @@ extension MainViewController {
         emptyView.isHidden = !bool
         
         if true == bool {
-            //TODO: - userType 정의가 되면 변경
             emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         }
@@ -361,18 +368,21 @@ extension MainViewController: UICollectionViewDataSource {
         if case .section(let memberId) = viewModel.filterType.value {
             let index = viewModel.indexOfMember(with: memberId)
             if true == viewModel.dataList.value[index].stampBoardSummaries.isEmpty {
-                return dequeueEmptyCell(in: collectionView, at: indexPath)
+                let nickname = viewModel.dataList.value[index].family.nickname
+                return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
             }
         }
         
         if viewModel.filterType.value == .all {
             if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
-                return dequeueEmptyCell(in: collectionView, at: indexPath)
+                let nickname = viewModel.dataList.value[indexPath.section].family.nickname
+                return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
             }
         }
         
         if true == viewModel.dataList.value.isEmpty {
-            return dequeueEmptyCell(in: collectionView, at: indexPath)
+            let nickname = viewModel.dataList.value[indexPath.section].family.nickname
+            return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
         }
         
         switch viewModel.tabState.value {
@@ -399,15 +409,15 @@ extension MainViewController: UICollectionViewDataSource {
             if totalCount != 0 {
                 footerView.configure(with: totalCount)
             }
-            
             return footerView
         default:
             return UICollectionReusableView()
         }
     }
     
-    private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
+    private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath, with nickName: String) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyCell.reuseIdentifier, for: indexPath) as! EmptyCell
+        cell.configure(with: nickName, tabState: viewModel.tabState.value, userType: viewModel.userType.value)
         return cell
     }
     

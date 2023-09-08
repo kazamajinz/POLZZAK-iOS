@@ -11,7 +11,7 @@ struct FamilyMember {
     let memberID: Int
     let nickname: String
     let memberType: MemberType
-    let profileURL: String
+    let profileURL: String?
     let familyStatus: FamilyStatus?
 }
 

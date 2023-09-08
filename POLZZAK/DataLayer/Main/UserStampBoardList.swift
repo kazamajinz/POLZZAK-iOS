@@ -35,7 +35,7 @@ import Foundation
 //                StampBoardSummary(stampBoardId: 0, name: "이정환의 도장판", currentStampCount: 2, goalStampCount: 4, reward: "도서상품권", missionCompleteCount: 2, isRewarded: false)
 //            ]
 //        ),
-//        
+//
 //        UserStampBoardList(
 //            family: FamilyMember(memberId: 0,
 //                                 nickName: "김홍근",
@@ -47,7 +47,7 @@ import Foundation
 //                StampBoardSummary(stampBoardId: 0, name: "방울이의 도장판", currentStampCount: 0, goalStampCount: 5, reward: "안마", missionCompleteCount: 5, isRewarded: false)
 //            ]
 //        ),
-//        
+//
 //        UserStampBoardList(
 //            family: FamilyMember(memberId: 0,
 //                                 nickName: "조준모",
@@ -60,6 +60,6 @@ import Foundation
 //            ]
 //        )
 //    ]
-//    
+    
 //    static let sampleData3: [UserStampBoardList] = []
 //}

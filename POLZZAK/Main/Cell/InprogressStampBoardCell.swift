@@ -79,7 +79,7 @@ class InprogressStampBoardCell: UICollectionViewCell {
     private let stampRequestLabelView: UIView = {
         let view = UIView()
         view.backgroundColor = .blue100
-        view.addBorder(cornerRadius: 17)
+        view.addBorder(cornerRadius: 10.5)
         return view
     }()
     
@@ -135,7 +135,7 @@ extension InprogressStampBoardCell {
         stampNameLabel.text = info.name
         currentCountLabel.text = "\(info.currentStampCount)"
         totalCountLabel.text = "\(info.goalStampCount)"
-        stampRequestLabel.text = "도장 요청 \(info.missionCompleteCount)개"
+        stampRequestLabel.text = "도장 요청 \(info.missionRequestCount)개"
         rewardTitleLabel.text = info.reward
         
         let graphValue = CGFloat(info.currentStampCount) / CGFloat(info.goalStampCount)

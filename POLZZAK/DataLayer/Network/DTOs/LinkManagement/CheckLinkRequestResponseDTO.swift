@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CheckLinkRequestResponseDTO: Decodable {
+struct CheckLinkRequestDTO: Decodable {
     let isFamilyReceived: Bool
     let isFamilySent: Bool
 }

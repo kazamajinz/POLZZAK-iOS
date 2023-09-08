@@ -26,7 +26,7 @@ final class CouponListViewController: UIViewController {
         static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
     }
     
-    private let viewModel = CouponListViewModel()
+    private let viewModel = CouponListViewModel(useCase: DefaultCouponsUseCase(repository: CouponDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
     private let customRefreshControl = CustomRefreshControl()
@@ -202,18 +202,18 @@ extension CouponListViewController {
             .store(in: &cancellables)
         
         viewModel.dataList
+            .receive(on: DispatchQueue.main)
             .filter { [weak self] _ in
                 self?.viewModel.isSkeleton.value == false
             }
             .map { array -> Bool in
                 return array.isEmpty
             }
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.couponCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
-                    self?.updateFilterView()
+                self?.updateFilterView()
             }
             .store(in: &cancellables)
         
@@ -221,7 +221,7 @@ extension CouponListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] filterType in
                 self?.updateLayout(for: filterType)
-                    self?.updateFilterView()
+                self?.updateFilterView()
             }
             .store(in: &cancellables)
     }
@@ -262,7 +262,7 @@ extension CouponListViewController {
     
     private func handleSkeletonView(for bool: Bool) {
         if true == bool {
-            viewModel.tempInprogressAPI(isFirst: true)
+            viewModel.fetchStampBoardListAPI(isFirst: true)
             couponSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
@@ -284,7 +284,6 @@ extension CouponListViewController {
         emptyView.isHidden = !bool
         
         if true == bool {
-            //TODO: - userType 정의가 되면 변경
             emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         }

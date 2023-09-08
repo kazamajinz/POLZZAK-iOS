@@ -77,7 +77,7 @@
 		39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE42A21915D00C86049 /* MemberTypeView.swift */; };
 		39227BE72A23866300C86049 /* testData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE62A23866300C86049 /* testData.swift */; };
 		39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39227BE82A242BDD00C86049 /* EmptyCell.swift */; };
-		392B4C152AA0677F00CE0546 /* HTTPStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392B4C142AA0677F00CE0546 /* HTTPStatus.swift */; };
+		392B4C152AA0677F00CE0546 /* PolzzakError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392B4C142AA0677F00CE0546 /* PolzzakError.swift */; };
 		392B4C172AA07AE900CE0546 /* DecodingError+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392B4C162AA07AE900CE0546 /* DecodingError+extension.swift */; };
 		392B4C192AA0C03C00CE0546 /* AlertDoubleButtonLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392B4C182AA0C03C00CE0546 /* AlertDoubleButtonLoadingView.swift */; };
 		392B4C1B2AA387B100CE0546 /* ToastType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392B4C1A2AA387B100CE0546 /* ToastType.swift */; };
@@ -95,6 +95,18 @@
 		398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58772A5ED1700055CF37 /* NotificationDTO.swift */; };
 		398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */; };
 		398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */; };
+		3993C76D2AA9F95900B328B2 /* CouponTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C76C2AA9F95900B328B2 /* CouponTargets.swift */; };
+		3993C76F2AAA010B00B328B2 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C76E2AAA010B00B328B2 /* CouponService.swift */; };
+		3993C7712AAAB97800B328B2 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7702AAAB97800B328B2 /* BaseResponse.swift */; };
+		3993C7732AAB5FF500B328B2 /* CouponDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7722AAB5FF500B328B2 /* CouponDataRepository.swift */; };
+		3993C7752AAB601100B328B2 /* CouponsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7742AAB601100B328B2 /* CouponsRepository.swift */; };
+		3993C7772AAB60FE00B328B2 /* CouponMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7762AAB60FE00B328B2 /* CouponMapper.swift */; };
+		3993C7792AAB710C00B328B2 /* DefaultCouponsUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7782AAB710C00B328B2 /* DefaultCouponsUsecase.swift */; };
+		399E51412AA8D89600F4A6C3 /* StampBoardsTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */; };
+		399E51432AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51422AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift */; };
+		399E51452AA8DBA200F4A6C3 /* StampBoardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */; };
+		399E51472AA8DC3300F4A6C3 /* StampBoardsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51462AA8DC3300F4A6C3 /* StampBoardsService.swift */; };
+		399E51492AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */; };
 		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
 		39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */; };
 		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
@@ -109,20 +121,20 @@
 		39C573292A9DEB6600CD6362 /* FooterViewUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573282A9DEB6600CD6362 /* FooterViewUpdatable.swift */; };
 		39C5732B2A9E2BE900CD6362 /* LinkTabState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5732A2A9E2BE900CD6362 /* LinkTabState.swift */; };
 		39C5732D2A9E2E4600CD6362 /* LinkManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5732C2A9E2E4600CD6362 /* LinkManagementViewModel.swift */; };
-		39C573312A9F1E0600CD6362 /* FamilyMemberResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573302A9F1E0600CD6362 /* FamilyMemberResponseDTO.swift */; };
+		39C573312A9F1E0600CD6362 /* FamilyMemberListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573302A9F1E0600CD6362 /* FamilyMemberListDTO.swift */; };
 		39C573332A9F1E1B00CD6362 /* MemberTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573322A9F1E1B00CD6362 /* MemberTypeDTO.swift */; };
-		39C573362A9F1E3A00CD6362 /* CouponListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573352A9F1E3A00CD6362 /* CouponListResponseDTO.swift */; };
+		39C573362A9F1E3A00CD6362 /* CouponListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573352A9F1E3A00CD6362 /* CouponListDTO.swift */; };
 		39C5733C2A9F1EA000CD6362 /* CouponList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5733B2A9F1EA000CD6362 /* CouponList.swift */; };
 		39C5733E2A9F1EC800CD6362 /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5733D2A9F1EC800CD6362 /* FamilyMember.swift */; };
 		39C573402A9F1EE900CD6362 /* MemberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5733F2A9F1EE900CD6362 /* MemberType.swift */; };
-		39C573422A9F22EE00CD6362 /* StampBoardListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573412A9F22EE00CD6362 /* StampBoardListResponseDTO.swift */; };
+		39C573422A9F22EE00CD6362 /* StampBoardListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573412A9F22EE00CD6362 /* StampBoardListDTO.swift */; };
 		39C573442A9F232500CD6362 /* StampBoardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573432A9F232500CD6362 /* StampBoardList.swift */; };
-		39C573482A9F328A00CD6362 /* LinkManagementTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573472A9F328A00CD6362 /* LinkManagementTarget.swift */; };
+		39C573482A9F328A00CD6362 /* LinkManagementTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */; };
 		39C5734B2A9F37EC00CD6362 /* LinkManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5734A2A9F37EC00CD6362 /* LinkManagementService.swift */; };
-		39C573502A9F61B800CD6362 /* FamilyMemberMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5734F2A9F61B800CD6362 /* FamilyMemberMapper.swift */; };
-		39C573552A9F75DF00CD6362 /* FamilyMemberRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573542A9F75DF00CD6362 /* FamilyMemberRepository.swift */; };
-		39C573582A9F761F00CD6362 /* FamilyMemberDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573572A9F761F00CD6362 /* FamilyMemberDataRepository.swift */; };
-		39C5735A2A9F874400CD6362 /* FamilyMemberUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573592A9F874400CD6362 /* FamilyMemberUseCase.swift */; };
+		39C573502A9F61B800CD6362 /* StampBoardsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5734F2A9F61B800CD6362 /* StampBoardsMapper.swift */; };
+		39C573552A9F75DF00CD6362 /* LinkManagementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */; };
+		39C573582A9F761F00CD6362 /* LinkManagementDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573572A9F761F00CD6362 /* LinkManagementDataRepository.swift */; };
+		39C5735A2A9F874400CD6362 /* DefaultLinkManagementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */; };
 		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D724982A97771600D5409D /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724972A97771600D5409D /* EmptyView.swift */; };
 		39D7249A2A97771D00D5409D /* CollectionEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724992A97771D00D5409D /* CollectionEmptyView.swift */; };
@@ -291,7 +303,7 @@
 		39227BE42A21915D00C86049 /* MemberTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeView.swift; sourceTree = "<group>"; };
 		39227BE62A23866300C86049 /* testData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testData.swift; sourceTree = "<group>"; };
 		39227BE82A242BDD00C86049 /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
-		392B4C142AA0677F00CE0546 /* HTTPStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatus.swift; sourceTree = "<group>"; };
+		392B4C142AA0677F00CE0546 /* PolzzakError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolzzakError.swift; sourceTree = "<group>"; };
 		392B4C162AA07AE900CE0546 /* DecodingError+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DecodingError+extension.swift"; sourceTree = "<group>"; };
 		392B4C182AA0C03C00CE0546 /* AlertDoubleButtonLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonLoadingView.swift; sourceTree = "<group>"; };
 		392B4C1A2AA387B100CE0546 /* ToastType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastType.swift; sourceTree = "<group>"; };
@@ -310,6 +322,18 @@
 		398E58772A5ED1700055CF37 /* NotificationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDTO.swift; sourceTree = "<group>"; };
 		398E58792A6003ED0055CF37 /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		398E58872A62DF960055CF37 /* NotificationSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingTableViewCell.swift; sourceTree = "<group>"; };
+		3993C76C2AA9F95900B328B2 /* CouponTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponTargets.swift; sourceTree = "<group>"; };
+		3993C76E2AAA010B00B328B2 /* CouponService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponService.swift; sourceTree = "<group>"; };
+		3993C7702AAAB97800B328B2 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		3993C7722AAB5FF500B328B2 /* CouponDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDataRepository.swift; sourceTree = "<group>"; };
+		3993C7742AAB601100B328B2 /* CouponsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsRepository.swift; sourceTree = "<group>"; };
+		3993C7762AAB60FE00B328B2 /* CouponMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponMapper.swift; sourceTree = "<group>"; };
+		3993C7782AAB710C00B328B2 /* DefaultCouponsUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCouponsUsecase.swift; sourceTree = "<group>"; };
+		399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsTargets.swift; sourceTree = "<group>"; };
+		399E51422AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsDataRepository.swift; sourceTree = "<group>"; };
+		399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsRepository.swift; sourceTree = "<group>"; };
+		399E51462AA8DC3300F4A6C3 /* StampBoardsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsService.swift; sourceTree = "<group>"; };
+		399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStampBoardsUseCase.swift; sourceTree = "<group>"; };
 		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
 		39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
@@ -324,20 +348,20 @@
 		39C573282A9DEB6600CD6362 /* FooterViewUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewUpdatable.swift; sourceTree = "<group>"; };
 		39C5732A2A9E2BE900CD6362 /* LinkTabState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTabState.swift; sourceTree = "<group>"; };
 		39C5732C2A9E2E4600CD6362 /* LinkManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementViewModel.swift; sourceTree = "<group>"; };
-		39C573302A9F1E0600CD6362 /* FamilyMemberResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberResponseDTO.swift; sourceTree = "<group>"; };
+		39C573302A9F1E0600CD6362 /* FamilyMemberListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberListDTO.swift; sourceTree = "<group>"; };
 		39C573322A9F1E1B00CD6362 /* MemberTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTypeDTO.swift; sourceTree = "<group>"; };
-		39C573352A9F1E3A00CD6362 /* CouponListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListResponseDTO.swift; sourceTree = "<group>"; };
+		39C573352A9F1E3A00CD6362 /* CouponListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListDTO.swift; sourceTree = "<group>"; };
 		39C5733B2A9F1EA000CD6362 /* CouponList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponList.swift; sourceTree = "<group>"; };
 		39C5733D2A9F1EC800CD6362 /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
 		39C5733F2A9F1EE900CD6362 /* MemberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberType.swift; sourceTree = "<group>"; };
-		39C573412A9F22EE00CD6362 /* StampBoardListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardListResponseDTO.swift; sourceTree = "<group>"; };
+		39C573412A9F22EE00CD6362 /* StampBoardListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardListDTO.swift; sourceTree = "<group>"; };
 		39C573432A9F232500CD6362 /* StampBoardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardList.swift; sourceTree = "<group>"; };
-		39C573472A9F328A00CD6362 /* LinkManagementTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementTarget.swift; sourceTree = "<group>"; };
+		39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementTargets.swift; sourceTree = "<group>"; };
 		39C5734A2A9F37EC00CD6362 /* LinkManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementService.swift; sourceTree = "<group>"; };
-		39C5734F2A9F61B800CD6362 /* FamilyMemberMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberMapper.swift; sourceTree = "<group>"; };
-		39C573542A9F75DF00CD6362 /* FamilyMemberRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberRepository.swift; sourceTree = "<group>"; };
-		39C573572A9F761F00CD6362 /* FamilyMemberDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberDataRepository.swift; sourceTree = "<group>"; };
-		39C573592A9F874400CD6362 /* FamilyMemberUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberUseCase.swift; sourceTree = "<group>"; };
+		39C5734F2A9F61B800CD6362 /* StampBoardsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsMapper.swift; sourceTree = "<group>"; };
+		39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementRepository.swift; sourceTree = "<group>"; };
+		39C573572A9F761F00CD6362 /* LinkManagementDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementDataRepository.swift; sourceTree = "<group>"; };
+		39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLinkManagementUseCase.swift; sourceTree = "<group>"; };
 		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
 		39D724972A97771600D5409D /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		39D724992A97771D00D5409D /* CollectionEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEmptyView.swift; sourceTree = "<group>"; };
@@ -658,7 +682,7 @@
 		392B4C132AA0667A00CE0546 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				392B4C142AA0677F00CE0546 /* HTTPStatus.swift */,
+				392B4C142AA0677F00CE0546 /* PolzzakError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -667,14 +691,6 @@
 			isa = PBXGroup;
 			children = (
 				392B4C1F2AA4308F00CE0546 /* CheckLinkRequest.swift */,
-			);
-			path = LinkManagement;
-			sourceTree = "<group>";
-		};
-		392B4C212AA430C400CE0546 /* LinkManagement */ = {
-			isa = PBXGroup;
-			children = (
-				392B4C222AA430E200CE0546 /* LinkManagementMapper.swift */,
 			);
 			path = LinkManagement;
 			sourceTree = "<group>";
@@ -753,8 +769,8 @@
 		39C5732F2A9F1DEB00CD6362 /* StampBoard */ = {
 			isa = PBXGroup;
 			children = (
-				39C573412A9F22EE00CD6362 /* StampBoardListResponseDTO.swift */,
-				39C573302A9F1E0600CD6362 /* FamilyMemberResponseDTO.swift */,
+				39C573412A9F22EE00CD6362 /* StampBoardListDTO.swift */,
+				39C573302A9F1E0600CD6362 /* FamilyMemberListDTO.swift */,
 				39C573322A9F1E1B00CD6362 /* MemberTypeDTO.swift */,
 			);
 			path = StampBoard;
@@ -763,7 +779,7 @@
 		39C573342A9F1E2200CD6362 /* Coupon */ = {
 			isa = PBXGroup;
 			children = (
-				39C573352A9F1E3A00CD6362 /* CouponListResponseDTO.swift */,
+				39C573352A9F1E3A00CD6362 /* CouponListDTO.swift */,
 			);
 			path = Coupon;
 			sourceTree = "<group>";
@@ -782,6 +798,7 @@
 		39C573382A9F1E6600CD6362 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				3993C7702AAAB97800B328B2 /* BaseResponse.swift */,
 				39C573392A9F1E6E00CD6362 /* StampBoard */,
 				392B4C1E2AA4307F00CE0546 /* LinkManagement */,
 				39C5733A2A9F1E7500CD6362 /* Coupon */,
@@ -822,7 +839,9 @@
 		39C573462A9F326000CD6362 /* Targets */ = {
 			isa = PBXGroup;
 			children = (
-				39C573472A9F328A00CD6362 /* LinkManagementTarget.swift */,
+				399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */,
+				39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */,
+				3993C76C2AA9F95900B328B2 /* CouponTargets.swift */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -830,7 +849,9 @@
 		39C573492A9F37D500CD6362 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				399E51462AA8DC3300F4A6C3 /* StampBoardsService.swift */,
 				39C5734A2A9F37EC00CD6362 /* LinkManagementService.swift */,
+				3993C76E2AAA010B00B328B2 /* CouponService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -846,24 +867,19 @@
 		39C5734D2A9F619B00CD6362 /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
-				39C5734E2A9F61A900CD6362 /* StampBoard */,
-				392B4C212AA430C400CE0546 /* LinkManagement */,
+				39C5734F2A9F61B800CD6362 /* StampBoardsMapper.swift */,
+				392B4C222AA430E200CE0546 /* LinkManagementMapper.swift */,
+				3993C7762AAB60FE00B328B2 /* CouponMapper.swift */,
 			);
 			path = Mappers;
-			sourceTree = "<group>";
-		};
-		39C5734E2A9F61A900CD6362 /* StampBoard */ = {
-			isa = PBXGroup;
-			children = (
-				39C5734F2A9F61B800CD6362 /* FamilyMemberMapper.swift */,
-			);
-			path = StampBoard;
 			sourceTree = "<group>";
 		};
 		39C573512A9F755300CD6362 /* Usecases */ = {
 			isa = PBXGroup;
 			children = (
-				39C573592A9F874400CD6362 /* FamilyMemberUseCase.swift */,
+				399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */,
+				39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */,
+				3993C7782AAB710C00B328B2 /* DefaultCouponsUsecase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -878,7 +894,9 @@
 		39C573532A9F75AA00CD6362 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				39C573542A9F75DF00CD6362 /* FamilyMemberRepository.swift */,
+				399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */,
+				39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */,
+				3993C7742AAB601100B328B2 /* CouponsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -886,7 +904,9 @@
 		39C573562A9F760E00CD6362 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				39C573572A9F761F00CD6362 /* FamilyMemberDataRepository.swift */,
+				399E51422AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift */,
+				39C573572A9F761F00CD6362 /* LinkManagementDataRepository.swift */,
+				3993C7722AAB5FF500B328B2 /* CouponDataRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1391,9 +1411,9 @@
 			files = (
 				DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */,
 				DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */,
-				39C573312A9F1E0600CD6362 /* FamilyMemberResponseDTO.swift in Sources */,
+				39C573312A9F1E0600CD6362 /* FamilyMemberListDTO.swift in Sources */,
 				39D7249C2A9777AC00D5409D /* UserStampBoardList.swift in Sources */,
-				39C573482A9F328A00CD6362 /* LinkManagementTarget.swift in Sources */,
+				39C573482A9F328A00CD6362 /* LinkManagementTargets.swift in Sources */,
 				DA38E61B2A4DABEF00229282 /* NicknameTextField.swift in Sources */,
 				DA38E60C2A4D60DE00229282 /* RegisterUserTypeViewController.swift in Sources */,
 				39152B482A5AB68B00AAFA23 /* UIFont+PretendardFont.swift in Sources */,
@@ -1406,19 +1426,21 @@
 				3900FADF2A3AB6A8009EAC52 /* ReceivedTabCell.swift in Sources */,
 				DA0919EF2A9CB03C00A60AB6 /* UIImage+resize.swift in Sources */,
 				390F42402A910E01005FC7B2 /* BaseAlertViewController.swift in Sources */,
-				392B4C152AA0677F00CE0546 /* HTTPStatus.swift in Sources */,
+				392B4C152AA0677F00CE0546 /* PolzzakError.swift in Sources */,
 				398E58882A62DF960055CF37 /* NotificationSettingTableViewCell.swift in Sources */,
 				39152B3E2A5AB37500AAFA23 /* SearchBar.swift in Sources */,
+				399E51472AA8DC3300F4A6C3 /* StampBoardsService.swift in Sources */,
 				392B4C202AA4308F00CE0546 /* CheckLinkRequest.swift in Sources */,
 				39C573042A9B4EE900CD6362 /* CollectionConfigurable.swift in Sources */,
 				DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */,
+				3993C76F2AAA010B00B328B2 /* CouponService.swift in Sources */,
 				39152B322A5AB2C200AAFA23 /* FullScreenLoadingView.swift in Sources */,
 				3900FAA52A377340009EAC52 /* UIView+Animation.swift in Sources */,
 				DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */,
 				DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */,
 				DA0919E12A9A169E00A60AB6 /* NicknameTarget.swift in Sources */,
 				DA65FDBB2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift in Sources */,
-				39C573502A9F61B800CD6362 /* FamilyMemberMapper.swift in Sources */,
+				39C573502A9F61B800CD6362 /* StampBoardsMapper.swift in Sources */,
 				3900FADB2A3A9E33009EAC52 /* UIImageView+extension.swift in Sources */,
 				DA0919ED2A9C91EC00A60AB6 /* Data+prettyJSON.swift in Sources */,
 				39152B3C2A5AB37500AAFA23 /* SearchBarSubView.swift in Sources */,
@@ -1428,12 +1450,15 @@
 				392B4C1B2AA387B100CE0546 /* ToastType.swift in Sources */,
 				398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */,
 				390165642A7A7A7B00A193D7 /* String+Date.swift in Sources */,
+				399E51492AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift in Sources */,
 				390F42222A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift in Sources */,
+				3993C7752AAB601100B328B2 /* CouponsRepository.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				39D724AD2A9779BE00D5409D /* FilterType.swift in Sources */,
 				3900FAD72A39FDD5009EAC52 /* FamilyData.swift in Sources */,
 				398E58762A5ED1580055CF37 /* NotificationModel.swift in Sources */,
+				399E51412AA8D89600F4A6C3 /* StampBoardsTargets.swift in Sources */,
 				390F42342A8E4FB3005FC7B2 /* MissionStatusView.swift in Sources */,
 				3901784A2A947A15001D0E90 /* QnaStackView.swift in Sources */,
 				39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */,
@@ -1457,7 +1482,7 @@
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				39D724A22A9778FC00D5409D /* StampBoardHeaderView.swift in Sources */,
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
-				39C573582A9F761F00CD6362 /* FamilyMemberDataRepository.swift in Sources */,
+				39C573582A9F761F00CD6362 /* LinkManagementDataRepository.swift in Sources */,
 				3CDF642C2A24934F004A87A2 /* NetworkError.swift in Sources */,
 				398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */,
 				39D724A42A97790700D5409D /* StampBoardFooterView.swift in Sources */,
@@ -1495,6 +1520,7 @@
 				390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */,
 				390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
+				3993C7792AAB710C00B328B2 /* DefaultCouponsUsecase.swift in Sources */,
 				39C5733E2A9F1EC800CD6362 /* FamilyMember.swift in Sources */,
 				390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */,
 				39C573402A9F1EE900CD6362 /* MemberType.swift in Sources */,
@@ -1518,6 +1544,7 @@
 				390F42162A89DED7005FC7B2 /* FullLoadingView.swift in Sources */,
 				398E58702A5D93830055CF37 /* NotificationViewModel.swift in Sources */,
 				DA0919E32A9B16DE00A60AB6 /* MemberTypeTarget.swift in Sources */,
+				3993C76D2AA9F95900B328B2 /* CouponTargets.swift in Sources */,
 				39152B3F2A5AB37500AAFA23 /* Toast.swift in Sources */,
 				398E58782A5ED1700055CF37 /* NotificationDTO.swift in Sources */,
 				3C6E58432A15FF3A005FC66B /* MissionListView.swift in Sources */,
@@ -1535,6 +1562,8 @@
 				39C5732B2A9E2BE900CD6362 /* LinkTabState.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
+				3993C7772AAB60FE00B328B2 /* CouponMapper.swift in Sources */,
+				3993C7712AAAB97800B328B2 /* BaseResponse.swift in Sources */,
 				390F421B2A8C6E2A005FC7B2 /* BottomSheetViewController.swift in Sources */,
 				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
@@ -1546,7 +1575,9 @@
 				390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */,
 				390F422E2A8DFEA5005FC7B2 /* CouponDetailViewController.swift in Sources */,
 				390165792A7FCFE500A193D7 /* CouponGuideViewController.swift in Sources */,
+				399E51432AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift in Sources */,
 				392B4C232AA430E200CE0546 /* LinkManagementMapper.swift in Sources */,
+				3993C7732AAB5FF500B328B2 /* CouponDataRepository.swift in Sources */,
 				391E23A52A41265500CA75EF /* SearchLoadingView.swift in Sources */,
 				3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */,
 				390F42492A925D55005FC7B2 /* UIView+Capture.swift in Sources */,
@@ -1568,26 +1599,27 @@
 				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,
 				392B4C1D2AA4306B00CE0546 /* CheckLinkRequestResponseDTO.swift in Sources */,
 				39C5732D2A9E2E4600CD6362 /* LinkManagementViewModel.swift in Sources */,
-				39C5735A2A9F874400CD6362 /* FamilyMemberUseCase.swift in Sources */,
+				39C5735A2A9F874400CD6362 /* DefaultLinkManagementUseCase.swift in Sources */,
 				3900FAD42A39B5D1009EAC52 /* LinkListTabCell.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3901784E2A949688001D0E90 /* TabConstants.swift in Sources */,
 				3900FB112A409025009EAC52 /* UserType.swift in Sources */,
 				39D7249E2A97781800D5409D /* MainViewModel.swift in Sources */,
+				399E51452AA8DBA200F4A6C3 /* StampBoardsRepository.swift in Sources */,
 				3901655E2A7A142D00A193D7 /* CouponFooterView.swift in Sources */,
 				39152B3A2A5AB37500AAFA23 /* TabViews.swift in Sources */,
-				39C573552A9F75DF00CD6362 /* FamilyMemberRepository.swift in Sources */,
+				39C573552A9F75DF00CD6362 /* LinkManagementRepository.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				390F42382A8F14DC005FC7B2 /* CouponDetailViewModel.swift in Sources */,
 				DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */,
-				39C573362A9F1E3A00CD6362 /* CouponListResponseDTO.swift in Sources */,
+				39C573362A9F1E3A00CD6362 /* CouponListDTO.swift in Sources */,
 				3CF41E462A1F1B5900914421 /* DetailBoardNameView.swift in Sources */,
 				DAB2257B2A8E4B2400113617 /* InitialLoadingViewController.swift in Sources */,
 				3901655A2A78B13C00A193D7 /* MemberTypeLabel.swift in Sources */,
 				390178432A932790001D0E90 /* AlertTableViewCell.swift in Sources */,
 				39C573442A9F232500CD6362 /* StampBoardList.swift in Sources */,
 				DA38E6152A4D81CE00229282 /* RegisterParentTypeViewController.swift in Sources */,
-				39C573422A9F22EE00CD6362 /* StampBoardListResponseDTO.swift in Sources */,
+				39C573422A9F22EE00CD6362 /* StampBoardListDTO.swift in Sources */,
 				398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 				39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */,

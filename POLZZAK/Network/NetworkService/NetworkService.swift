@@ -10,42 +10,78 @@ import OSLog
 
 protocol NetworkServiceProvider {
     func request(with target: TargetType) async throws -> (Data, URLResponse)
-    func sendRequest(with target: TargetType) async throws
 }
 
+/*
 extension NetworkServiceProvider {
     func requestData(with target: TargetType) async throws -> Data {
-        return try await request(with: target).0
+        return try await basicRequest(with: target).0
     }
     
-    func request<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> (T, URLResponse) {
-        let (data, response) = try await request(with: target)
-        return (try JSONDecoder().decode(T.self, from: data), response)
-    }
-    
-    func requestData<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> T {
-        let (data, response) = try await request(with: target)
+    func request<Success: Decodable, Failure: Decodable>(successType: Success.Type, failureType: Failure.Type, with target: TargetType) async throws -> NetworkResult<Success, Failure> {
+        let (data, response) = try await basicRequest(with: target)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.unknownError
+        }
         
-        if let httpResponse = response as? HTTPURLResponse {
-            switch httpResponse.statusCode {
-            case 200...299:
-                break
-            default:
-                try PolzzakError.validate(code: httpResponse.statusCode)
+        let decoder = JSONDecoder()
+        let statusCode = httpResponse.statusCode
+
+        if 200..<300 ~= statusCode {
+            if statusCode == 204 {
+                return .success(nil)
+            }
+            do {
+                let decodedSuccessData = try decoder.decode(Success.self, from: data)
+                return .success(decodedSuccessData)
+            } catch let decodingError as DecodingError {
+                handleDecodingError(decodingError)
+                throw PolzzakError<Void>.decodingError
+            } catch {
+                throw PolzzakError<Void>.serviceError
+            }
+        } else {
+            do {
+                let decodedFailureData = try decoder.decode(Failure.self, from: data)
+                return .failure(decodedFailureData)
+            } catch let decodingError as DecodingError {
+                handleDecodingError(decodingError)
+                throw PolzzakError<Void>.decodingError
+            } catch {
+                throw PolzzakError<Void>.serviceError
             }
         }
-        return try JSONDecoder().decode(T.self, from: data)
     }
     
-    func sendRequest(with target: TargetType) async throws {
-        _ = try await request(with: target)
+    func handleDecodingError(_ error: DecodingError) {
+        switch error {
+        case .dataCorrupted(let context):
+            print("Data corrupted: \(context)")
+        case .keyNotFound(let key, let context):
+            print("Key '\(key)' not found: \(context.debugDescription)")
+        case .typeMismatch(_, let context):
+            print("Type mismatch: \(context)")
+        case .valueNotFound(let type, let context):
+            print("Value '\(type)' not found: \(context.debugDescription)")
+        @unknown default:
+            print("Other decoding error: \(error)")
+        }
+    }
+
+    
+    //TODO: - 토큰로직은 아직 아래의 request.
+    func request<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> (T, URLResponse) {
+        let (data, response) = try await basicRequest(with: target)
+        return (try JSONDecoder().decode(T.self, from: data), response)
     }
 }
-
+*/
+ 
 final class NetworkService: NetworkServiceProvider {
     private let session: URLSession
     private let requestInterceptor: RequestInterceptor?
     private var retryCount = ThreadSafeDictionary<URLRequest, Int>()
+    private var currentTask: URLSessionTask?
     
     init(
         session: URLSession = .shared,

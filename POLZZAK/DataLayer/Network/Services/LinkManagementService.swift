@@ -14,58 +14,43 @@ class LinkManagementService {
         self.networkService = networkService
     }
     
-    func fetchUserByNickname(_ nickname: String) async throws -> BaseResponseDTO<FamilyMemberDTO?> {
-        let target = LinkManagementTarget.searchUserByNickname(nickname: nickname)
-        let response = try await networkService.requestData(responseType: BaseResponseDTO<FamilyMemberDTO?>.self, with: target)
-        return response
+    func fetchUserByNickname(_ nickname: String) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.searchUserByNickname(nickname))
     }
     
-    func fetchAllLinkedUsers() async throws -> BaseResponseDTO<FamilyMemberResponseDTO> {
-        let target = LinkManagementTarget.fetchAllLinkedUsers
-        let response = try await networkService.requestData(responseType: BaseResponseDTO<FamilyMemberResponseDTO>.self, with: target)
-        return response
+    func fetchAllLinkedUsers() async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.fetchAllLinkedUsers)
     }
     
-    func fetchAllReceivedUsers() async throws -> BaseResponseDTO<FamilyMemberResponseDTO> {
-        let target = LinkManagementTarget.fetchAllReceivedLinkRequests
-        let response = try await networkService.requestData(responseType: BaseResponseDTO<FamilyMemberResponseDTO>.self, with: target)
-        return response
+    func fetchAllReceivedUsers() async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.fetchAllReceivedLinkRequests)
     }
     
-    func fetchAllRequestedUsers() async throws -> BaseResponseDTO<FamilyMemberResponseDTO> {
-        let target = LinkManagementTarget.fetchAllSentLinkRequests
-        let response = try await networkService.requestData(responseType: BaseResponseDTO<FamilyMemberResponseDTO>.self, with: target)
-        return response
+    func fetchAllRequestedUsers() async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.fetchAllSentLinkRequests)
     }
     
-    func sendLinkRequest(to memberID: Int) async throws {
-        let target = LinkManagementTarget.sendLinkRequest(memberID: memberID)
-        try await networkService.sendRequest(with: target)
+    func sendLinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.sendLinkRequest(memberID: memberID))
     }
     
-    func cancelLinkRequest(to memberID: Int) async throws {
-        let target = LinkManagementTarget.cancelSentLinkRequest(memberID: memberID)
-        try await networkService.sendRequest(with: target)
+    func cancelLinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.cancelSentLinkRequest(memberID: memberID))
     }
     
-    func approveLinkRequest(from memberID: Int) async throws {
-        let target = LinkManagementTarget.approveReceivedLinkRequest(memberID: memberID)
-        try await networkService.sendRequest(with: target)
+    func approveLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.approveReceivedLinkRequest(memberID: memberID))
     }
     
-    func rejectLinkRequest(from memberID: Int) async throws {
-        let target = LinkManagementTarget.rejectReceivedLinkRequest(memberID: memberID)
-        try await networkService.sendRequest(with: target)
+    func rejectLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.rejectReceivedLinkRequest(memberID: memberID))
     }
     
-    func sendUnlinkRequest(to memberID: Int) async throws {
-        let target = LinkManagementTarget.requestUnLink(memberID: memberID)
-        try await networkService.sendRequest(with: target)
+    func sendUnlinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.requestUnLink(memberID: memberID))
     }
     
-    func checkNewLinkRequest() async throws -> BaseResponseDTO<CheckLinkRequestResponseDTO> {
-        let target = LinkManagementTarget.checkNewLinkRequest
-        let response = try await networkService.requestData(responseType: BaseResponseDTO<CheckLinkRequestResponseDTO>.self, with: target)
-        return response
+    func checkNewLinkRequest() async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: LinkManagementTargets.checkNewLinkRequest)
     }
 }

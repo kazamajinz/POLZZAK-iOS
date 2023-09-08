@@ -9,8 +9,9 @@ import Foundation
 import Combine
 
 final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
-    typealias DataListType = CouponList
-    var dataList = CurrentValueSubject<[DataListType], Never>([])
+    private let useCase: CouponsUsecase
+    
+    var dataList = CurrentValueSubject<[CouponList], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     var userType = CurrentValueSubject<UserType, Never>(.parent)
@@ -21,48 +22,35 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
     var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
     var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init() {
+    init(useCase: CouponsUsecase) {
+        self.useCase = useCase
+        
         setupBindings()
     }
     
     func loadData(for centerLoading: Bool = false) {
         guard false == isSkeleton.value else { return }
-        switch tabState.value {
-        case .inProgress:
-            tempInprogressAPI(for: centerLoading)
-        case .completed:
-            tempCompletedAPI(for: centerLoading)
-        }
+        fetchStampBoardListAPI(for: centerLoading)
     }
     
-    func tempInprogressAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
-        showLoading(for: centerLoading)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            guard let self = self else { return }
-            if false == centerLoading && false == isFirst {
-                self.apiFinishedLoadingSubject.send(true)
+    func fetchStampBoardListAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
+        Task {
+            showLoading(for: centerLoading)
+            do {
+                let tabState = tabStateToString(tabState.value)
+                let task = useCase.fetchCouponList(tabState)
+                let result = try await task.value
+                hideLoading(for: centerLoading)
+                dataList.send(result)
+            } catch {
+                handleError(error)
             }
             
-            if isSkeleton.value == true {
-                self.hideSkeletonView()
-            } else {
-                self.hideLoading(for: centerLoading)
-            }
-            
-//            self.dataList.send(CouponListData.sampleData)
-        }
-    }
-    
-    func tempCompletedAPI(for centerLoading: Bool = false) {
-        showLoading(for: centerLoading)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            guard let self = self else { return }
-            if false == centerLoading {
+            if !centerLoading && (!isFirst || self.apiFinishedLoadingSubject.value) {
                 self.apiFinishedLoadingSubject.send(true)
             }
-            self.hideLoading(for: centerLoading)
-//            self.dataList.send(CouponListData.sampleData)
         }
     }
     
@@ -91,5 +79,42 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
         return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].coupons.isEmpty
+    }
+    
+    private func tabStateToString(_ tabState: TabState) -> String {
+        switch tabState {
+        case .inProgress:
+            return "ISSUED"
+        case .completed:
+            return "REWARDED"
+        }
+    }
+
+    func handleError(_ error: Error) {
+        if let internalError = error as? PolzzakError<Void> {
+            handleInternalError(internalError)
+        } else if let networkError = error as? NetworkError {
+            handleNetworkError(networkError)
+        } else if let decodingError = error as? DecodingError {
+            handleDecodingError(decodingError)
+        } else {
+            handleUnknownError(error)
+        }
+    }
+    
+    private func handleInternalError(_ error: PolzzakError<Void>) {
+        showErrorAlertSubject.send(error)
+    }
+    
+    private func handleNetworkError(_ error: NetworkError) {
+        showErrorAlertSubject.send(error)
+    }
+    
+    private func handleDecodingError(_ error: DecodingError) {
+        showErrorAlertSubject.send(error)
+    }
+    
+    private func handleUnknownError(_ error: Error) {
+        showErrorAlertSubject.send(error)
     }
 }

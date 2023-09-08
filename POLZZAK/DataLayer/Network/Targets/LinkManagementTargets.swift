@@ -1,5 +1,5 @@
 //
-//  LinkManagementTarget.swift
+//  LinkManagementTargets.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/08/30.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum LinkManagementTarget {
-    case searchUserByNickname(nickname: String)
+enum LinkManagementTargets {
+    case searchUserByNickname(_ nickname: String)
     case fetchAllLinkedUsers
     case fetchAllReceivedLinkRequests
     case fetchAllSentLinkRequests
@@ -20,7 +20,7 @@ enum LinkManagementTarget {
     case checkNewLinkRequest
 }
 
-extension LinkManagementTarget: BasicTargetType {
+extension LinkManagementTargets: BasicTargetType {
     var baseURL: String {
         return Constants.URL.baseURL
     }
@@ -46,7 +46,7 @@ extension LinkManagementTarget: BasicTargetType {
         case .requestUnLink(let memberID):
             return "v1/families/\(memberID)"
         case .checkNewLinkRequest:
-            return "new-request-mark"
+            return "v1/families/new-request-mark"
         }
     }
     
@@ -83,14 +83,17 @@ extension LinkManagementTarget: BasicTargetType {
         }
     }
     
-    var sampleData: Data? {
-        return nil
-    }
-    
     var bodyParameters: Encodable? {
         switch self {
         case .sendLinkRequest(let memberID):
             return ["targetId": memberID]
+        default:
+            return nil
+        }
+    }
+    
+    var sampleData: Data? {
+        switch self {
         default:
             return nil
         }

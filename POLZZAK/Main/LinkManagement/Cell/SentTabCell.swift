@@ -91,8 +91,11 @@ final class SentTabCell: UITableViewCell {
     }
     
     func configure(family: FamilyMember) {
-        profileImage.loadImage(from: family.profileURL)
         titleLabel.text = family.nickname
+        
+        if let profileURL = family.profileURL {
+            profileImage.loadImage(from: profileURL)
+        }
     }
     
     private func reset() {

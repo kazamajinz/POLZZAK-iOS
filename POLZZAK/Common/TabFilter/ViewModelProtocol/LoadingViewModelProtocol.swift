@@ -29,7 +29,9 @@ extension LoadingViewModelProtocol {
     }
     
     func hideLoading(for centerLoading: Bool) {
-        if true == centerLoading {
+        if isSkeleton.value == true {
+            self.hideSkeletonView()
+        } else if true == centerLoading {
             isCenterLoading.send(false)
         }
     }

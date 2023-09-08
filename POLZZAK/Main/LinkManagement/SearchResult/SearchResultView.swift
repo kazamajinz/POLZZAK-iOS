@@ -158,7 +158,9 @@ final class SearchResultView: UIView {
 
     private func setupUnlinked(_ member: FamilyMember) {
         familyMember = member
-        imageView.loadImage(from: member.profileURL)
+        if let profileURL = member.profileURL {
+            imageView.loadImage(from: profileURL)
+        }
         imageView.layer.cornerRadius = 50
         placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
         button.isHidden = false
@@ -173,7 +175,9 @@ final class SearchResultView: UIView {
 
     private func setupLinked(_ member: FamilyMember) {
         familyMember = member
-        imageView.loadImage(from: member.profileURL)
+        if let profileURL = member.profileURL {
+            imageView.loadImage(from: profileURL)
+        }
         imageView.layer.cornerRadius = 50
         placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
         button.isHidden = false
@@ -187,7 +191,9 @@ final class SearchResultView: UIView {
     private func setupLinkedRequestComplete(_ member: FamilyMember?) {
         if let member {
             familyMember = member
-            imageView.loadImage(from: member.profileURL)
+            if let profileURL = member.profileURL {
+                imageView.loadImage(from: profileURL)
+            }
             imageView.layer.cornerRadius = 50
             placeholder.setLabel(text: member.nickname, textColor: .black, font: .body14Bd)
         }

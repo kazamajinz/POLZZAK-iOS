@@ -26,9 +26,15 @@ class TokenInterceptor: RequestInterceptor {
         do {
             let target = UserInfoTarget.getUserInfo
             let networkService = NetworkService()
-            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: target)
             
-            if data.code == 434, let accessToken = data.data,
+            //TODO: - NetworkProvider extension 제거로 인한 사이드 이펙트 임시조치
+//            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: target)
+            
+            let (data, response) = try await networkService.request(with: target)
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(BaseResponseDTO<String>.self, from: data)
+            
+            if decodedData.code == 434, let accessToken = decodedData.data,
                let httpResponse = response as? HTTPURLResponse,
                let refreshToken = httpResponse.getRefreshTokenFromCookie() {
                 print("TokenInterceptor -")
@@ -41,10 +47,10 @@ class TokenInterceptor: RequestInterceptor {
                 let httpResponse = response as? HTTPURLResponse
                 let cookie = httpResponse?.allHeaderFields["Set-Cookie"] as? String
                 // TODO: - 아래 프린트문 삭제(다른 프린트문들은 log로?)
-                print("cookie: ", cookie)
-                print("refresh token: ", httpResponse?.getRefreshTokenFromCookie())
-                print("refreshed fail - \(data.messages)")
-                print("- code \(data.code)")
+                print("cookie: ", cookie ?? "")
+                print("refresh token: ", httpResponse?.getRefreshTokenFromCookie() ?? "")
+                print("refreshed fail - \(String(describing: decodedData.messages))")
+                print("- code \(decodedData.code)")
                 return .doNotRetry
             }
         } catch {

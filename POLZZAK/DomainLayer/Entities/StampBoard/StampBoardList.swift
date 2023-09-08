@@ -18,6 +18,13 @@ struct StampBoardSummary {
     let currentStampCount: Int
     let goalStampCount: Int
     let reward: String
-    let missionCompleteCount: Int
-    let isRewarded: Bool
+    let missionRequestCount: Int
+    let status: StampBoardStatus?
+}
+
+enum StampBoardStatus: String {
+    case progress = "PROGRESS"
+    case completed = "COMPLETED"
+    case issuedCoupon = "ISSUED_COUPON"
+    case rewarded = "REWARDED"
 }

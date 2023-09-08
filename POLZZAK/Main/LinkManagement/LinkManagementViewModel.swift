@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class LinkManagementViewModel {
-    private let useCase: FamilyMemberUseCase
+    private let useCase: LinkManagementUseCase
     private var cancellables = Set<AnyCancellable>()
     
     var userType: UserType = .child
@@ -19,175 +19,124 @@ final class LinkManagementViewModel {
     @Published var searchState: SearchState = .inactive
     @Published var searchResultState: SearchResultState = .notSearch
     
-    
-    var searchResultSubject = PassthroughSubject<(String, FamilyMember?), Never>()
-    var showErrorAlertSubject = PassthroughSubject<String?, Never>()
+    var newAlertSubject = PassthroughSubject<CheckLinkRequest?, Never>()
+    var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     var toastAppearSubject = PassthroughSubject<ToastType, Never>()
     
-    init(useCase: FamilyMemberUseCase) {
+    var searchTask: Task<FamilyMember?, Error>?
+    
+    init(useCase: LinkManagementUseCase) {
         self.useCase = useCase
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
         let userInfo = UserInfoManager.readUserInfo()
         userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
         
-        bindViewModel()
     }
     
-    private func bindViewModel() {
-        searchResultSubject
-            .sink { [weak self] (nickname, member) in
-                self?.handleSearchResult(nickname, member)
-            }
-            .store(in: &cancellables)
-    }
-    
-    func searchUserByNickname(_ nickname: String) {
+    func searchUserByNickname(_ nickname: String) async {
         updateSearchState(to: .searching(nickname))
-        useCase.searchUserByNickname(nickname)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.handleError(error)
-                }
-            } receiveValue: { [weak self] result in
-                self?.updateSearchState(to: .completed)
-                self?.searchResultSubject.send((nickname, result))
-                
-            }
-            .store(in: &cancellables)
+        do {
+            searchTask = useCase.searchUserByNickname(nickname)
+            let result = try await searchTask?.value
+            updateSearchState(to: .completed)
+            handleSearchResult(nickname, result)
+        } catch {
+            handleError(error)
+        }
     }
-    
-    func fetchAllLinkedUsers() {
+
+    private func fetchAllLinkedUsers() {
         Task {
             await loadMembers(using: useCase.fetchAllLinkedUsers)
+            await checkNewLinkRequest()
         }
     }
     
-    func fetchAllReceivedLinkRequests() {
+    private func fetchAllReceivedLinkRequests() {
         Task {
             await loadMembers(using: useCase.fetchAllReceivedLinkRequests)
+            await checkNewLinkRequest()
         }
     }
     
-    func fetchAllSentLinkRequests() {
+    private func fetchAllSentLinkRequests() {
         Task {
             await loadMembers(using: useCase.fetchAllSentLinkRequests)
+            await checkNewLinkRequest()
         }
     }
     
-    func loadMembers(using useCaseFetchMethod: () -> AnyPublisher<[FamilyMember], Error>) async {
+    private func loadMembers(using useCaseFetchMethod: () -> Task<[FamilyMember], Error>) async {
         showLoading()
-        useCaseFetchMethod()
-            .receive(on: DispatchQueue.main)
-            .sink { result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.handleError(error)
-                }
-            } receiveValue: { members in
-                self.dataList = members
-            }
-            .store(in: &cancellables)
+        do {
+            let task = useCaseFetchMethod()
+            let result = try await task.value
+            dataList = result
+        } catch {
+            handleError(error)
+        }
     }
     
     func checkNewLinkRequest() async {
-        useCase.checkNewLinkRequest()
-            .receive(on: DispatchQueue.main)
-            .sink { result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.handleError(error)
-                }
-                self.hideLoading()
-            } receiveValue: { newAlert in
-//                self.dataList = members
-            }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.checkNewLinkRequest()
+            let result = try await task.value
+            newAlertSubject.send(result)
+        } catch {
+            handleError(error)
+        }
+        hideLoading()
     }
     
     func linkRequestDidTap(for memberID: Int) async {
-        useCase.sendLinkRequest(to: memberID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.searchResultState = .linkRequestCompleted(nil)
-                    print("이거 된건가")
-                case .failure(let error):
-                    self?.handleError(error)
-                    if let polzzakError = error as? PolzzakError, polzzakError.statusCode == 400 {
-                        self?.toastAppearSubject.send(.error("이미 해당 회원에게 연동 요청을 받았어요"))
-                        
-                        //TODO: - 이거 하면 변동시켜줌, 검토해볼만함.
-                        self?.searchResultState = .linkRequestCompleted(nil)
-                    }
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.sendLinkRequest(to: memberID)
+            try await task.value
+            searchResultState = .linkRequestCompleted(nil)
+        } catch {
+            handleError(error)
+        }
     }
     
     func linkCancelDidTap(for memberID: Int) async {
-        useCase.cancelLinkRequest(to: memberID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.removeData(for: memberID)
-                case .failure(let error):
-                    self?.handleError(error)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.cancelLinkRequest(to: memberID)
+            try await task.value
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func linkApproveDidTap(for memberID: Int) async {
-        useCase.approveReceivedLinkRequest(from: memberID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.removeData(for: memberID)
-                case .failure(let error):
-                    self?.handleError(error)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.approveReceivedLinkRequest(from: memberID)
+            try await task.value
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func linkRejectDidTap(for memberID: Int) async {
-        useCase.rejectReceivedLinkRequest(from: memberID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.removeData(for: memberID)
-                case .failure(let error):
-                    self?.handleError(error)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.rejectReceivedLinkRequest(from: memberID)
+            try await task.value
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func unlinkRequestDidTap(for memberID: Int) async {
-        useCase.sendUnlinkRequest(to: memberID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.removeData(for: memberID)
-                case .failure(let error):
-                    self?.handleError(error)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
+        do {
+            let task = useCase.sendUnlinkRequest(to: memberID)
+            try await task.value
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func removeData(for memberID: Int) {
@@ -195,10 +144,8 @@ final class LinkManagementViewModel {
         dataList.remove(at: index)
     }
     
-    
     func handleSearchResult(_ nickname: String, _ result: FamilyMember?) {
         guard let result, let familyStatus = result.familyStatus else {
-            print("회원정보 없습니다.")
             setNonExist(nickname)
             return
         }
@@ -214,7 +161,7 @@ final class LinkManagementViewModel {
             searchResultState = .linked(result)
         }
     }
-    
+
     func updateSearchState(to state: SearchState) {
         searchState = state
     }
@@ -237,7 +184,6 @@ final class LinkManagementViewModel {
     
     func showLoading() {
         isTabLoading = true
-        //        cancelAllTasks()
     }
     
     func hideLoading() {
@@ -268,7 +214,7 @@ final class LinkManagementViewModel {
     }
     
     func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError {
+        if let internalError = error as? PolzzakError<Void> {
             handleInternalError(internalError)
         } else if let networkError = error as? NetworkError {
             handleNetworkError(networkError)
@@ -279,20 +225,20 @@ final class LinkManagementViewModel {
         }
     }
     
-    private func handleInternalError(_ error: PolzzakError) {
-        showErrorAlertSubject.send(error.description)
+    private func handleInternalError(_ error: PolzzakError<Void>) {
+        showErrorAlertSubject.send(error)
     }
     
     private func handleNetworkError(_ error: NetworkError) {
-        showErrorAlertSubject.send(error.errorDescription)
+        showErrorAlertSubject.send(error)
     }
     
     private func handleDecodingError(_ error: DecodingError) {
-        showErrorAlertSubject.send(error.description)
+        showErrorAlertSubject.send(error)
     }
     
     private func handleUnknownError(_ error: Error) {
-        showErrorAlertSubject.send(error.localizedDescription)
+        showErrorAlertSubject.send(error)
     }
     
     
@@ -301,7 +247,15 @@ final class LinkManagementViewModel {
         cancellables.removeAll()
     }
     
-    func cancelLinkRequest() {
-        
+    func cancelSearchRequest() {
+        searchState = .activated
+        searchTask?.cancel()
+        searchTask = nil
+    }
+}
+
+extension Task {
+    func store(in set: inout Set<AnyCancellable>) {
+        set.insert(AnyCancellable(cancel))
     }
 }

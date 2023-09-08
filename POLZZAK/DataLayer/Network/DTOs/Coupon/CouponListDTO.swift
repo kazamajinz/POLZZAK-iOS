@@ -1,5 +1,5 @@
 //
-//  CouponListResponseDTO.swift
+//  CouponListDTO.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/08/30.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CouponListResponseDTO: Decodable {
+struct CouponListDTO: Decodable {
     let family: FamilyMemberDTO
     let coupons: [CouponDTO]
 }

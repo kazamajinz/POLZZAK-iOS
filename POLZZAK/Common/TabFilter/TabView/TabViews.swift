@@ -158,6 +158,11 @@ extension TabViews {
     func setTouchInteractionEnabled(_ enabled: Bool) {
         isUserInteractionEnabled = enabled
     }
+    
+    func updateNewAlert(index: Int, state: Bool) {
+        guard tabViews.count >= index else { return }
+        tabViews[index].newAlertImage.isHidden = !state
+    }
 }
 
 extension TabViews: TabViewDelegate {

@@ -8,6 +8,6 @@
 import Foundation
 
 struct MemberType {
-    let name: String
-    let detail: String
+    let name: String?
+    let detail: String?
 }
