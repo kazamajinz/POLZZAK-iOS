@@ -15,7 +15,7 @@ struct CouponListDTO: Decodable {
 struct CouponDTO: Decodable, Hashable {
     let couponID: Int
     let reward: String
-    let rewardRequestDate: String
+    let rewardRequestDate: String?
     let rewardDate: String
     
     enum CodingKeys: String, CodingKey {

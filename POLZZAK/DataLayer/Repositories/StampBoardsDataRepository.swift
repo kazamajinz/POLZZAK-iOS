@@ -15,8 +15,8 @@ class StampBoardsDataRepository: StampBoardsRepository {
         self.stampBoardsService = stampBoardsService
     }
     
-    func getStampBoardList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError> {
-        let (data, response) = try await stampBoardsService.fetchStampBoardList(tabState)
+    func getStampBoardList(for tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError> {
+        let (data, response) = try await stampBoardsService.fetchStampBoardList(for: tabState)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse

@@ -15,6 +15,6 @@ struct CouponList {
 struct Coupon {
     let couponID: Int
     let reward: String
-    let rewardRequestDate: String
+    let rewardRequestDate: String?
     let rewardDate: String
 }

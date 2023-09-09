@@ -147,7 +147,6 @@ extension InprogressCouponCell {
         rewardNameTextView.snp.makeConstraints {
             $0.top.equalTo(ddayLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalTo(rewardButtonStackView).inset(8)
         }
         
         deadlineLabel.snp.makeConstraints {
@@ -161,6 +160,7 @@ extension InprogressCouponCell {
         }
         
         rewardButtonStackView.snp.makeConstraints {
+            $0.top.equalTo(rewardNameTextView.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(24)
         }

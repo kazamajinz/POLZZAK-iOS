@@ -9,6 +9,7 @@ import Foundation
 
 protocol CouponsUsecase {
     func fetchCouponList(_ tabState: String) -> Task<[CouponList], Error>
+    func fetchCouponDetail(with couponID: Int) -> Task<CouponDetail, Error>
 }
 
 class DefaultCouponsUseCase: CouponsUsecase {
@@ -25,6 +26,25 @@ class DefaultCouponsUseCase: CouponsUsecase {
                 switch result {
                 case .success(let response):
                     return response?.data ?? []
+                case .failure(let error):
+                    throw error
+                }
+            } catch {
+                throw error
+            }
+        }
+    }
+    
+    func fetchCouponDetail(with couponID: Int) -> Task<CouponDetail, Error> {
+        return Task {
+            do {
+                let result = try await repository.getCouponDetail(with: couponID)
+                switch result {
+                case .success(let response):
+                    guard let response, let data = response.data else {
+                        throw NetworkError.emptyReponse
+                    }
+                    return data
                 case .failure(let error):
                     throw error
                 }

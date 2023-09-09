@@ -9,6 +9,7 @@ import Foundation
 
 enum CouponTargets {
     case fetchCouponList(tabState: String)
+    case fetchCouponDetail(couponID: Int)
 }
 
 extension CouponTargets: BasicTargetType {
@@ -20,19 +21,21 @@ extension CouponTargets: BasicTargetType {
         switch self {
         case .fetchCouponList:
             return "v1/coupons"
+        case .fetchCouponDetail(let couponID):
+            return "v1/coupons/\(couponID)"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .fetchCouponList:
+        case .fetchCouponList, .fetchCouponDetail:
             return .get
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .fetchCouponList:
+        case .fetchCouponList, .fetchCouponDetail:
             return nil
         }
     }
@@ -43,19 +46,21 @@ extension CouponTargets: BasicTargetType {
         case .fetchCouponList(let tabState):
             query["couponState"] = tabState
             return query
+        default:
+            return nil
         }
     }
     
     var bodyParameters: Encodable? {
         switch self {
-        case .fetchCouponList:
+        case .fetchCouponList, .fetchCouponDetail:
             return nil
         }
     }
     
     var sampleData: Data? {
         switch self {
-        case .fetchCouponList:
+        case .fetchCouponList, .fetchCouponDetail:
             return nil
         }
     }

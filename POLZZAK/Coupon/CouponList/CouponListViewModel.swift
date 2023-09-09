@@ -78,7 +78,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     
     func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
         guard let id = couponID(at: indexPath) else { return nil }
-        return CouponDetailViewModel(tabState: tabState.value, couponID: id)
+        return CouponDetailViewModel(useCase: useCase, tabState: tabState.value, couponID: id)
     }
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {

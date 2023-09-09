@@ -44,7 +44,7 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
             showLoading(for: centerLoading)
             do {
                 let tabState = tabStateToString(tabState.value)
-                let task = useCase.fetchStampBoardList(tabState)
+                let task = useCase.fetchStampBoardList(for: tabState)
                 let result = try await task.value
                 hideLoading(for: centerLoading)
                 dataList.send(result)

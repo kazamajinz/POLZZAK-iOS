@@ -17,6 +17,10 @@ struct CouponMapper {
         return mapBaseResponse(from: response, transform: mapCouponList)
     }
     
+    func mapCouponDetailResponse(from response: BaseResponseDTO<CouponDetailDTO>) -> BaseResponse<CouponDetail> {
+        return mapBaseResponse(from: response, transform: mapCouponDetail)
+    }
+    
     private func mapCouponList(_ dto: [CouponListDTO]) -> [CouponList] {
         return dto.map{
             CouponList(
@@ -30,7 +34,7 @@ struct CouponMapper {
         return FamilyMember(
             memberID: dto.memberId,
             nickname: dto.nickname,
-            memberType: mapMemberType(from: dto.memberType),
+            memberType: mapMemberType(dto.memberType),
             profileURL: dto.profileUrl ?? "",
             familyStatus: nil
         )
@@ -45,7 +49,7 @@ struct CouponMapper {
         )
     }
     
-    private func mapMemberType(from dto: MemberTypeDTO) -> MemberType {
+    private func mapMemberType(_ dto: MemberTypeDTO) -> MemberType {
         return MemberType(
             name: dto.name,
             detail: dto.detail
@@ -54,5 +58,32 @@ struct CouponMapper {
     
     private func mapCoupons(_ dto: [CouponDTO]) -> [Coupon] {
         return dto.compactMap { mapCoupon($0) }
+    }
+    
+    private func mapCouponDetail(_ dto: CouponDetailDTO) -> CouponDetail {
+        return CouponDetail(
+            couponID: dto.couponID,
+            reward: dto.reward,
+            guardian: mapGuardian(dto.guardian),
+            kid: mapGuardian(dto.kid),
+            missionContents: dto.missionContents,
+            stampCount: dto.stampCount,
+            couponState: mapCouponState(dto.state),
+            rewardDate: dto.rewardDate,
+            rewardRequestDate: dto.rewardRequestDate,
+            startDate: dto.startDate,
+            endDate: dto.endDate
+        )
+    }
+    
+    private func mapGuardian(_ dto: GuardianDTO) -> Guardian {
+        return Guardian(
+            nickname: dto.nickname,
+            profileURL: dto.profileURL
+        )
+    }
+    
+    private func mapCouponState(_ stateString: String) -> CouponState? {
+        return CouponState(rawValue: stateString)
     }
 }

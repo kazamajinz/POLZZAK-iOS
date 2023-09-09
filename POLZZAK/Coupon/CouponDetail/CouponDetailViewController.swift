@@ -34,7 +34,7 @@ final class CouponDetailViewController: UIViewController {
         static let missionCompletedDateViewTitle = "미션 완료일"
         static let requestGiftButtonTitle = "선물 조르기"
         static let receiveGifitButtonTitle = "선물 받기 완료"
-        static let promiseLabel = "까지\n선물을 전달하기로 약속했어요!"
+        static let promiseLabel = " 까지\n선물을 전달하기로 약속했어요!"
         static let childCompletedGift = "선물 받기 완료"
         static let parentCompletedGift = "선물 전달 완료"
         static let logoLabel = "PolZZak!"
@@ -247,6 +247,11 @@ final class CouponDetailViewController: UIViewController {
     }()
     
     private let captureView = UIView()
+//    private let captureView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .red
+//        return view
+//    }()
     
     //MARK: - init
     init(viewModel: CouponDetailViewModel) {
@@ -526,12 +531,6 @@ extension CouponDetailViewController {
     }
     
     private func bindViewModel() {
-        viewModel.showErrorAlertSubject
-            .sink { [weak self] in
-                self?.showErrorAlert()
-            }
-            .store(in: &cancellables)
-        
         viewModel.$isCenterLoading
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
@@ -592,6 +591,15 @@ extension CouponDetailViewController {
                 self?.toast.show()
             }
             .store(in: &cancellables)
+        
+        viewModel.showErrorAlertSubject
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                print("error", error)
+                self?.showErrorAlert()
+            }
+            .store(in: &cancellables)
     }
     
     private func handleLoadingView(for bool: Bool) {
@@ -643,9 +651,9 @@ extension CouponDetailViewController {
         switch viewModel.tabState {
         case .inProgress:
             //TODO: - 서버에서 필드 추가해야함
-            let tempDate = "2023-08-13T13:08:25.030623693".longDateFormat()
-            promiseLabel.text = "\(tempDate)" + Constants.promiseLabel
-            let emphasisRange = [NSRange(location: 0, length: tempDate.count)]
+            let rewardDate = couponData.rewardDate.longDateFormat()
+            promiseLabel.text = rewardDate + Constants.promiseLabel
+            let emphasisRange = [NSRange(location: 0, length: rewardDate.count)]
             promiseLabel.setEmphasisRanges(emphasisRange, color: .white, font: .body14Sbd)
         case .completed:
             completedGift.text = (viewModel.userType == .parent) ? Constants.parentCompletedGift : Constants.childCompletedGift
@@ -686,7 +694,7 @@ extension CouponDetailViewController {
         captureImageView.contentMode = .scaleAspectFit
         
         captureImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(40)
+            $0.top.equalToSuperview().offset(40)
             $0.leading.trailing.equalToSuperview().inset(26)
         }
         
@@ -695,16 +703,13 @@ extension CouponDetailViewController {
         tempImageView.addSubview(logoLabel)
         
         logoLabel.snp.makeConstraints {
-            $0.top.equalTo(captureImageView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(30)
         }
         
         captureBackgroundView.snp.makeConstraints {
-            $0.top.equalTo(captureImageView.snp.top).offset(-40)
-            $0.leading.equalTo(captureImageView.snp.leading).inset(-26)
-            $0.trailing.equalTo(captureImageView.snp.trailing).inset(-26)
-            $0.bottom.equalTo(logoLabel.snp.bottom).inset(-30)
+            $0.width.equalTo(Constants.captureWidth)
+            $0.height.equalTo(Constants.captureHeight)
         }
         
         tempImageView.layoutIfNeeded()

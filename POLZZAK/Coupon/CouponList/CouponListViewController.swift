@@ -224,6 +224,14 @@ extension CouponListViewController {
                 self?.updateFilterView()
             }
             .store(in: &cancellables)
+        
+        viewModel.showErrorAlertSubject
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { error in
+                print("error", error)
+            }
+            .store(in: &cancellables)
     }
     
     private func updateLayout(for filterType: FilterType) {

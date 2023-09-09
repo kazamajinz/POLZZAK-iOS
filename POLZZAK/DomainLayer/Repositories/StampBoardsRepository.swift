@@ -8,5 +8,5 @@
 import Foundation
 
 protocol StampBoardsRepository {
-    func getStampBoardList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError>
+    func getStampBoardList(for tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError>
 }

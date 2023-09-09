@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol StampBoardsUseCase {
-    func fetchStampBoardList(_ tabState: String) -> Task<[StampBoardList], Error>
+    func fetchStampBoardList(for tabState: String) -> Task<[StampBoardList], Error>
 }
 
 class DefaultStampBoardsUseCase: StampBoardsUseCase {
@@ -19,10 +19,10 @@ class DefaultStampBoardsUseCase: StampBoardsUseCase {
         self.repository = repository
     }
     
-    func fetchStampBoardList(_ tabState: String) -> Task<[StampBoardList], Error> {
+    func fetchStampBoardList(for tabState: String) -> Task<[StampBoardList], Error> {
         return Task {
             do {
-                let result = try await repository.getStampBoardList(tabState)
+                let result = try await repository.getStampBoardList(for: tabState)
                 switch result {
                 case .success(let response):
                     return response?.data ?? []

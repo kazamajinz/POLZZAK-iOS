@@ -8,7 +8,7 @@
 import Foundation
 
 enum StampBoardsTargets {
-    case fetchStampBoardList(_ tabState: String)
+    case fetchStampBoardList(tabState: String)
 }
 
 extension StampBoardsTargets: BasicTargetType {

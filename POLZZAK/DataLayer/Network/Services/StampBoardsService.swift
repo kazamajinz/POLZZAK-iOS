@@ -14,7 +14,7 @@ class StampBoardsService {
         self.networkService = networkService
     }
     
-    func fetchStampBoardList(_ tabState: String) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: StampBoardsTargets.fetchStampBoardList(tabState))
+    func fetchStampBoardList(for tabState: String) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: StampBoardsTargets.fetchStampBoardList(tabState: tabState))
     }
 }

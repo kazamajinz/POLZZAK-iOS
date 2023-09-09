@@ -9,4 +9,5 @@ import Foundation
 
 protocol CouponsRepository {
     func getCouponList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[CouponList]>, NetworkError>
+    func getCouponDetail(with couponID: Int) async throws -> NetworkResult<BaseResponse<CouponDetail>, NetworkError>
 }
