@@ -11,10 +11,7 @@ import Combine
 
 final class LinkManagementViewController: UIViewController {
     enum Constants {
-        //        static let deviceWidth = UIApplication.shared.width
         static let backButtonPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        
-        //        static let placeHolderLabelText = "연동된"
     }
     
     private let viewModel = LinkManagementViewModel(useCase: DefaultLinkManagementUseCase(repository: LinkManagementDataRepository()))

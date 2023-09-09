@@ -233,7 +233,7 @@ extension CouponListViewController {
         case .section(let memberId):
             let idex = viewModel.indexOfMember(with: memberId)
             let family = viewModel.dataList.value[idex].family
-            if viewModel.userType.value == .child {
+            if viewModel.userType == .child {
                 filterView.handleChildSectionFilterButtonTap(with: family)
             } else {
                 filterView.handleParentSectionFilterButtonTap(with: family)
@@ -284,7 +284,7 @@ extension CouponListViewController {
         emptyView.isHidden = !bool
         
         if true == bool {
-            emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
+            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         }
     }
@@ -380,7 +380,7 @@ extension CouponListViewController: UICollectionViewDataSource {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CouponHeaderView.reuseIdentifier, for: indexPath) as! CouponHeaderView
             if false == viewModel.dataList.value.isEmpty {
                 let family = viewModel.dataList.value[indexPath.section].family
-                headerView.configure(to: family, type: viewModel.userType.value)
+                headerView.configure(to: family, type: viewModel.userType)
             }
             return headerView
         case UICollectionView.elementKindSectionFooter:
@@ -420,11 +420,11 @@ extension CouponListViewController: UICollectionViewDataSource {
         switch viewModel.filterType.value {
         case .all:
             let couponData = viewModel.dataList.value[indexPath.section].coupons[indexPath.row]
-            cell.configure(with: couponData, userType: viewModel.userType.value)
+            cell.configure(with: couponData, userType: viewModel.userType)
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
             let couponData = viewModel.dataList.value[index].coupons[indexPath.row]
-            cell.configure(with: couponData, userType: viewModel.userType.value)
+            cell.configure(with: couponData, userType: viewModel.userType)
         }
         return cell
     }

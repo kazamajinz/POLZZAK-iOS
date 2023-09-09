@@ -34,6 +34,7 @@ extension UIImage {
     //MARK: - Character
     
     static let raisingOneHandCharacter = UIImage(named: "raisingOneHandCharacter")
+    static let raisingTwoHandCharacter = UIImage(named: "raisingTwoHandCharacter")
     static let sittingCharacter = UIImage(named: "sittingCharacter")
     static let defaultProfileCharacter = UIImage(named: "defaultProfileCharacter")
     static let couponEmptyCharacter = UIImage(named: "couponEmptyCharacter")
@@ -45,6 +46,8 @@ extension UIImage {
     static let refreshDragImage = UIImage(named: "refreshDragImage")
     static let searchImage = UIImage(named: "searchImage")
     static let barcode = UIImage(named: "barcode")
+    static let requestGradationView = UIImage(named: "requestGradationView")
+    static let completedGradationView = UIImage(named: "completedGradationView")
     
     //MARK: - Icon
     static let circle4 = UIImage(named: "circle4")

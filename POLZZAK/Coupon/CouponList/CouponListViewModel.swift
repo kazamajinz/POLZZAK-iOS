@@ -14,7 +14,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     var dataList = CurrentValueSubject<[CouponList], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
-    var userType = CurrentValueSubject<UserType, Never>(.parent)
+    var userType: UserType
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
     var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
@@ -26,6 +26,10 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     
     init(useCase: CouponsUsecase) {
         self.useCase = useCase
+        
+        //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
+        let userInfo = UserInfoManager.readUserInfo()
+        userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
         
         setupBindings()
     }

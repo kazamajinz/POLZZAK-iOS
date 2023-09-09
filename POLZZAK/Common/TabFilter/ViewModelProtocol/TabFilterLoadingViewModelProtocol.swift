@@ -11,7 +11,7 @@ import Combine
 protocol TabFilterLoadingViewModelProtocol: TabFilterViewModelProtocol, LoadingViewModelProtocol {
     associatedtype DataListType
     
-    var userType: CurrentValueSubject<UserType, Never> { get set }
+    var userType: UserType { get set }
     var dataList: CurrentValueSubject<[DataListType], Never> { get set }
     
     var apiFinishedLoadingSubject: CurrentValueSubject<Bool, Never> { get }

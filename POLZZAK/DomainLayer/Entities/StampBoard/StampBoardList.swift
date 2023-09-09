@@ -23,8 +23,8 @@ struct StampBoardSummary {
 }
 
 enum StampBoardStatus: String {
-    case progress = "PROGRESS"
-    case completed = "COMPLETED"
-    case issuedCoupon = "ISSUED_COUPON"
-    case rewarded = "REWARDED"
+    case progress = "progress"
+    case completed = "completed"
+    case issuedCoupon = "issued_coupon"
+    case rewarded = "rewared"
 }

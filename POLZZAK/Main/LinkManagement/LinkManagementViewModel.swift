@@ -12,7 +12,7 @@ final class LinkManagementViewModel {
     private let useCase: LinkManagementUseCase
     private var cancellables = Set<AnyCancellable>()
     
-    var userType: UserType = .child
+    var userType: UserType
     @Published var dataList: [FamilyMember] = []
     @Published var isTabLoading: Bool = true
     @Published var linkTabState: LinkTabState = .linkListTab
@@ -31,7 +31,6 @@ final class LinkManagementViewModel {
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
         let userInfo = UserInfoManager.readUserInfo()
         userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
-        
     }
     
     func searchUserByNickname(_ nickname: String) async {

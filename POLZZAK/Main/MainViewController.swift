@@ -77,7 +77,7 @@ final class MainViewController: UIViewController {
         collectionView.register(StampBoardHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier)
         collectionView.register(StampBoardFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: StampBoardFooterView.reuseIdentifier)
         collectionView.register(EmptyCell.self, forCellWithReuseIdentifier: EmptyCell.reuseIdentifier)
-        collectionView.register(InprogressStampBoardCell.self, forCellWithReuseIdentifier: InprogressStampBoardCell.reuseIdentifier)
+        collectionView.register(InprogressStampBoardCell.self, forCellWithReuseIdentifier: InprogressStampBoardCell.Constants.reuseIdentifier)
         collectionView.register(CompletedStampBoardCell.self, forCellWithReuseIdentifier: CompletedStampBoardCell.reuseIdentifier)
         
         customRefreshControl.observe(scrollView: collectionView)
@@ -254,7 +254,7 @@ extension MainViewController {
         case .section(let memberId):
             let index = viewModel.indexOfMember(with: memberId)
             let family = viewModel.dataList.value[index].family
-            if viewModel.userType.value == .child {
+            if viewModel.userType == .child {
                 stampBoardFilterView.handleChildSectionFilterButtonTap(with: family)
             } else {
                 stampBoardFilterView.handleParentSectionFilterButtonTap(with: family)
@@ -306,7 +306,7 @@ extension MainViewController {
         emptyView.isHidden = !bool
         
         if true == bool {
-            emptyView.placeHolderLabel.text = (viewModel.userType.value == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
+            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
             emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         }
     }
@@ -400,7 +400,7 @@ extension MainViewController: UICollectionViewDataSource {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StampBoardHeaderView.reuseIdentifier, for: indexPath) as! StampBoardHeaderView
             if false == viewModel.dataList.value.isEmpty {
                 let family = viewModel.dataList.value[indexPath.section].family
-                headerView.configure(to: family, type: viewModel.userType.value)
+                headerView.configure(to: family, type: viewModel.userType)
             }
             return headerView
         case UICollectionView.elementKindSectionFooter:
@@ -417,12 +417,12 @@ extension MainViewController: UICollectionViewDataSource {
     
     private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath, with nickName: String) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyCell.reuseIdentifier, for: indexPath) as! EmptyCell
-        cell.configure(with: nickName, tabState: viewModel.tabState.value, userType: viewModel.userType.value)
+        cell.configure(with: nickName, tabState: viewModel.tabState.value, userType: viewModel.userType)
         return cell
     }
     
-    private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
+    private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.Constants.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
         switch viewModel.filterType.value {
         case .all:
             let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
@@ -435,8 +435,8 @@ extension MainViewController: UICollectionViewDataSource {
         return cell
     }
     
-    private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressStampBoardCell.reuseIdentifier, for: indexPath) as! InprogressStampBoardCell
+    private func dequeueCompletedCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompletedStampBoardCell.reuseIdentifier, for: indexPath) as! CompletedStampBoardCell
         switch viewModel.filterType.value {
         case .all:
             let boardData = viewModel.dataList.value[indexPath.section].stampBoardSummaries[indexPath.row]
