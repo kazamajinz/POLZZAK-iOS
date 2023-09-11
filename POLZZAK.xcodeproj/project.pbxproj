@@ -198,6 +198,7 @@
 		DAB225812A8F497900113617 /* UserInfoInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225802A8F497900113617 /* UserInfoInterceptor.swift */; };
 		DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225822A90846E00113617 /* UserInfoManager.swift */; };
 		DAB225852A922FF400113617 /* CarouselLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225842A922FF400113617 /* CarouselLayout.swift */; };
+		DAB5CBFF2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB5CBFE2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift */; };
 		DABA1CD02A31FB5E009E351B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */; };
 		DABA1CD12A31FB5E009E351B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */; };
 		DABA1CD22A31FB5E009E351B /* MissionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0793472A0E637700087F73 /* MissionHeaderView.swift */; };
@@ -209,7 +210,24 @@
 		DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */; };
 		DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */; };
 		DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */; };
+		DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD960892AA90910009A7557 /* POLZZAKTests.swift */; };
+		DAD960922AA909D0009A7557 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960912AA909D0009A7557 /* SnapKit */; settings = {ATTRIBUTES = (Required, ); }; };
+		DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960932AA909DF009A7557 /* CombineCocoa */; };
+		DAD960962AA909E2009A7557 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960952AA909E2009A7557 /* PanModal */; };
+		DAD960982AA909FD009A7557 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960972AA909FD009A7557 /* KakaoSDKAuth */; };
+		DAD9609A2AA909FD009A7557 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960992AA909FD009A7557 /* KakaoSDKCommon */; };
+		DAD9609C2AA909FD009A7557 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = DAD9609B2AA909FD009A7557 /* KakaoSDKUser */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAD9608B2AA90910009A7557 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C4515D42A0BF2F900C9BA4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C4515DB2A0BF2F900C9BA4F;
+			remoteInfo = POLZZAK;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3900FA922A32BADC009EAC52 /* LinkManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementViewController.swift; sourceTree = "<group>"; };
@@ -406,12 +424,15 @@
 		DAB225802A8F497900113617 /* UserInfoInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInterceptor.swift; sourceTree = "<group>"; };
 		DAB225822A90846E00113617 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		DAB225842A922FF400113617 /* CarouselLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselLayout.swift; sourceTree = "<group>"; };
+		DAB5CBFE2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueCouponBottomSheetViewController.swift; sourceTree = "<group>"; };
 		DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenDTO.swift; sourceTree = "<group>"; };
 		DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedRegisterDTO.swift; sourceTree = "<group>"; };
 		DAC36B872A32DA3900BE5C8D /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		DAD960872AA90910009A7557 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD960892AA90910009A7557 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +446,19 @@
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
 				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD960842AA90910009A7557 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */,
+				DAD960922AA909D0009A7557 /* SnapKit in Frameworks */,
+				DAD9609C2AA909FD009A7557 /* KakaoSDKUser in Frameworks */,
+				DAD960962AA909E2009A7557 /* PanModal in Frameworks */,
+				DAD9609A2AA909FD009A7557 /* KakaoSDKCommon in Frameworks */,
+				DAD960982AA909FD009A7557 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +798,7 @@
 				3CF41E4A2A1F80AE00914421 /* DetailBoardName */,
 				3CF41E4B2A1F831600914421 /* CompensationView */,
 				DA5927D02A9F1FE600836126 /* StampAllowance */,
+				DAB5CBFD2AA9043E00B2063F /* IssueCoupon */,
 				3C6E58462A160E73005FC66B /* DetailBoardViewModel.swift */,
 				3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */,
 			);
@@ -810,7 +845,9 @@
 			isa = PBXGroup;
 			children = (
 				3C4515DE2A0BF2F900C9BA4F /* POLZZAK */,
+				DAD960882AA90910009A7557 /* POLZZAKTests */,
 				3C4515DD2A0BF2F900C9BA4F /* Products */,
+				DAD960902AA909D0009A7557 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -818,6 +855,7 @@
 			isa = PBXGroup;
 			children = (
 				3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */,
+				DAD960872AA90910009A7557 /* POLZZAKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1095,6 +1133,14 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		DAB5CBFD2AA9043E00B2063F /* IssueCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				DAB5CBFE2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift */,
+			);
+			path = IssueCoupon;
+			sourceTree = "<group>";
+		};
 		DAC36B902A344A2400BE5C8D /* RequestInterceptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1122,6 +1168,21 @@
 				DA0919E42A9B174100A60AB6 /* MemberTypeAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		DAD960882AA90910009A7557 /* POLZZAKTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAD960892AA90910009A7557 /* POLZZAKTests.swift */,
+			);
+			path = POLZZAKTests;
+			sourceTree = "<group>";
+		};
+		DAD960902AA909D0009A7557 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1152,6 +1213,32 @@
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DAD960862AA90910009A7557 /* POLZZAKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAD9608D2AA90910009A7557 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */;
+			buildPhases = (
+				DAD960832AA90910009A7557 /* Sources */,
+				DAD960842AA90910009A7557 /* Frameworks */,
+				DAD960852AA90910009A7557 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAD9608C2AA90910009A7557 /* PBXTargetDependency */,
+			);
+			name = POLZZAKTests;
+			packageProductDependencies = (
+				DAD960912AA909D0009A7557 /* SnapKit */,
+				DAD960932AA909DF009A7557 /* CombineCocoa */,
+				DAD960952AA909E2009A7557 /* PanModal */,
+				DAD960972AA909FD009A7557 /* KakaoSDKAuth */,
+				DAD960992AA909FD009A7557 /* KakaoSDKCommon */,
+				DAD9609B2AA909FD009A7557 /* KakaoSDKUser */,
+			);
+			productName = POLZZAKTests;
+			productReference = DAD960872AA90910009A7557 /* POLZZAKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1164,6 +1251,10 @@
 				TargetAttributes = {
 					3C4515DB2A0BF2F900C9BA4F = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					DAD960862AA90910009A7557 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 3C4515DB2A0BF2F900C9BA4F;
 					};
 				};
 			};
@@ -1188,6 +1279,7 @@
 			projectRoot = "";
 			targets = (
 				3C4515DB2A0BF2F900C9BA4F /* POLZZAK */,
+				DAD960862AA90910009A7557 /* POLZZAKTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1205,6 +1297,13 @@
 				3C4515E92A0BF2FB00C9BA4F /* Assets.xcassets in Resources */,
 				3CFB47302A0FEA2B00B03FFD /* Pretendard-Medium.otf in Resources */,
 				DAB225792A8E3B9000113617 /* launch_logo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD960852AA90910009A7557 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1296,6 +1395,7 @@
 				DA0C0C1E2A809FFC0021714D /* HTTPURLResponse+.swift in Sources */,
 				3CD5F8A22A2DBDEF003E4A67 /* Keychain.swift in Sources */,
 				3CF28D862A2E4A47000B0A91 /* UserApi+extension.swift in Sources */,
+				DAB5CBFF2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift in Sources */,
 				DA0919EB2A9C7AE700A60AB6 /* RegisterProfileImageViewModel.swift in Sources */,
 				390165682A7EA49300A193D7 /* UITextView.swift in Sources */,
 				DAC36B882A32DA3900BE5C8D /* KakaoLoginManager.swift in Sources */,
@@ -1406,7 +1506,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAD960832AA90910009A7557 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAD9608C2AA90910009A7557 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C4515DB2A0BF2F900C9BA4F /* POLZZAK */;
+			targetProxy = DAD9608B2AA90910009A7557 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3C4515EA2A0BF2FB00C9BA4F /* LaunchScreen.storyboard */ = {
@@ -1610,6 +1726,48 @@
 			};
 			name = Release;
 		};
+		DAD9608E2AA90910009A7557 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
+			};
+			name = Debug;
+		};
+		DAD9608F2AA90910009A7557 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1627,6 +1785,15 @@
 			buildConfigurations = (
 				3C4515F12A0BF2FB00C9BA4F /* Debug */,
 				3C4515F22A0BF2FB00C9BA4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAD9608D2AA90910009A7557 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD9608E2AA90910009A7557 /* Debug */,
+				DAD9608F2AA90910009A7557 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1698,6 +1865,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		DAD960912AA909D0009A7557 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		DAD960932AA909DF009A7557 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		DAD960952AA909E2009A7557 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+		DAD960972AA909FD009A7557 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		DAD960992AA909FD009A7557 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		DAD9609B2AA909FD009A7557 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
