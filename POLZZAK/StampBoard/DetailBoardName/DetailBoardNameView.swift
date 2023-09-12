@@ -14,7 +14,7 @@ enum DetailBoardState {
     case completed(dayTaken: Int)
 }
 
-class DetailBoardNameView: UIView {
+final class DetailBoardNameView: UIView {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .title1

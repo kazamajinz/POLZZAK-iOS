@@ -154,13 +154,13 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     private func configureBinding() {
         kakaoLoginButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 self?.viewModel.input.send(.kakaoLogin)
             }
             .store(in: &cancellables)
         
         appleLoginButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 self?.viewModel.input.send(.appleLogin)
             }
             .store(in: &cancellables)

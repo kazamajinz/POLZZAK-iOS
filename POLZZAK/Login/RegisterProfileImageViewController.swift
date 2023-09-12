@@ -162,7 +162,7 @@ final class RegisterProfileImageViewController: UIViewController {
     
     private func configureBinding() {
         Publishers.Merge(selectImageButton1.tapPublisher, selectImageButton2.tapPublisher)
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
                 guard let imagePicker else { return }
                 self.present(imagePicker, animated: true)
@@ -170,7 +170,7 @@ final class RegisterProfileImageViewController: UIViewController {
             .store(in: &cancellables)
         
         nextButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
                 nextButton.isEnabled = false
                 nextButton.setTitle(text: "회원가입 처리 중 ...")

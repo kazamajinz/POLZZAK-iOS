@@ -11,7 +11,7 @@ import UIKit
 import CombineCocoa
 import PanModal
 
-class IssueCouponBottomSheetViewController: UIViewController {
+final class IssueCouponBottomSheetViewController: UIViewController {
     private enum Constants {
         static let basicInset: CGFloat = 16
     }
@@ -21,7 +21,7 @@ class IssueCouponBottomSheetViewController: UIViewController {
     private let labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 6
+        stackView.spacing = 0
         stackView.alignment = .center
         stackView.distribution = .fillProportionally
         return stackView
@@ -43,10 +43,13 @@ class IssueCouponBottomSheetViewController: UIViewController {
         return label
     }()
     
-    private let contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
+    private let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.backgroundColor = .clear
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
     }()
     
     private let couponImageView: UIImageView = {
@@ -98,6 +101,7 @@ class IssueCouponBottomSheetViewController: UIViewController {
         let button = UIButton(type: .custom)
         let image = UIImage(named: "issue_stamp_calender")
         button.setImage(image, for: .normal)
+        button.setImage(image, for: .highlighted)
         return button
     }()
     
@@ -127,6 +131,7 @@ class IssueCouponBottomSheetViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureLayout()
+        configureBinding()
     }
     
     private func configureView() {
@@ -134,34 +139,88 @@ class IssueCouponBottomSheetViewController: UIViewController {
     }
     
     private func configureLayout() {
+        
+        // MARK: -
+        
         [titleLabel, subtitleLabel].forEach {
             labelStackView.addArrangedSubview($0)
         }
         
-        [labelStackView].forEach {
-            view.addSubview($0)
+        // MARK: -
+        
+        [labelStackView, couponImageView, descriptionLabel, dueContentView, issueButton].forEach {
+            contentStackView.addArrangedSubview($0)
         }
         
-        labelStackView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+        contentStackView.setCustomSpacing(30, after: labelStackView)
+        contentStackView.setCustomSpacing(30, after: couponImageView)
+        contentStackView.setCustomSpacing(20, after: descriptionLabel)
+        contentStackView.setCustomSpacing(10, after: dueContentView)
+        
+        couponImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(100)
         }
-
-//        labelStackView.snp.makeConstraints { make in
-//            make.top.equalToSuperview().inset(10)
-//            make.centerX.equalToSuperview()
-//        }
-//
-//        contentView.snp.makeConstraints { make in
-//            make.top.equalTo(labelStackView.snp.bottom).offset(10)
-//            make.horizontalEdges.equalToSuperview().inset(Constants.basicInset)
-//            make.bottom.equalTo(buttonStackView.snp.top).offset(-10)
-//        }
-//
-//        buttonStackView.snp.makeConstraints { make in
-//            make.left.right.equalToSuperview().inset(Constants.basicInset)
-//            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
-//            make.height.equalTo(50)
-//        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.height.equalTo(40)
+        }
+        
+        dueContentView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        issueButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        couponImageView.layer.cornerRadius = 50
+        
+        // MARK: -
+        
+        [dueDescriptionLabel, dueLabel, dueCalenderButton].forEach {
+            dueContentView.addSubview($0)
+        }
+        
+        dueDescriptionLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.bottom.equalToSuperview()
+        }
+        
+        dueLabel.snp.makeConstraints { make in
+            make.leading.equalTo(dueDescriptionLabel.snp.trailing)
+            make.verticalEdges.equalToSuperview()
+        }
+        
+        dueCalenderButton.snp.makeConstraints { make in
+            make.leading.equalTo(dueLabel.snp.trailing).offset(8)
+            make.trailing.equalToSuperview().inset(16)
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(20)
+        }
+        
+        dueDescriptionLabel.setContentHuggingPriority(.init(251), for: .horizontal)
+        dueCalenderButton.setContentHuggingPriority(.init(251), for: .horizontal)
+        
+        // MARK: -
+        
+        view.addSubview(contentStackView)
+        
+        contentStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func configureBinding() {
+        dueCalenderButton.tapPublisher
+            .sink { [weak self] in
+                let vc = GiftDueSelectViewController()
+                vc.modalTransitionStyle = .crossDissolve
+                self?.present(vc, animated: true)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -173,6 +232,6 @@ extension IssueCouponBottomSheetViewController: PanModalPresentable {
     }
     
     var longFormHeight: PanModalHeight {
-        return .intrinsicHeight
+        return .contentHeight(410)
     }
 }

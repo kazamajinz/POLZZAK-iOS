@@ -5,11 +5,13 @@
 //  Created by Jinyoung Kim on 2023/05/25.
 //
 
+import Combine
 import UIKit
 
+import CombineCocoa
 import SnapKit
 
-class CompensationView: UIView {
+final class CompensationView: UIView {
     private let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -78,6 +80,10 @@ class CompensationView: UIView {
         }
         return button
     }()
+    
+    var issuingTapPublisher: AnyPublisher<Void, Never> {
+        return issuingButtton.tapPublisher
+    }
     
     private let deleteStampBoardButton: UIButton = {
         let button = UIButton()

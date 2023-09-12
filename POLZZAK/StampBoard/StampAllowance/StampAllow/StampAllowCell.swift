@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class StampAllowCell: UICollectionViewListCell {
+final class StampAllowCell: UICollectionViewListCell {
     static let reuseIdentifier = "StampAllowCell"
     
     private let wrapperView = UIView()

@@ -5,14 +5,18 @@
 //  Created by Jinyoung Kim on 2023/05/12.
 //
 
+import Combine
 import UIKit
 
+import PanModal
 import SnapKit
 
 class DetailBoardViewController: UIViewController {
     enum Constants {
         static let inset: CGFloat = 16
     }
+    
+    private var cancellabels = Set<AnyCancellable>()
     
     var missionList: [MissionListViewable] = [
         MissionData(missionNumber: 1, missionTitle: "미션 제목이 들어가는 자리입니다."),
@@ -74,6 +78,7 @@ extension DetailBoardViewController {
     private func configure() {
         configureLayout()
         configureView()
+        configureBinding()
         setHeightConstraintDelegate()
         updateMissionListViewHeightConstraints()
         updateStampViewHeightConstraints()
@@ -123,6 +128,15 @@ extension DetailBoardViewController {
             make.width.equalToSuperview()
             missionListViewHeight = make.height.equalTo(100).constraint
         }
+    }
+    
+    private func configureBinding() {
+        compensationView.issuingTapPublisher
+            .sink { [weak self] in
+                let vc = IssueCouponBottomSheetViewController()
+                self?.presentPanModal(vc)
+            }
+            .store(in: &cancellabels)
     }
 }
 

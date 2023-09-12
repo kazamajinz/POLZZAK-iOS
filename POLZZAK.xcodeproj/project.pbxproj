@@ -181,6 +181,8 @@
 		DA5927DB2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927DA2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift */; };
 		DA5927DF2AA3AD1600836126 /* StampAllowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */; };
 		DA5927E12AA7504900836126 /* StampSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927E02AA7504900836126 /* StampSelectionCell.swift */; };
+		DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DA6589332AAF7F1500746D5A /* FSCalendar */; };
+		DA6589362AAF845100746D5A /* GiftDueSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6589352AAF845100746D5A /* GiftDueSelectViewController.swift */; };
 		DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */; };
 		DA65FDBB2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
@@ -408,6 +410,7 @@
 		DA5927DA2AA1D2C200836126 /* StampBasicBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBasicBottomSheetViewController.swift; sourceTree = "<group>"; };
 		DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampAllowCell.swift; sourceTree = "<group>"; };
 		DA5927E02AA7504900836126 /* StampSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSelectionCell.swift; sourceTree = "<group>"; };
+		DA6589352AAF845100746D5A /* GiftDueSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDueSelectViewController.swift; sourceTree = "<group>"; };
 		DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewController.swift; sourceTree = "<group>"; };
 		DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTypeViewModel.swift; sourceTree = "<group>"; };
 		DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTerm.swift; sourceTree = "<group>"; };
@@ -445,6 +448,7 @@
 				DA5927D72A9F7D4700836126 /* PanModal in Frameworks */,
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
+				DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */,
 				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1137,6 +1141,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB5CBFE2AA9044E00B2063F /* IssueCouponBottomSheetViewController.swift */,
+				DA6589352AAF845100746D5A /* GiftDueSelectViewController.swift */,
 			);
 			path = IssueCoupon;
 			sourceTree = "<group>";
@@ -1208,6 +1213,7 @@
 				3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */,
 				DAAFC5A32A5D91E9006393D0 /* CombineCocoa */,
 				DA5927D62A9F7D4700836126 /* PanModal */,
+				DA6589332AAF7F1500746D5A /* FSCalendar */,
 			);
 			productName = POLZZAK;
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
@@ -1273,6 +1279,7 @@
 				3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */,
+				DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -1501,6 +1508,7 @@
 				398E586E2A5D93790055CF37 /* NotificationViewController.swift in Sources */,
 				39227BE92A242BDD00C86049 /* EmptyCell.swift in Sources */,
 				39152B2C2A5AB29600AAFA23 /* LoadingView.swift in Sources */,
+				DA6589362AAF845100746D5A /* GiftDueSelectViewController.swift in Sources */,
 				DAB225852A922FF400113617 /* CarouselLayout.swift in Sources */,
 				391E23B02A42D11300CA75EF /* SearchResultView.swift in Sources */,
 			);
@@ -1825,6 +1833,14 @@
 				kind = branch;
 			};
 		};
+		DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -1860,6 +1876,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */;
 			productName = PanModal;
+		};
+		DA6589332AAF7F1500746D5A /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		DAAFC5A32A5D91E9006393D0 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
