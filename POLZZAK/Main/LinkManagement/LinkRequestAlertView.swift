@@ -1,5 +1,5 @@
 //
-//  AlertDoubleButtonLoadingView.swift
+//  LinkRequestAlertView.swift
 //  POLZZAK
 //
 //  Created by 이정환 on 2023/08/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlertDoubleButtonTitleLoadingView: AlertButtonView {
+class LinkRequestAlertView: AlertButtonView {
     
     enum Constants {
         static let closeButton = "아니요"

@@ -17,7 +17,6 @@ struct LinkManagementMapper {
         return BaseResponse(status: .success, code: response.code, messages: response.messages, data: nil)
     }
     
-    
     func mapCheckLinkRequestResponse(from response: BaseResponseDTO<CheckLinkRequestDTO>) -> BaseResponse<CheckLinkRequest> {
         return mapBaseResponse(from: response, transform: mapCheckLinkRequest)
     }

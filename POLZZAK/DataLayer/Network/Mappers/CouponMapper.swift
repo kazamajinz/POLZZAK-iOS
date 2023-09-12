@@ -13,6 +13,10 @@ struct CouponMapper {
         return BaseResponse(status: .success, code: dto.code, messages: dto.messages, data: transformedData)
     }
     
+    func mapEmptyDataResponse(from response: BaseResponseDTO<EmptyDataResponseDTO>) -> BaseResponse<EmptyDataResponse> {
+        return BaseResponse(status: .success, code: response.code, messages: response.messages, data: nil)
+    }
+    
     func mapCouponListResponse(from response: BaseResponseDTO<[CouponListDTO]>) -> BaseResponse<[CouponList]> {
         return mapBaseResponse(from: response, transform: mapCouponList)
     }

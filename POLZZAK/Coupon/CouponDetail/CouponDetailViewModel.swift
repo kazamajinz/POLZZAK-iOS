@@ -19,35 +19,111 @@ final class CouponDetailViewModel {
     
     private let couponID: Int
     
-    //TODO: - 임시
-    let userType: UserType = .child
-    
+    var userType: UserType
     @Published var tabState: TabState
     @Published var isCenterLoading: Bool = true
     @Published var couponDetailData: CouponDetail? = nil
+    private var timer: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
     
-    let showSuccessToastSubject = PassthroughSubject<Void, Never>()
-    let permissionSubject = PassthroughSubject<Void, Never>()
-    let photoAccessSubject = PassthroughSubject<Void, Never>()
-    let captureImageSaveSubject = PassthroughSubject<Void, Never>()
+    
+    var showSuccessToastSubject = PassthroughSubject<Void, Never>()
+    var permissionSubject = PassthroughSubject<Void, Never>()
+    var photoAccessSubject = PassthroughSubject<Void, Never>()
+    var captureImageSaveSubject = PassthroughSubject<Void, Never>()
+    var requestGiftSubject = PassthroughSubject<Void, Never>()
+    var receiveGiftSubject = PassthroughSubject<Void, Never>()
+    var remainingTimeSubject = PassthroughSubject<String?, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
     init(useCase: CouponsUsecase, tabState: TabState, couponID: Int) {
         self.useCase = useCase
         self.tabState = tabState
         self.couponID = couponID
+        
+        //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
+        let userInfo = UserInfoManager.readUserInfo()
+        userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
+    }
+}
+
+extension CouponDetailViewModel {
+    func handleCaptureButtonTap() {
+        let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
+        
+        switch status {
+        case .notDetermined:
+            permissionSubject.send()
+        case .authorized:
+            captureImageSaveSubject.send()
+        case .denied:
+            photoAccessSubject.send()
+        default:
+            return
+        }
     }
     
-    func tempAPI() {
+    func processCapturedImage(_ image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        showSuccessToastSubject.send()
+    }
+    
+    func fetchCouponDetail() {
         Task {
             do {
                 let task = useCase.fetchCouponDetail(with: couponID)
                 let result = try await task.value
                 couponDetailData = result
+                
+                if let time = result.rewardRequestDate {
+                    startTimer(for: time)
+                }
             } catch {
                 handleError(error)
             }
             hideLoading()
+        }
+    }
+    
+    func sendGiftRequest() async {
+        do {
+            let task = useCase.sendGiftRequest(to: couponID)
+            try await task.value
+            requestGiftSubject.send()
+            let nowTime = Date().toString()
+            startTimer(for: nowTime)
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    func sendGiftReceive() async {
+        do {
+            let task = useCase.sendGiftReceive(from: couponID)
+            try await task.value
+            tabState = .completed
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    private func startTimer(for targetTime: String) {
+        updateRemainingTime(for: targetTime)
+        
+        timer?.cancel()
+        timer = Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.updateRemainingTime(for: targetTime)
+            }
+    }
+    
+    private func updateRemainingTime(for targetTime: String) {
+        if let remainingTime = targetTime.remainingHourTime() {
+            remainingTimeSubject.send(remainingTime)
+        } else {
+            remainingTimeSubject.send(nil)
+            timer?.cancel()
         }
     }
     
@@ -85,27 +161,5 @@ final class CouponDetailViewModel {
     
     private func handleUnknownError(_ error: Error) {
         showErrorAlertSubject.send(error)
-    }
-}
-
-extension CouponDetailViewModel {
-    func handleCaptureButtonTap() {
-        let status = PHPhotoLibrary.authorizationStatus(for: .addOnly)
-        
-        switch status {
-        case .notDetermined:
-            permissionSubject.send()
-        case .authorized:
-            captureImageSaveSubject.send()
-        case .denied:
-            photoAccessSubject.send()
-        default:
-            return
-        }
-    }
-    
-    func processCapturedImage(_ image: UIImage) {
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        showSuccessToastSubject.send()
     }
 }

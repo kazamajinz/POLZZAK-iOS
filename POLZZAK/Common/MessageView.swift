@@ -12,20 +12,22 @@ class MessageView: UIView {
     enum MessageViewType {
         case request
         case completed
+        case issuedCoupon
         
         var label: String {
-//            let userType =
             switch self {
             case .request:
                 return "쿠폰을 발급해주세요!"
             case .completed:
                 return "쿠폰 발급 완료!"
+            case .issuedCoupon:
+                return "쿠폰 선물이 있어요!"
             }
         }
         
         var image: UIImage? {
             switch self {
-            case .request:
+            case .request, .issuedCoupon:
                 return .requestGradationView
             case .completed:
                 return .completedGradationView

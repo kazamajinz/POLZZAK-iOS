@@ -14,11 +14,18 @@ class AlertButtonView: BaseAlertViewController {
         case double
     }
     
+    enum ContentStyle {
+        case onlyTitle
+        case titleWithContent
+    }
+    
     enum Constants {
         static let buttonPadding = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
     }
     
     private let buttonStyle: ButtonStyle
+    private let contentStyle: ContentStyle
+    
     typealias ButtonAction = () -> Void
     var firstButtonAction: ButtonAction?
     @MainActor var secondButtonAction: ButtonAction?
@@ -40,6 +47,12 @@ class AlertButtonView: BaseAlertViewController {
         stackView.alignment = .center
         stackView.distribution = .fill
         return stackView
+    }()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
     }()
     
     let contentLabel: UILabel = {
@@ -80,8 +93,10 @@ class AlertButtonView: BaseAlertViewController {
         return confirmButton
     }()
     
-    init(buttonStyle: ButtonStyle) {
+    init(buttonStyle: ButtonStyle, contentStyle: ContentStyle) {
         self.buttonStyle = buttonStyle
+        self.contentStyle = contentStyle
+        
         super.init()
         
         setupButtonStyles()
@@ -115,7 +130,11 @@ class AlertButtonView: BaseAlertViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        contentStackView.addArrangedSubview(contentLabel)
+        contentStackView.addArrangedSubview(titleLabel)
+        if contentStyle == .titleWithContent {
+            contentStackView.addArrangedSubview(contentLabel)
+        }
+        
         buttonStackView.addArrangedSubview(closeButton)
     }
     

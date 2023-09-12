@@ -396,10 +396,10 @@ extension LinkManagementViewController: LinkListTabCellDelegate {
         guard let nickName = cell.titleLabel.text else { return }
         guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let confirmAlert = AlertDoubleButtonLoadingView()
-        confirmAlert.contentLabel.text = "\(nickName)님과\n연동을 해제하시겠어요?"
+        let confirmAlert = LinkRequestAlertView()
+        confirmAlert.titleLabel.text = "\(nickName)님과\n연동을 해제하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.titleLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         confirmAlert.confirmButton.text = "네, 해제할래요"
         confirmAlert.secondButtonAction = { [weak self] in
             guard let self = self else { return }
@@ -420,10 +420,10 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
         guard let nickName = cell.titleLabel.text else { return }
         guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let confirmAlert = AlertDoubleButtonLoadingView()
-        confirmAlert.contentLabel.text = "\(nickName)님의\n연동 요청을 수락하시겠어요?"
+        let confirmAlert = LinkRequestAlertView()
+        confirmAlert.titleLabel.text = "\(nickName)님의\n연동 요청을 수락하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.titleLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         confirmAlert.confirmButton.text = "네, 좋아요!"
         confirmAlert.secondButtonAction = { [weak self] in
             guard let self = self else { return }
@@ -442,10 +442,10 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
         guard let nickName = cell.titleLabel.text else { return }
         guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
-        let confirmAlert = AlertDoubleButtonLoadingView()
-        confirmAlert.contentLabel.text = "\(nickName)님의\n연동 요청을 거절하시겠어요?"
+        let confirmAlert = LinkRequestAlertView()
+        confirmAlert.titleLabel.text = "\(nickName)님의\n연동 요청을 거절하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.titleLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         confirmAlert.confirmButton.text = "네, 거절할래요"
         confirmAlert.secondButtonAction = { [weak self] in
             guard let self = self else { return }
@@ -464,13 +464,13 @@ extension LinkManagementViewController: ReceivedTabCellDelegate {
 //MARK: - SentTabCellDelegate
 extension LinkManagementViewController: SentTabCellDelegate {
     func didTapCancel(on cell: SentTabCell) {
-        let confirmAlert = AlertDoubleButtonLoadingView()
+        let confirmAlert = LinkRequestAlertView()
         guard let indexPathRow = tableView.indexPath(for: cell)?.row else { return }
         
         let nickname = viewModel.dataList[indexPathRow].nickname
-        confirmAlert.contentLabel.text = "\(nickname)님에게 보낸\n연동 요청을 취소하시겠어요?"
+        confirmAlert.titleLabel.text = "\(nickname)님에게 보낸\n연동 요청을 취소하시겠어요?"
         let emphasisRange = [NSRange(location: 0, length: nickname.count)]
-        confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+        confirmAlert.titleLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
         confirmAlert.confirmButton.text = "네, 취소할래요"
         confirmAlert.secondButtonAction = { [weak self] in
             guard let self = self else { return }
@@ -522,10 +522,10 @@ extension LinkManagementViewController: SearchResultViewDelegate {
         if let familyStatus = searchResultView.familyMember?.familyStatus, familyStatus == .received {
             viewModel.toastAppearSubject.send(.error("이미 해당 회원에게 연동 요청을 받았어요"))
         } else {
-            let confirmAlert = AlertDoubleButtonLoadingView()
-            confirmAlert.contentLabel.text = "\(nickName)님에게\n연동 요청을 보낼까요?"
+            let confirmAlert = LinkRequestAlertView()
+            confirmAlert.titleLabel.text = "\(nickName)님에게\n연동 요청을 보낼까요?"
             let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-            confirmAlert.contentLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
+            confirmAlert.titleLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body18Bd)
             confirmAlert.confirmButton.text = "네, 좋아요!"
             confirmAlert.secondButtonAction = { [weak self] in
                 guard let self = self else { return }

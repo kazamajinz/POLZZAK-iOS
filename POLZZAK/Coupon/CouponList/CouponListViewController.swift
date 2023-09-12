@@ -182,6 +182,7 @@ extension CouponListViewController {
     
     private func bindViewModel() {
         viewModel.shouldEndRefreshing
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.customRefreshControl.endRefreshing()
             }
@@ -210,10 +211,12 @@ extension CouponListViewController {
                 return array.isEmpty
             }
             .sink { [weak self] bool in
+                self?.collectionView.setContentOffset(.init(x: 0, y: -Constants.filterHeight), animated: false)
                 self?.couponCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
                 self?.updateFilterView()
+                self?.applySectionFilter()
             }
             .store(in: &cancellables)
         
@@ -239,8 +242,8 @@ extension CouponListViewController {
         case .all:
             filterView.handleAllFilterButtonTap()
         case .section(let memberId):
-            let idex = viewModel.indexOfMember(with: memberId)
-            let family = viewModel.dataList.value[idex].family
+            guard let index = viewModel.sectionOfMember(with: memberId) else { return }
+            let family = viewModel.dataList.value[index].family
             if viewModel.userType == .child {
                 filterView.handleChildSectionFilterButtonTap(with: family)
             } else {
@@ -317,7 +320,8 @@ extension CouponListViewController {
         bottomSheet.transitioningDelegate = bottomSheet
         
         if case let .section(memberId) = viewModel.filterType.value {
-            bottomSheet.selectedIndex = viewModel.indexOfMember(with: memberId) + 1
+            guard let section = viewModel.sectionOfMember(with: memberId) else { return }
+            bottomSheet.selectedIndex = section + 1
         }
         present(bottomSheet, animated: true, completion: nil)
     }
@@ -345,8 +349,10 @@ extension CouponListViewController: UICollectionViewDataSource {
             cellCount = viewModel.dataList.value[section].coupons.count
         case .section(let memberId):
             if false == viewModel.dataList.value.isEmpty {
-                let index = viewModel.indexOfMember(with: memberId)
-                cellCount = viewModel.dataList.value[index].coupons.count
+                guard let section = viewModel.sectionOfMember(with: memberId) else {
+                    return 0
+                }
+                cellCount = viewModel.dataList.value[section].coupons.count
             } else {
                 return 0
             }
@@ -357,8 +363,11 @@ extension CouponListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if case .section(let memberId) = viewModel.filterType.value {
-            let index = viewModel.indexOfMember(with: memberId)
-            if true == viewModel.dataList.value[index].coupons.isEmpty {
+            guard let section = viewModel.sectionOfMember(with: memberId) else {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
+            
+            if true == viewModel.dataList.value[section].coupons.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
         }
@@ -416,8 +425,10 @@ extension CouponListViewController: UICollectionViewDataSource {
             let couponData = viewModel.dataList.value[indexPath.section].coupons[indexPath.row]
             cell.configure(with: couponData)
         case .section(let memberId):
-            let index = viewModel.indexOfMember(with: memberId)
-            let couponData = viewModel.dataList.value[index].coupons[indexPath.row]
+            guard let section = viewModel.sectionOfMember(with: memberId) else {
+                return UICollectionViewCell()
+            }
+            let couponData = viewModel.dataList.value[section].coupons[indexPath.row]
             cell.configure(with: couponData)
         }
         return cell
@@ -425,13 +436,16 @@ extension CouponListViewController: UICollectionViewDataSource {
     
     private func dequeueInProgressCouponCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InprogressCouponCell.reuseIdentifier, for: indexPath) as! InprogressCouponCell
+        cell.delegate = self
         switch viewModel.filterType.value {
         case .all:
             let couponData = viewModel.dataList.value[indexPath.section].coupons[indexPath.row]
             cell.configure(with: couponData, userType: viewModel.userType)
         case .section(let memberId):
-            let index = viewModel.indexOfMember(with: memberId)
-            let couponData = viewModel.dataList.value[index].coupons[indexPath.row]
+            guard let section = viewModel.sectionOfMember(with: memberId) else {
+                return UICollectionViewCell()
+            }
+            let couponData = viewModel.dataList.value[section].coupons[indexPath.row]
             cell.configure(with: couponData, userType: viewModel.userType)
         }
         return cell
@@ -497,5 +511,39 @@ extension CouponListViewController: FilterBottomSheetDelegate {
             let memberID = viewModel.dataList.value[index-1].family.memberID
             viewModel.filterType.send(.section(memberID))
         }
+    }
+}
+
+extension CouponListViewController: InprogressCouponCellDelegate {
+    func requestButtonTapped(cell: InprogressCouponCell) {
+        guard viewModel.userType == .child else { return }
+        if let indexPath = collectionView.indexPath(for: cell) {
+            Task {
+                let success = await viewModel.sendGiftRequest(indexPath: indexPath)
+                if success {
+                    cell.selectedRequestButton()
+                }
+            }
+        }
+    }
+    
+    func confirmButtonTapped(cell: InprogressCouponCell) {
+        guard viewModel.userType == .child else { return }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        guard let convertIndexPath = viewModel.convertIndexPath(indexPath) else { return }
+        let confirmAlert = CouponReceiveAlertView()
+        let dataList = viewModel.dataList.value
+        
+        let title = dataList[convertIndexPath.section].coupons[convertIndexPath.row].reward
+        confirmAlert.titleLabel.text = title
+        
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.viewModel.sendGiftReceive(indexPath: convertIndexPath)
+                confirmAlert.dismiss(animated: false, completion: nil)
+            }
+        }
+        present(confirmAlert, animated: false)
     }
 }

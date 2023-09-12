@@ -22,6 +22,8 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
     var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
     var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    var requestGiftSubject = PassthroughSubject<Void, Never>()
+    var receiveGiftSubject = PassthroughSubject<Void, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
     init(useCase: CouponsUsecase) {
@@ -58,8 +60,8 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
         }
     }
     
-    func indexOfMember(with memberID: Int) -> Int {
-        return dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
+    func sectionOfMember(with memberID: Int) -> Int? {
+        return dataList.value.firstIndex { $0.family.memberID == memberID }
     }
     
     func couponID(at indexPath: IndexPath) -> Int? {
@@ -71,8 +73,11 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
             }
             return dataList.value[indexPath.section].coupons[indexPath.row].couponID
         case .section(let memberID):
-            let index = dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
-            return dataList.value[index].coupons[indexPath.row].couponID
+            guard let section = sectionOfMember(with: memberID),
+                  false == dataList.value[section].coupons.isEmpty else {
+                return nil
+            }
+            return dataList.value[section].coupons[indexPath.row].couponID
         }
     }
     
@@ -91,6 +96,75 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
             return "ISSUED"
         case .completed:
             return "REWARDED"
+        }
+    }
+    
+    func sendGiftRequest(indexPath: IndexPath) async -> Bool {
+        do {
+            guard let couponID = couponID(at: indexPath) else {
+                return false
+            }
+            let task = useCase.sendGiftRequest(to: couponID)
+            try await task.value
+            startTimer(indexPath: indexPath)
+            return true
+        } catch {
+            handleError(error)
+            return false
+        }
+    }
+    
+    func sendGiftReceive(indexPath: IndexPath) async {
+        do {
+            guard let couponID = couponID(at: indexPath) else { return }
+            let task = useCase.sendGiftReceive(from: couponID)
+            try await task.value
+            removeData(indexPath: indexPath)
+        } catch {
+            handleError(error)
+        }
+    }
+    
+    func startTimer(indexPath: IndexPath) {
+        var tempDataList = dataList.value
+        
+        let family = tempDataList[indexPath.section].family
+        var coupons = tempDataList[indexPath.section].coupons
+        let coupon = coupons[indexPath.row]
+        let convertCoupon = Coupon(
+            couponID: coupon.couponID,
+            reward: coupon.reward,
+            rewardRequestDate: Date().toString(),
+            rewardDate: coupon.rewardDate
+        )
+        coupons[indexPath.row] = convertCoupon
+        
+        let updatedCouponList = CouponList(family: family, coupons: coupons)
+        tempDataList[indexPath.section] = updatedCouponList
+
+        dataList.send(tempDataList)
+    }
+    
+    func removeData(indexPath: IndexPath) {
+        var tempDataList = dataList.value
+        
+        let family = tempDataList[indexPath.section].family
+        var coupons = tempDataList[indexPath.section].coupons
+        coupons.remove(at: indexPath.row)
+        
+        let updatedCouponList = CouponList(family: family, coupons: coupons)
+        tempDataList[indexPath.section] = updatedCouponList
+
+        dataList.send(tempDataList)
+    }
+    
+    func convertIndexPath(_ indexPath: IndexPath) -> IndexPath? {
+        switch filterType.value {
+        case .all:
+            return indexPath
+        case .section(let memberID):
+            guard let section = sectionOfMember(with: memberID) else { return nil }
+            return IndexPath(row: indexPath.row, section: section)
         }
     }
 

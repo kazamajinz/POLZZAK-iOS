@@ -12,7 +12,7 @@ import Foundation
 extension String {
     private var customDateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"//.SSSSSSSSS
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter
@@ -29,11 +29,12 @@ extension String {
         let calendar = Calendar.current
         let startDay = calendar.startOfDay(for: Date())
         let endDay = calendar.startOfDay(for: endDate)
-        let components = calendar.dateComponents([.day], from: startDay, to: endDay)
-        guard let day = components.day else {
+        let components = calendar.dateComponents([.day], from: endDay, to: startDay)
+        guard let day = components.day, day != 0 else {
             return "⏰ D-0"
         }
-        return "⏰ D-\(day)"
+        
+        return "⏰ D\(day)"
     }
     
     func shortDateFormat() -> String {
@@ -63,4 +64,22 @@ extension String {
         let components = calendar.dateComponents([.day], from: startDate, to: endDate)
         return String(components.day ?? 0)
     }
+
+    func remainingHourTime() -> String? {
+        guard let targetDate = dateFromCustomString() else {
+            return nil
+        }
+        
+        let currentTime = Date()
+        let timeInterval = currentTime.timeIntervalSince(targetDate)
+        if timeInterval > 3600 {
+            return nil
+        }
+
+        let minutesRemaining = 59 - (Int(timeInterval) / 60)
+        let secondsRemaining = 59 - (Int(timeInterval) % 60)
+
+        return String(format: "%02d:%02d", minutesRemaining, secondsRemaining)
+    }
+
 }

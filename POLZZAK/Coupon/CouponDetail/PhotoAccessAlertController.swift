@@ -16,7 +16,7 @@ class PhotoAccessAlertController: AlertButtonView {
     }
     
     init() {
-        super.init(buttonStyle: .double)
+        super.init(buttonStyle: .double, contentStyle: .onlyTitle)
         
         setUI()
         setAction()
@@ -27,7 +27,7 @@ class PhotoAccessAlertController: AlertButtonView {
     }
     
     private func setUI() {
-        contentLabel.setLabel(text: Constants.contentLabel, textColor: .gray700, font: .subtitle18Sbd, textAlignment: .center)
+        titleLabel.setLabel(text: Constants.contentLabel, textColor: .gray700, font: .subtitle18Sbd, textAlignment: .center)
         closeButton.text = Constants.closeButton
         confirmButton.text = Constants.confirmButton
     }

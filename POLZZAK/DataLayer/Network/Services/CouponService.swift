@@ -14,11 +14,23 @@ class CouponService {
         self.networkService = networkService
     }
     
-    func fetchCouponList(_ tabState: String) async throws -> (Data, URLResponse) {
+    func fetchCouponList(for tabState: String) async throws -> (Data, URLResponse) {
         return try await networkService.request(with: CouponTargets.fetchCouponList(tabState: tabState))
     }
     
-    func fetchCouponDetail(_ couponID: Int) async throws -> (Data, URLResponse) {
+    func fetchCouponDetail(with couponID: Int) async throws -> (Data, URLResponse) {
         return try await networkService.request(with: CouponTargets.fetchCouponDetail(couponID: couponID))
+    }
+    
+    func sendGiftRequest(to couponID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: CouponTargets.sendGiftRequest(couponID: couponID))
+    }
+    
+    func acceptCoupon(from stampBoardID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: CouponTargets.acceptCoupon(stampBoardID: stampBoardID))
+    }
+    
+    func sendGiftReceive(from couponID: Int) async throws -> (Data, URLResponse) {
+        return try await networkService.request(with: CouponTargets.sendGiftReceive(couponID: couponID))
     }
 }

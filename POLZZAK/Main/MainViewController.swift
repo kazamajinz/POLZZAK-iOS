@@ -223,6 +223,7 @@ extension MainViewController {
                 return array.isEmpty
             }
             .sink { [weak self] bool in
+                self?.collectionView.setContentOffset(.init(x: 0, y: -Constants.filterHeight), animated: false)
                 self?.mainCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)

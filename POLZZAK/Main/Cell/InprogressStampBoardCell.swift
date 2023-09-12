@@ -99,6 +99,12 @@ class InprogressStampBoardCell: UICollectionViewCell {
         return label
     }()
     
+    private let issuedCouponGradationView: MessageView = {
+        let label = MessageView(type: .issuedCoupon)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        return label
+    }()
+    
     //MARK: - Stamp Bottom UI
     private let stampBottomView: UIStackView = {
         let stackView = UIStackView()
@@ -143,7 +149,7 @@ extension InprogressStampBoardCell {
     func configure(with info: StampBoardSummary) {
         stampNameLabel.text = info.name
         rewardTitleLabel.text = info.reward
-        
+        print("info.status", info.status)
         switch info.status {
         case .progress:
             stampProgressRequestLabel.text = "도장 요청 \(info.missionRequestCount)개"
@@ -154,11 +160,17 @@ extension InprogressStampBoardCell {
             stampCompletedStatusView.isHidden = false
             requestGradationView.isHidden = false
             completedGradationView.isHidden = true
+            issuedCouponGradationView.isHidden = true
         case .issuedCoupon:
             stampProgressStatusView.isHidden = true
             stampCompletedStatusView.isHidden = false
             requestGradationView.isHidden = true
-            completedGradationView.isHidden = false
+            
+            
+            //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
+            let userInfo = UserInfoManager.readUserInfo()
+            completedGradationView.isHidden = userInfo?.memberType.detail == "아이" ? true : false
+            issuedCouponGradationView.isHidden = userInfo?.memberType.detail == "아이" ? false : true
         default:
             return
         }
@@ -221,7 +233,7 @@ extension InprogressStampBoardCell {
             stampProgressStatusView.addSubview($0)
         }
         
-        [stampCompletedImageView, requestGradationView, completedGradationView].forEach {
+        [stampCompletedImageView, requestGradationView, completedGradationView, issuedCouponGradationView].forEach {
             stampCompletedStatusView.addSubview($0)
         }
         
@@ -279,6 +291,11 @@ extension InprogressStampBoardCell {
         }
         
         completedGradationView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        issuedCouponGradationView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
         }

@@ -10,6 +10,9 @@ import Foundation
 enum CouponTargets {
     case fetchCouponList(tabState: String)
     case fetchCouponDetail(couponID: Int)
+    case sendGiftRequest(couponID: Int)
+    case acceptCoupon(stampBoardID: Int)
+    case sendGiftReceive(couponID: Int)
 }
 
 extension CouponTargets: BasicTargetType {
@@ -23,6 +26,12 @@ extension CouponTargets: BasicTargetType {
             return "v1/coupons"
         case .fetchCouponDetail(let couponID):
             return "v1/coupons/\(couponID)"
+        case .sendGiftRequest(let couponID):
+            return "v1/coupons/\(couponID)/request"
+        case .acceptCoupon:
+            return "v1/coupons"
+        case .sendGiftReceive(let couponID):
+            return "v1/coupons/\(couponID)/receive"
         }
     }
     
@@ -30,12 +39,16 @@ extension CouponTargets: BasicTargetType {
         switch self {
         case .fetchCouponList, .fetchCouponDetail:
             return .get
+        case .sendGiftRequest, .acceptCoupon, .sendGiftReceive:
+            return .post
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .fetchCouponList, .fetchCouponDetail:
+        case .acceptCoupon:
+            return ["Content-Type": "application/json"]
+        default:
             return nil
         }
     }
@@ -53,14 +66,16 @@ extension CouponTargets: BasicTargetType {
     
     var bodyParameters: Encodable? {
         switch self {
-        case .fetchCouponList, .fetchCouponDetail:
+        case .acceptCoupon(let stampBoardID):
+            return ["stampBoardId": stampBoardID]
+        default:
             return nil
         }
     }
     
     var sampleData: Data? {
         switch self {
-        case .fetchCouponList, .fetchCouponDetail:
+        default:
             return nil
         }
     }

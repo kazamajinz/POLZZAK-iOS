@@ -66,11 +66,6 @@ class Toast: NSObject {
             }
         }
     }
-    
-    deinit {
-        print("Toast object is being deallocated")
-    }
-
 }
 
 extension Toast {

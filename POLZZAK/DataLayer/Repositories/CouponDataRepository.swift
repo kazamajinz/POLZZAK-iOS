@@ -16,7 +16,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func getCouponList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[CouponList]>, NetworkError> {
-        let (data, response) = try await couponService.fetchCouponList(tabState)
+        let (data, response) = try await couponService.fetchCouponList(for: tabState)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
@@ -35,7 +35,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func getCouponDetail(with couponID: Int) async throws -> NetworkResult<BaseResponse<CouponDetail>, NetworkError> {
-        let (data, response) = try await couponService.fetchCouponDetail(couponID)
+        let (data, response) = try await couponService.fetchCouponDetail(with: couponID)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
@@ -48,6 +48,54 @@ class CouponDataRepository: CouponsRepository {
             let decodedData = try decoder.decode(BaseResponseDTO<CouponDetailDTO>.self, from: data)
             let mapData = couponMapper.mapCouponDetailResponse(from: decodedData)
             return .success(mapData)
+        default:
+            throw NetworkError.serverError(statusCode)
+        }
+    }
+    
+    func createGiftRequest(with couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
+        let (_, response) = try await couponService.sendGiftRequest(to: couponID)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+        
+        let statusCode = httpResponse.statusCode
+        switch statusCode {
+        case 204:
+            return .success(nil)
+        default:
+            throw NetworkError.serverError(statusCode)
+        }
+    }
+    
+    func acceptCoupon(from stampBoardID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
+        let (data, response) = try await couponService.acceptCoupon(from: stampBoardID)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+        
+        let statusCode = httpResponse.statusCode
+        switch statusCode {
+        case 201:
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(BaseResponseDTO<EmptyDataResponseDTO>.self, from: data)
+            let mapData = couponMapper.mapEmptyDataResponse(from: decodedData)
+            return .success(mapData)
+        default:
+            throw NetworkError.serverError(statusCode)
+        }
+    }
+    
+    func sendGiftReceive(from couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
+        let (_, response) = try await couponService.sendGiftReceive(from: couponID)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+        
+        let statusCode = httpResponse.statusCode
+        switch statusCode {
+        case 204:
+            return .success(nil)
         default:
             throw NetworkError.serverError(statusCode)
         }

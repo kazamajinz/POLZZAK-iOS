@@ -1,23 +1,25 @@
 //
-//  AlertDoubleButtonLoadingView.swift
+//  CouponReceiveAlertView.swift
 //  POLZZAK
 //
-//  Created by 이정환 on 2023/08/31.
+//  Created by 이정환 on 2023/09/10.
 //
+
+import Foundation
 
 import UIKit
 
-class AlertDoubleButtonTitleLoadingView: AlertButtonView {
+class CouponReceiveAlertView: AlertButtonView {
     
     enum Constants {
-        static let closeButton = "아니요"
-        static let confirmButton = "네"
+        static let closeButton = "취소"
+        static let confirmButton = "네, 받았어요!"
     }
     
     let loadingView = LoadingView()
     
     init() {
-        super.init(buttonStyle: .double, contentStyle: .onlyTitle)
+        super.init(buttonStyle: .double, contentStyle: .titleWithContent)
         
         setUI()
     }
@@ -27,7 +29,8 @@ class AlertDoubleButtonTitleLoadingView: AlertButtonView {
     }
     
     private func setUI() {
-        titleLabel.setLabel(textColor: .gray700, font: .body18Md, textAlignment: .center)
+        titleLabel.setLabel(textColor: .gray800, font: .subtitle18Sbd, textAlignment: .center)
+        contentLabel.setLabel(text: "선물을 실제로 전달받았나요?", textColor: .gray500, font: .body16Md)
         closeButton.text = Constants.closeButton
         confirmButton.text = Constants.confirmButton
         
