@@ -9,10 +9,10 @@ import Foundation
 
 struct CouponList {
     let family: FamilyMember
-    let coupons: [Coupon]
+    var coupons: [Coupon]
 }
 
-struct Coupon {
+struct Coupon: Hashable {
     let couponID: Int
     let reward: String
     let rewardRequestDate: String?

@@ -74,6 +74,7 @@ final class CouponListViewController: UIViewController {
         
         customRefreshControl.observe(scrollView: collectionView)
         collectionView.refreshControl = customRefreshControl
+        
         return collectionView
     }()
     
@@ -87,6 +88,7 @@ final class CouponListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
         setupNavigation()
         setupTabViews()
@@ -97,7 +99,9 @@ final class CouponListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        updateFilterView()
+        Task {
+            updateFilterView()
+        }
     }
 }
 
@@ -204,19 +208,26 @@ extension CouponListViewController {
         
         viewModel.dataList
             .receive(on: DispatchQueue.main)
-            .filter { [weak self] _ in
-                self?.viewModel.isSkeleton.value == false
+            .filter { [weak self] data in
+                if (self?.viewModel.dataChanged.value) != nil {
+                    self?.viewModel.dataChanged.value = nil
+                    return false
+                }
+
+                if (self?.viewModel.dataDeleted.value) != nil {
+                    self?.viewModel.dataDeleted.value = nil
+                    return false
+                }
+                return self?.viewModel.isSkeleton.value == false
             }
             .map { array -> Bool in
                 return array.isEmpty
             }
             .sink { [weak self] bool in
-                self?.collectionView.setContentOffset(.init(x: 0, y: -Constants.filterHeight), animated: false)
-                self?.couponCollectionView.reloadData()
+                self?.collectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
                 self?.updateFilterView()
-                self?.applySectionFilter()
             }
             .store(in: &cancellables)
         
@@ -227,6 +238,27 @@ extension CouponListViewController {
                 self?.updateFilterView()
             }
             .store(in: &cancellables)
+        
+        viewModel.dataChanged
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] indexPath in
+                    if let indexPath {
+                        self?.collectionView.reloadItems(at: [indexPath])
+                    }
+                }
+                .store(in: &cancellables)
+
+        viewModel.dataDeleted
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] indexPath in
+                    if let indexPath {
+                        self?.collectionView.performBatchUpdates({
+                            self?.collectionView.deleteItems(at: [indexPath])
+                            self?.collectionView.reloadSections(IndexSet(integer: indexPath.section))
+                        }, completion: nil)
+                    }
+                }
+                .store(in: &cancellables)
         
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
@@ -242,8 +274,8 @@ extension CouponListViewController {
         case .all:
             filterView.handleAllFilterButtonTap()
         case .section(let memberId):
-            guard let index = viewModel.sectionOfMember(with: memberId) else { return }
-            let family = viewModel.dataList.value[index].family
+            guard let section = viewModel.sectionOfMember(with: memberId) else { return }
+            let family = viewModel.dataList.value[section].family
             if viewModel.userType == .child {
                 filterView.handleChildSectionFilterButtonTap(with: family)
             } else {
@@ -287,6 +319,7 @@ extension CouponListViewController {
             fullLoadingView.startLoading()
         } else {
             fullLoadingView.stopLoading()
+            applySectionFilter()
         }
     }
     
@@ -319,8 +352,8 @@ extension CouponListViewController {
         bottomSheet.modalPresentationStyle = .custom
         bottomSheet.transitioningDelegate = bottomSheet
         
-        if case let .section(memberId) = viewModel.filterType.value {
-            guard let section = viewModel.sectionOfMember(with: memberId) else { return }
+        if case let .section(memberID) = viewModel.filterType.value {
+            guard let section = viewModel.sectionOfMember(with: memberID) else { return }
             bottomSheet.selectedIndex = section + 1
         }
         present(bottomSheet, animated: true, completion: nil)
@@ -333,6 +366,7 @@ extension CouponListViewController {
 }
 
 extension CouponListViewController: UICollectionViewDataSource {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         switch viewModel.filterType.value {
         case .all:
@@ -390,6 +424,7 @@ extension CouponListViewController: UICollectionViewDataSource {
         }
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         switch kind {
@@ -406,13 +441,12 @@ extension CouponListViewController: UICollectionViewDataSource {
             if totalCount != 0 {
                 footerView.configure(with: totalCount)
             }
-            
             return footerView
         default:
             return UICollectionReusableView()
         }
     }
-    
+     
     private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
         return cell
@@ -451,6 +485,7 @@ extension CouponListViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
 
 extension CouponListViewController: CollectionLayoutConfigurable {
     var collectionView: UICollectionView! {

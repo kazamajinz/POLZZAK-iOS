@@ -24,6 +24,8 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     var shouldEndRefreshing = PassthroughSubject<Void, Never>()
     var requestGiftSubject = PassthroughSubject<Void, Never>()
     var receiveGiftSubject = PassthroughSubject<Void, Never>()
+    var dataChanged = CurrentValueSubject<IndexPath?, Never>(nil)
+    var dataDeleted = CurrentValueSubject<IndexPath?, Never>(nil)
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
     init(useCase: CouponsUsecase) {
@@ -126,36 +128,46 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     }
     
     func startTimer(indexPath: IndexPath) {
+        guard let convertIndexPath = convertIndexPath(indexPath) else {
+            return
+        }
+        
         var tempDataList = dataList.value
         
-        let family = tempDataList[indexPath.section].family
-        var coupons = tempDataList[indexPath.section].coupons
-        let coupon = coupons[indexPath.row]
+        let family = tempDataList[convertIndexPath.section].family
+        var coupons = tempDataList[convertIndexPath.section].coupons
+        let coupon = coupons[convertIndexPath.row]
         let convertCoupon = Coupon(
             couponID: coupon.couponID,
             reward: coupon.reward,
             rewardRequestDate: Date().toString(),
             rewardDate: coupon.rewardDate
         )
-        coupons[indexPath.row] = convertCoupon
+        coupons[convertIndexPath.row] = convertCoupon
         
         let updatedCouponList = CouponList(family: family, coupons: coupons)
-        tempDataList[indexPath.section] = updatedCouponList
+        tempDataList[convertIndexPath.section] = updatedCouponList
 
         dataList.send(tempDataList)
+        dataChanged.send(convertIndexPath)
     }
     
     func removeData(indexPath: IndexPath) {
+        guard let convertIndexPath = convertIndexPath(indexPath) else {
+            return
+        }
+        
         var tempDataList = dataList.value
         
-        let family = tempDataList[indexPath.section].family
-        var coupons = tempDataList[indexPath.section].coupons
-        coupons.remove(at: indexPath.row)
+        let family = tempDataList[convertIndexPath.section].family
+        var coupons = tempDataList[convertIndexPath.section].coupons
+        coupons.remove(at: convertIndexPath.row)
         
         let updatedCouponList = CouponList(family: family, coupons: coupons)
-        tempDataList[indexPath.section] = updatedCouponList
+        tempDataList[convertIndexPath.section] = updatedCouponList
 
         dataList.send(tempDataList)
+        dataDeleted.send(convertIndexPath)
     }
     
     func convertIndexPath(_ indexPath: IndexPath) -> IndexPath? {
