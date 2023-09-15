@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EmptyCell: UICollectionViewCell {
+final class EmptyCell: UICollectionViewCell {
     static let reuseIdentifier = "EmptyCell"
     
     enum Constants {

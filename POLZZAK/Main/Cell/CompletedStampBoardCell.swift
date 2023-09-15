@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CompletedStampBoardCell: UICollectionViewCell {
+final class CompletedStampBoardCell: UICollectionViewCell {
     static let reuseIdentifier = "CompletedStampBoardCell"
     
     private let stampNameLabel: UILabel = {

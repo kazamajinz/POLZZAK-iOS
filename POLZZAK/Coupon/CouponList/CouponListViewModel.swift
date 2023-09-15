@@ -90,6 +90,8 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
                 return nil
             }
             return dataList.value[section].coupons[indexPath.row].couponID
+        case .none:
+            return nil
         }
     }
     
@@ -187,6 +189,8 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
         case .section(let memberID):
             guard let section = sectionOfMember(with: memberID) else { return nil }
             return IndexPath(row: indexPath.row, section: section)
+        case .none:
+            return nil
         }
     }
     

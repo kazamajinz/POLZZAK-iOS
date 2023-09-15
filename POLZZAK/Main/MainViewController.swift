@@ -14,18 +14,20 @@ final class MainViewController: UIViewController {
     enum Constants {
         static let deviceWidth = UIApplication.shared.width
         static let collectionViewContentInset = UIEdgeInsets(top: 74.0, left: 0, bottom: 32.0, right: 0)
+        static let collectionViewNotLinkContentInset = UIEdgeInsets(top: notLinkContentInset, left: 0, bottom: notLinkContentInset, right: 0)
         static let groupSizeWidth: CGFloat = deviceWidth - 52.0
         static let inprogressGroupSizeHeight: CGFloat = groupSizeWidth * 377.0 / 323.0
         static let completedGroupSizeHeight: CGFloat = groupSizeWidth * 180.0 / 323.0
+        static let notLinkGroupSizeHeight: CGFloat = groupSizeWidth * 512.0 / 323.0
         static let contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
         static let interGroupSpacing: CGFloat = 15.0
         static let interSectionSpacing: CGFloat  = 32.0
         static let headerViewHeight: CGFloat  = 42.0
         static let filterHeight: CGFloat  = 74.0
         static let headerTabHeight: CGFloat = 61.0
+        static let notLinkContentInset: CGFloat = 28.0
         
         static let tabTitles = ["진행중", "완료"]
-        static let placeHolderLabelText = "와 연동되면\n도장판을 만들 수 있어요!"
     }
     
     private var toast: Toast?
@@ -61,12 +63,6 @@ final class MainViewController: UIViewController {
         return view
     }()
     
-    private let emptyView: CollectionEmptyView = {
-        let emptyView = CollectionEmptyView()
-        emptyView.isHidden = true
-        return emptyView
-    }()
-    
     private let addStampBoardButton: UIButton = {
         let button = UIButton()
         button.setImage(.addStampBoardButton, for: .normal)
@@ -87,6 +83,7 @@ final class MainViewController: UIViewController {
         collectionView.register(EmptyCell.self, forCellWithReuseIdentifier: EmptyCell.reuseIdentifier)
         collectionView.register(InprogressStampBoardCell.self, forCellWithReuseIdentifier: InprogressStampBoardCell.Constants.reuseIdentifier)
         collectionView.register(CompletedStampBoardCell.self, forCellWithReuseIdentifier: CompletedStampBoardCell.reuseIdentifier)
+        collectionView.register(NotLinkCell.self, forCellWithReuseIdentifier: NotLinkCell.reuseIdentifier)
         
         customRefreshControl.observe(scrollView: collectionView)
         collectionView.refreshControl = customRefreshControl
@@ -139,7 +136,7 @@ extension MainViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        [mainCollectionView, filterView, headerView, emptyView, addStampBoardButton, stampBoardSkeletonView].forEach {
+        [mainCollectionView, filterView, headerView, addStampBoardButton, stampBoardSkeletonView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -171,12 +168,6 @@ extension MainViewController {
         
         stampBoardSkeletonView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-        
-        emptyView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(34)
-            $0.leading.trailing.equalToSuperview().inset(26)
-            $0.bottom.equalToSuperview().inset(54)
         }
     }
     
@@ -239,10 +230,10 @@ extension MainViewController {
                 return array.isEmpty
             }
             .sink { [weak self] bool in
-                self?.mainCollectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
                 self?.updateFilterView()
+                self?.mainCollectionView.reloadData()
             }
             .store(in: &cancellables)
         
@@ -277,6 +268,8 @@ extension MainViewController {
             } else {
                 filterView.handleParentSectionFilterButtonTap(with: family)
             }
+        case .none:
+            break
         }
         applySectionFilter()
     }
@@ -322,11 +315,20 @@ extension MainViewController {
     
     private func handleEmptyView(for bool: Bool) {
         filterView.isHidden = bool
-        emptyView.isHidden = !bool
         
-        if true == bool {
-            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
-            emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
+        if bool == true {
+            viewModel.filterType.send(.none)
+            mainCollectionView.contentInset = Constants.collectionViewNotLinkContentInset
+            customRefreshControl.initialContentOffsetY = Constants.notLinkContentInset
+            customRefreshControl.updateTopPadding(to: -Constants.headerViewHeight)
+        } else {
+            if viewModel.filterType.value == .none {
+                viewModel.filterType.send(.all)
+            }
+            
+            mainCollectionView.contentInset = Constants.collectionViewContentInset
+            customRefreshControl.initialContentOffsetY = Constants.filterHeight
+            customRefreshControl.updateTopPadding(to: -Constants.headerTabHeight)
         }
     }
     
@@ -363,6 +365,8 @@ extension MainViewController: UICollectionViewDataSource {
             return viewModel.dataList.value.count
         case .section:
             return 1
+        case .none:
+            return 1
         }
     }
     
@@ -380,14 +384,22 @@ extension MainViewController: UICollectionViewDataSource {
             } else {
                 return 0
             }
+        case .none:
+            return 1
         }
         
         return cellCount == 0 ? 1 : cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if case .section(let memberId) = viewModel.filterType.value {
-            guard let section = viewModel.sectionOfMember(with: memberId) else {
+        switch viewModel.filterType.value {
+        case .all:
+            if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
+                let nickname = viewModel.dataList.value[indexPath.section].family.nickname
+                return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
+            }
+        case .section(let memberID):
+            guard let section = viewModel.sectionOfMember(with: memberID) else {
                 return UICollectionViewCell()
             }
             
@@ -395,13 +407,8 @@ extension MainViewController: UICollectionViewDataSource {
                 let nickname = viewModel.dataList.value[section].family.nickname
                 return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
             }
-        }
-        
-        if viewModel.filterType.value == .all {
-            if true == viewModel.dataList.value[indexPath.section].stampBoardSummaries.isEmpty {
-                let nickname = viewModel.dataList.value[indexPath.section].family.nickname
-                return dequeueEmptyCell(in: collectionView, at: indexPath, with: nickname)
-            }
+        case .none:
+            return dequeueNotLinkCell(in: collectionView)
         }
         
         if true == viewModel.dataList.value.isEmpty {
@@ -439,6 +446,13 @@ extension MainViewController: UICollectionViewDataSource {
         }
     }
     
+    private func dequeueNotLinkCell(in collectionView: UICollectionView) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotLinkCell.reuseIdentifier, for: IndexPath(row: 0, section: 0)) as! NotLinkCell
+        //TODO: - UserType 변경되면 수정할것.
+        cell.configure(with: viewModel.userType == .child ? "아이" : "보호자")
+        return cell
+    }
+    
     private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath, with nickName: String) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyCell.reuseIdentifier, for: indexPath) as! EmptyCell
         cell.configure(with: nickName, tabState: viewModel.tabState.value, userType: viewModel.userType)
@@ -457,6 +471,9 @@ extension MainViewController: UICollectionViewDataSource {
             }
             let boardData = viewModel.dataList.value[section].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
+        case .none:
+            //TODO: - 처리
+            break
         }
         return cell
     }
@@ -473,6 +490,9 @@ extension MainViewController: UICollectionViewDataSource {
             }
             let boardData = viewModel.dataList.value[section].stampBoardSummaries[indexPath.row]
             cell.configure(with: boardData)
+        case .none:
+            //TODO: - 처리
+            break
         }
         return cell
     }
@@ -486,8 +506,17 @@ extension MainViewController: CollectionLayoutConfigurable {
     func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSizeHeight = viewModel.tabState.value == .inProgress ? Constants.inprogressGroupSizeHeight : Constants.completedGroupSizeHeight
+        
+        let groupSizeHeight: CGFloat
+        if viewModel.filterType.value == .none {
+            groupSizeHeight = Constants.notLinkGroupSizeHeight
+        } else {
+            groupSizeHeight = viewModel.tabState.value == .inProgress ? Constants.inprogressGroupSizeHeight : Constants.completedGroupSizeHeight
+        }
+        
         let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(Constants.groupSizeWidth), heightDimension: .estimated(groupSizeHeight))
+        
+        
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = Constants.contentInsets
@@ -508,6 +537,7 @@ extension MainViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         viewModel.didEndDraggingSubject.send()
+        customRefreshControl.isStartRefresh = true
     }
 }
 

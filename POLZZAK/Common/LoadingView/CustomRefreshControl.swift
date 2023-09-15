@@ -13,9 +13,11 @@ class CustomRefreshControl: UIRefreshControl {
     var isStartRefresh: Bool = false
     var initialContentOffsetY: Double = 0.0
     private var lastContentOffset: CGFloat = 0
+    private var initialOffset: CGFloat?
+    private var refreshImageViewTopConstraint: Constraint?
+    private var refreshIndicatorTopConstraint: Constraint?
     
     private var observation: NSKeyValueObservation?
-    private var initialOffset: CGFloat?
     
     private let refreshImageView: UIImageView = {
         let imageView = UIImageView()
@@ -67,12 +69,12 @@ extension CustomRefreshControl {
         }
         
         refreshImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview().offset(topPadding)
+            refreshImageViewTopConstraint = $0.centerY.equalToSuperview().offset(topPadding).constraint
             $0.centerX.equalToSuperview()
         }
         
         refreshIndicator.snp.makeConstraints {
-            $0.centerY.equalToSuperview().offset(topPadding)
+            refreshIndicatorTopConstraint = $0.centerY.equalToSuperview().offset(topPadding).constraint
             $0.centerX.equalToSuperview()
         }
     }
@@ -105,6 +107,7 @@ extension CustomRefreshControl {
                     }
                     if currentOffset > maxHeight {
                         triggerRefresh()
+                        isStartRefresh = false
                     }
                 } else {
                     if currentOffset <= initialContentOffsetY - 10.0 {
@@ -119,6 +122,11 @@ extension CustomRefreshControl {
             
             self.lastContentOffset = scrollView.contentOffset.y
         }
+    }
+    
+    func updateTopPadding(to newValue: CGFloat) {
+        refreshImageViewTopConstraint?.update(offset: newValue)
+        refreshIndicatorTopConstraint?.update(offset: newValue)
     }
     
     private func triggerRefresh() {
