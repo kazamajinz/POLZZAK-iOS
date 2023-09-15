@@ -75,7 +75,7 @@ extension EmptyCell {
         addSubview(stackView)
         
         stackView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(93)
+            $0.leading.trailing.equalToSuperview().inset(80)
             $0.centerY.equalToSuperview()
         }
     }
