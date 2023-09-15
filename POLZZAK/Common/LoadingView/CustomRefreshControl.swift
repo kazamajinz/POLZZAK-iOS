@@ -12,6 +12,8 @@ class CustomRefreshControl: UIRefreshControl {
     var isRefresh: Bool = true
     var isStartRefresh: Bool = false
     var initialContentOffsetY: Double = 0.0
+    private var lastContentOffset: CGFloat = 0
+    
     private var observation: NSKeyValueObservation?
     private var initialOffset: CGFloat?
     
@@ -84,9 +86,12 @@ extension CustomRefreshControl {
             guard true == isStartRefresh else { return }
             
             let yOffset = scrollView.contentOffset.y
+            let scrollingUp = scrollView.contentOffset.y > self.lastContentOffset
+            
             if yOffset < 0 {
                 self.refreshImageView.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
                 self.refreshIndicator.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
+                
             } else {
                 self.refreshImageView.transform = .identity
                 self.refreshIndicator.transform = .identity
@@ -97,7 +102,11 @@ extension CustomRefreshControl {
             
             if false == refreshIndicator.isAnimating {
                 if false == isRefresh {
-                    refreshImageView.alpha = currentOffset / maxHeight
+                    if scrollingUp {
+                        self.refreshImageView.alpha = 0
+                    } else {
+                        refreshImageView.alpha = currentOffset / maxHeight
+                    }
                     if currentOffset > maxHeight {
                         triggerRefresh()
                     }
@@ -107,6 +116,8 @@ extension CustomRefreshControl {
                     }
                 }
             }
+            
+            self.lastContentOffset = scrollView.contentOffset.y
         }
     }
     
