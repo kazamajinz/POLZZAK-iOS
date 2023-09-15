@@ -301,7 +301,7 @@ extension MainViewController {
             stampBoardSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
-            customRefreshControl.isRefresh = false
+            customRefreshControl.isStartRefresh = true
             stampBoardSkeletonView.hideSkeletonView()
             addStampBoardButton.isHidden = false
         }

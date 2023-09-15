@@ -10,6 +10,7 @@ import SnapKit
 
 class CustomRefreshControl: UIRefreshControl {
     var isRefresh: Bool = true
+    var isStartRefresh: Bool = false
     var initialContentOffsetY: Double = 0.0
     private var observation: NSKeyValueObservation?
     private var initialOffset: CGFloat?
@@ -80,6 +81,7 @@ extension CustomRefreshControl {
     func observe(scrollView: UIScrollView) {
         observation = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, _ in
             guard let self = self else { return }
+            guard true == isStartRefresh else { return }
             
             let yOffset = scrollView.contentOffset.y
             if yOffset < 0 {

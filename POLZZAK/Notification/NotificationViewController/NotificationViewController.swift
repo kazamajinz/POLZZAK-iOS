@@ -177,7 +177,7 @@ extension NotificationViewController {
             viewModel.fetchNotificationList(isFirst: true, more: false)
             notificationSkeletonView.showSkeletonView()
         } else {
-            customRefreshControl.isRefresh = false
+            customRefreshControl.isStartRefresh = true
             notificationSkeletonView.hideSkeletonView()
             viewModel.resetPullToRefreshSubjects()
         }

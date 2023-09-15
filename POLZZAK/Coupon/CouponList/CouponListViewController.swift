@@ -319,7 +319,7 @@ extension CouponListViewController {
             couponSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
-            customRefreshControl.isRefresh = false
+            customRefreshControl.isStartRefresh = true
             couponSkeletonView.hideSkeletonView()
         }
     }
