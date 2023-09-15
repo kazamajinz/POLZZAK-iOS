@@ -10,9 +10,14 @@ import SnapKit
 
 class CustomRefreshControl: UIRefreshControl {
     var isRefresh: Bool = true
+    var isStartRefresh: Bool = false
     var initialContentOffsetY: Double = 0.0
-    private var observation: NSKeyValueObservation?
+    private var lastContentOffset: CGFloat = 0
     private var initialOffset: CGFloat?
+    private var refreshImageViewTopConstraint: Constraint?
+    private var refreshIndicatorTopConstraint: Constraint?
+    
+    private var observation: NSKeyValueObservation?
     
     private let refreshImageView: UIImageView = {
         let imageView = UIImageView()
@@ -45,7 +50,6 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func beginRefreshing() {
         super.beginRefreshing()
-        self.isHidden = false
         refreshImageView.alpha = 0
         refreshIndicator.startAnimating()
         isRefresh = true
@@ -53,8 +57,6 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func endRefreshing() {
         super.endRefreshing()
-        self.isHidden = true
-        refreshIndicator.stopAnimating()
     }
 }
 
@@ -67,12 +69,12 @@ extension CustomRefreshControl {
         }
         
         refreshImageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview().offset(topPadding)
+            refreshImageViewTopConstraint = $0.centerY.equalToSuperview().offset(topPadding).constraint
             $0.centerX.equalToSuperview()
         }
         
         refreshIndicator.snp.makeConstraints {
-            $0.centerY.equalToSuperview().offset(topPadding)
+            refreshIndicatorTopConstraint = $0.centerY.equalToSuperview().offset(topPadding).constraint
             $0.centerX.equalToSuperview()
         }
     }
@@ -80,8 +82,11 @@ extension CustomRefreshControl {
     func observe(scrollView: UIScrollView) {
         observation = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, _ in
             guard let self = self else { return }
+            guard true == isStartRefresh else { return }
             
             let yOffset = scrollView.contentOffset.y
+            let scrollingUp = scrollView.contentOffset.y > self.lastContentOffset
+            
             if yOffset < 0 {
                 self.refreshImageView.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
                 self.refreshIndicator.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
@@ -95,17 +100,33 @@ extension CustomRefreshControl {
             
             if false == refreshIndicator.isAnimating {
                 if false == isRefresh {
-                    refreshImageView.alpha = currentOffset / maxHeight
+                    if scrollingUp {
+                        self.refreshImageView.alpha = 0
+                    } else {
+                        refreshImageView.alpha = currentOffset / maxHeight
+                    }
                     if currentOffset > maxHeight {
                         triggerRefresh()
+                        isStartRefresh = false
                     }
                 } else {
                     if currentOffset <= initialContentOffsetY - 10.0 {
                         isRefresh = false
                     }
                 }
+            } else {
+                if currentOffset == 0.0 {
+                    refreshIndicator.stopAnimating()
+                }
             }
+            
+            self.lastContentOffset = scrollView.contentOffset.y
         }
+    }
+    
+    func updateTopPadding(to newValue: CGFloat) {
+        refreshImageViewTopConstraint?.update(offset: newValue)
+        refreshIndicatorTopConstraint?.update(offset: newValue)
     }
     
     private func triggerRefresh() {

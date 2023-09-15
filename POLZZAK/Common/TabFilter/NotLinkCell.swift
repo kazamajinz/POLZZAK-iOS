@@ -1,13 +1,15 @@
 //
-//  CollectionEmptyView.swift
+//  NotLinkCell.swift
 //  POLZZAK
 //
-//  Created by 이정환 on 2023/08/24.
+//  Created by 이정환 on 2023/09/15.
 //
 
 import UIKit
 
-class CollectionEmptyView: UIView {
+final class NotLinkCell: UICollectionViewCell {
+    static let reuseIdentifier = "NotLinkCell"
+    
     private let subView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -49,8 +51,8 @@ class CollectionEmptyView: UIView {
     }
     
     private func setupUI() {
-        
-        addSubview(subView)
+        contentView.addSubview(subView)
+        contentView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         subView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -66,5 +68,8 @@ class CollectionEmptyView: UIView {
             $0.center.equalToSuperview()
         }
     }
+    
+    func configure(with text: String) {
+        placeHolderLabel.text = text + "와 연동되면\n도장판을 만들 수 있어요!"
+    }
 }
-

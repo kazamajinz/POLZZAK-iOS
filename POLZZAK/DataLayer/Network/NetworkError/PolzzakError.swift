@@ -15,16 +15,3 @@ enum PolzzakError<T>: Error {
     case responseError(BaseResponse<T>)
     case decodingError
 }
-
-/*
-extension PolzzakError {
-    static func validate(code: Int) throws {
-        if 200..<300 ~= code {
-            return
-        } else {
-            throw NetworkError.invalidHTTPStatusCode(code)
-        }
-    }
-}
-*/
-

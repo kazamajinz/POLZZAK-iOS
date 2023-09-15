@@ -14,14 +14,17 @@ final class CouponListViewController: UIViewController {
     enum Constants {
         static let deviceWidth = UIApplication.shared.width
         static let collectionViewContentInset = UIEdgeInsets(top: TabConstants.initialContentOffsetY, left: 0, bottom: 32, right: 0)
+        static let collectionViewNotLinkContentInset = UIEdgeInsets(top: notLinkContentInset, left: 0, bottom: notLinkContentInset, right: 0)
         static let groupSizeWidth: CGFloat = deviceWidth - 52.0
         static let groupSizeHeight: CGFloat = groupSizeWidth * 180.0 / 323.0
+        static let notLinkGroupSizeHeight: CGFloat = groupSizeWidth * 512.0 / 323.0
         static let contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 26, bottom: 8, trailing: 26)
         static let interGroupSpacing: CGFloat = 15.0
         static let interSectionSpacing: CGFloat = 32.0
         static let headerViewHeight: CGFloat = 42.0
         static let filterHeight: CGFloat = 74.0
         static let headerTabHeight: CGFloat = 61.0
+        static let notLinkContentInset: CGFloat = 28.0
         
         static let tabTitles = ["선물 전", "선물 완료"]
         static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
@@ -60,12 +63,6 @@ final class CouponListViewController: UIViewController {
         return view
     }()
     
-    private let emptyView: CollectionEmptyView = {
-        let emptyView = CollectionEmptyView()
-        emptyView.isHidden = true
-        return emptyView
-    }()
-    
     private lazy var couponCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout(spacing: Constants.interSectionSpacing))
         collectionView.showsVerticalScrollIndicator = false
@@ -79,6 +76,7 @@ final class CouponListViewController: UIViewController {
         collectionView.register(CouponEmptyCell.self, forCellWithReuseIdentifier: CouponEmptyCell.reuseIdentifier)
         collectionView.register(InprogressCouponCell.self, forCellWithReuseIdentifier: InprogressCouponCell.reuseIdentifier)
         collectionView.register(CompletedCouponCell.self, forCellWithReuseIdentifier: CompletedCouponCell.reuseIdentifier)
+        collectionView.register(NotLinkCell.self, forCellWithReuseIdentifier: NotLinkCell.reuseIdentifier)
         
         customRefreshControl.observe(scrollView: collectionView)
         collectionView.refreshControl = customRefreshControl
@@ -130,7 +128,7 @@ extension CouponListViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        [couponCollectionView, filterView, headerView, emptyView, couponSkeletonView].forEach {
+        [couponCollectionView, filterView, headerView, couponSkeletonView].forEach {
             contentsView.addSubview($0)
         }
         
@@ -158,12 +156,6 @@ extension CouponListViewController {
         
         couponSkeletonView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-        }
-        
-        emptyView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(34)
-            $0.leading.trailing.equalToSuperview().inset(26)
-            $0.bottom.equalToSuperview().inset(54)
         }
     }
     
@@ -194,9 +186,13 @@ extension CouponListViewController {
     private func bindViewModel() {
         viewModel.shouldEndRefreshing
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.customRefreshControl.endRefreshing()
-                self?.viewModel.resetPullToRefreshSubjects()
+            .sink { [weak self] bool in
+                if true == bool {
+                    self?.customRefreshControl.endRefreshing()
+                    self?.viewModel.resetPullToRefreshSubjects()
+                } else {
+                    self?.customRefreshControl.endRefreshing()
+                }
             }
             .store(in: &cancellables)
         
@@ -232,10 +228,10 @@ extension CouponListViewController {
                 return array.isEmpty
             }
             .sink { [weak self] bool in
-                self?.collectionView.reloadData()
                 self?.tabViews.setTouchInteractionEnabled(true)
                 self?.handleEmptyView(for: bool)
                 self?.updateFilterView()
+                self?.collectionView.reloadData()
             }
             .store(in: &cancellables)
         
@@ -291,6 +287,8 @@ extension CouponListViewController {
             } else {
                 filterView.handleParentSectionFilterButtonTap(with: family)
             }
+        case .none:
+            break
         }
         applySectionFilter()
     }
@@ -319,7 +317,7 @@ extension CouponListViewController {
             couponSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
-            customRefreshControl.isRefresh = false
+            customRefreshControl.isStartRefresh = true
             couponSkeletonView.hideSkeletonView()
         }
     }
@@ -335,11 +333,20 @@ extension CouponListViewController {
     
     private func handleEmptyView(for bool: Bool) {
         filterView.isHidden = bool
-        emptyView.isHidden = !bool
         
-        if true == bool {
-            emptyView.placeHolderLabel.text = (viewModel.userType == .child ? "아이" : "보호자") + Constants.placeHolderLabelText
-            emptyView.addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
+        if bool == true {
+            viewModel.filterType.send(.none)
+            collectionView.contentInset = Constants.collectionViewNotLinkContentInset
+            customRefreshControl.initialContentOffsetY = Constants.notLinkContentInset
+            customRefreshControl.updateTopPadding(to: -Constants.headerViewHeight)
+        } else {
+            if viewModel.filterType.value == .none {
+                viewModel.filterType.send(.all)
+            }
+            
+            collectionView.contentInset = Constants.collectionViewContentInset
+            customRefreshControl.initialContentOffsetY = Constants.filterHeight
+            customRefreshControl.updateTopPadding(to: -Constants.headerTabHeight)
         }
     }
     
@@ -382,6 +389,8 @@ extension CouponListViewController: UICollectionViewDataSource {
             return viewModel.dataList.value.count
         case .section:
             return 1
+        case .none:
+            return 1
         }
     }
     
@@ -399,26 +408,29 @@ extension CouponListViewController: UICollectionViewDataSource {
             } else {
                 return 0
             }
+        case .none:
+            return 1
         }
         
         return cellCount == 0 ? 1 : cellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if case .section(let memberId) = viewModel.filterType.value {
-            guard let section = viewModel.sectionOfMember(with: memberId) else {
+        switch viewModel.filterType.value {
+        case .all:
+            if true == viewModel.dataList.value[indexPath.section].coupons.isEmpty {
+                return dequeueEmptyCell(in: collectionView, at: indexPath)
+            }
+        case .section(let memberID):
+            guard let section = viewModel.sectionOfMember(with: memberID) else {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
             
             if true == viewModel.dataList.value[section].coupons.isEmpty {
                 return dequeueEmptyCell(in: collectionView, at: indexPath)
             }
-        }
-        
-        if viewModel.filterType.value == .all {
-            if true == viewModel.dataList.value[indexPath.section].coupons.isEmpty {
-                return dequeueEmptyCell(in: collectionView, at: indexPath)
-            }
+        case .none:
+            return dequeueNotLinkCell(in: collectionView)
         }
         
         if true == viewModel.dataList.value.isEmpty {
@@ -455,7 +467,14 @@ extension CouponListViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
     }
-     
+    
+    private func dequeueNotLinkCell(in collectionView: UICollectionView) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotLinkCell.reuseIdentifier, for: IndexPath(row: 0, section: 0)) as! NotLinkCell
+        //TODO: - UserType 변경되면 수정할것.
+        cell.configure(with: viewModel.userType == .child ? "아이" : "보호자")
+        return cell
+    }
+    
     private func dequeueEmptyCell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponEmptyCell.reuseIdentifier, for: indexPath) as! CouponEmptyCell
         return cell
@@ -473,6 +492,9 @@ extension CouponListViewController: UICollectionViewDataSource {
             }
             let couponData = viewModel.dataList.value[section].coupons[indexPath.row]
             cell.configure(with: couponData)
+        case .none:
+            //TODO: - 처리
+            break
         }
         return cell
     }
@@ -490,6 +512,9 @@ extension CouponListViewController: UICollectionViewDataSource {
             }
             let couponData = viewModel.dataList.value[section].coupons[indexPath.row]
             cell.configure(with: couponData, userType: viewModel.userType)
+        case .none:
+            //TODO: - 처리
+            break
         }
         return cell
     }
@@ -524,7 +549,8 @@ extension CouponListViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        viewModel.didEndDraggingSubject.send(false)
+        viewModel.didEndDraggingSubject.send()
+        customRefreshControl.isStartRefresh = true
     }
 }
 

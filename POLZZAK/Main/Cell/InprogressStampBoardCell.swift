@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class InprogressStampBoardCell: UICollectionViewCell {
+final class InprogressStampBoardCell: UICollectionViewCell {
     enum Constants {
         static let reuseIdentifier = "InprogressStampBoardCell"
         static let stampRequestLabelInsets = UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10)

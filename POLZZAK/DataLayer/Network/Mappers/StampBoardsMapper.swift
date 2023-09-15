@@ -8,16 +8,7 @@
 import Foundation
 
 
-struct StampBoardsMapper {
-    private func mapBaseResponse<T, U>(from dto: BaseResponseDTO<T>, transform: (T) -> U) -> BaseResponse<U> {
-        let transformedData = dto.data.map(transform)
-        return BaseResponse(code: dto.code, messages: dto.messages, data: transformedData)
-    }
-    
-    func mapEmptyDataResponse<EmptyData>(from response: BaseResponseDTO<EmptyData>) -> BaseResponse<EmptyData> {
-        return BaseResponse(code: response.code, messages: response.messages, data: nil)
-    }
-    
+struct StampBoardsMapper: MappableResponse {
     func mapStampBoardListResponse(from response: BaseResponseDTO<[StampBoardListDTO]>) -> BaseResponse<[StampBoardList]> {
         return mapBaseResponse(from: response, transform: mapStampBoardList)
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol LinkRequestRepository {
-    associatedtype ServiceType: LinkRequestActions
+    associatedtype ServiceType: LinkRequestService
     var service: ServiceType { get }
     
     func approveLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError>
