@@ -38,6 +38,7 @@ final class NotificationSettingTableViewCell: UITableViewCell {
     let customSwitch: UISwitch = {
         let customSwitfch = UISwitch()
         customSwitfch.onTintColor = .blue500
+        customSwitfch.isEnabled = false
         return customSwitfch
     }()
     

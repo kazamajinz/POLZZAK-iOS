@@ -224,8 +224,10 @@ extension LinkManagementViewController {
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { error in
-                print("error", error)
+            .sink { [weak self] error in
+                self?.toast = Toast(type: .qatest(error.localizedDescription))
+                self?.toast?.show()
+                print("error", error.localizedDescription)
             }
             .store(in: &cancellables)
         

@@ -20,6 +20,8 @@ class Toast: NSObject {
     
     var isToastShown: Bool = false
     
+    private var type: ToastType?
+    
     private let toastContainer: UIView = {
         let view = UIView()
         view.alpha = 1
@@ -40,6 +42,7 @@ class Toast: NSObject {
         let label = UILabel()
         label.font = .body14Sbd
         label.textColor = .white
+        label.numberOfLines = 0
         return label
     }()
     
@@ -53,18 +56,7 @@ class Toast: NSObject {
     init(type: ToastType) {
         super.init()
         
-        switch type {
-        case .success(let text, let image):
-            setSuccessToast(successText: text)
-            if let img = image {
-                imageView.image = img
-            }
-        case .error(let text, let image):
-            setErrorToast(errorText: text)
-            if let img = image {
-                imageView.image = img
-            }
-        }
+        setupToast(type: type)
     }
 }
 
@@ -81,28 +73,50 @@ extension Toast {
         toastContainer.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(Constants.toastHeight)
-            $0.bottom.equalToSuperview().inset(Constants.bottomPadding)
+            $0.bottom.equalToSuperview().inset(type == .qatest("", nil) ? 100 : Constants.bottomPadding)
         }
         
         toastContainer.addSubview(stackView)
         
         stackView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            if type == .qatest("", nil) {
+                $0.top.bottom.equalToSuperview()
+            } else {
+                $0.centerY.equalToSuperview()
+            }
             $0.leading.trailing.equalToSuperview().inset(16)
         }
     }
     
-    func setSuccessToast(successText: String) {
-        toastLabel.text = successText
-        toastContainer.backgroundColor = .blue600
-        let acceptButton = UIImage.acceptButton?.withRenderingMode(.alwaysTemplate)
-        imageView.image = acceptButton
-    }
-    
-    func setErrorToast(errorText: String) {
-        toastLabel.text = errorText
-        toastContainer.backgroundColor = .error500
-        imageView.image = UIImage.informationButton
+    func setupToast(type: ToastType) {
+        switch type {
+        case .success(let text, let image):
+            toastLabel.text = text
+            toastContainer.backgroundColor = .blue600
+            if let img = image {
+                imageView.image = img
+            } else {
+                let acceptButton = UIImage.acceptButton?.withRenderingMode(.alwaysTemplate)
+                imageView.image = acceptButton
+            }
+        case .error(let text, let image):
+            toastLabel.text = text
+            toastContainer.backgroundColor = .error500
+            if let img = image {
+                imageView.image = img
+            } else {
+                imageView.image = UIImage.informationButton
+            }
+        case .qatest(let text, let image):
+            toastContainer.backgroundColor = .red
+            toastLabel.text = text
+            if let img = image {
+                imageView.image = img
+            } else {
+                imageView.image = UIImage.informationButton
+            }
+            self.type = type
+        }
     }
     
     func setGesture() {

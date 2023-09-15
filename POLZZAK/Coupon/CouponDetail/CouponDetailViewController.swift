@@ -42,6 +42,8 @@ final class CouponDetailViewController: UIViewController {
         static let successRequestGiftText = "조르기 완료! 1시간 후에 다시 조를 수 있어요."
     }
     
+    private var toast: Toast?
+    
     private let viewModel: CouponDetailViewModel
     private var cancellables = Set<AnyCancellable>()
     private var captureToast = Toast(type: .success(Constants.successCaptureText))
@@ -610,7 +612,9 @@ extension CouponDetailViewController {
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] error in
-                print("error", error)
+                self?.toast = Toast(type: .qatest(error.localizedDescription))
+                self?.toast?.show()
+                print("error", error.localizedDescription)
                 self?.showErrorAlert()
             }
             .store(in: &cancellables)
