@@ -45,6 +45,7 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func beginRefreshing() {
         super.beginRefreshing()
+        self.isHidden = false
         refreshImageView.alpha = 0
         refreshIndicator.startAnimating()
         isRefresh = true
@@ -52,6 +53,7 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func endRefreshing() {
         super.endRefreshing()
+        self.isHidden = true
         refreshIndicator.stopAnimating()
     }
 }

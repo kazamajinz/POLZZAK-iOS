@@ -67,6 +67,12 @@ class CompletedStampBoardCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -82,8 +88,6 @@ extension CompletedStampBoardCell {
     }
     
     private func setUI() {
-        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
-        
         [rewardLabelView, rewardTitleLabel].forEach {
             stampRewardView.addArrangedSubview($0)
         }
