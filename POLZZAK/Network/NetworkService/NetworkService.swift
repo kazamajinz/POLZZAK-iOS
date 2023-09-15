@@ -11,27 +11,12 @@ import OSLog
 protocol NetworkServiceProvider {
     func request(with target: TargetType) async throws -> (Data, URLResponse)
 }
-
-extension NetworkServiceProvider {
-    func requestData(with target: TargetType) async throws -> Data {
-        return try await request(with: target).0
-    }
-    
-    func request<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> (T, URLResponse) {
-        let (data, response) = try await request(with: target)
-        return (try JSONDecoder().decode(T.self, from: data), response)
-    }
-    
-    func requestData<T: Decodable>(responseType: T.Type, with target: TargetType) async throws -> T {
-        let (data, _) = try await request(with: target)
-        return try JSONDecoder().decode(T.self, from: data)
-    }
-}
-
+ 
 final class NetworkService: NetworkServiceProvider {
     private let session: URLSession
     private let requestInterceptor: RequestInterceptor?
     private var retryCount = ThreadSafeDictionary<URLRequest, Int>()
+    private var currentTask: URLSessionTask?
     
     init(
         session: URLSession = .shared,
@@ -115,8 +100,11 @@ final class NetworkService: NetworkServiceProvider {
         if let statusCode = (response as? HTTPURLResponse)?.statusCode {
             os_log("response statusCode\n%@", log: .network, String(statusCode))
         }
+        //TODO: - 회의예정
+        /*
         if let prettyJSON = data.prettyJSON {
             os_log("response JSON\n%@", log: .network, prettyJSON)
         }
+         */
     }
 }

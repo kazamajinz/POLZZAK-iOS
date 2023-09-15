@@ -11,6 +11,7 @@ import SnapKit
 protocol NotificationTableViewCellDelegate: AnyObject {
     func didTapAcceptButton(_ cell: NotificationTableViewCell)
     func didTapRejectButton(_ cell: NotificationTableViewCell)
+    func didTapRemoveButton(_ cell: NotificationTableViewCell)
 }
 
 class NotificationTableViewCell: UITableViewCell {
@@ -54,6 +55,7 @@ class NotificationTableViewCell: UITableViewCell {
     private let newAlertImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .circle6
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -104,7 +106,11 @@ class NotificationTableViewCell: UITableViewCell {
     }()
     
     private let completionSubView = UIView()
-    private let completionImageView = UIImageView()
+    private let completionImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .blue500
+        return imageView
+    }()
     private let completionLabel = UILabel()
     
     private let buttonStackView: UIStackView = {
@@ -129,6 +135,7 @@ class NotificationTableViewCell: UITableViewCell {
     }()
     
     private let bottomView = UIStackView()
+    private var isSwipeRemove = true
     var originalCenterCheck = false
     var isSwipe = false
     var swipeOnOriginalCenter = CGFloat()
@@ -173,6 +180,10 @@ class NotificationTableViewCell: UITableViewCell {
     }
     
     @objc func handleSwipeGesture(gesture: UIPanGestureRecognizer) {
+        if false == isSwipeRemove {
+            return
+        }
+        
         if false == originalCenterCheck {
             originalCenterCheck = true
             self.swipeOnOriginalCenter = panGestureView.center.x - 56
@@ -339,24 +350,44 @@ extension NotificationTableViewCell {
         
     }
     
-    func configure(data: NotificationModel) {
-        let type = data.type
-        emojiLabel.text = type.title.emoji
-        titleLabel.text = type.title.title
-        dateLabel.text = data.date
-        newAlertImage.isHidden = data.isNew
+    func configure(data: Notification) {
+        if data.title.startsWithEmoji {
+            let dataTitle = data.title.components(separatedBy: " ")
+            emojiLabel.text = dataTitle[0]
+            titleLabel.text = dataTitle[1]
+        } else {
+            titleLabel.text = data.title
+        }
         
-        let emphasisText = data.description
-        let style = type.getEmphasisStyle(to: emphasisText)
-        descriptionLabel.text = style.text
-        descriptionLabel.setEmphasisRanges(style.emphasisRange, color: .gray800, font: .body14Sbd)
+        dateLabel.text = data.createdDate.remainingTimeToString()
         
+        newAlertImage.isHidden = data.status == .read
+        descriptionLabel.text = data.message.boldTagRemove()
+        if let emphasisRange = data.message.boldTagRanges() {
+            descriptionLabel.setEmphasisRanges(emphasisRange, color: .gray800, font: .body14Sbd)
+        }
+        
+        guard let type = data.type else { return }
         buttonStackView.isHidden = type.isButtonHidden
         bottomView.isHidden = type.isSenderHidden
         
-        if false == type.isSenderHidden {
-            nicknameLabel.text = data.sender
-            profileImageView.loadImage(from: data.profileURL)
+        guard let sender = data.sender else { return }
+        nicknameLabel.text = sender.nickname
+        profileImageView.loadImage(from: sender.profileURL)
+        
+        switch data.status {
+        case .read:
+            newAlertImage.isHidden = true
+        case .unread:
+            newAlertImage.isHidden = false
+        case .requestLink:
+            isSwipeRemove = false
+        case .requestAccept:
+            updateUIForCompletion(true)
+        case .requestReject:
+            updateUIForCompletion(false)
+        default:
+            break
         }
     }
     
@@ -370,11 +401,13 @@ extension NotificationTableViewCell {
         descriptionLabel.text = nil
         nicknameLabel.text = nil
         completionLabel.text = nil
+        isSwipeRemove = true
+        
     }
     
     private func updateUIForCompletion(_ bool: Bool) {
         if true == bool {
-            completionImageView.image = .acceptButton
+            completionImageView.image = .acceptButton?.withRenderingMode(.alwaysTemplate)
             completionLabel.setLabel(text: "수락했어요",textColor: .blue500, font: .subtitle16Bd)
             completionView.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .blue500)
         } else {
@@ -385,6 +418,7 @@ extension NotificationTableViewCell {
         
         buttonStackView.isHidden = true
         completionView.isHidden = false
+        isSwipeRemove = true
     }
     
     private func setAction() {
@@ -405,6 +439,6 @@ extension NotificationTableViewCell {
     }
     
     @objc private func deleteButtonTapped() {
-        print("삭제!")
+        delegate?.didTapRemoveButton(self)
     }
 }

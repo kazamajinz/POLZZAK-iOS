@@ -18,7 +18,7 @@ final class CompletedCouponCell: UICollectionViewCell {
     
     private let contentSubView: UIView = {
         let view = UIView()
-        view.addCornerRadious(cornerRadius: 10)
+        view.addBorder(cornerRadius: 10)
         return view
     }()
     

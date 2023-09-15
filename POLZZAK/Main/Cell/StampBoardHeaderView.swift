@@ -20,9 +20,9 @@ final class StampBoardHeaderView: UICollectionReusableView {
     
     private let memberTypeLabel = MemberTypeLabel()
     
-    private let nickNameLabel: UILabel = {
+    private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .gray800, font: .subtitle18Sbd)
+        label.setLabel(textColor: .gray600, font: .subtitle18Rg)
         return label
     }()
     
@@ -38,7 +38,7 @@ final class StampBoardHeaderView: UICollectionReusableView {
 
 extension StampBoardHeaderView {
     private func setUI() {
-        [memberTypeLabel, nickNameLabel].forEach {
+        [memberTypeLabel, nicknameLabel].forEach {
             nameStackView.addArrangedSubview($0)
         }
         
@@ -58,6 +58,8 @@ extension StampBoardHeaderView {
             nameStackView.removeArrangedSubview(self.memberTypeLabel)
             memberTypeLabel.removeFromSuperview()
         }
-        nickNameLabel.text = family.nickName
+        nicknameLabel.text = family.nickname + "님과 함께해요"
+        let emphasisRange = [NSRange(location: 0, length: String(family.nickname).count)]
+        nicknameLabel.setEmphasisRanges(emphasisRange, color: .gray800, font: .subtitle18Sbd)
     }
 }

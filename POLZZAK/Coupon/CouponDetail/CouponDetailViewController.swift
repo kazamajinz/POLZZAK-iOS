@@ -34,16 +34,18 @@ final class CouponDetailViewController: UIViewController {
         static let missionCompletedDateViewTitle = "미션 완료일"
         static let requestGiftButtonTitle = "선물 조르기"
         static let receiveGifitButtonTitle = "선물 받기 완료"
-        static let promiseLabel = "까지\n선물을 전달하기로 약속했어요!"
+        static let promiseLabel = " 까지\n선물을 전달하기로 약속했어요!"
         static let childCompletedGift = "선물 받기 완료"
         static let parentCompletedGift = "선물 전달 완료"
         static let logoLabel = "PolZZak!"
-        static let successText = "쿠폰이 사진첩에 저장됐어요"
+        static let successCaptureText = "쿠폰이 사진첩에 저장됐어요"
+        static let successRequestGiftText = "조르기 완료! 1시간 후에 다시 조를 수 있어요."
     }
     
     private let viewModel: CouponDetailViewModel
     private var cancellables = Set<AnyCancellable>()
-    private var toast = Toast(type: .success(Constants.successText))
+    private var captureToast = Toast(type: .success(Constants.successCaptureText))
+    private var requestGiftToast = Toast(type: .success(Constants.successRequestGiftText))
     
     private let contentsView: UIView = {
         let view = UIView()
@@ -57,7 +59,7 @@ final class CouponDetailViewController: UIViewController {
     private let topView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.addCornerRadious(cornerRadius: 12)
+        view.addBorder(cornerRadius: 12)
         return view
     }()
     
@@ -93,7 +95,7 @@ final class CouponDetailViewController: UIViewController {
     private let middleView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.addCornerRadious(cornerRadius: 12)
+        view.addBorder(cornerRadius: 12)
         return view
     }()
     
@@ -125,7 +127,7 @@ final class CouponDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.addCornerRadious(cornerRadius: 22)
+        imageView.addBorder(cornerRadius: 22)
         return imageView
     }()
     
@@ -157,7 +159,7 @@ final class CouponDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = .defaultProfileCharacter
         imageView.contentMode = .scaleAspectFit
-        imageView.addCornerRadious(cornerRadius: 22)
+        imageView.addBorder(cornerRadius: 22)
         return imageView
     }()
     
@@ -173,7 +175,7 @@ final class CouponDetailViewController: UIViewController {
     private let bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.addCornerRadious(cornerRadius: 12)
+        view.addBorder(cornerRadius: 12)
         return view
     }()
     
@@ -217,7 +219,7 @@ final class CouponDetailViewController: UIViewController {
     private let completedGift: PaddedLabel = {
         let label = PaddedLabel(padding: Constants.completedGiftPadding)
         label.setLabel(textColor: .white, font: .body14Sbd, backgroundColor: .blue600)
-        label.addCornerRadious(cornerRadius: 16)
+        label.addBorder(cornerRadius: 16)
         label.isHidden = true
         return label
     }()
@@ -231,19 +233,19 @@ final class CouponDetailViewController: UIViewController {
     }()
     
     private let requestGiftButton: PaddedLabel = {
-        let button = PaddedLabel(padding: Constants.buttonPadding)
-        button.setLabel(text: Constants.requestGiftButtonTitle, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue600)
-        button.addCornerRadious(cornerRadius: 8)
-        button.isUserInteractionEnabled = true
-        return button
+        let label = PaddedLabel(padding: Constants.buttonPadding)
+        label.setLabel(text: Constants.requestGiftButtonTitle, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue600)
+        label.addBorder(cornerRadius: 8)
+        label.isUserInteractionEnabled = true
+        return label
     }()
     
     private let receiveGifitButton: PaddedLabel = {
-        let button = PaddedLabel(padding: Constants.buttonPadding)
-        button.setLabel(text: Constants.receiveGifitButtonTitle, textColor: .blue600, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .white)
-        button.addCornerRadious(cornerRadius: 8)
-        button.isUserInteractionEnabled = true
-        return button
+        let label = PaddedLabel(padding: Constants.buttonPadding)
+        label.setLabel(text: Constants.receiveGifitButtonTitle, textColor: .blue600, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .white)
+        label.addBorder(cornerRadius: 8)
+        label.isUserInteractionEnabled = true
+        return label
     }()
     
     private let captureView = UIView()
@@ -264,7 +266,8 @@ final class CouponDetailViewController: UIViewController {
         setupUI()
         setupDelegate()
         bindViewModel()
-        viewModel.tempAPI()
+        setupAction()
+        viewModel.fetchCouponDetail()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -526,12 +529,6 @@ extension CouponDetailViewController {
     }
     
     private func bindViewModel() {
-        viewModel.showErrorAlertSubject
-            .sink { [weak self] in
-                self?.showErrorAlert()
-            }
-            .store(in: &cancellables)
-        
         viewModel.$isCenterLoading
             .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
@@ -539,10 +536,13 @@ extension CouponDetailViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$tabState
+        viewModel.$couponDetailData
+            .compactMap { data -> CouponState? in
+                return data?.couponState
+            }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
-                self?.handleTabState(tabState: state)
+                self?.handleTabState(state: state)
             }
             .store(in: &cancellables)
         
@@ -578,8 +578,7 @@ extension CouponDetailViewController {
         viewModel.captureImageSaveSubject
             .receive(on: DispatchQueue.main)
             .filter { [weak self] _ in
-                guard let self = self else { return false }
-                return false == toast.isToastShown
+                return false == self?.captureToast.isToastShown
             }
             .sink { [weak self] _ in
                 self?.captureAndSaveImage()
@@ -589,10 +588,75 @@ extension CouponDetailViewController {
         viewModel.showSuccessToastSubject
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.toast.show()
+                self?.captureToast.show()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.requestGiftSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.requestGiftToast.show()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.remainingTimeSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                self?.handleGiftRequestTimeLabel(with: time)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.showErrorAlertSubject
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                print("error", error)
+                self?.showErrorAlert()
             }
             .store(in: &cancellables)
     }
+    
+    private func setupAction() {
+        let tapRequestGiftButtonReconizer = UITapGestureRecognizer(target: self, action: #selector(requestGiftButtonTapped))
+        requestGiftButton.addGestureRecognizer(tapRequestGiftButtonReconizer)
+        
+        let tapReceiveGiftButtonReconizer = UITapGestureRecognizer(target: self, action: #selector(receiveGifitButtonTapped))
+        receiveGifitButton.addGestureRecognizer(tapReceiveGiftButtonReconizer)
+    }
+    
+    @objc private func requestGiftButtonTapped() {
+        Task {
+            await viewModel.sendGiftRequest()
+        }
+    }
+    
+    @objc private func receiveGifitButtonTapped() {
+        let confirmAlert = CouponReceiveAlertView()
+        guard let title = viewModel.couponDetailData?.reward else { return }
+        confirmAlert.titleLabel.text = title
+        confirmAlert.secondButtonAction = { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.viewModel.sendGiftReceive()
+                confirmAlert.dismiss(animated: false, completion: nil)
+            }
+        }
+        present(confirmAlert, animated: false)
+    }
+    
+    private func handleGiftRequestTimeLabel(with text: String?) {
+        guard let text else {
+            requestGiftButton.setLabel(text: Constants.requestGiftButtonTitle, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue600)
+            requestGiftButton.addBorder(cornerRadius: 8)
+            requestGiftButton.isUserInteractionEnabled = true
+            return
+        }
+        
+        requestGiftButton.setLabel(text: text,textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue500)
+        requestGiftButton.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .white)
+        requestGiftButton.isUserInteractionEnabled = false
+    }
+
     
     private func handleLoadingView(for bool: Bool) {
         if true == bool {
@@ -602,10 +666,20 @@ extension CouponDetailViewController {
         }
     }
     
-    private func handleTabState(tabState: TabState) {
-        promiseLabel.isHidden = tabState == .completed
-        completedGift.isHidden = tabState == .inProgress
-        buttonStackView.isHidden = viewModel.userType == .parent
+    private func handleTabState(state: CouponState) {
+        switch state {
+        case .issued:
+            promiseLabel.isHidden = false
+            completedGift.isHidden = true
+            buttonStackView.isHidden = viewModel.userType == .parent
+        case .rewarded:
+            promiseLabel.isHidden = true
+            completedGift.isHidden = false
+            buttonStackView.isHidden = true
+        }
+        promiseLabel.isHidden = state == .rewarded
+        completedGift.isHidden = state == .issued
+        
     }
     
     private func addDottedLineToView(_ view: UIView, cornerRadius: CGFloat) {
@@ -640,21 +714,16 @@ extension CouponDetailViewController {
         missionStartDateView.configure(date: startDate.longDateFormat())
         missionCompletedDateView.configure(date: endDate.longDateFormat())
         
-        switch viewModel.tabState {
-        case .inProgress:
-            //TODO: - 서버에서 필드 추가해야함
-            let tempDate = "2023-08-13T13:08:25.030623693".longDateFormat()
-            promiseLabel.text = "\(tempDate)" + Constants.promiseLabel
-            let emphasisRange = [NSRange(location: 0, length: tempDate.count)]
-            promiseLabel.setEmphasisRanges(emphasisRange, color: .white, font: .body14Sbd)
-        case .completed:
-            completedGift.text = (viewModel.userType == .parent) ? Constants.parentCompletedGift : Constants.childCompletedGift
-        }
+        let rewardDate = couponData.rewardDate.longDateFormat()
+        promiseLabel.text = rewardDate + Constants.promiseLabel
+        let emphasisRange = [NSRange(location: 0, length: rewardDate.count)]
+        promiseLabel.setEmphasisRanges(emphasisRange, color: .white, font: .body14Sbd)
+        completedGift.text = (viewModel.userType == .parent) ? Constants.parentCompletedGift : Constants.childCompletedGift
     }
     
     private func showErrorAlert() {
-        let alertView = AlertButtonView(buttonStyle: .single)
-        alertView.contentLabel.setLabel(text: Constants.errorLabel, textColor: .gray700, font: .subtitle18Sbd)
+        let alertView = AlertButtonView(buttonStyle: .single, contentStyle: .titleWithContent)
+        alertView.titleLabel.setLabel(text: Constants.errorLabel, textColor: .gray700, font: .subtitle18Sbd)
         alertView.closeButton.text = Constants.errorCloseButton
         alertView.firstButtonAction = {
             self.navigationController?.popViewController(animated: false)
@@ -686,7 +755,7 @@ extension CouponDetailViewController {
         captureImageView.contentMode = .scaleAspectFit
         
         captureImageView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(40)
+            $0.top.equalToSuperview().offset(40)
             $0.leading.trailing.equalToSuperview().inset(26)
         }
         
@@ -695,16 +764,13 @@ extension CouponDetailViewController {
         tempImageView.addSubview(logoLabel)
         
         logoLabel.snp.makeConstraints {
-            $0.top.equalTo(captureImageView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(30)
         }
         
         captureBackgroundView.snp.makeConstraints {
-            $0.top.equalTo(captureImageView.snp.top).offset(-40)
-            $0.leading.equalTo(captureImageView.snp.leading).inset(-26)
-            $0.trailing.equalTo(captureImageView.snp.trailing).inset(-26)
-            $0.bottom.equalTo(logoLabel.snp.bottom).inset(-30)
+            $0.width.equalTo(Constants.captureWidth)
+            $0.height.equalTo(Constants.captureHeight)
         }
         
         tempImageView.layoutIfNeeded()

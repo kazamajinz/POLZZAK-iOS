@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class AlertButtonView: BaseAlertViewController {
     enum ButtonStyle {
@@ -13,17 +14,24 @@ class AlertButtonView: BaseAlertViewController {
         case double
     }
     
+    enum ContentStyle {
+        case onlyTitle
+        case titleWithContent
+    }
+    
     enum Constants {
         static let buttonPadding = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
     }
     
     private let buttonStyle: ButtonStyle
-    typealias AsyncAction = () async -> Void
-    var firstButtonAction: AsyncAction?
-    var secondButtonAction: AsyncAction?
+    private let contentStyle: ContentStyle
     
+    typealias ButtonAction = () -> Void
+    var firstButtonAction: ButtonAction?
+    @MainActor var secondButtonAction: ButtonAction?
+    var bottomConstraint: Constraint?
     
-    private let stackView: UIStackView = {
+    let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 40
@@ -41,13 +49,19 @@ class AlertButtonView: BaseAlertViewController {
         return stackView
     }()
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
+    }()
+    
     let contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    private let buttonStackView: UIStackView = {
+    let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 11
@@ -79,8 +93,10 @@ class AlertButtonView: BaseAlertViewController {
         return confirmButton
     }()
     
-    init(buttonStyle: ButtonStyle) {
+    init(buttonStyle: ButtonStyle, contentStyle: ContentStyle) {
         self.buttonStyle = buttonStyle
+        self.contentStyle = contentStyle
+        
         super.init()
         
         setupButtonStyles()
@@ -102,7 +118,8 @@ class AlertButtonView: BaseAlertViewController {
         
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(40)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            bottomConstraint = $0.bottom.equalToSuperview().inset(16).constraint
         }
         
         [contentStackView, buttonStackView].forEach {
@@ -113,7 +130,11 @@ class AlertButtonView: BaseAlertViewController {
             $0.leading.trailing.equalToSuperview()
         }
         
-        contentStackView.addArrangedSubview(contentLabel)
+        contentStackView.addArrangedSubview(titleLabel)
+        if contentStyle == .titleWithContent {
+            contentStackView.addArrangedSubview(contentLabel)
+        }
+        
         buttonStackView.addArrangedSubview(closeButton)
     }
     
@@ -149,13 +170,13 @@ class AlertButtonView: BaseAlertViewController {
     @objc private func handleFirstButtonTap() {
         dismiss(animated: false)
         Task {
-            await firstButtonAction?()
+            firstButtonAction?()
         }
     }
     
     @objc private func handleSecondButtonTap() {
         Task {
-            await secondButtonAction?()
+            secondButtonAction?()
         }
     }
 }

@@ -45,7 +45,7 @@ final class CouponGuideViewController: BaseAlertViewController {
     let confirmButton: PaddedLabel = {
         let confirmButton = PaddedLabel(padding: Constants.buttonPadding)
         confirmButton.setLabel(text: Constants.confirmButtonText, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue500)
-        confirmButton.addCornerRadious(cornerRadius: 8)
+        confirmButton.addBorder(cornerRadius: 8)
         confirmButton.isUserInteractionEnabled = true
         return confirmButton
     }()

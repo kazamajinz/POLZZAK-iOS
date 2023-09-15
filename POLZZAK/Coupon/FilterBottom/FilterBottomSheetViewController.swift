@@ -68,7 +68,7 @@ final class FilterBottomSheetViewController: BottomSheetViewController {
     private func setUI() {
         transitioningDelegate = self
         
-        view.addCornerRadious(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
+        view.addBorder(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 12)
         
         [textLabel, tableView].forEach {
             view.addSubview($0)
@@ -115,7 +115,7 @@ extension FilterBottomSheetViewController: UITableViewDelegate, UITableViewDataS
             return UITableViewCell()
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: FilterBottomCell.reuseIdentifier, for: indexPath) as! FilterBottomCell
-        indexPath.section == 0 ? cell.configure(with: "전체") : cell.configure(with: data[indexPath.section - 1].nickName)
+        indexPath.section == 0 ? cell.configure(with: "전체") : cell.configure(with: data[indexPath.section - 1].nickname)
         return cell
     }
     

@@ -114,7 +114,7 @@ final class FilterView: UIView {
     }
     
     func handleChildSectionFilterButtonTap(with family: FamilyMember) {
-        nickNameLabel.text = family.nickName
+        nickNameLabel.text = family.nickname
         memberTypeLabel.text = family.memberType.detail
         headerLabel.text = "From"
         nameStackView.isHidden = false
@@ -124,7 +124,7 @@ final class FilterView: UIView {
     }
     
     func handleParentSectionFilterButtonTap(with family: FamilyMember) {
-        nickNameLabel.text = family.nickName
+        nickNameLabel.text = family.nickname
         headerLabel.text = "To"
         nameStackView.isHidden = false
         sectionStackView.isHidden = false

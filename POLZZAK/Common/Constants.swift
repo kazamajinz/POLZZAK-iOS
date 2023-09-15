@@ -26,5 +26,6 @@ enum Constants {
     
     enum URL {
         static let baseURL = "https://api.polzzak.co.kr/api/"
+        static let localURL = "http://localhost:3000/"
     }
 }

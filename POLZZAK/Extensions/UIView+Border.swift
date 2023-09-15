@@ -8,15 +8,6 @@
 import UIKit
 
 extension UIView {
-    func addCornerRadious(
-        corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
-        cornerRadius: CGFloat
-    ) {
-        self.layer.maskedCorners = corners
-        self.layer.cornerRadius = cornerRadius
-        self.layer.masksToBounds = true
-    }
-    
     func addBorder(
         corners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner],
         cornerRadius: CGFloat = 0.0,

@@ -13,15 +13,21 @@ class EmptyCell: UICollectionViewCell {
     
     enum Constants {
         static let deviceWidth = UIApplication.shared.width
-        static let childPlaceholdText = "완료된 도장판이 없어요"
-        static let parentPlaceholdText = "님은 아직\n완료된 도장판이 없어요"
         static let imageViewWidth = deviceWidth * 60.0 / 375.0
+        
+        enum inprogress {
+            static let placeholdText = "님과\n진행 중인 도장판이 없어요"
+        }
+        
+        enum completed {
+            static let childPlaceholdText = "완료된 도장판이 없어요"
+            static let parentPlaceholdText = "님은 아직\n완료된 도장판이 없어요"
+        }
     }
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.setStackView(axis: .vertical, spacing: 8)
         return stackView
     }()
     
@@ -34,10 +40,8 @@ class EmptyCell: UICollectionViewCell {
     
     private let placeholdLabel: UILabel = {
         let label = UILabel()
+        label.setLabel(textColor: .gray700, font: .body14Md, textAlignment: .center)
         label.numberOfLines = 2
-        label.textColor = .gray700
-        label.font = .body14Md
-        label.textAlignment = .center
         return label
     }()
     
@@ -49,12 +53,16 @@ class EmptyCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
+    }
 }
 
 extension EmptyCell {
     private func setUI() {
         backgroundColor = .white
-        addDashedBorder(borderColor: .gray300, spacing: 3, cornerRadius: 8)
         
         [imageView, placeholdLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -72,9 +80,20 @@ extension EmptyCell {
         }
     }
     
-    func configure(nickName: String) {
-        placeholdLabel.text = "\(nickName)" + Constants.parentPlaceholdText
-        let emphasisRange = [NSRange(location: 0, length: nickName.count)]
-        placeholdLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
+    func configure(with nickname: String, tabState: TabState, userType: UserType) {
+        switch tabState {
+        case .inProgress:
+            placeholdLabel.text = "\(nickname)" + Constants.inprogress.placeholdText
+            let emphasisRange = [NSRange(location: 0, length: nickname.count)]
+            placeholdLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
+        case .completed:
+            if userType == .child {
+                placeholdLabel.text = Constants.completed.childPlaceholdText
+                let emphasisRange = [NSRange(location: 0, length: nickname.count)]
+                placeholdLabel.setEmphasisRanges(emphasisRange, color: .gray700, font: .body14Bd)
+            } else {
+                placeholdLabel.text = "\(nickname)" + Constants.completed.parentPlaceholdText
+            }
+        }
     }
 }
