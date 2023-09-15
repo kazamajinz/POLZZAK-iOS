@@ -109,8 +109,8 @@
 		393054372AB32E1300AA02A7 /* LinkRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054362AB32E1300AA02A7 /* LinkRequestUseCase.swift */; };
 		393054392AB3568400AA02A7 /* NotificationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054382AB3568400AA02A7 /* NotificationLink.swift */; };
 		3930543B2AB368F600AA02A7 /* Character+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930543A2AB368F600AA02A7 /* Character+Emoji.swift */; };
-		3930543D2AB42F7200AA02A7 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */; };
-		3930543E2AB42F7500AA02A7 /* LinkListTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */; };
+		3930543F2AB433F100AA02A7 /* LinkListTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */; };
+		393054402AB433FD00AA02A7 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -1518,8 +1518,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3930543E2AB42F7500AA02A7 /* LinkListTabCell.swift in Sources */,
-				3930543D2AB42F7200AA02A7 /* UIApplication+extension.swift in Sources */,
+				393054402AB433FD00AA02A7 /* UIApplication+extension.swift in Sources */,
+				3930543F2AB433F100AA02A7 /* LinkListTabCell.swift in Sources */,
 				393053F12AB111C700AA02A7 /* NotificationDTO.swift in Sources */,
 				DA0C0C1B2A809B370021714D /* AppFlowController.swift in Sources */,
 				DA0C0C1C2A809B370021714D /* LabelWithPadding.swift in Sources */,

@@ -356,7 +356,6 @@ extension CouponListViewController {
         let bottomSheet = FilterBottomSheetViewController(data: data)
         bottomSheet.delegate = self
         bottomSheet.modalPresentationStyle = .custom
-        bottomSheet.transitioningDelegate = bottomSheet
         
         if case let .section(memberID) = viewModel.filterType.value {
             guard let section = viewModel.sectionOfMember(with: memberID) else { return }
