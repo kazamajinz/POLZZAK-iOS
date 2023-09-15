@@ -221,6 +221,16 @@ final class IssueCouponBottomSheetViewController: UIViewController {
                 self?.present(vc, animated: true)
             }
             .store(in: &cancellables)
+        
+        issueButton.tapPublisher
+            .sink { [weak self] in
+                let vc = TitleLoadingViewController(titleText: "쿠폰 발급 중")
+                self?.present(vc, animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self?.presentedViewController?.dismiss(animated: true)
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 

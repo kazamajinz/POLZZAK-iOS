@@ -136,7 +136,7 @@ final class RegisterUserTypeViewController: UIViewController {
         parentButton.tapPublisher
             .sink { [weak self] in
                 guard let self else { return }
-                viewModel.state.currentUserType = parentButton.userType
+                viewModel.input.send(.userTypeButtonTapped(parentButton.userType))
                 determineButtonSelection(parentButtonSelected: true)
             }
             .store(in: &cancellables)
@@ -144,7 +144,7 @@ final class RegisterUserTypeViewController: UIViewController {
         childButton.tapPublisher
             .sink { [weak self] in
                 guard let self else { return }
-                viewModel.state.currentUserType = childButton.userType
+                viewModel.input.send(.userTypeButtonTapped(childButton.userType))
                 determineButtonSelection(parentButtonSelected: false)
             }
             .store(in: &cancellables)

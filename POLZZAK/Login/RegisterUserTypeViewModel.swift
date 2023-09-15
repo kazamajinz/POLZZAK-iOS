@@ -12,11 +12,11 @@ final class RegisterUserTypeViewModel {
     enum Input {
         case getMemberTypes
         case nextButtonTapped
+        case userTypeButtonTapped(LoginUserType)
     }
     
     final class State {
-        @Published var isLoading = false
-        @Published var currentUserType: LoginUserType?
+        @Published fileprivate(set) var isLoading = false
     }
     
     let registerModel: RegisterModel
@@ -38,13 +38,9 @@ final class RegisterUserTypeViewModel {
                 requestMemberTypes()
             case .nextButtonTapped:
                 registerModel.setMemberTypeAndList()
+            case .userTypeButtonTapped(let userType):
+                registerModel.chosenUserType = userType
             }
-        }
-        .store(in: &cancellables)
-        
-        state.$currentUserType.sink { [weak self] userType in
-            guard let self else { return }
-            registerModel.chosenUserType = userType
         }
         .store(in: &cancellables)
     }

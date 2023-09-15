@@ -11,20 +11,13 @@ import UIKit
 import PanModal
 import SnapKit
 
-class DetailBoardViewController: UIViewController {
+final class DetailBoardViewController: UIViewController {
     enum Constants {
         static let inset: CGFloat = 16
     }
     
     private var cancellabels = Set<AnyCancellable>()
-    
-    var missionList: [MissionListViewable] = [
-        MissionData(missionNumber: 1, missionTitle: "미션 제목이 들어가는 자리입니다."),
-        MissionData(missionNumber: 2, missionTitle: "미션 제목이 들어가는 자리입니다."),
-        MissionData(missionNumber: 3, missionTitle: "미션 제목이 들어가는 자리입니다."),
-        MissionData(missionNumber: 4, missionTitle: "미션 제목이 들어가는 자리입니다."),
-        MissionData(missionNumber: 5, missionTitle: "미션 제목이 들어가는 자리입니다.")
-    ]
+    private let viewModel: DetailBoardViewModel
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -56,8 +49,9 @@ class DetailBoardViewController: UIViewController {
     var stampViewHeight: Constraint?
     var missionListViewHeight: Constraint?
     
-    init(stampSize: StampSize) {
+    init(stampSize: StampSize, stampBoardID: Int) {
         self.stampView = StampView(size: stampSize)
+        self.viewModel = DetailBoardViewModel(stampBoardID: stampBoardID)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,8 +63,13 @@ class DetailBoardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray100
         configure()
-        nameView.setNameTitle(name: "제로의 도장판")
-        nameView.setDayTitle(state: .completed(dayTaken: 3))
+        
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withTime, .withColonSeparatorInTime, .withFractionalSeconds]
+        dateFormatter.timeZone = .init(abbreviation: "KST")
+        guard let createdDate = dateFormatter.date(from: "2023-09-10T17:04:09.261131971") else { return }
+        
+        print("💀 ", createdDate)
     }
 }
 
@@ -103,6 +102,7 @@ extension DetailBoardViewController {
             contentStackView.addArrangedSubview($0)
         }
         
+        contentStackView.setCustomSpacing(0, after: nameView)
         contentStackView.setCustomSpacing(16, after: stampViewWrapper)
         
         scrollView.snp.makeConstraints { make in
@@ -137,6 +137,32 @@ extension DetailBoardViewController {
                 self?.presentPanModal(vc)
             }
             .store(in: &cancellabels)
+        
+        viewModel.state.$stampBoardDetail
+            .sink { [weak self] stampBoardDetail in
+                guard let self, let stampBoardDetail else { return }
+                
+                
+                
+                nameView.setNameTitle(name: stampBoardDetail.name)
+                guard let state = DetailBoardState(rawValue: stampBoardDetail.status.lowercased()) else { return }
+                
+                
+                let dateFormatter = ISO8601DateFormatter()
+                dateFormatter.formatOptions = [.withFullDate, .withTime, .withColonSeparatorInTime, .withFractionalSeconds]
+                dateFormatter.timeZone = .init(abbreviation: "KST")
+                guard let createdDate = dateFormatter.date(from: stampBoardDetail.createdDate) else { return }
+                
+                let c = Calendar.current
+                let createdDay = c.component(.day, from: createdDate)
+                let currentDay = c.component(.day, from: Date())
+                
+                nameView.setDayTitle(state: state, dayPassed: currentDay - createdDay)
+                
+                stampView.reloadData()
+                missionListView.reloadData()
+            }
+            .store(in: &cancellabels)
     }
 }
 
@@ -153,11 +179,11 @@ extension DetailBoardViewController: MissionListViewHeightConstraintDelegate, St
 
 extension DetailBoardViewController: MissionListViewDataSource {
     func missionListView(numberOfItemsInSection section: Int) -> Int {
-        return missionList.count
+        return viewModel.state.stampBoardDetail?.missions.count ?? 0
     }
 
-    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable {
-        let data = missionList[indexPath.item]
+    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable? {
+        let data = viewModel.state.stampBoardDetail?.missions[indexPath.item]
         return data
     }
 }
@@ -169,11 +195,4 @@ extension DetailBoardViewController: StampViewDelegate {
         let vc = StampAllowNavigationController()
         presentPanModal(vc)
     }
-}
-
-// MARK: - MissionListViewable
-
-struct MissionData: MissionListViewable {
-    let missionNumber: Int
-    let missionTitle: String
 }

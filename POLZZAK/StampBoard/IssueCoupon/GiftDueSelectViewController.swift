@@ -243,7 +243,7 @@ final class GiftDueSelectViewController: UIViewController {
         calendarHeaderView.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.height.equalTo(75)
-            make.centerX.equalToSuperview() // 이게 맞음? 가로크기가 안 정해지는거같은데
+            make.centerX.equalToSuperview()
         }
         
         calendarContainerView.snp.makeConstraints { make in
@@ -323,6 +323,5 @@ extension GiftDueSelectViewController: FSCalendarDataSource, FSCalendarDelegate 
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("💀", dateFormatter.string(from: date))
-        
     }
 }

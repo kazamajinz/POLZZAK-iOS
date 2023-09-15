@@ -58,13 +58,15 @@ final class CompensationView: UIView {
         return label
     }()
     
+    private static let issuingButtonTitleAttributes = AttributeContainer([
+        .font: UIFont.subtitle3,
+        .foregroundColor: UIColor.white
+    ])
+    
     private let issuingButtton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.plain()
-        var titleContainer = AttributeContainer()
-        titleContainer.font = .subtitle3
-        titleContainer.foregroundColor = .white
-        config.attributedTitle = AttributedString("쿠폰 발급하기", attributes: titleContainer)
+        config.attributedTitle = AttributedString("쿠폰 발급하기", attributes: issuingButtonTitleAttributes)
         config.background.cornerRadius = 8
         config.cornerStyle = .fixed
         button.configuration = config
@@ -151,6 +153,17 @@ extension CompensationView {
         
         issuingButtton.snp.makeConstraints { make in
             make.height.equalTo(50)
+        }
+    }
+    
+    func configureView(as userType: UserType) {
+        switch userType {
+        case .parent:
+            deleteStampBoardButton.isHidden = false
+            issuingButtton.configuration?.attributedTitle = AttributedString("쿠폰 발급하기", attributes: Self.issuingButtonTitleAttributes)
+        case .child:
+            deleteStampBoardButton.isHidden = true
+            issuingButtton.configuration?.attributedTitle = AttributedString("쿠폰 받기", attributes: Self.issuingButtonTitleAttributes)
         }
     }
 }

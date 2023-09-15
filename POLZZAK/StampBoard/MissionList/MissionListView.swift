@@ -92,7 +92,6 @@ extension MissionListView {
 // MARK: - MissionListViewable
 
 protocol MissionListViewable {
-    var missionNumber: Int { get }
     var missionTitle: String { get }
 }
 
@@ -100,7 +99,7 @@ protocol MissionListViewable {
 
 protocol MissionListViewDataSource: AnyObject {
     func missionListView(numberOfItemsInSection section: Int) -> Int
-    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable
+    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable?
 }
 
 // MARK: - MissionListViewHeightConstraintDelegate

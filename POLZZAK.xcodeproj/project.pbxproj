@@ -183,6 +183,7 @@
 		DA5927E12AA7504900836126 /* StampSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5927E02AA7504900836126 /* StampSelectionCell.swift */; };
 		DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = DA6589332AAF7F1500746D5A /* FSCalendar */; };
 		DA6589362AAF845100746D5A /* GiftDueSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6589352AAF845100746D5A /* GiftDueSelectViewController.swift */; };
+		DA65893C2AB1D25500746D5A /* TitleLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65893B2AB1D25500746D5A /* TitleLoadingViewController.swift */; };
 		DA65FDB92A94094800744EC8 /* RegisterProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */; };
 		DA65FDBB2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */; };
 		DA8532812A70CDCE00F0D045 /* AgreementTerm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */; };
@@ -212,6 +213,11 @@
 		DAC36B8D2A343FBE00BE5C8D /* RequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */; };
 		DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */; };
 		DAC36B9A2A34C3E100BE5C8D /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */; };
+		DACA494E2AB32D1600A2FB77 /* StampBoardDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA494D2AB32D1600A2FB77 /* StampBoardDetailDTO.swift */; };
+		DACA49502AB3339D00A2FB77 /* StampBoardDetailTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA494F2AB3339D00A2FB77 /* StampBoardDetailTarget.swift */; };
+		DACA49522AB3381000A2FB77 /* StampBoardDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49512AB3381000A2FB77 /* StampBoardDetailAPI.swift */; };
+		DACA49552AB42DD100A2FB77 /* StampBoardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49542AB42DD100A2FB77 /* StampBoardDetail.swift */; };
+		DACA49572AB430EA00A2FB77 /* DetailBoardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */; };
 		DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD960892AA90910009A7557 /* POLZZAKTests.swift */; };
 		DAD960922AA909D0009A7557 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960912AA909D0009A7557 /* SnapKit */; settings = {ATTRIBUTES = (Required, ); }; };
 		DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960932AA909DF009A7557 /* CombineCocoa */; };
@@ -411,6 +417,7 @@
 		DA5927DE2AA3AD1600836126 /* StampAllowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampAllowCell.swift; sourceTree = "<group>"; };
 		DA5927E02AA7504900836126 /* StampSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampSelectionCell.swift; sourceTree = "<group>"; };
 		DA6589352AAF845100746D5A /* GiftDueSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDueSelectViewController.swift; sourceTree = "<group>"; };
+		DA65893B2AB1D25500746D5A /* TitleLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLoadingViewController.swift; sourceTree = "<group>"; };
 		DA65FDB82A94094800744EC8 /* RegisterProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileImageViewController.swift; sourceTree = "<group>"; };
 		DA65FDBA2A94EE3000744EC8 /* RegisterUserTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTypeViewModel.swift; sourceTree = "<group>"; };
 		DA8532802A70CDCE00F0D045 /* AgreementTerm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTerm.swift; sourceTree = "<group>"; };
@@ -434,6 +441,11 @@
 		DAC36B8C2A343FBE00BE5C8D /* RequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B922A344A5F00BE5C8D /* TokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInterceptor.swift; sourceTree = "<group>"; };
 		DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		DACA494D2AB32D1600A2FB77 /* StampBoardDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetailDTO.swift; sourceTree = "<group>"; };
+		DACA494F2AB3339D00A2FB77 /* StampBoardDetailTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetailTarget.swift; sourceTree = "<group>"; };
+		DACA49512AB3381000A2FB77 /* StampBoardDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetailAPI.swift; sourceTree = "<group>"; };
+		DACA49542AB42DD100A2FB77 /* StampBoardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetail.swift; sourceTree = "<group>"; };
+		DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardState.swift; sourceTree = "<group>"; };
 		DAD960872AA90910009A7557 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD960892AA90910009A7557 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1004,8 +1016,12 @@
 		3CF41E492A1F809700914421 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DA65893D2AB2F53500746D5A /* Network */,
+				DACA49532AB4272200A2FB77 /* Entity */,
 				3CCEF9E92A1B9D97009C61E1 /* MoreButton.swift */,
 				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
+				DA65893B2AB1D25500746D5A /* TitleLoadingViewController.swift */,
+				DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1082,6 +1098,40 @@
 				DA5927E02AA7504900836126 /* StampSelectionCell.swift */,
 			);
 			path = StampChoice;
+			sourceTree = "<group>";
+		};
+		DA65893D2AB2F53500746D5A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DA65893E2AB2F53C00746D5A /* API */,
+				DA6589402AB2F54F00746D5A /* Target */,
+				DA65893F2AB2F54600746D5A /* DTO */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DA65893E2AB2F53C00746D5A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DACA49512AB3381000A2FB77 /* StampBoardDetailAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		DA65893F2AB2F54600746D5A /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				DACA494D2AB32D1600A2FB77 /* StampBoardDetailDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		DA6589402AB2F54F00746D5A /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				DACA494F2AB3339D00A2FB77 /* StampBoardDetailTarget.swift */,
+			);
+			path = Target;
 			sourceTree = "<group>";
 		};
 		DA85327F2A70CDAC00F0D045 /* AgreementCheck */ = {
@@ -1173,6 +1223,14 @@
 				DA0919E42A9B174100A60AB6 /* MemberTypeAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		DACA49532AB4272200A2FB77 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				DACA49542AB42DD100A2FB77 /* StampBoardDetail.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		DAD960882AA90910009A7557 /* POLZZAKTests */ = {
@@ -1409,9 +1467,11 @@
 				39D724AA2A9779A100D5409D /* TabState.swift in Sources */,
 				DA5927D22A9F20EC00836126 /* StampAllowBottomSheetViewController.swift in Sources */,
 				DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */,
+				DACA49552AB42DD100A2FB77 /* StampBoardDetail.swift in Sources */,
 				DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
+				DACA494E2AB32D1600A2FB77 /* StampBoardDetailDTO.swift in Sources */,
 				390F421D2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift in Sources */,
 				39D724B62A97B64900D5409D /* BaseFilterSkeletonView.swift in Sources */,
 				DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */,
@@ -1422,6 +1482,7 @@
 				DABEC1B52A382D1800EAD8CA /* NeedRegisterDTO.swift in Sources */,
 				390178482A938A46001D0E90 /* AlertTitleButtonView.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
+				DACA49502AB3339D00A2FB77 /* StampBoardDetailTarget.swift in Sources */,
 				390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */,
 				390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
@@ -1459,6 +1520,7 @@
 				39D724982A97771600D5409D /* EmptyView.swift in Sources */,
 				39152B3B2A5AB37500AAFA23 /* TabView.swift in Sources */,
 				3901784C2A9492BC001D0E90 /* UIStackView+extension.swift in Sources */,
+				DACA49572AB430EA00A2FB77 /* DetailBoardState.swift in Sources */,
 				DA5927D92AA073B200836126 /* StampAllowNavigationController.swift in Sources */,
 				39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */,
 				39227BE52A21915D00C86049 /* MemberTypeView.swift in Sources */,
@@ -1469,6 +1531,7 @@
 				DA38E6192A4DA78800229282 /* NicknameCheckView.swift in Sources */,
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				39D539D62A16032D0087B2BD /* MemberType.swift in Sources */,
+				DA65893C2AB1D25500746D5A /* TitleLoadingViewController.swift in Sources */,
 				39C5730A2A9BC4DD00CD6362 /* Filterable.swift in Sources */,
 				39152B312A5AB2C200AAFA23 /* CustomAlertViewController.swift in Sources */,
 				390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */,
@@ -1482,6 +1545,7 @@
 				390165502A73862100A193D7 /* CouponListViewController.swift in Sources */,
 				390165552A77734B00A193D7 /* CouponListViewModel.swift in Sources */,
 				3900FA932A32BADC009EAC52 /* LinkManagementViewController.swift in Sources */,
+				DACA49522AB3381000A2FB77 /* StampBoardDetailAPI.swift in Sources */,
 				3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */,
 				390F42202A8CBB79005FC7B2 /* BottomSheetState.swift in Sources */,
 				390F42252A8CBFE4005FC7B2 /* FilterBottomCell.swift in Sources */,

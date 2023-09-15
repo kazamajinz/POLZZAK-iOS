@@ -5,6 +5,89 @@
 //  Created by Jinyoung Kim on 2023/05/18.
 //
 
-class DetailBoardViewModel {
+import Combine
+import Foundation
+
+final class DetailBoardViewModel {
+    enum Action {
+        case load
+    }
+    // ???: ReactorKit처럼 Mutate가 필요한건지 생각해보기
+    enum Mutate {
+        
+    }
     
+    final class State {
+        @Published fileprivate(set) var stampBoardDetail: StampBoardDetailDTO?
+    }
+    
+    let action = PassthroughSubject<Action, Never>()
+    let state = State()
+    
+    private var cancellables = Set<AnyCancellable>()
+    private let repository: DetailBoardRepository
+    
+    init(stampBoardID: Int) {
+        self.repository = DetailBoardRepository(stampBoardID: stampBoardID)
+        bind()
+    }
+    
+    private func bind() {
+        action.sink { [weak self] action in
+            guard let self else { return }
+            switch action {
+            case .load:
+                handleLoad()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
+    private func handleLoad() {
+        Task {
+            let result = await repository.fetchStampBoardDetailInfo()
+            switch result {
+            case .render(let stampBoardDetail):
+                state.stampBoardDetail = stampBoardDetail
+            default:
+                break
+            }
+        }
+    }
+}
+
+final class DetailBoardRepository {
+    private let stampBoardID: Int
+    
+    init(stampBoardID: Int) {
+        self.stampBoardID = stampBoardID
+    }
+    
+    func fetchStampBoardDetailInfo() async -> DetailBoardRepositoryResult {
+        do {
+            let (data, response) = try await StampBoardDetailAPI.getStampBoardDetail(stampBoardID: stampBoardID)
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else { return .unknown }
+            switch statusCode {
+            case 200..<300:
+                let dto = try JSONDecoder().decode(BaseResponseDTO<StampBoardDetailDTO>.self, from: data)
+                guard let stampBoardDetail = dto.data else { return .unknown }
+                return .render(stampBoardDetail)
+            default:
+                return .unknown
+            }
+        } catch {
+            if let urlError = error as? URLError {
+                // TODO: URLError의 timedOut, networkConnectionLost, notConnectedToInternet에 대해 공통처리 하는 부분은 빼도 좋지 않을까?
+                return .urlError(urlError)
+            }
+            os_log(log: .polzzakAPI, errorDescription: String(describing: error))
+            return .unknown
+        }
+    }
+}
+
+enum DetailBoardRepositoryResult {
+    case render(StampBoardDetailDTO)
+    case urlError(URLError)
+    case unknown
 }

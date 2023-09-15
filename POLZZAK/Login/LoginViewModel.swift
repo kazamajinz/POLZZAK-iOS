@@ -9,6 +9,9 @@ import Combine
 import Foundation
 import UIKit
 
+// TODO: Input, Output 말고 Action, State, (Mutate) 로 바꿔보기??
+// ???: 그러면 여기서는 뭐가 State가 되어야 하지?
+
 final class LoginViewModel {
     enum Input {
         case kakaoLogin

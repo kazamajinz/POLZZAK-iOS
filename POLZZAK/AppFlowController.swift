@@ -30,7 +30,7 @@ final class AppFlowController {
     }
     
     func showHome() {
-        rootViewController = DetailBoardViewController(stampSize: .size40) // getHomeViewController()
+        rootViewController = DetailBoardViewController(stampSize: .size40, stampBoardID: 1) // getHomeViewController()
     }
     
     func showLogin() {
