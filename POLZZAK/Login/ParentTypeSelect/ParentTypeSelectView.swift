@@ -69,7 +69,7 @@ extension ParentTypeSelectView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ParentTypeSelectCell.reuseIdentifier, for: indexPath) as? ParentTypeSelectCell else {
-            fatalError("Cannot dequeue cell as ParentTypeSelectCell")
+            fatalError("Couldn't dequeue cell as ParentTypeSelectCell")
         }
         cell.configure(title: types[indexPath.item].detail)
         return cell

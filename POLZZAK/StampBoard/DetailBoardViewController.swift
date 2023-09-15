@@ -63,13 +63,6 @@ final class DetailBoardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .gray100
         configure()
-        
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate, .withTime, .withColonSeparatorInTime, .withFractionalSeconds]
-        dateFormatter.timeZone = .init(abbreviation: "KST")
-        guard let createdDate = dateFormatter.date(from: "2023-09-10T17:04:09.261131971") else { return }
-        
-        print("💀 ", createdDate)
     }
 }
 

@@ -37,7 +37,7 @@ final class NicknameCheckView: UIView {
         return stackView
     }()
     
-    private let textField = NicknameTextField()
+    private let textField = CheckTextField()
     
     private let checkButton: UIButton = {
         let button = UIButton(type: .custom)

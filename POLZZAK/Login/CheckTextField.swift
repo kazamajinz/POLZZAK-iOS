@@ -1,5 +1,5 @@
 //
-//  NicknameTextField.swift
+//  CheckTextField.swift
 //  POLZZAK
 //
 //  Created by Jinyoung Kim on 2023/06/29.
@@ -10,7 +10,7 @@ import UIKit
 
 import CombineCocoa
 
-final class NicknameTextField: UITextField {
+final class CheckTextField: UITextField {
     enum FirstResponderEvent {
         case become
         case resign
@@ -80,7 +80,7 @@ final class NicknameTextField: UITextField {
             string: "닉네임을 입력해주세요",
             attributes: [
                 .foregroundColor: UIColor.gray400,
-                .font: UIFont.body3
+                .font: UIFont.body14Md
             ]
         )
         leftView = UIView(frame: .init(x: 0, y: 0, width: 16, height: 1))
@@ -118,5 +118,15 @@ final class NicknameTextField: UITextField {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func setPlaceholder(text: String) {
+        attributedPlaceholder = NSAttributedString(
+            string: text,
+            attributes: [
+                .foregroundColor: UIColor.gray400,
+                .font: UIFont.body14Md
+            ]
+        )
     }
 }

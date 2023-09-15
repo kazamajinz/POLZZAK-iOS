@@ -150,7 +150,7 @@ extension StampChoiceBottomSheetViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StampSelectionCell.reuseIdentifier, for: indexPath) as? StampSelectionCell else {
-            fatalError("cannot dequeue StampSelectionCell")
+            fatalError("Couldn't dequeue StampSelectionCell")
         }
         let image = stampDesignImage[indexPath.item]
         cell.configure(image: image)

@@ -5,7 +5,7 @@
 //  Created by Jinyoung Kim on 2023/05/22.
 //
 
-enum StampSize {
+enum StampSize: CaseIterable {
     case size10, size12, size16, size20
     case size25, size30, size36
     case size40, size48, size60
