@@ -18,8 +18,8 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
     var isCenterLoading = CurrentValueSubject<Bool, Never>(false)
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(true)
-    var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    var didEndDraggingSubject = PassthroughSubject<Void, Never>()
+    var shouldEndRefreshing = PassthroughSubject<Bool, Never>()
     var rechedBottomSubject = CurrentValueSubject<Bool, Never>(false)
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
@@ -31,8 +31,10 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     }
     
     private func setupBottomRefreshBindings() {
-        Publishers.CombineLatest(rechedBottomSubject, didEndDraggingSubject)
-            .filter { $0 && !$1 }
+        didEndDraggingSubject.combineLatest(rechedBottomSubject)
+            .filter { _, rechedBottom in
+                return rechedBottom
+            }
             .filter { [weak self] _, _ in
                 return false == self?.isCenterLoading.value
             }
@@ -70,7 +72,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
             showLoading(for: centerLoading)
             
             if true == isFirst {
-                self.shouldEndRefreshing.send()
+                self.shouldEndRefreshing.send(true)
             }
             
             do {
@@ -160,6 +162,5 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     
     func resetBottomRefreshSubjects() {
         self.rechedBottomSubject.send(false)
-        self.didEndDraggingSubject.send(true)
     }
 }

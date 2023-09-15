@@ -20,8 +20,8 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
     var filterType = CurrentValueSubject<FilterType, Never>(.all)
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(true)
-    var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    var didEndDraggingSubject = PassthroughSubject<Void, Never>()
+    var shouldEndRefreshing = PassthroughSubject<Bool, Never>()
     var requestGiftSubject = PassthroughSubject<Void, Never>()
     var receiveGiftSubject = PassthroughSubject<Void, Never>()
     var dataChanged = CurrentValueSubject<IndexPath?, Never>(nil)
@@ -58,7 +58,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
             showLoading(for: centerLoading)
             
             if true == isFirst {
-                self.shouldEndRefreshing.send()
+                self.shouldEndRefreshing.send(true)
             }
             
             do {

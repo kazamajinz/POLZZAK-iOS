@@ -48,7 +48,6 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func beginRefreshing() {
         super.beginRefreshing()
-        self.isHidden = false
         refreshImageView.alpha = 0
         refreshIndicator.startAnimating()
         isRefresh = true
@@ -56,8 +55,6 @@ class CustomRefreshControl: UIRefreshControl {
     
     override func endRefreshing() {
         super.endRefreshing()
-        self.isHidden = true
-        refreshIndicator.stopAnimating()
     }
 }
 
@@ -91,7 +88,6 @@ extension CustomRefreshControl {
             if yOffset < 0 {
                 self.refreshImageView.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
                 self.refreshIndicator.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
-                
             } else {
                 self.refreshImageView.transform = .identity
                 self.refreshIndicator.transform = .identity
@@ -114,6 +110,10 @@ extension CustomRefreshControl {
                     if currentOffset <= initialContentOffsetY - 10.0 {
                         isRefresh = false
                     }
+                }
+            } else {
+                if currentOffset == 0.0 {
+                    refreshIndicator.stopAnimating()
                 }
             }
             

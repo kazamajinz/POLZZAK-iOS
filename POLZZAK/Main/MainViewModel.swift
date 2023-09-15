@@ -20,8 +20,8 @@ final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
     var filterType = CurrentValueSubject<FilterType, Never>(.all)
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(true)
-    var shouldEndRefreshing = PassthroughSubject<Void, Never>()
+    var didEndDraggingSubject = PassthroughSubject<Void, Never>()
+    var shouldEndRefreshing = PassthroughSubject<Bool, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
     init(useCase: StampBoardsUseCase) {
@@ -54,7 +54,7 @@ final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
             showLoading(for: centerLoading)
             
             if true == isFirst {
-                self.shouldEndRefreshing.send()
+                self.shouldEndRefreshing.send(true)
             }
             
             do {
