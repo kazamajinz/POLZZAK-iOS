@@ -142,22 +142,8 @@ extension DetailBoardViewController {
             .sink { [weak self] stampBoardDetail in
                 guard let self, let stampBoardDetail else { return }
                 
-                
-                
                 nameView.setNameTitle(name: stampBoardDetail.name)
-                guard let state = DetailBoardState(rawValue: stampBoardDetail.status.lowercased()) else { return }
-                
-                
-                let dateFormatter = ISO8601DateFormatter()
-                dateFormatter.formatOptions = [.withFullDate, .withTime, .withColonSeparatorInTime, .withFractionalSeconds]
-                dateFormatter.timeZone = .init(abbreviation: "KST")
-                guard let createdDate = dateFormatter.date(from: stampBoardDetail.createdDate) else { return }
-                
-                let c = Calendar.current
-                let createdDay = c.component(.day, from: createdDate)
-                let currentDay = c.component(.day, from: Date())
-                
-                nameView.setDayTitle(state: state, dayPassed: currentDay - createdDay)
+                nameView.setDayTitle(state: stampBoardDetail.status, dayPassed: stampBoardDetail.dayPassed)
                 
                 stampView.reloadData()
                 missionListView.reloadData()

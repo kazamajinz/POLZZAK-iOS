@@ -49,3 +49,14 @@ struct MissionRequest {
     let missionContent: String
     let createdDate: Date
 }
+
+// MARK: - StampBoardDetail Extension
+
+extension StampBoardDetail {
+    var dayPassed: Int {
+        let c = Calendar.current
+        let createdDay = c.component(.day, from: createdDate)
+        let currentDay = c.component(.day, from: Date())
+        return currentDay - createdDay
+    }
+}
