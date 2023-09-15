@@ -7,16 +7,7 @@
 
 import Foundation
 
-struct LinkManagementMapper {
-    private func mapBaseResponse<T, U>(from dto: BaseResponseDTO<T>, transform: (T) -> U) -> BaseResponse<U> {
-        let transformedData = dto.data.map(transform)
-        return BaseResponse(code: dto.code, messages: dto.messages, data: transformedData)
-    }
-    
-    func mapEmptyDataResponse(from response: BaseResponseDTO<EmptyDataResponseDTO>) -> BaseResponse<EmptyDataResponse> {
-        return BaseResponse(code: response.code, messages: response.messages, data: nil)
-    }
-    
+struct LinkManagementMapper: MappableResponse {
     func mapCheckLinkRequestResponse(from response: BaseResponseDTO<CheckLinkRequestDTO>) -> BaseResponse<CheckLinkRequest> {
         return mapBaseResponse(from: response, transform: mapCheckLinkRequest)
     }

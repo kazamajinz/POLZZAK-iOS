@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LinkManagementService: LinkRequestActions {
+class LinkManagementService: LinkRequestService {
     let networkService: NetworkServiceProvider
     
     init(networkService: NetworkServiceProvider = NetworkService(requestInterceptor: TokenInterceptor())) {
