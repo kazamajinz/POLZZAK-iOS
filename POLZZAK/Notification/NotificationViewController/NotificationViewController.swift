@@ -232,8 +232,12 @@ extension NotificationViewController: UITableViewDataSource {
             moveToTabBar(linkType: .home)
         case .myPage:
             moveToTabBar(linkType: .myPage)
+            /*
         case .stampBoard(let stampBoardID):
+            //TODO: - 진영님이 추가하실곳.
+            print("이동")
             return
+             */
         case .coupon(let couponID):
             let usecase = DefaultCouponsUseCase(repository: CouponDataRepository())
             let viewModel = CouponDetailViewModel(useCase: usecase, couponID: couponID)

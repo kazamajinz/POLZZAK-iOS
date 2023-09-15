@@ -100,8 +100,11 @@ final class NetworkService: NetworkServiceProvider {
         if let statusCode = (response as? HTTPURLResponse)?.statusCode {
             os_log("response statusCode\n%@", log: .network, String(statusCode))
         }
+        //TODO: - 회의예정
+        /*
         if let prettyJSON = data.prettyJSON {
-//            os_log("response JSON\n%@", log: .network, prettyJSON)
+            os_log("response JSON\n%@", log: .network, prettyJSON)
         }
+         */
     }
 }
