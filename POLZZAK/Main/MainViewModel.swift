@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
+final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtocol, LoadingViewModelProtocol {
     private let useCase: StampBoardsUseCase
     
     var dataList = CurrentValueSubject<[StampBoardList], Never>([])
@@ -20,7 +20,7 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
     var filterType = CurrentValueSubject<FilterType, Never>(.all)
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
+    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(true)
     var shouldEndRefreshing = PassthroughSubject<Void, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
@@ -31,7 +31,8 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
         let userInfo = UserInfoManager.readUserInfo()
         userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
         
-        setupBindings()
+        setupPullToRefreshBinding()
+        setupTabFilterBindings()
     }
     
     func loadData(for centerLoading: Bool = false) {
@@ -41,24 +42,33 @@ final class StampBoardViewModel: TabFilterLoadingViewModelProtocol {
     
     func fetchStampBoardListAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
         Task {
+            defer {
+                hideLoading(for: centerLoading)
+                apiFinishedLoadingSubject.send(true)
+            }
+            
+            if true == isCenterLoading.value {
+                return
+            }
+            
             showLoading(for: centerLoading)
+            
+            if true == isFirst {
+                self.shouldEndRefreshing.send()
+            }
+            
             do {
                 let tabState = tabStateToString(tabState.value)
                 let task = useCase.fetchStampBoardList(for: tabState)
                 let result = try await task.value
-                hideLoading(for: centerLoading)
                 dataList.send(result)
             } catch {
                 handleError(error)
             }
-            
-            if !centerLoading && (!isFirst || self.apiFinishedLoadingSubject.value) {
-                self.apiFinishedLoadingSubject.send(true)
-            }
         }
     }
     
-    func indexOfMember(with memberID: Int) -> Int {
+    func sectionOfMember(with memberID: Int) -> Int? {
         return dataList.value.firstIndex { $0.family.memberID == memberID } ?? 0
     }
     

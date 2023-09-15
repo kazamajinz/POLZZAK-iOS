@@ -8,15 +8,15 @@
 import Foundation
 
 class CouponDataRepository: CouponsRepository {
-    private let couponService: CouponService
+    private let service: CouponService
     private let couponMapper = CouponMapper()
     
     init(couponService: CouponService = CouponService()) {
-        self.couponService = couponService
+        self.service = couponService
     }
     
     func getCouponList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[CouponList]>, NetworkError> {
-        let (data, response) = try await couponService.fetchCouponList(for: tabState)
+        let (data, response) = try await service.fetchCouponList(for: tabState)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
@@ -35,7 +35,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func getCouponDetail(with couponID: Int) async throws -> NetworkResult<BaseResponse<CouponDetail>, NetworkError> {
-        let (data, response) = try await couponService.fetchCouponDetail(with: couponID)
+        let (data, response) = try await service.fetchCouponDetail(with: couponID)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
@@ -54,7 +54,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func createGiftRequest(with couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await couponService.sendGiftRequest(to: couponID)
+        let (_, response) = try await service.sendGiftRequest(to: couponID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -69,7 +69,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func acceptCoupon(from stampBoardID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        let (data, response) = try await couponService.acceptCoupon(from: stampBoardID)
+        let (data, response) = try await service.acceptCoupon(from: stampBoardID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -87,7 +87,7 @@ class CouponDataRepository: CouponsRepository {
     }
     
     func sendGiftReceive(from couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await couponService.sendGiftReceive(from: couponID)
+        let (_, response) = try await service.sendGiftReceive(from: couponID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }

@@ -101,7 +101,7 @@ final class NetworkService: NetworkServiceProvider {
             os_log("response statusCode\n%@", log: .network, String(statusCode))
         }
         if let prettyJSON = data.prettyJSON {
-            os_log("response JSON\n%@", log: .network, prettyJSON)
+//            os_log("response JSON\n%@", log: .network, prettyJSON)
         }
     }
 }

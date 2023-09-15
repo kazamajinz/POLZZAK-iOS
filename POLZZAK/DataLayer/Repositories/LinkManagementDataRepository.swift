@@ -7,16 +7,17 @@
 
 import Foundation
 
-class LinkManagementDataRepository: LinkManagementRepository {
-    private let linkManagementService: LinkManagementService
+class LinkManagementDataRepository: LinkManagementRepository, LinkRequestRepository {
     private let linkManagementMapper = LinkManagementMapper()
+    typealias ServiceType = LinkManagementService
+    var service: ServiceType
     
     init(linkManagementService: LinkManagementService = LinkManagementService()) {
-        self.linkManagementService = linkManagementService
+        self.service = linkManagementService
     }
     
     func getUserByNickname(_ nickname: String) async throws -> NetworkResult<BaseResponse<FamilyMember>, NetworkError> {
-        let (data, response) = try await linkManagementService.fetchUserByNickname(nickname)
+        let (data, response) = try await service.fetchUserByNickname(nickname)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -34,7 +35,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func getLinkedUsers() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await linkManagementService.fetchAllLinkedUsers()
+        let (data, response) = try await service.fetchAllLinkedUsers()
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -52,7 +53,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func getReceivedLinkRequests() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await linkManagementService.fetchAllReceivedUsers()
+        let (data, response) = try await service.fetchAllReceivedUsers()
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -70,7 +71,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func getSentLinkRequests() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await linkManagementService.fetchAllRequestedUsers()
+        let (data, response) = try await service.fetchAllRequestedUsers()
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -88,7 +89,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func createLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        let (data, response) = try await linkManagementService.sendLinkRequest(to: memberID)
+        let (data, response) = try await service.sendLinkRequest(to: memberID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -106,7 +107,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func deleteSentLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await linkManagementService.cancelLinkRequest(to: memberID)
+        let (_, response) = try await service.cancelLinkRequest(to: memberID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -121,7 +122,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func approveLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await linkManagementService.approveLinkRequest(from: memberID)
+        let (_, response) = try await service.approveLinkRequest(from: memberID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -136,7 +137,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func rejectLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await linkManagementService.rejectLinkRequest(from: memberID)
+        let (_, response) = try await service.rejectLinkRequest(from: memberID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -151,7 +152,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func removeLink(with memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await linkManagementService.sendUnlinkRequest(to: memberID)
+        let (_, response) = try await service.sendUnlinkRequest(to: memberID)
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }
@@ -166,7 +167,7 @@ class LinkManagementDataRepository: LinkManagementRepository {
     }
     
     func checkNewLinkRequest() async throws -> NetworkResult<BaseResponse<CheckLinkRequest>, NetworkError> {
-        let (data, response) = try await linkManagementService.checkNewLinkRequest()
+        let (data, response) = try await service.checkNewLinkRequest()
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
         }

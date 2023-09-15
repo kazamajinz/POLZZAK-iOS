@@ -21,10 +21,3 @@ struct StampBoardSummary {
     let missionRequestCount: Int
     let status: StampBoardStatus?
 }
-
-enum StampBoardStatus: String {
-    case progress = "progress"
-    case completed = "completed"
-    case issuedCoupon = "issued_coupon"
-    case rewarded = "rewared"
-}

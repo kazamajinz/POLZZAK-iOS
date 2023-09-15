@@ -8,10 +8,9 @@
 import UIKit
 import SnapKit
 
-final class CustomRefreshControl: UIRefreshControl {
+class CustomRefreshControl: UIRefreshControl {
     var isRefresh: Bool = true
-    private let initialContentOffsetY: Double = 74.0
-    private let headerTabHeight: Double = 61.0
+    var initialContentOffsetY: Double = 0.0
     private var observation: NSKeyValueObservation?
     private var initialOffset: CGFloat?
     
@@ -36,8 +35,8 @@ final class CustomRefreshControl: UIRefreshControl {
         setupUI(topPadding: topPadding)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {
@@ -58,7 +57,7 @@ final class CustomRefreshControl: UIRefreshControl {
 }
 
 extension CustomRefreshControl {
-    private func setupUI(topPadding: CGFloat = 0) {
+    private func setupUI(topPadding: CGFloat) {
         tintColor = .clear
         
         [refreshImageView, refreshIndicator].forEach {
@@ -66,28 +65,40 @@ extension CustomRefreshControl {
         }
         
         refreshImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(topPadding)
+            $0.centerX.equalToSuperview()
         }
         
         refreshIndicator.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerY.equalToSuperview().offset(topPadding)
+            $0.centerX.equalToSuperview()
         }
     }
     
     func observe(scrollView: UIScrollView) {
         observation = scrollView.observe(\.contentOffset, options: .new) { [weak self] scrollView, _ in
             guard let self = self else { return }
-            let currentOffset = scrollView.contentOffset.y
-            let distance = -(initialContentOffsetY + currentOffset)
+            
+            let yOffset = scrollView.contentOffset.y
+            if yOffset < 0 {
+                self.refreshImageView.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
+                self.refreshIndicator.transform = CGAffineTransform(translationX: 0, y: -yOffset/3)
+            } else {
+                self.refreshImageView.transform = .identity
+                self.refreshIndicator.transform = .identity
+            }
+            
+            let maxHeight = 60.0
+            let currentOffset = -(yOffset + initialContentOffsetY)
             
             if false == refreshIndicator.isAnimating {
                 if false == isRefresh {
-                    refreshImageView.alpha = distance / headerTabHeight
-                    if distance > headerTabHeight {
+                    refreshImageView.alpha = currentOffset / maxHeight
+                    if currentOffset > maxHeight {
                         triggerRefresh()
                     }
                 } else {
-                    if 0 == distance {
+                    if currentOffset <= initialContentOffsetY - 10.0 {
                         isRefresh = false
                     }
                 }

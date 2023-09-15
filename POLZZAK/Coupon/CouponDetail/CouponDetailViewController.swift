@@ -536,10 +536,13 @@ extension CouponDetailViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$tabState
+        viewModel.$couponDetailData
+            .compactMap { data -> CouponState? in
+                return data?.couponState
+            }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
-                self?.handleTabState(tabState: state)
+                self?.handleTabState(state: state)
             }
             .store(in: &cancellables)
         
@@ -663,19 +666,19 @@ extension CouponDetailViewController {
         }
     }
     
-    private func handleTabState(tabState: TabState) {
-        switch tabState {
-        case .inProgress:
+    private func handleTabState(state: CouponState) {
+        switch state {
+        case .issued:
             promiseLabel.isHidden = false
             completedGift.isHidden = true
             buttonStackView.isHidden = viewModel.userType == .parent
-        case .completed:
+        case .rewarded:
             promiseLabel.isHidden = true
             completedGift.isHidden = false
             buttonStackView.isHidden = true
         }
-        promiseLabel.isHidden = tabState == .completed
-        completedGift.isHidden = tabState == .inProgress
+        promiseLabel.isHidden = state == .rewarded
+        completedGift.isHidden = state == .issued
         
     }
     

@@ -12,9 +12,15 @@ struct FamilyMemberListDTO: Decodable {
 }
 
 struct FamilyMemberDTO: Decodable {
-    let memberId: Int
+    let memberID: Int
     let nickname: String
     let memberType: MemberTypeDTO
-    let profileUrl: String?
+    let profileURL: String?
     let familyStatus: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case memberID = "memberId"
+        case profileURL = "profileUrl"
+        case nickname, memberType, familyStatus
+    }
 }

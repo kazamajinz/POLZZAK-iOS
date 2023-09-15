@@ -13,6 +13,7 @@ class MessageView: UIView {
         case request
         case completed
         case issuedCoupon
+        case rewarded
         
         var label: String {
             switch self {
@@ -22,6 +23,8 @@ class MessageView: UIView {
                 return "쿠폰 발급 완료!"
             case .issuedCoupon:
                 return "쿠폰 선물이 있어요!"
+            case .rewarded:
+                return "도장을 다 모았어요!"
             }
         }
         
@@ -29,7 +32,7 @@ class MessageView: UIView {
             switch self {
             case .request, .issuedCoupon:
                 return .requestGradationView
-            case .completed:
+            case .completed, .rewarded:
                 return .completedGradationView
             }
         }
@@ -45,10 +48,15 @@ class MessageView: UIView {
         return label
     }()
     
-    init(type: MessageViewType) {
+    var type: MessageViewType? {
+        didSet {
+            setupType(type: type)
+        }
+    }
+
+    init() {
         super.init(frame: .zero)
         setupUI()
-        setupType(type: type)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,7 +78,8 @@ extension MessageView {
         }
     }
     
-    private func setupType(type: MessageViewType) {
+    private func setupType(type: MessageViewType?) {
+        guard let type else { return }
         gradationLabel.text = type.label
         gradationView.image = type.image
     }

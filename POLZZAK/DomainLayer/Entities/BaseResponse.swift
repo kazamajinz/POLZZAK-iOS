@@ -8,7 +8,6 @@
 import Foundation
 
 struct BaseResponse<T> {
-    let status: ResponseStatus
     let code: Int
     let messages: [String]?
     let data: T?
@@ -16,7 +15,6 @@ struct BaseResponse<T> {
 
 enum ResponseStatus {
     case success
-    case successNoContent
     case failure
 }
 

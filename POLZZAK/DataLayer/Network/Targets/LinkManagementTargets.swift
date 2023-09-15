@@ -73,7 +73,7 @@ extension LinkManagementTargets: BasicTargetType {
     }
     
     var queryParameters: Encodable? {
-        var query = [String: String]()
+        var query = [String : String]()
         switch self {
         case .searchUserByNickname(let nickname):
             query["nickname"] = nickname
@@ -86,7 +86,7 @@ extension LinkManagementTargets: BasicTargetType {
     var bodyParameters: Encodable? {
         switch self {
         case .sendLinkRequest(let memberID):
-            return ["targetId": memberID]
+            return ["targetId" : memberID]
         default:
             return nil
         }

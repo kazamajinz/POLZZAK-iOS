@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 extension String {
     private var customDateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -26,10 +24,9 @@ extension String {
         guard let endDate = dateFromCustomString() else {
             return "⏰ D-0"
         }
+        
         let calendar = Calendar.current
-        let startDay = calendar.startOfDay(for: Date())
-        let endDay = calendar.startOfDay(for: endDate)
-        let components = calendar.dateComponents([.day], from: endDay, to: startDay)
+        let components = calendar.dateComponents([.day], from: endDate, to: Date())
         guard let day = components.day, day != 0 else {
             return "⏰ D-0"
         }
@@ -37,22 +34,21 @@ extension String {
         return "⏰ D\(day)"
     }
     
-    func shortDateFormat() -> String {
+    private func formattedDate(_ format: String) -> String {
         guard let date = dateFromCustomString() else {
             return ""
         }
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "yy.MM.dd"
+        outputFormatter.dateFormat = format
         return outputFormatter.string(from: date)
     }
     
+    func shortDateFormat() -> String {
+        return formattedDate("yy.MM.dd")
+    }
+    
     func longDateFormat() -> String {
-        guard let date = dateFromCustomString() else {
-            return ""
-        }
-        let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "yyyy. MM. dd"
-        return outputFormatter.string(from: date)
+        return formattedDate("yyyy. MM. dd")
     }
     
     func daysDifference(from startDateString: String) -> String {
@@ -70,9 +66,11 @@ extension String {
             return nil
         }
         
+        let hourInSeconds: TimeInterval = 3600
+        
         let currentTime = Date()
         let timeInterval = currentTime.timeIntervalSince(targetDate)
-        if timeInterval > 3600 {
+        if timeInterval > hourInSeconds {
             return nil
         }
 
@@ -80,6 +78,33 @@ extension String {
         let secondsRemaining = 59 - (Int(timeInterval) % 60)
 
         return String(format: "%02d:%02d", minutesRemaining, secondsRemaining)
+    }
+    
+    func remainingTimeToString() -> String? {
+        guard let targetDate = dateFromCustomString() else {
+            return nil
+        }
+        
+        let minuteInSeconds: TimeInterval = 60
+        let hourInSeconds: TimeInterval = 3600
+        let dayInSeconds: TimeInterval = 86400
+        let threeDaysInSeconds: TimeInterval = 259200
+        
+        let interval = Date().timeIntervalSince(targetDate)
+        switch interval {
+        case 0..<minuteInSeconds:
+            return "방금 전"
+        case minuteInSeconds..<hourInSeconds:
+            return "\(Int(interval / minuteInSeconds))분 전"
+        case hourInSeconds..<dayInSeconds:
+            return "\(Int(interval / hourInSeconds))시간 전"
+        case dayInSeconds..<threeDaysInSeconds:
+            return "\(Int(interval / dayInSeconds))일 전"
+        default:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM.dd"
+            return dateFormatter.string(from: targetDate)
+        }
     }
 
 }

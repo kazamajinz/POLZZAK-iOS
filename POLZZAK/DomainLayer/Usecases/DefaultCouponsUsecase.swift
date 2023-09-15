@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CouponsUsecase {
-    func fetchCouponList(_ tabState: String) -> Task<[CouponList], Error>
+    func fetchCouponList(for tabState: String) -> Task<[CouponList], Error>
     func fetchCouponDetail(with couponID: Int) -> Task<CouponDetail, Error>
     func sendGiftRequest(to couponID: Int) -> Task<Void, Error>
     func acceptCoupon(from stampBoardID: Int) -> Task<Void, Error>
@@ -23,7 +23,7 @@ class DefaultCouponsUseCase: CouponsUsecase {
         self.repository = repository
     }
     
-    func fetchCouponList(_ tabState: String) -> Task<[CouponList], Error> {
+    func fetchCouponList(for tabState: String) -> Task<[CouponList], Error> {
         return Task {
             do {
                 let result = try await repository.getCouponList(tabState)

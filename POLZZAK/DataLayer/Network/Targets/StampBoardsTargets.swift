@@ -38,7 +38,7 @@ extension StampBoardsTargets: BasicTargetType {
     }
     
     var queryParameters: Encodable? {
-        var query = [String: String]()
+        var query = [String : String]()
         switch self {
         case .fetchStampBoardList(let tabState):
             query["stampBoardGroup"] = tabState

@@ -13,11 +13,16 @@ struct StampBoardListDTO: Decodable {
 }
 
 struct StampBoardSummaryDTO: Decodable {
-    let stampBoardId: Int
+    let stampBoardID: Int
     let name: String
     let currentStampCount: Int
     let goalStampCount: Int
     let reward: String
     let missionRequestCount: Int
     let status: String
+    
+    enum CodingKeys: String, CodingKey {
+        case stampBoardID = "stampBoardId"
+        case name, currentStampCount, goalStampCount, reward, missionRequestCount, status
+    }
 }

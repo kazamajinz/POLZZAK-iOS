@@ -10,11 +10,11 @@ import Foundation
 struct LinkManagementMapper {
     private func mapBaseResponse<T, U>(from dto: BaseResponseDTO<T>, transform: (T) -> U) -> BaseResponse<U> {
         let transformedData = dto.data.map(transform)
-        return BaseResponse(status: .success, code: dto.code, messages: dto.messages, data: transformedData)
+        return BaseResponse(code: dto.code, messages: dto.messages, data: transformedData)
     }
     
     func mapEmptyDataResponse(from response: BaseResponseDTO<EmptyDataResponseDTO>) -> BaseResponse<EmptyDataResponse> {
-        return BaseResponse(status: .success, code: response.code, messages: response.messages, data: nil)
+        return BaseResponse(code: response.code, messages: response.messages, data: nil)
     }
     
     func mapCheckLinkRequestResponse(from response: BaseResponseDTO<CheckLinkRequestDTO>) -> BaseResponse<CheckLinkRequest> {
@@ -38,10 +38,10 @@ struct LinkManagementMapper {
     
     private func mapFamilyMember(_ dto: FamilyMemberDTO) -> FamilyMember {
         return FamilyMember(
-            memberID: dto.memberId,
+            memberID: dto.memberID,
             nickname: dto.nickname,
             memberType: mapMemberType(dto.memberType),
-            profileURL: dto.profileUrl ?? "",
+            profileURL: dto.profileURL ?? "",
             familyStatus: mapFamilyStatus(dto.familyStatus) ?? nil
         )
     }

@@ -320,9 +320,6 @@ extension LinkManagementViewController {
             tableView.isHidden = true
             searchLoadingView.isHidden = true
             searchResultView.isHidden = false
-            
-            //            searchCancel(keyboard: false)
-            
             searchBar.isCancelState.toggle()
             searchBar.activate(bool: true, keyboard: false)
         }
@@ -353,12 +350,10 @@ extension LinkManagementViewController: TabViewsDelegate {
 
 extension LinkManagementViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("viewModel.dataList.count", viewModel.dataList.count)
         return viewModel.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("viewModel.dataList", viewModel.dataList)
         guard false == viewModel.dataList.isEmpty else {
             return UITableViewCell()
         }
@@ -490,9 +485,7 @@ extension LinkManagementViewController: SentTabCellDelegate {
 //MARK: - SearchBarDelegate
 extension LinkManagementViewController: SearchBarDelegate {
     func searchBarDidBeginEditing(_ searchBar: SearchBar) {
-        print("searchBarDidBeginEditing")
         if searchBar.searchBarSubView.searchBarTextField.text == "" {
-            print("searchBarDidBeginEditing_searchBarTextField.text.isEmpty")
             viewModel.searchState = .activated
         }
     }

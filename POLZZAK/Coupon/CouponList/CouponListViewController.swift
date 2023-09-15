@@ -21,6 +21,7 @@ final class CouponListViewController: UIViewController {
         static let interSectionSpacing: CGFloat = 32.0
         static let headerViewHeight: CGFloat = 42.0
         static let filterHeight: CGFloat = 74.0
+        static let headerTabHeight: CGFloat = 61.0
         
         static let tabTitles = ["선물 전", "선물 완료"]
         static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
@@ -29,10 +30,15 @@ final class CouponListViewController: UIViewController {
     private let viewModel = CouponListViewModel(useCase: DefaultCouponsUseCase(repository: CouponDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
-    private let customRefreshControl = CustomRefreshControl()
     private let filterView = CouponFilterView()
-    private let fullLoadingView = FullLoadingView()
     private let couponSkeletonView = CouponSkeletonView()
+    private let fullLoadingView = FullLoadingView()
+    
+    private let customRefreshControl: CustomRefreshControl = {
+        let refreshControl = CustomRefreshControl(topPadding: -Constants.headerTabHeight)
+        refreshControl.initialContentOffsetY = Constants.filterHeight
+        return refreshControl
+    }()
     
     private let headerView: UIView = {
         let view = UIView()
@@ -74,7 +80,6 @@ final class CouponListViewController: UIViewController {
         
         customRefreshControl.observe(scrollView: collectionView)
         collectionView.refreshControl = customRefreshControl
-        
         return collectionView
     }()
     
@@ -189,6 +194,7 @@ extension CouponListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.customRefreshControl.endRefreshing()
+                self?.viewModel.resetPullToRefreshSubjects()
             }
             .store(in: &cancellables)
         
@@ -305,7 +311,7 @@ extension CouponListViewController {
     
     private func handleSkeletonView(for bool: Bool) {
         if true == bool {
-            viewModel.fetchStampBoardListAPI(isFirst: true)
+            viewModel.fetchCouponListAPI(isFirst: true)
             couponSkeletonView.showSkeletonView()
         } else {
             tabViews.initTabViews()
@@ -510,8 +516,12 @@ extension CouponListViewController: CollectionLayoutConfigurable {
 }
 
 extension CouponListViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        viewModel.resetPullToRefreshSubjects()
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        viewModel.didEndDraggingSubject.send(true)
+        viewModel.didEndDraggingSubject.send(false)
     }
 }
 

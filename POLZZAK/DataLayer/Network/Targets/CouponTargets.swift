@@ -54,7 +54,7 @@ extension CouponTargets: BasicTargetType {
     }
     
     var queryParameters: Encodable? {
-        var query = [String: String]()
+        var query = [String : String]()
         switch self {
         case .fetchCouponList(let tabState):
             query["couponState"] = tabState
@@ -67,7 +67,7 @@ extension CouponTargets: BasicTargetType {
     var bodyParameters: Encodable? {
         switch self {
         case .acceptCoupon(let stampBoardID):
-            return ["stampBoardId": stampBoardID]
+            return ["stampBoardId" : stampBoardID]
         default:
             return nil
         }

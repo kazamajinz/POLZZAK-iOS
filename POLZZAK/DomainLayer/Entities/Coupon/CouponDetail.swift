@@ -14,18 +14,12 @@ struct CouponDetail {
     let kid: Guardian
     let missionContents: [String]
     let stampCount: Int
-    let couponState: CouponState?
+    var couponState: CouponState?
     let rewardDate: String
     let rewardRequestDate: String?
     let startDate: String
     let endDate: String
 }
-
-enum CouponState: String {
-    case issued = "ISSUED"
-    case rewarded = "REWARDED"
-}
-
 
 //extension CouponDetail {
 //    static let sampleDatas: [Int : CouponDetail] =

@@ -20,7 +20,6 @@ final class CouponDetailViewModel {
     private let couponID: Int
     
     var userType: UserType
-    @Published var tabState: TabState
     @Published var isCenterLoading: Bool = true
     @Published var couponDetailData: CouponDetail? = nil
     private var timer: AnyCancellable?
@@ -36,9 +35,8 @@ final class CouponDetailViewModel {
     var remainingTimeSubject = PassthroughSubject<String?, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: CouponsUsecase, tabState: TabState, couponID: Int) {
+    init(useCase: CouponsUsecase, couponID: Int) {
         self.useCase = useCase
-        self.tabState = tabState
         self.couponID = couponID
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
@@ -101,7 +99,7 @@ extension CouponDetailViewModel {
         do {
             let task = useCase.sendGiftReceive(from: couponID)
             try await task.value
-            tabState = .completed
+            couponDetailData?.couponState = .rewarded
         } catch {
             handleError(error)
         }

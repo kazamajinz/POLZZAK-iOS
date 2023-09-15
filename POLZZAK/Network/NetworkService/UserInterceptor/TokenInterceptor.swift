@@ -27,9 +27,6 @@ class TokenInterceptor: RequestInterceptor {
             let target = UserInfoTarget.getUserInfo
             let networkService = NetworkService()
             
-            //TODO: - NetworkProvider extension 제거로 인한 사이드 이펙트 임시조치
-//            let (data, response) = try await networkService.request(responseType: BaseResponseDTO<String>.self, with: target)
-            
             let (data, response) = try await networkService.request(with: target)
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(BaseResponseDTO<String>.self, from: data)

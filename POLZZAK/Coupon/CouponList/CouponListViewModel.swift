@@ -8,11 +8,11 @@
 import Foundation
 import Combine
 
-final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
+final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtocol, LoadingViewModelProtocol {
     private let useCase: CouponsUsecase
     
     var dataList = CurrentValueSubject<[CouponList], Never>([])
-    var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
     var userType: UserType
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
@@ -20,7 +20,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     var tabState = CurrentValueSubject<TabState, Never>(.inProgress)
     var filterType = CurrentValueSubject<FilterType, Never>(.all)
     var apiFinishedLoadingSubject = CurrentValueSubject<Bool, Never>(false)
-    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(false)
+    var didEndDraggingSubject = CurrentValueSubject<Bool, Never>(true)
     var shouldEndRefreshing = PassthroughSubject<Void, Never>()
     var requestGiftSubject = PassthroughSubject<Void, Never>()
     var receiveGiftSubject = PassthroughSubject<Void, Never>()
@@ -35,29 +35,39 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
         let userInfo = UserInfoManager.readUserInfo()
         userType = (userInfo?.memberType.detail == "아이" ? .child : .parent)
         
-        setupBindings()
+        setupPullToRefreshBinding()
+        setupTabFilterBindings()
     }
     
     func loadData(for centerLoading: Bool = false) {
         guard false == isSkeleton.value else { return }
-        fetchStampBoardListAPI(for: centerLoading)
+        fetchCouponListAPI(for: centerLoading)
     }
     
-    func fetchStampBoardListAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
+    func fetchCouponListAPI(for centerLoading: Bool = false, isFirst: Bool = false) {
         Task {
+            defer {
+                hideLoading(for: centerLoading)
+                apiFinishedLoadingSubject.send(true)
+            }
+            
+            if true == isCenterLoading.value {
+                return
+            }
+            
             showLoading(for: centerLoading)
+            
+            if true == isFirst {
+                self.shouldEndRefreshing.send()
+            }
+            
             do {
                 let tabState = tabStateToString(tabState.value)
-                let task = useCase.fetchCouponList(tabState)
+                let task = useCase.fetchCouponList(for: tabState)
                 let result = try await task.value
-                hideLoading(for: centerLoading)
                 dataList.send(result)
             } catch {
                 handleError(error)
-            }
-            
-            if !centerLoading && (!isFirst || self.apiFinishedLoadingSubject.value) {
-                self.apiFinishedLoadingSubject.send(true)
             }
         }
     }
@@ -85,7 +95,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
     
     func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
         guard let id = couponID(at: indexPath) else { return nil }
-        return CouponDetailViewModel(useCase: useCase, tabState: tabState.value, couponID: id)
+        return CouponDetailViewModel(useCase: useCase, couponID: id)
     }
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
@@ -147,7 +157,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
         
         let updatedCouponList = CouponList(family: family, coupons: coupons)
         tempDataList[convertIndexPath.section] = updatedCouponList
-
+        
         dataList.send(tempDataList)
         dataChanged.send(convertIndexPath)
     }
@@ -165,7 +175,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
         
         let updatedCouponList = CouponList(family: family, coupons: coupons)
         tempDataList[convertIndexPath.section] = updatedCouponList
-
+        
         dataList.send(tempDataList)
         dataDeleted.send(convertIndexPath)
     }
@@ -179,7 +189,7 @@ final class CouponListViewModel: TabFilterLoadingViewModelProtocol {
             return IndexPath(row: indexPath.row, section: section)
         }
     }
-
+    
     func handleError(_ error: Error) {
         if let internalError = error as? PolzzakError<Void> {
             handleInternalError(internalError)

@@ -14,10 +14,3 @@ struct FamilyMember {
     let profileURL: String?
     let familyStatus: FamilyStatus?
 }
-
-enum FamilyStatus: String {
-    case none = "NONE"
-    case received = "RECEIVED"
-    case sent = "SENT"
-    case approve = "APPROVE"
-}
