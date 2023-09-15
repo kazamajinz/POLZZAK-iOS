@@ -18,7 +18,7 @@ final class DetailBoardViewModel {
     }
     
     final class State {
-        @Published fileprivate(set) var stampBoardDetail: StampBoardDetailDTO?
+        @Published fileprivate(set) var stampBoardDetail: StampBoardDetail?
     }
     
     let action = PassthroughSubject<Action, Never>()
@@ -66,14 +66,14 @@ final class DetailBoardRepository {
     func fetchStampBoardDetailInfo() async -> DetailBoardRepositoryResult {
         do {
             let (data, response) = try await StampBoardDetailAPI.getStampBoardDetail(stampBoardID: stampBoardID)
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else { return .unknown }
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else { return .emptyStatusCode }
             switch statusCode {
             case 200..<300:
                 let dto = try JSONDecoder().decode(BaseResponseDTO<StampBoardDetailDTO>.self, from: data)
-                guard let stampBoardDetail = dto.data else { return .unknown }
+                guard let stampBoardDetail = dto.data else { return .emptyData }
                 return .render(stampBoardDetail)
             default:
-                return .unknown
+                return .fail(statusCode: statusCode)
             }
         } catch {
             if let urlError = error as? URLError {
@@ -81,13 +81,16 @@ final class DetailBoardRepository {
                 return .urlError(urlError)
             }
             os_log(log: .polzzakAPI, errorDescription: String(describing: error))
-            return .unknown
+            return .unknown(error)
         }
     }
 }
 
 enum DetailBoardRepositoryResult {
     case render(StampBoardDetailDTO)
+    case fail(statusCode: Int, messages: String? = nil)
     case urlError(URLError)
-    case unknown
+    case emptyStatusCode
+    case emptyData
+    case unknown(Error)
 }

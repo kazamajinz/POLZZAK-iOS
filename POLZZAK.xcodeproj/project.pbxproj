@@ -218,6 +218,7 @@
 		DACA49522AB3381000A2FB77 /* StampBoardDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49512AB3381000A2FB77 /* StampBoardDetailAPI.swift */; };
 		DACA49552AB42DD100A2FB77 /* StampBoardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49542AB42DD100A2FB77 /* StampBoardDetail.swift */; };
 		DACA49572AB430EA00A2FB77 /* DetailBoardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */; };
+		DACA49592AB43E6F00A2FB77 /* StampBoardDetailMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49582AB43E6F00A2FB77 /* StampBoardDetailMapper.swift */; };
 		DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD960892AA90910009A7557 /* POLZZAKTests.swift */; };
 		DAD960922AA909D0009A7557 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960912AA909D0009A7557 /* SnapKit */; settings = {ATTRIBUTES = (Required, ); }; };
 		DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960932AA909DF009A7557 /* CombineCocoa */; };
@@ -446,6 +447,7 @@
 		DACA49512AB3381000A2FB77 /* StampBoardDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetailAPI.swift; sourceTree = "<group>"; };
 		DACA49542AB42DD100A2FB77 /* StampBoardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetail.swift; sourceTree = "<group>"; };
 		DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardState.swift; sourceTree = "<group>"; };
+		DACA49582AB43E6F00A2FB77 /* StampBoardDetailMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardDetailMapper.swift; sourceTree = "<group>"; };
 		DAD960872AA90910009A7557 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD960892AA90910009A7557 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1022,6 +1024,7 @@
 				3CF41E472A1F43D400914421 /* LabelWithPadding.swift */,
 				DA65893B2AB1D25500746D5A /* TitleLoadingViewController.swift */,
 				DACA49562AB430EA00A2FB77 /* DetailBoardState.swift */,
+				DACA49582AB43E6F00A2FB77 /* StampBoardDetailMapper.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1470,6 +1473,7 @@
 				DACA49552AB42DD100A2FB77 /* StampBoardDetail.swift in Sources */,
 				DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
+				DACA49592AB43E6F00A2FB77 /* StampBoardDetailMapper.swift in Sources */,
 				DA11FEAA2A4071EC005A469D /* BasicTargetType.swift in Sources */,
 				DACA494E2AB32D1600A2FB77 /* StampBoardDetailDTO.swift in Sources */,
 				390F421D2A8C6EB5005FC7B2 /* FilterBottomSheetViewController.swift in Sources */,
