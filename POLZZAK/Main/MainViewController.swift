@@ -28,6 +28,8 @@ final class MainViewController: UIViewController {
         static let placeHolderLabelText = "와 연동되면\n도장판을 만들 수 있어요!"
     }
     
+    private var toast: Toast?
+    
     private let viewModel = StampBoardViewModel(useCase: DefaultStampBoardsUseCase(repository: StampBoardsDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
@@ -91,8 +93,6 @@ final class MainViewController: UIViewController {
         
         return collectionView
     }()
-    
-    private let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -253,8 +253,10 @@ extension MainViewController {
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { error in
-                print("error", error)
+            .sink { [weak self] error in
+                self?.toast = Toast(type: .qatest(error.localizedDescription))
+                self?.toast?.show()
+                print("error", error.localizedDescription)
             }
             .store(in: &cancellables)
     }

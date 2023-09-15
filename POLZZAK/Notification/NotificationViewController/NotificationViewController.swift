@@ -15,6 +15,8 @@ final class NotificationViewController: UIViewController {
         static let initialContentOffsetY = 16.0
     }
     
+    private var toast: Toast?
+    
     private let viewModel = NotificationViewModel(useCase: DefaultNotificationUseCase(repository: NotificationDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
@@ -162,8 +164,10 @@ extension NotificationViewController {
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { error in
-                print("error", error)
+            .sink { [weak self] error in
+                self?.toast = Toast(type: .qatest(error.localizedDescription))
+                self?.toast?.show()
+                print("error", error.localizedDescription)
             }
             .store(in: &cancellables)
     }

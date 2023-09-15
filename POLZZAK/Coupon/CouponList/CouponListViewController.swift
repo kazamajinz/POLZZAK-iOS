@@ -27,6 +27,8 @@ final class CouponListViewController: UIViewController {
         static let placeHolderLabelText = "와 연동되면\n쿠폰함이 열려요!"
     }
     
+    private var toast: Toast?
+    
     private let viewModel = CouponListViewModel(useCase: DefaultCouponsUseCase(repository: CouponDataRepository()))
     private var cancellables = Set<AnyCancellable>()
     
@@ -269,8 +271,10 @@ extension CouponListViewController {
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { error in
-                print("error", error)
+            .sink { [weak self] error in
+                self?.toast = Toast(type: .qatest(error.localizedDescription))
+                self?.toast?.show()
+                print("error", error.localizedDescription)
             }
             .store(in: &cancellables)
     }
