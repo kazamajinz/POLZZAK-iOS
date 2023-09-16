@@ -23,21 +23,20 @@ class MissonAddButtonCell: UICollectionViewCell {
     
     private let missonAddButton: UIButton = {
         let button = UIButton(type: .custom)
-        var config = UIButton.Configuration.borderedTinted()
+        var config = UIButton.Configuration.plain()
         config.attributedTitle = AttributedString("+ 미션 추가하기", attributes: .init([
             .font: UIFont.body14Md,
             .foregroundColor: UIColor.gray400
         ]))
+        button.configuration = config
+        button.layer.borderColor = UIColor.gray300.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 8
         return button
     }()
     
     private let deleteButton: UIButton = {
         let button = UIButton(type: .custom)
-        var config = UIButton.Configuration.plain()
-        config.image = UIImage(named: "misson_delete_image")
-        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20)
-//        button.setImage(UIImage(named: "misson_delete_image"), for: .normal)
-//        button.setImage(UIImage(named: "misson_delete_image"), for: .highlighted)
         return button
     }()
     

@@ -190,6 +190,12 @@ extension MainViewController {
         let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
         stampBoardFilterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
         customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        addStampBoardButton.tapPublisher
+            .sink { [weak self] in
+                let vc = NewStampBoardViewController()
+                self?.present(vc, animated: true)
+            }
+            .store(in: &cancellables)
     }
     
     private func bindViewModel() {

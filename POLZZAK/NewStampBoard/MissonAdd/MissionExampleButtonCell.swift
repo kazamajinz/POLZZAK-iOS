@@ -14,11 +14,16 @@ class MissionExampleButtonCell: UICollectionViewCell {
     
     private let missonExampleButton: UIButton = {
         let button = UIButton(type: .custom)
-        var config = UIButton.Configuration.borderedTinted()
-        config.attributedTitle = AttributedString("+ 미션 추가하기", attributes: .init([
-            .font: UIFont.body14Md,
-            .foregroundColor: UIColor.gray400
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(named: "misson_list_image")
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 24)
+        config.attributedTitle = AttributedString("미션 예시", attributes: .init([
+            .font: UIFont.subtitle16Sbd,
+            .foregroundColor: UIColor.white
         ]))
+        button.configuration = config
+        button.backgroundColor = .gray400
+        button.layer.cornerRadius = 8
         return button
     }()
     
@@ -39,6 +44,8 @@ extension MissionExampleButtonCell {
     }
     
     private func configureLayout() {
+        contentView.addSubview(missonExampleButton)
+        
         missonExampleButton.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

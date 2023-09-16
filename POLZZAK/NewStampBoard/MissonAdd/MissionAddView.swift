@@ -11,7 +11,7 @@ final class MissionAddView: UICollectionView {
     private let stampSizeList: [Int] = StampSize.allCases.map { $0.rawValue.count }
     
     init() {
-        let layout = StampSizeSelectionView.getLayout()
+        let layout = MissionAddView.getLayout()
         super.init(frame: .zero, collectionViewLayout: layout)
         configureView()
         configureLayout()
@@ -91,12 +91,12 @@ extension MissionAddView {
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(50.0)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8
-        section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 10)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8)
         
         return UICollectionViewCompositionalLayout(section: section)
     }

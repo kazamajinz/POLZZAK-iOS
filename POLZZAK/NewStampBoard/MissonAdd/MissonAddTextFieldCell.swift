@@ -28,8 +28,7 @@ class MissonAddTextFieldCell: UICollectionViewCell {
         var config = UIButton.Configuration.plain()
         config.image = UIImage(named: "misson_delete_image")
         config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20)
-//        button.setImage(UIImage(named: "misson_delete_image"), for: .normal)
-//        button.setImage(UIImage(named: "misson_delete_image"), for: .highlighted)
+        button.configuration = config
         return button
     }()
     
