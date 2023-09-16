@@ -8,8 +8,17 @@
 import UIKit
 import SnapKit
 
-class InprogressStampBoardCell: UICollectionViewCell {
-    static let reuseIdentifier = "InprogressStampBoardCell"
+final class InprogressStampBoardCell: UICollectionViewCell {
+    enum Constants {
+        static let reuseIdentifier = "InprogressStampBoardCell"
+        static let stampRequestLabelInsets = UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10)
+        static let gradationLabelInsets = UIEdgeInsets(top: 4, left: 16, bottom: 11, right: 16)
+        static let deviceWidth = UIApplication.shared.width
+        static let imageViewWidth = deviceWidth * 86.0 / 375.0
+        static let imageViewHeight = deviceWidth * 86.0 / 375.0
+        static let countLabelMultiply = 34.0 / 52.0
+        static let gradationViewWidth = deviceWidth * 150.0 / 375.0
+    }
     
     //MARK: - Stamp Top UI
     private let stampTopView: UIStackView = {
@@ -31,32 +40,11 @@ class InprogressStampBoardCell: UICollectionViewCell {
     }()
     
     //MARK: - Stamp Middle UI
-    private let stampMiddleView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private let stampMiddleView = UIView()
     
-    private let countStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .bottom
-        return stackView
-    }()
-    
-    private let currentCountLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
-        label.setLabel(textColor: .blue400, font: .title24Sbd)
-        return label
-    }()
-    
-    private let perLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(text: "/" ,textColor: .gray400, font: .subtitle16Sbd)
-        return label
-    }()
-    
-    private let totalCountLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(textColor: .gray400, font: .subtitle16Sbd)
+        label.setLabel(textColor: .gray400, font: .subtitle16Sbd, textAlignment: .center)
         return label
     }()
     
@@ -65,35 +53,46 @@ class InprogressStampBoardCell: UICollectionViewCell {
         return stampGraphView
     }()
     
-    private let stampRequestView: UIView = {
+    private let stampRequestView = UIView()
+    
+    private let stampProgressStatusView: UIView = {
         let view = UIView()
+        view.isHidden = true
         return view
     }()
     
-    private let stampRequestImageView: UIImageView = {
+    private let stampCompletedStatusView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    private let stampProgressRequestImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .raisingOneHandCharacter
         return imageView
     }()
     
-    private let stampRequestLabelView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue100
-        view.addBorder(cornerRadius: 17)
-        return view
-    }()
-    
-    private let stampRequestLabel: UILabel = {
-        let label = UILabel()
-        label.setLabel(textColor: .blue600, font: .caption12Sbd, textAlignment: .center)
+    private let stampProgressRequestLabel: PaddedLabel = {
+        let label = PaddedLabel(padding: Constants.stampRequestLabelInsets)
+        label.setLabel(textColor: .blue600, font: .caption12Sbd, textAlignment: .center, backgroundColor: .blue100)
+        label.addBorder(cornerRadius: 10.5)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
+    
+    private let stampCompletedImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .raisingTwoHandCharacter
+        return imageView
+    }()
+    
+    private let gradationView = MessageView()
     
     //MARK: - Stamp Bottom UI
     private let stampBottomView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.setStackView(axis: .horizontal, spacing: 8)
         stackView.alignment = .fill
         return stackView
     }()
@@ -113,6 +112,7 @@ class InprogressStampBoardCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setUI()
     }
     
@@ -120,23 +120,48 @@ class InprogressStampBoardCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        stampGraphView.reset()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        stampGraphView.reset()
+        layer.cornerRadius = 0
+        layer.maskedCorners = []
     }
 }
 
 extension InprogressStampBoardCell {
     func configure(with info: StampBoardSummary) {
         stampNameLabel.text = info.name
-        currentCountLabel.text = "\(info.currentStampCount)"
-        totalCountLabel.text = "\(info.goalStampCount)"
-        stampRequestLabel.text = "도장 요청 \(info.missionCompleteCount)개"
         rewardTitleLabel.text = info.reward
+        
+        switch info.status {
+        case .progress:
+            stampProgressRequestLabel.text = "도장 요청 \(info.missionRequestCount)개"
+            stampProgressStatusView.isHidden = false
+            stampCompletedStatusView.isHidden = true
+        case .completed:
+            stampProgressStatusView.isHidden = true
+            stampCompletedStatusView.isHidden = false
+            
+            //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
+            let userInfo = UserInfoManager.readUserInfo()
+            gradationView.type = userInfo?.memberType.detail == "아이" ? .rewarded : .completed
+        case .issuedCoupon:
+            stampProgressStatusView.isHidden = true
+            stampCompletedStatusView.isHidden = false
+            gradationView.type = .request
+        default:
+            return
+        }
+        
+        countLabel.text = "\(info.currentStampCount)" + "/" + "\(info.goalStampCount)"
+        let emphasisRange = [NSRange(location: 0, length: String(info.currentStampCount).count)]
+        countLabel.setEmphasisRanges(emphasisRange, color: .blue400, font: .title24Sbd)
         
         let graphValue = CGFloat(info.currentStampCount) / CGFloat(info.goalStampCount)
         DispatchQueue.main.async {
@@ -179,15 +204,27 @@ extension InprogressStampBoardCell {
         stampMiddleView.snp.makeConstraints {
             $0.top.equalTo(stampTopView.snp.bottom).offset(36)
             $0.leading.trailing.equalToSuperview().inset(41.5)
-            $0.bottom.equalTo(stampBottomView.snp.top).inset(8)
         }
         
         stampBottomView.snp.makeConstraints {
+            $0.top.equalTo(stampMiddleView.snp.bottom).offset(8)
             $0.leading.trailing.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(stampBottomView.snp.width).multipliedBy(25.0/283.0)
         }
          
         //MARK: - Stamp Middle UI
+        [stampProgressRequestImageView, stampProgressRequestLabel].forEach {
+            stampProgressStatusView.addSubview($0)
+        }
+        
+        [stampCompletedImageView, gradationView].forEach {
+            stampCompletedStatusView.addSubview($0)
+        }
+        
+        [countLabel, stampProgressStatusView, stampCompletedStatusView].forEach {
+            stampRequestView.addSubview($0)
+        }
+        
         [stampGraphView, stampRequestView].forEach {
             stampMiddleView.addSubview($0)
         }
@@ -197,39 +234,51 @@ extension InprogressStampBoardCell {
         }
         
         stampRequestView.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.top.equalTo(stampGraphView.snp.top).offset(55)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(stampGraphView.snp.bottom)
         }
         
-        [currentCountLabel, perLabel, totalCountLabel].forEach {
-            countStackView.addArrangedSubview($0)
-        }
-        
-        [countStackView, stampRequestImageView, stampRequestLabelView].forEach {
-            stampRequestView.addSubview($0)
-        }
-        
-        countStackView.snp.makeConstraints {
-            $0.top.centerX.equalToSuperview()
-            $0.height.equalTo(stampGraphView.snp.height).multipliedBy(34.0 / 240.0)
-        }
-        
-        stampRequestImageView.snp.makeConstraints {
-            $0.top.equalTo(countStackView.snp.bottom).offset(4)
+        countLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.width.equalTo(stampGraphView.snp.height).multipliedBy(86.0 / 240.0)
         }
         
-        stampRequestLabelView.snp.makeConstraints {
-            $0.top.equalTo(stampRequestImageView.snp.bottom).offset(2)
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(stampGraphView.snp.height).multipliedBy(21.0 / 240.0)
+        stampProgressStatusView.snp.makeConstraints {
+            $0.top.equalTo(countLabel.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview().inset(77)
+            $0.bottom.equalToSuperview()
         }
         
-        stampRequestLabelView.addSubview(stampRequestLabel)
+        stampCompletedStatusView.snp.makeConstraints {
+            $0.top.equalTo(countLabel.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview().inset(77)
+            $0.bottom.equalToSuperview()
+        }
         
-        stampRequestLabel.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(2)
-            $0.leading.trailing.equalToSuperview().inset(10)
+        stampProgressRequestImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(stampProgressRequestImageView.snp.height)
+        }
+        
+        stampProgressRequestLabel.snp.makeConstraints {
+            $0.top.equalTo(stampProgressRequestImageView.snp.bottom).offset(2)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(38)
+        }
+        
+        gradationView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        stampCompletedImageView.snp.makeConstraints {
+            $0.top.equalTo(gradationView.snp.bottom)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(stampCompletedImageView.snp.height)
+            $0.bottom.equalToSuperview().inset(11)
         }
     }
 }

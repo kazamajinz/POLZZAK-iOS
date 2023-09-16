@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CompletedStampBoardCell: UICollectionViewCell {
+final class CompletedStampBoardCell: UICollectionViewCell {
     static let reuseIdentifier = "CompletedStampBoardCell"
     
     private let stampNameLabel: UILabel = {
@@ -54,6 +54,7 @@ class CompletedStampBoardCell: UICollectionViewCell {
     private let blindView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        view.addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
         return view
     }()
     
@@ -65,6 +66,19 @@ class CompletedStampBoardCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        layer.cornerRadius = 0
+        layer.maskedCorners = []
+    }
 }
 
 extension CompletedStampBoardCell {
@@ -74,8 +88,6 @@ extension CompletedStampBoardCell {
     }
     
     private func setUI() {
-        addBorder(cornerRadius: 8, borderWidth: 1, borderColor: .gray300)
-        
         [rewardLabelView, rewardTitleLabel].forEach {
             stampRewardView.addArrangedSubview($0)
         }

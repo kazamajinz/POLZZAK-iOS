@@ -17,7 +17,7 @@ extension UserInfoDTO {
         let memberId: Int
         let nickname: String
         let memberPoint: MemberPoint
-        let memberType: MemberType
+        let memberType: MemberTypeDTO
         let profileUrl: String
         let familyCount: Int
     }

@@ -49,7 +49,7 @@ final class AlertTableViewController: BaseAlertViewController {
     private let closeButton: PaddedLabel = {
         let closeButton = PaddedLabel(padding: Constants.buttonPadding)
         closeButton.setLabel(text: Constants.buttonText, textColor: .white, font: .subtitle16Sbd, textAlignment: .center, backgroundColor: .blue500)
-        closeButton.addCornerRadious(cornerRadius: 8)
+        closeButton.addBorder(cornerRadius: 8)
         closeButton.isUserInteractionEnabled = true
         return closeButton
     }()

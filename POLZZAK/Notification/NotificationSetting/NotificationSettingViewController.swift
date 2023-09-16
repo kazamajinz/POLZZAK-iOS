@@ -27,9 +27,10 @@ final class NotificationSettingViewController: UIViewController {
         return label
     }()
     
-    let customSwitch: UISwitch = {
+    let allSettingSwitch: UISwitch = {
         let customSwitfch = UISwitch()
         customSwitfch.onTintColor = .blue500
+        customSwitfch.addTarget(self, action: #selector(openAppSettings), for: .valueChanged)
         return customSwitfch
     }()
     
@@ -55,18 +56,18 @@ final class NotificationSettingViewController: UIViewController {
                       ["선물 수령 알림", "아이가 선물을 받았다고 보내는 감사 인사를 받을래요"],
                       ["선물 약속 미이행 알림", "선물 약속 날짜를 어겼다는 알림을 받을래요"]]
     
-    var deviceNotification: Bool = true
-    var testBoolData = (0...6).map{ _ in [true, false].randomElement()! }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setNavigation()
         setTbleView()
+        addBecameActiveObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         checkNotificationAuthorizationStatus()
     }
 }
@@ -79,16 +80,16 @@ extension NotificationSettingViewController {
             view.addSubview($0)
         }
         
-        [titleLabel, customSwitch].forEach {
+        [titleLabel, allSettingSwitch].forEach {
             headerView.addSubview($0)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.height.equalTo(customSwitch.snp.height)
+            $0.height.equalTo(allSettingSwitch.snp.height)
         }
         
-        customSwitch.snp.makeConstraints {
+        allSettingSwitch.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
             $0.leading.equalTo(titleLabel.snp.trailing)
         }
@@ -123,20 +124,44 @@ extension NotificationSettingViewController {
         tableView.backgroundColor = .gray100
     }
     
+    private func addBecameActiveObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
     @objc func notificationSwitchTapped(_ mySwitch: UISwitch) {
         if let appSettingsUrl = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(appSettingsUrl, options: [:], completionHandler: nil)
         }
     }
     
-    //TODO: - 서버 API통신을 연결할예정, 바인딩도 필요.
-    @objc func switchChanged(_ mySwitch: UISwitch) {
-        let row = mySwitch.tag
-        if testBoolData.filter({true == $0}).count == 1 {
-            mySwitch.isOn = !mySwitch.isOn
-        } else {
-            testBoolData[row] = mySwitch.isOn
-            checkNotificationAuthorizationStatus()
+    @objc func allSettingSwitchValueChanged(sender: UISwitch) {
+        checkNotificationAuthorizationStatus()
+    }
+    
+    @objc func appBecameActive() {
+        checkNotificationAuthorizationStatus()
+    }
+    
+    
+    //    //TODO: - 서버 API통신을 연결할예정, 바인딩도 필요.
+    //    @objc func switchChanged(_ mySwitch: UISwitch) {
+    //        let row = mySwitch.tag
+    //        if testBoolData.filter({true == $0}).count == 1 {
+    //            mySwitch.isOn = !mySwitch.isOn
+    //        } else {
+    //            checkNotificationAuthorizationStatus()
+    //        }
+    //    }
+    
+    @objc func openAppSettings(sender: UISwitch) {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                print("Opened settings: \(success)")
+            })
         }
     }
     
@@ -148,9 +173,11 @@ extension NotificationSettingViewController {
                 if self.tableView.cellForRow(at: firstIndexPath) is NotificationSettingTableViewCell {
                     switch settings.authorizationStatus {
                     case .authorized, .provisional:
-                        self.deviceNotification = true
+                        self.allSettingSwitch.isOn = true
+                        print(".authorized, .provisional")
                     case .denied:
-                        self.deviceNotification = false
+                        self.allSettingSwitch.isOn = false
+                        print(".denied")
                     default:
                         return
                     }
@@ -169,10 +196,8 @@ extension NotificationSettingViewController: UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: NotificationSettingTableViewCell.reuseIdentifier, for: indexPath) as! NotificationSettingTableViewCell
         let titleText = dataSource[indexPath.row][0]
         let detailText = dataSource[indexPath.row][1]
-        let isSwitchOn = testBoolData[indexPath.row]
         cell.customSwitch.tag = indexPath.row
-        cell.configure(titleText: titleText, detailText: detailText, isSwitchOn: isSwitchOn)
-        cell.customSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+        cell.configure(titleText: titleText, detailText: detailText, isSwitchOn: false)
         
         if indexPath.row == 6 {
             cell.hideBottomLine()

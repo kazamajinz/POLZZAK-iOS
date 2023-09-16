@@ -44,6 +44,12 @@ final class CouponFooterView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        currentPage.text = "1"
+    }
 }
 
 extension CouponFooterView {

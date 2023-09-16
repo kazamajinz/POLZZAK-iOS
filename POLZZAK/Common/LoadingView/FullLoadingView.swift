@@ -11,8 +11,9 @@ import SnapKit
 final class FullLoadingView: UIView {
     private let loadingView = LoadingView()
     
-    override init(frame: CGRect = .zero) {
+    init(frame: CGRect = .zero, backgroundColor: UIColor = .black.withAlphaComponent(0.4)) {
         super.init(frame: frame)
+        self.backgroundColor = backgroundColor
         setupView()
     }
     
@@ -31,7 +32,6 @@ final class FullLoadingView: UIView {
     }
     
     private func setupView() {
-        backgroundColor = UIColor.black.withAlphaComponent(0.4)
         isHidden = true
         
         addSubview(loadingView)

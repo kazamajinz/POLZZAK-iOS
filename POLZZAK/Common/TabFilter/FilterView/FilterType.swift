@@ -10,12 +10,13 @@ import Foundation
 enum FilterType {
     case all
     case section(Int)
+    case none
 }
 
 extension FilterType: Equatable {
     static func == (lhs: FilterType, rhs: FilterType) -> Bool {
         switch (lhs, rhs) {
-        case (.all, .all):
+        case (.all, .all), (.none, .none):
             return true
         case let (.section(leftMember), .section(rightMember)):
             return leftMember == rightMember

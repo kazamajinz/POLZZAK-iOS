@@ -28,6 +28,7 @@ struct AuthAPI {
         do {
             let oAuthAccessToken = try await KakaoLoginManager.loginWithKakao()
             let target = LoginTarget.kakao(oAuthAccessToken: oAuthAccessToken)
+            //TODO: - 임시 변경
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
@@ -49,6 +50,7 @@ struct AuthAPI {
                let identityTokenString = String(data: identityToken, encoding: .utf8) {
                 // TODO: identityToken을 서버에 보내야 하는지는 아직 정해지지 않았음. 수정 필요.
                 let target = LoginTarget.apple(oAuthAccessToken: identityTokenString)
+                //TODO: - 임시 변경
                 let result = try await NetworkService().request(with: target)
                 return result
             } else {
@@ -75,6 +77,7 @@ struct AuthAPI {
             } else {
                 target = RegisterTarget.register(username: username, socialType: socialType, memberType: memberType, nickname: nickname)
             }
+            //TODO: - 임시 변경
             let result = try await NetworkService().request(with: target)
             return result
         } catch {
@@ -88,6 +91,7 @@ struct AuthAPI {
     static func checkNicknameDuplicate(nickname: String) async throws -> APIReturnType {
         do {
             let target = NicknameTarget.checkDuplicate(nickname: nickname)
+            //TODO: - 임시 변경
             let result = try await NetworkService().request(with: target)
             return result
         } catch {

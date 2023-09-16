@@ -20,6 +20,13 @@ final class TabView: UIView {
         return label
     }()
     
+    let newAlertImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .circle6
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     let underlineView: UIView = {
         let view = UIView()
         return view
@@ -106,14 +113,20 @@ final class TabView: UIView {
 
 extension TabView {
     private func setUI() {
-        [tabLabel, underlineView].forEach {
+        [tabLabel, newAlertImage, underlineView].forEach {
             addSubview($0)
         }
         
         tabLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview().inset(6)
-            $0.leading.trailing.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        newAlertImage.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalTo(tabLabel.snp.trailing).offset(3)
+            $0.width.height.equalTo(6)
         }
         
         underlineView.snp.makeConstraints {

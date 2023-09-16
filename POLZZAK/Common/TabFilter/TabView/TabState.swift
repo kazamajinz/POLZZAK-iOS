@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TabState {
-    case inProgress
-    case completed
+enum TabState: String {
+    case inProgress = "in_progress"
+    case completed = "ended"
 }

@@ -13,7 +13,7 @@ final class AppFlowController {
     private var window: UIWindow?
     private var rootViewController: UIViewController? {
         didSet {
-            animateChangingRootViewController(rootViewController)
+            window?.rootViewController = rootViewController
         }
     }
     
@@ -35,15 +35,6 @@ final class AppFlowController {
     
     func showLogin() {
         rootViewController = getLoginViewController()
-    }
-    
-    private func animateChangingRootViewController(_ rootViewController: UIViewController?) {
-        guard let window else { return }
-        DispatchQueue.main.async {
-            UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {
-                window.rootViewController = rootViewController
-            })
-        }
     }
     
     private func getHomeViewController() -> TabBarController {

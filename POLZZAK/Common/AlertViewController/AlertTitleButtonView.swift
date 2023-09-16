@@ -7,16 +7,16 @@
 
 import UIKit
 
-class AlertTitleButtonView: AlertButtonView {
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        contentStackView.insertArrangedSubview(titleLabel, at: 0)
-    }
-}
+//class AlertTitleButtonView: AlertButtonView {
+//    let titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        return label
+//    }()
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        contentStackView.insertArrangedSubview(titleLabel, at: 0)
+//    }
+//}
