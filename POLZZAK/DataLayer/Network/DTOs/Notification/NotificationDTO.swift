@@ -8,7 +8,7 @@
 import Foundation
 
 struct NotificationResponseDTO: Decodable {
-    let startID: Int
+    let startID: Int?
     let notificationListDTO: [NotificationDTO]
 
     enum CodingKeys: String, CodingKey {

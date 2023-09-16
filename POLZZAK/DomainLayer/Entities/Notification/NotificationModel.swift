@@ -8,7 +8,7 @@
 import Foundation
 
 struct NotificationResponse {
-    let startID: Int
+    let startID: Int?
     let notificationList: [Notification]?
 }
 
