@@ -37,7 +37,7 @@ final class NicknameCheckView: UIView {
         return stackView
     }()
     
-    private let textField = NicknameTextField()
+    private let textField = CheckTextField()
     
     private let checkButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -160,7 +160,7 @@ final class NicknameCheckView: UIView {
             .store(in: &cancellables)
         
         checkButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 Task { [weak self] in
                     guard let self, let text else { return }
                     let result = await checkNicknameValid(nickname: text)

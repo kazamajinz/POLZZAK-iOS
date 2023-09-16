@@ -44,6 +44,7 @@ final class ParentTypeSelectView: UICollectionView {
     }
     
     private func setUICenter() {
+        // TODO: types.count == 0 인 경우 처리하기?
         guard let layout = collectionViewLayout as? CarouselLayout,
               let index = types.firstIndex(where: { $0.detail == "선택해주세요" }) // TODO: 하드코딩 줄이기
         else { return }
@@ -57,14 +58,6 @@ final class ParentTypeSelectView: UICollectionView {
             }
         }
     }
-    
-    func configureCurrentType() {
-        guard let layout = collectionViewLayout as? CarouselLayout,
-              let centerIndexPath = layout.centerIndexPath
-        else { return }
-        
-        currentType = types[centerIndexPath.item]
-    }
 }
 
 // MARK: - DataSource
@@ -76,7 +69,7 @@ extension ParentTypeSelectView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ParentTypeSelectCell.reuseIdentifier, for: indexPath) as? ParentTypeSelectCell else {
-            fatalError("Cannot dequeue cell as ParentTypeSelectCell")
+            fatalError("Couldn't dequeue cell as ParentTypeSelectCell")
         }
         cell.configure(title: types[indexPath.item].detail)
         return cell
@@ -108,11 +101,19 @@ extension ParentTypeSelectView: UICollectionViewDelegate {
         
         cell.emphasizeCell()
     }
+    
+    private func configureCurrentType() {
+        guard let layout = collectionViewLayout as? CarouselLayout,
+              let centerIndexPath = layout.centerIndexPath
+        else { return }
+        
+        currentType = types[centerIndexPath.item]
+    }
 }
 
 // MARK: - Layout
 
-extension ParentTypeSelectView: UICollectionViewDelegateFlowLayout {
+extension ParentTypeSelectView {
     enum Constants {
         static let sideItemCount = 2
     }

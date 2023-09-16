@@ -120,7 +120,7 @@ final class RegisterNicknameViewController: UIViewController {
             .store(in: &cancellables)
         
         nextButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
                 let vc = RegisterProfileImageViewController(registerModel: registerModel)
                 navigationController?.pushViewController(vc, animated: true)

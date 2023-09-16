@@ -192,6 +192,13 @@ extension MainViewController {
         let tapFilterButtonViewRecognizer = UITapGestureRecognizer(target: self, action: #selector(filterButtonTapped))
         filterView.filterStackView.addGestureRecognizer(tapFilterButtonViewRecognizer)
         customRefreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        addStampBoardButton.tapPublisher
+            .sink { [weak self] in
+                let vc = NewStampBoardViewController()
+                vc.modalPresentationStyle = .overFullScreen
+                self?.present(vc, animated: true)
+            }
+            .store(in: &cancellables)
     }
     
     private func bindViewModel() {
@@ -547,7 +554,7 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailBoardViewController(stampSize: .size20), animated: true)
+        navigationController?.pushViewController(DetailBoardViewController(stampSize: .size20, stampBoardID: 1), animated: true)
     }
 }
 

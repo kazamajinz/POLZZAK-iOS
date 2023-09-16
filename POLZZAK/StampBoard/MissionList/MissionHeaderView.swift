@@ -79,4 +79,8 @@ extension MissionHeaderView {
         titleLabelLeadingConstraint?.update(inset: inset)
         moreButtonTrailingConstraint?.update(inset: inset)
     }
+    
+    func setMoreButtonHidden(isHidden: Bool) {
+        moreButton.isHidden = isHidden
+    }
 }

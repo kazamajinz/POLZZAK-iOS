@@ -134,30 +134,30 @@ final class RegisterUserTypeViewController: UIViewController {
     
     private func configureBinding() {
         parentButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
-                viewModel.state.currentUserType = parentButton.userType
+                viewModel.input.send(.userTypeButtonTapped(parentButton.userType))
                 determineButtonSelection(parentButtonSelected: true)
             }
             .store(in: &cancellables)
         
         childButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
-                viewModel.state.currentUserType = childButton.userType
+                viewModel.input.send(.userTypeButtonTapped(childButton.userType))
                 determineButtonSelection(parentButtonSelected: false)
             }
             .store(in: &cancellables)
         
         parentButton.tapPublisher.merge(with: childButton.tapPublisher)
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
                 nextButton.isEnabled = parentButton.isSelected || childButton.isSelected
             }
             .store(in: &cancellables)
         
         nextButton.tapPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 guard let self else { return }
                 viewModel.input.send(.nextButtonTapped)
                 if parentButton.isSelected {

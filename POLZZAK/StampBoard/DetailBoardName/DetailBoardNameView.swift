@@ -9,14 +9,12 @@ import UIKit
 
 import SnapKit
 
-enum DetailBoardState {
-    case inProgress(dayRemained: Int)
-    case completed(dayTaken: Int)
-}
-
-class DetailBoardNameView: UIView {
+final class DetailBoardNameView: UIView {
+    private let contentView = UIView()
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
         label.font = .title1
         label.textAlignment = .left
         return label
@@ -52,12 +50,12 @@ extension DetailBoardNameView {
         nameLabel.text = name
     }
     
-    func setDayTitle(state: DetailBoardState) {
+    func setDayTitle(state: DetailBoardState, dayPassed: Int) {
         switch state {
-        case .inProgress(let dayRemained):
-            dayLabel.text = "D+\(dayRemained)"
-        case .completed(let dayTaken):
-            dayLabel.text = "\(dayTaken)일 걸렸어요!"
+        case .progress, .completed, .issuedCoupon:
+            dayLabel.text = "D+\(dayPassed)"
+        case .rewarded:
+            dayLabel.text = "\(dayPassed)일 걸렸어요!"
         }
     }
     
@@ -68,25 +66,28 @@ extension DetailBoardNameView {
     }
     
     private func configureLayout() {
-        addSubview(nameLabel)
-        addSubview(dayLabel)
+        addSubview(contentView)
         
-        nameLabel.setContentCompressionResistancePriority(.init(1001), for: .horizontal)
-        
-        self.snp.makeConstraints { make in
-            make.height.equalTo(55)
+        contentView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(horizontalInset)
+            make.verticalEdges.equalToSuperview().inset(20)
         }
+        
+        [nameLabel, dayLabel].forEach {
+            contentView.addSubview($0)
+        }
+        
+        dayLabel.setContentCompressionResistancePriority(.init(751), for: .horizontal)
+        dayLabel.setContentHuggingPriority(.init(251), for: .horizontal)
         
         nameLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.leading.equalToSuperview().inset(horizontalInset)
-            make.trailing.lessThanOrEqualTo(dayLabel.snp.leading).offset(-10)
+            make.leading.equalToSuperview()
+            make.trailing.equalTo(dayLabel.snp.leading).offset(-10)
         }
         
         dayLabel.snp.makeConstraints { make in
-            make.height.lessThanOrEqualToSuperview()
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().inset(horizontalInset)
+            make.top.trailing.equalToSuperview()
         }
     }
 }

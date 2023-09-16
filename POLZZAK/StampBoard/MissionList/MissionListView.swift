@@ -43,13 +43,15 @@ class MissionListView: UICollectionView {
 
 extension MissionListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfItems = missionListViewDataSource?.missionListViewNumberOfItems() ?? 0
+        let numberOfItems = missionListViewDataSource?.missionListView(numberOfItemsInSection: section) ?? 0
         guard showMore == true || numberOfItems <= 3 else { return 3 }
         return numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as! MissionCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MissionCell.reuseIdentifier, for: indexPath) as? MissionCell else {
+            fatalError("MissionCell dequeue failed")
+        }
         let data = missionListViewDataSource?.missionListView(dataForItemAt: indexPath)
         cell.titleLabel.text = data?.missionTitle
         cell.updateHorizontalInset(inset: horizontalInset)
@@ -65,6 +67,9 @@ extension MissionListView: UICollectionViewDataSource {
                 self?.showMore.toggle()
                 self?.heightConstraintDelegate?.updateMissionListViewHeightConstraints()
             }
+            let numberOfItemsInSection = missionListViewDataSource?.missionListView(numberOfItemsInSection: indexPath.section) ?? 0
+            let hideMoreButton = numberOfItemsInSection <= 3
+            header.setMoreButtonHidden(isHidden: hideMoreButton)
             return header
         default:
             return UICollectionReusableView()
@@ -84,15 +89,20 @@ extension MissionListView {
     }
 }
 
+// MARK: - MissionListViewable
+
 protocol MissionListViewable {
-    var missionNumber: Int { get }
     var missionTitle: String { get }
 }
 
+// MARK: - MissionListViewDataSource
+
 protocol MissionListViewDataSource: AnyObject {
-    func missionListViewNumberOfItems() -> Int
-    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable
+    func missionListView(numberOfItemsInSection section: Int) -> Int
+    func missionListView(dataForItemAt indexPath: IndexPath) -> MissionListViewable?
 }
+
+// MARK: - MissionListViewHeightConstraintDelegate
 
 protocol MissionListViewHeightConstraintDelegate: UIViewController {
     var missionListView: MissionListView { get }

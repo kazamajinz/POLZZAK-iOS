@@ -10,10 +10,16 @@ import UIKit
 final class BottomSheetPresentationController: UIPresentationController {
     private var dimmingView: UIView!
     private let statusBarHeight = UIApplication.shared.statusBarHeight
+    private let initialState: BottomSheetState
+    
+    init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?, initialState: BottomSheetState) {
+        self.initialState = initialState
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+    }
     
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
-        return CGRect(x: 0, y: BottomSheetState.half.position, width: containerView.bounds.width, height: BottomSheetState.half.height)
+        return CGRect(x: 0, y: initialState.position, width: containerView.bounds.width, height: initialState.height)
     }
 
     override func presentationTransitionWillBegin() {
