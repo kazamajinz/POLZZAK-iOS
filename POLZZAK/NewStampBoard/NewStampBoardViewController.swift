@@ -57,7 +57,6 @@ final class NewStampBoardViewController: UIViewController {
         if isLayoutConfigured {
             missionAddView.layoutIfNeeded()
             let missionAddViewHeight = missionAddView.collectionViewLayout.collectionViewContentSize.height
-            print(missionAddViewHeight)
             missionAddViewHeightConstraint?.deactivate()
             missionAddView.snp.makeConstraints { make in
                 missionAddViewHeightConstraint = make.height.equalTo(missionAddViewHeight+Constants.missionAddViewTopInset*2).constraint
