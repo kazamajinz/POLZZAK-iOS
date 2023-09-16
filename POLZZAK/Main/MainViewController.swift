@@ -193,6 +193,7 @@ extension MainViewController {
         addStampBoardButton.tapPublisher
             .sink { [weak self] in
                 let vc = NewStampBoardViewController()
+                vc.modalPresentationStyle = .overFullScreen
                 self?.present(vc, animated: true)
             }
             .store(in: &cancellables)
