@@ -30,7 +30,7 @@ final class NotificationSettingViewController: UIViewController {
     let allSettingSwitch: UISwitch = {
         let customSwitfch = UISwitch()
         customSwitfch.onTintColor = .blue500
-        customSwitfch.addTarget(self, action: #selector(openAppSettings), for: .valueChanged)
+        customSwitfch.addTarget(NotificationSettingViewController.self, action: #selector(openAppSettings), for: .valueChanged)
         return customSwitfch
     }()
     

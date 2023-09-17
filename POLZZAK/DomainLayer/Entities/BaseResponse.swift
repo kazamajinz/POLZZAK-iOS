@@ -13,7 +13,16 @@ struct BaseResponse<T> {
     let data: T?
 }
 
+extension BaseResponse: ResponseDataProtocol {
+    typealias DataType = T
+}
+
 struct EmptyDataResponse {
     let code: Int
     let messages: [String]?
+}
+
+extension EmptyDataResponse: ResponseDataProtocol {
+    typealias DataType = Void
+    var data: Void? { return nil }
 }

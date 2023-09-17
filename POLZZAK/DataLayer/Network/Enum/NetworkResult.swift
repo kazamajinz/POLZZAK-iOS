@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum NetworkResult<Success, Failure> {
+enum NetworkResult<Success, Failure> where Success: ResponseDataProtocol {
     case success(Success?)
     case failure(Failure)
 }

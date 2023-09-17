@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum Either<L, R> {
-    case primaryType(L)
-    case secondaryType(R)
-}
-
 protocol DataRepositoryProtocol {
     associatedtype MapperType: MappableResponse
     var mapper: MapperType { get }

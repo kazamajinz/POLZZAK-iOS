@@ -15,7 +15,7 @@ final class CouponDetailViewModel {
         case failure(Error)
     }
     
-    private let useCase: CouponsUsecase
+    private let useCase: CouponsUseCase
     
     private let couponID: Int
     
@@ -35,7 +35,7 @@ final class CouponDetailViewModel {
     var remainingTimeSubject = PassthroughSubject<String?, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: CouponsUsecase, couponID: Int) {
+    init(useCase: CouponsUseCase, couponID: Int) {
         self.useCase = useCase
         self.couponID = couponID
         
