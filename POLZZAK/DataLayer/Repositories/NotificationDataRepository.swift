@@ -7,8 +7,10 @@
 
 import Foundation
 
-class NotificationDataRepository: NotificationRepository, LinkRequestRepository {
-    private let notificationMapper = NotificationMapper()
+class NotificationDataRepository: DataRepositoryProtocol, NotificationRepository, LinkRequestRepository {
+    typealias MapperType = NotificationMapper
+    let mapper: MapperType = NotificationMapper()
+    
     typealias ServiceType = NotificationService
     var service: ServiceType
     
@@ -28,35 +30,26 @@ class NotificationDataRepository: NotificationRepository, LinkRequestRepository 
         case 200..<300:
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(BaseResponseDTO<NotificationResponseDTO>.self, from: data)
-            let mapData = notificationMapper.mapNotificationResponse(from: decodedData)
+            let mapData = mapper.mapNotificationResponse(from: decodedData)
             return .success(mapData)
+            //TODO: - 서버 알림쪽이 지금 이상함... 해당부분 테스트를 못하는중... 더이상 불러올 데이터가 없으면 아래처럼 뜸... 추상화 고민필요...
         case 400:
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(BaseResponseDTO<EmptyDataResponseDTO>.self, from: data)
-            let mapData = notificationMapper.mapEmptyDataResponse(from: decodedData)
+            let mapData = mapper.mapEmptyDataResponse(from: decodedData)
             if mapData.code == 413 {
                 return .success(BaseResponse<NotificationResponse>(code: mapData.code, messages: mapData.messages, data: nil))
             } else {
-                throw NetworkError.serverError(mapData.code)
+                throw NetworkError.invalidStatusCode(mapData.code)
             }
         default:
-            throw NetworkError.serverError(statusCode)
+            throw NetworkError.invalidStatusCode(statusCode)
         }
     }
     
-    func removeNotification(with notificationID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        let (_, response) = try await service.removeNotification(with: notificationID)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func removeNotification(with notificationID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
+        return try await fetchDataNoContent(
+            using: { try await service.removeNotification(with: notificationID) }
+        )
     }
 }

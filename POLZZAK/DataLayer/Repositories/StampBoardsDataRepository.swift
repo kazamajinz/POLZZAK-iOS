@@ -7,30 +7,21 @@
 
 import Foundation
 
-class StampBoardsDataRepository: StampBoardsRepository {
-    private let stampBoardsService: StampBoardsService
-    private let stampBoardsMapper = StampBoardsMapper()
+class StampBoardsDataRepository: DataRepositoryProtocol, StampBoardsRepository {
+    typealias MapperType = StampBoardsMapper
+    let mapper: MapperType = StampBoardsMapper()
+    
+    private let service: StampBoardsService
     
     init(stampBoardsService: StampBoardsService = StampBoardsService()) {
-        self.stampBoardsService = stampBoardsService
+        self.service = stampBoardsService
     }
     
     func getStampBoardList(for tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError> {
-        let (data, response) = try await stampBoardsService.fetchStampBoardList(for: tabState)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<[StampBoardListDTO]>.self, from: data)
-            let mapData = stampBoardsMapper.mapStampBoardListResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+        return try await fetchData(
+            using: { try await service.fetchStampBoardList(for: tabState) },
+            decodingTo: BaseResponseDTO<[StampBoardListDTO]>.self,
+            map: { mapper.mapStampBoardListResponse(from: $0) }
+        )
     }
 }

@@ -382,7 +382,6 @@ extension CouponListViewController {
 }
 
 extension CouponListViewController: UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         switch viewModel.filterType.value {
         case .all:

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct StampBoardsMapper: MappableResponse {
     func mapStampBoardListResponse(from response: BaseResponseDTO<[StampBoardListDTO]>) -> BaseResponse<[StampBoardList]> {
         return mapBaseResponse(from: response, transform: mapStampBoardList)

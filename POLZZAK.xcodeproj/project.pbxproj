@@ -111,6 +111,8 @@
 		393054402AB433FD00AA02A7 /* UIApplication+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCEF9ED2A1CA2BE009C61E1 /* UIApplication+extension.swift */; };
 		393054422AB4A4C600AA02A7 /* NotLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054412AB4A4C600AA02A7 /* NotLinkCell.swift */; };
 		393054452AB4DDEB00AA02A7 /* MappableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054442AB4DDEB00AA02A7 /* MappableResponse.swift */; };
+		393054472AB57F0E00AA02A7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054462AB57F0E00AA02A7 /* NetworkResult.swift */; };
+		393054492AB5867100AA02A7 /* DataRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -400,6 +402,8 @@
 		3930543A2AB368F600AA02A7 /* Character+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Emoji.swift"; sourceTree = "<group>"; };
 		393054412AB4A4C600AA02A7 /* NotLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLinkCell.swift; sourceTree = "<group>"; };
 		393054442AB4DDEB00AA02A7 /* MappableResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappableResponse.swift; sourceTree = "<group>"; };
+		393054462AB57F0E00AA02A7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepositoryProtocol.swift; sourceTree = "<group>"; };
 		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
@@ -789,12 +793,13 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
-		392B4C132AA0667A00CE0546 /* NetworkError */ = {
+		392B4C132AA0667A00CE0546 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				393054462AB57F0E00AA02A7 /* NetworkResult.swift */,
 				392B4C142AA0677F00CE0546 /* PolzzakError.swift */,
 			);
-			path = NetworkError;
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		392B4C1E2AA4307F00CE0546 /* LinkManagement */ = {
@@ -838,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				393054332AB304AB00AA02A7 /* LinkRequestRepository.swift */,
+				393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1005,7 +1011,7 @@
 		39C573452A9F2F5C00CD6362 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				392B4C132AA0667A00CE0546 /* NetworkError */,
+				392B4C132AA0667A00CE0546 /* Enum */,
 				39C573462A9F326000CD6362 /* Targets */,
 				39C573492A9F37D500CD6362 /* Services */,
 				39C5732E2A9F1DDA00CD6362 /* DTOs */,
@@ -1847,6 +1853,7 @@
 				393053F42AB1178B00AA02A7 /* NotificationService.swift in Sources */,
 				3C74169B2A25E849001A1E50 /* ThreadSafeDictionary.swift in Sources */,
 				DA0919E92A9C674A00A60AB6 /* RegisterModel.swift in Sources */,
+				393054472AB57F0E00AA02A7 /* NetworkResult.swift in Sources */,
 				390165772A7F8B9500A193D7 /* FilterView.swift in Sources */,
 				393053DE2AAC0FBE00AA02A7 /* MessageView.swift in Sources */,
 				3CDF64322A24986F004A87A2 /* Encodable+toDictionary.swift in Sources */,
@@ -1930,6 +1937,7 @@
 				39152B3D2A5AB37500AAFA23 /* SearchBarTextField.swift in Sources */,
 				390165602A7A4F1200A193D7 /* InprogressCouponCell.swift in Sources */,
 				3CF41E4D2A1F834E00914421 /* CompensationView.swift in Sources */,
+				393054492AB5867100AA02A7 /* DataRepositoryProtocol.swift in Sources */,
 				DA383DCE2A69AE8A001F697E /* RegisterTermsViewController.swift in Sources */,
 				DA38E6172A4D821100229282 /* RegisterNicknameViewController.swift in Sources */,
 				3CCEF9EA2A1B9D97009C61E1 /* MoreButton.swift in Sources */,
