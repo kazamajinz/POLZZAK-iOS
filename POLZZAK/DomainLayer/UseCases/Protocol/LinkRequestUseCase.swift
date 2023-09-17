@@ -12,7 +12,7 @@ protocol LinkRequestRepositoryProtocol {
     func rejectLinkRequest(to memberID: Int) async throws -> Result<Void, Error>
 }
 
-protocol LinkRequestManagement {
+protocol LinkRequestManagement: UseCaseProtocol {
     var repository: LinkRequestRepositoryProtocol { get }
 
     func approveReceivedLinkRequest(from memberID: Int) -> Task<Void, Error>

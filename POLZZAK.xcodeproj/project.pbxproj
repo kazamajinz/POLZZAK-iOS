@@ -119,7 +119,8 @@
 		393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054622AB7158E00AA02A7 /* POLZZAKTests.swift */; };
 		393054782AB736E600AA02A7 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 393054772AB736E600AA02A7 /* Nimble */; };
 		3930547B2AB7370200AA02A7 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 3930547A2AB7370200AA02A7 /* Quick */; };
-		3930547E2AB7371500AA02A7 /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = 3930547D2AB7371500AA02A7 /* Cuckoo */; };
+		393054912AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */; };
+		393054A52AB766BC00AA02A7 /* MockStampBoardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -251,7 +252,6 @@
 		DA8532872A795D3C00F0D045 /* ParentTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532862A795D3C00F0D045 /* ParentTypeSelectView.swift */; };
 		DA8532892A79629E00F0D045 /* ParentTypeSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8532882A79629E00F0D045 /* ParentTypeSelectCell.swift */; };
 		DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */; };
-		DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAAFC5A32A5D91E9006393D0 /* CombineCocoa */; };
 		DAB2256E2A894FD400113617 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2256D2A894FD400113617 /* UserAPI.swift */; };
 		DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB2256F2A89515000113617 /* UserInfoTarget.swift */; };
 		DAB225722A8954E200113617 /* UserInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB225712A8954E200113617 /* UserInfoDTO.swift */; };
@@ -407,6 +407,8 @@
 		3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseDataProtocol.swift; sourceTree = "<group>"; };
 		393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		393054622AB7158E00AA02A7 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
+		393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsUseCaseTests.swift; sourceTree = "<group>"; };
+		393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStampBoardsRepository.swift; sourceTree = "<group>"; };
 		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
@@ -588,7 +590,6 @@
 			files = (
 				3930547B2AB7370200AA02A7 /* Quick in Frameworks */,
 				393054782AB736E600AA02A7 /* Nimble in Frameworks */,
-				3930547E2AB7371500AA02A7 /* Cuckoo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,7 +603,6 @@
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
 				DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */,
-				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,8 +877,34 @@
 			isa = PBXGroup;
 			children = (
 				393054622AB7158E00AA02A7 /* POLZZAKTests.swift */,
+				3930547F2AB73B5E00AA02A7 /* DomainTests */,
 			);
 			path = POLZZAKTests;
+			sourceTree = "<group>";
+		};
+		3930547F2AB73B5E00AA02A7 /* DomainTests */ = {
+			isa = PBXGroup;
+			children = (
+				393054812AB73B7F00AA02A7 /* Mocks */,
+				393054802AB73B6A00AA02A7 /* UseCaseTests */,
+			);
+			path = DomainTests;
+			sourceTree = "<group>";
+		};
+		393054802AB73B6A00AA02A7 /* UseCaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */,
+			);
+			path = UseCaseTests;
+			sourceTree = "<group>";
+		};
+		393054812AB73B7F00AA02A7 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		398E586C2A5D936B0055CF37 /* Notification */ = {
@@ -1671,7 +1697,6 @@
 			packageProductDependencies = (
 				393054772AB736E600AA02A7 /* Nimble */,
 				3930547A2AB7370200AA02A7 /* Quick */,
-				3930547D2AB7371500AA02A7 /* Cuckoo */,
 			);
 			productName = POLZZAKTests;
 			productReference = 393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */;
@@ -1695,7 +1720,6 @@
 				3CE4EEFD2A2E3CE5008B27AE /* KakaoSDKAuth */,
 				3CE4EEFF2A2E3CE5008B27AE /* KakaoSDKCommon */,
 				3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */,
-				DAAFC5A32A5D91E9006393D0 /* CombineCocoa */,
 				DA5927D62A9F7D4700836126 /* PanModal */,
 				DA6589332AAF7F1500746D5A /* FSCalendar */,
 			);
@@ -1740,7 +1764,6 @@
 				DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */,
 				393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */,
-				3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -1782,6 +1805,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				393054A52AB766BC00AA02A7 /* MockStampBoardsRepository.swift in Sources */,
+				393054912AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift in Sources */,
 				393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2088,7 +2113,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2W776SPR4X;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = CB95NTZJ5Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
@@ -2098,6 +2123,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_POLZZAK;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "$(SRCROOT)/.build/checkouts/Runtime/Sources";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
@@ -2117,6 +2143,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Pane.POLZZAKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "$(SRCROOT)/.build/checkouts/Runtime/Sources";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
@@ -2366,14 +2393,6 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Brightify/Cuckoo.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -2427,11 +2446,6 @@
 			package = 393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */;
 			productName = Quick;
 		};
-		3930547D2AB7371500AA02A7 /* Cuckoo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */;
-			productName = Cuckoo;
-		};
 		3C4515F42A0BF40200C9BA4F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -2461,11 +2475,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
-		};
-		DAAFC5A32A5D91E9006393D0 /* CombineCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
-			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
