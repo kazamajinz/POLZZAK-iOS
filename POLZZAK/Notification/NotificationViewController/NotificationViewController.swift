@@ -15,6 +15,9 @@ final class NotificationViewController: UIViewController {
         static let initialContentOffsetY = 16.0
     }
     
+    private var lastContentOffset: CGFloat = 0
+    private var isScrollingUp: Bool = false
+    
     private var toast: Toast?
     
     private let viewModel = NotificationViewModel(useCase: DefaultNotificationUseCase(repository: NotificationDataRepository()))
@@ -308,15 +311,20 @@ extension NotificationViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         viewModel.didEndDraggingSubject.send()
+        
+        if decelerate && scrollView.contentOffset.y > lastContentOffset {
+            checkIfReachedBottom(scrollView)
+        }
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    private func checkIfReachedBottom(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
-        
+
         if offsetY >= contentHeight - frameHeight + 50 {
-            viewModel.rechedBottomSubject.send(true)
+            if viewModel.rechedBottomSubject.value == false {
+                viewModel.rechedBottomSubject.send(true)
+            }
         }
     }
 }

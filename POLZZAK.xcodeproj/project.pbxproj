@@ -113,6 +113,8 @@
 		393054452AB4DDEB00AA02A7 /* MappableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054442AB4DDEB00AA02A7 /* MappableResponse.swift */; };
 		393054472AB57F0E00AA02A7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054462AB57F0E00AA02A7 /* NetworkResult.swift */; };
 		393054492AB5867100AA02A7 /* DataRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */; };
+		3930544B2AB6B4D700AA02A7 /* UseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */; };
+		3930544D2AB6B89A00AA02A7 /* ReponseDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -404,6 +406,8 @@
 		393054442AB4DDEB00AA02A7 /* MappableResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappableResponse.swift; sourceTree = "<group>"; };
 		393054462AB57F0E00AA02A7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProtocol.swift; sourceTree = "<group>"; };
+		3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseDataProtocol.swift; sourceTree = "<group>"; };
 		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
@@ -797,6 +801,7 @@
 			isa = PBXGroup;
 			children = (
 				393054462AB57F0E00AA02A7 /* NetworkResult.swift */,
+				3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */,
 				392B4C142AA0677F00CE0546 /* PolzzakError.swift */,
 			);
 			path = Enum;
@@ -851,6 +856,7 @@
 		393054352AB32DE500AA02A7 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */,
 				393054362AB32E1300AA02A7 /* LinkRequestUseCase.swift */,
 			);
 			path = Protocol;
@@ -1882,6 +1888,7 @@
 				393054022AB1343400AA02A7 /* NotificationStatus.swift in Sources */,
 				39C5734B2A9F37EC00CD6362 /* LinkManagementService.swift in Sources */,
 				DAC36B932A344A5F00BE5C8D /* TokenInterceptor.swift in Sources */,
+				3930544D2AB6B89A00AA02A7 /* ReponseDataProtocol.swift in Sources */,
 				3CE4EF062A2E454B008B27AE /* Constants.swift in Sources */,
 				DAB225702A89515000113617 /* UserInfoTarget.swift in Sources */,
 				DABEC1B32A382B4300EAD8CA /* AccessTokenDTO.swift in Sources */,
@@ -2019,6 +2026,7 @@
 				3901784E2A949688001D0E90 /* TabConstants.swift in Sources */,
 				3900FB112A409025009EAC52 /* UserType.swift in Sources */,
 				39D7249E2A97781800D5409D /* MainViewModel.swift in Sources */,
+				3930544B2AB6B4D700AA02A7 /* UseCaseProtocol.swift in Sources */,
 				399E51452AA8DBA200F4A6C3 /* StampBoardsRepository.swift in Sources */,
 				3901655E2A7A142D00A193D7 /* CouponFooterView.swift in Sources */,
 				DACA49662AB4CEF900A2FB77 /* MissionAddView.swift in Sources */,

@@ -326,7 +326,6 @@ extension NotificationTableViewCell {
         
         completionImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.height.equalTo(20)
         }
         
         completionLabel.snp.makeConstraints {

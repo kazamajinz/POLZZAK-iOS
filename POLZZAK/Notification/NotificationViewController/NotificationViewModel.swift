@@ -31,18 +31,19 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     }
     
     private func setupBottomRefreshBindings() {
-        didEndDraggingSubject.combineLatest(rechedBottomSubject)
-            .filter { _, rechedBottom in
+        rechedBottomSubject.combineLatest(didEndDraggingSubject)
+            .map { rechedBottom, _ -> Bool in
                 return rechedBottom
             }
-            .filter { [weak self] _, _ in
+            .filter { $0 }
+            .filter { [weak self] _ in
                 return false == self?.isCenterLoading.value
             }
-            .filter { [weak self] _, _ in
+            .filter { [weak self] _ in
                 guard let self else { return false }
                 return self.notificationList.count >= 10
             }
-            .sink { [weak self] _, _ in
+            .sink { [weak self] _ in
                 self?.fetchNotificationList(for: true)
             }
             .store(in: &cancellables)
@@ -83,10 +84,14 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
                     saveStartID = result.startID
                     notificationList = result.notificationList ?? []
                 } else {
-                    var currentList = notificationList
-                    currentList.append(contentsOf: result.notificationList ?? [])
-                    notificationList = currentList
-                    saveStartID = result.startID
+                    if saveStartID == nil {
+                        notificationList = result.notificationList ?? []
+                    } else {
+                        var currentList = notificationList
+                        currentList.append(contentsOf: result.notificationList ?? [])
+                        notificationList = currentList
+                        saveStartID = result.startID
+                    }
                 }
             } catch {
                 handleError(error)

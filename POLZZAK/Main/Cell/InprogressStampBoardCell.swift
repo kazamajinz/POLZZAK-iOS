@@ -150,11 +150,11 @@ extension InprogressStampBoardCell {
             
             //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
             let userInfo = UserInfoManager.readUserInfo()
-            gradationView.type = userInfo?.memberType.detail == "아이" ? .rewarded : .completed
+            gradationView.type = userInfo?.memberType.detail == "아이" ? .request : .completed
         case .issuedCoupon:
             stampProgressStatusView.isHidden = true
             stampCompletedStatusView.isHidden = false
-            gradationView.type = .request
+            gradationView.type = .issuedCoupon
         default:
             return
         }
