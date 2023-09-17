@@ -116,6 +116,10 @@
 		3930544B2AB6B4D700AA02A7 /* UseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */; };
 		3930544D2AB6B89A00AA02A7 /* ReponseDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */; };
 		3930544E2AB7080D00AA02A7 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E586D2A5D93790055CF37 /* NotificationViewController.swift */; };
+		393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054622AB7158E00AA02A7 /* POLZZAKTests.swift */; };
+		393054782AB736E600AA02A7 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 393054772AB736E600AA02A7 /* Nimble */; };
+		3930547B2AB7370200AA02A7 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 3930547A2AB7370200AA02A7 /* Quick */; };
+		3930547E2AB7371500AA02A7 /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = 3930547D2AB7371500AA02A7 /* Cuckoo */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
@@ -285,17 +289,10 @@
 		DACA496A2AB4D20E00A2FB77 /* MissonAddTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA49692AB4D20E00A2FB77 /* MissonAddTextFieldCell.swift */; };
 		DACA496C2AB4D33D00A2FB77 /* MissonAddButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA496B2AB4D33D00A2FB77 /* MissonAddButtonCell.swift */; };
 		DACA496E2AB4DB1200A2FB77 /* MissionExampleButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA496D2AB4DB1200A2FB77 /* MissionExampleButtonCell.swift */; };
-		DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD960892AA90910009A7557 /* POLZZAKTests.swift */; };
-		DAD960922AA909D0009A7557 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960912AA909D0009A7557 /* SnapKit */; settings = {ATTRIBUTES = (Required, ); }; };
-		DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960932AA909DF009A7557 /* CombineCocoa */; };
-		DAD960962AA909E2009A7557 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960952AA909E2009A7557 /* PanModal */; };
-		DAD960982AA909FD009A7557 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960972AA909FD009A7557 /* KakaoSDKAuth */; };
-		DAD9609A2AA909FD009A7557 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = DAD960992AA909FD009A7557 /* KakaoSDKCommon */; };
-		DAD9609C2AA909FD009A7557 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = DAD9609B2AA909FD009A7557 /* KakaoSDKUser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DAD9608B2AA90910009A7557 /* PBXContainerItemProxy */ = {
+		393054642AB7158E00AA02A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3C4515D42A0BF2F900C9BA4F /* Project object */;
 			proxyType = 1;
@@ -408,6 +405,8 @@
 		393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepositoryProtocol.swift; sourceTree = "<group>"; };
 		3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProtocol.swift; sourceTree = "<group>"; };
 		3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseDataProtocol.swift; sourceTree = "<group>"; };
+		393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		393054622AB7158E00AA02A7 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
 		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
@@ -580,11 +579,19 @@
 		DACA49692AB4D20E00A2FB77 /* MissonAddTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissonAddTextFieldCell.swift; sourceTree = "<group>"; };
 		DACA496B2AB4D33D00A2FB77 /* MissonAddButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissonAddButtonCell.swift; sourceTree = "<group>"; };
 		DACA496D2AB4DB1200A2FB77 /* MissionExampleButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionExampleButtonCell.swift; sourceTree = "<group>"; };
-		DAD960872AA90910009A7557 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAD960892AA90910009A7557 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3930545D2AB7158E00AA02A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3930547B2AB7370200AA02A7 /* Quick in Frameworks */,
+				393054782AB736E600AA02A7 /* Nimble in Frameworks */,
+				3930547E2AB7371500AA02A7 /* Cuckoo in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3C4515D92A0BF2F900C9BA4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -596,19 +603,6 @@
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
 				DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */,
 				DAAFC5A42A5D91E9006393D0 /* CombineCocoa in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DAD960842AA90910009A7557 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAD960942AA909DF009A7557 /* CombineCocoa in Frameworks */,
-				DAD960922AA909D0009A7557 /* SnapKit in Frameworks */,
-				DAD9609C2AA909FD009A7557 /* KakaoSDKUser in Frameworks */,
-				DAD960962AA909E2009A7557 /* PanModal in Frameworks */,
-				DAD9609A2AA909FD009A7557 /* KakaoSDKCommon in Frameworks */,
-				DAD960982AA909FD009A7557 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +871,14 @@
 				393054442AB4DDEB00AA02A7 /* MappableResponse.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		393054612AB7158E00AA02A7 /* POLZZAKTests */ = {
+			isa = PBXGroup;
+			children = (
+				393054622AB7158E00AA02A7 /* POLZZAKTests.swift */,
+			);
+			path = POLZZAKTests;
 			sourceTree = "<group>";
 		};
 		398E586C2A5D936B0055CF37 /* Notification */ = {
@@ -1235,7 +1237,7 @@
 			isa = PBXGroup;
 			children = (
 				3C4515DE2A0BF2F900C9BA4F /* POLZZAK */,
-				DAD960882AA90910009A7557 /* POLZZAKTests */,
+				393054612AB7158E00AA02A7 /* POLZZAKTests */,
 				3C4515DD2A0BF2F900C9BA4F /* Products */,
 				DAD960902AA909D0009A7557 /* Frameworks */,
 			);
@@ -1245,7 +1247,7 @@
 			isa = PBXGroup;
 			children = (
 				3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */,
-				DAD960872AA90910009A7557 /* POLZZAKTests.xctest */,
+				393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1642,14 +1644,6 @@
 			path = MissonAdd;
 			sourceTree = "<group>";
 		};
-		DAD960882AA90910009A7557 /* POLZZAKTests */ = {
-			isa = PBXGroup;
-			children = (
-				DAD960892AA90910009A7557 /* POLZZAKTests.swift */,
-			);
-			path = POLZZAKTests;
-			sourceTree = "<group>";
-		};
 		DAD960902AA909D0009A7557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1660,6 +1654,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3930545F2AB7158E00AA02A7 /* POLZZAKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 393054662AB7158E00AA02A7 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */;
+			buildPhases = (
+				3930545C2AB7158E00AA02A7 /* Sources */,
+				3930545D2AB7158E00AA02A7 /* Frameworks */,
+				3930545E2AB7158E00AA02A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				393054652AB7158E00AA02A7 /* PBXTargetDependency */,
+			);
+			name = POLZZAKTests;
+			packageProductDependencies = (
+				393054772AB736E600AA02A7 /* Nimble */,
+				3930547A2AB7370200AA02A7 /* Quick */,
+				3930547D2AB7371500AA02A7 /* Cuckoo */,
+			);
+			productName = POLZZAKTests;
+			productReference = 393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3C4515DB2A0BF2F900C9BA4F /* POLZZAK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C4515F02A0BF2FB00C9BA4F /* Build configuration list for PBXNativeTarget "POLZZAK" */;
@@ -1686,32 +1703,6 @@
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DAD960862AA90910009A7557 /* POLZZAKTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DAD9608D2AA90910009A7557 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */;
-			buildPhases = (
-				DAD960832AA90910009A7557 /* Sources */,
-				DAD960842AA90910009A7557 /* Frameworks */,
-				DAD960852AA90910009A7557 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DAD9608C2AA90910009A7557 /* PBXTargetDependency */,
-			);
-			name = POLZZAKTests;
-			packageProductDependencies = (
-				DAD960912AA909D0009A7557 /* SnapKit */,
-				DAD960932AA909DF009A7557 /* CombineCocoa */,
-				DAD960952AA909E2009A7557 /* PanModal */,
-				DAD960972AA909FD009A7557 /* KakaoSDKAuth */,
-				DAD960992AA909FD009A7557 /* KakaoSDKCommon */,
-				DAD9609B2AA909FD009A7557 /* KakaoSDKUser */,
-			);
-			productName = POLZZAKTests;
-			productReference = DAD960872AA90910009A7557 /* POLZZAKTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1722,12 +1713,12 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					3930545F2AB7158E00AA02A7 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 3C4515DB2A0BF2F900C9BA4F;
+					};
 					3C4515DB2A0BF2F900C9BA4F = {
 						CreatedOnToolsVersion = 14.3;
-					};
-					DAD960862AA90910009A7557 = {
-						CreatedOnToolsVersion = 14.3.1;
-						TestTargetID = 3C4515DB2A0BF2F900C9BA4F;
 					};
 				};
 			};
@@ -1747,18 +1738,28 @@
 				DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */,
 				DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */,
+				393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */,
+				3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3C4515DB2A0BF2F900C9BA4F /* POLZZAK */,
-				DAD960862AA90910009A7557 /* POLZZAKTests */,
+				3930545F2AB7158E00AA02A7 /* POLZZAKTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3930545E2AB7158E00AA02A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3C4515DA2A0BF2F900C9BA4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1774,16 +1775,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAD960852AA90910009A7557 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3930545C2AB7158E00AA02A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3C4515D82A0BF2F900C9BA4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2054,21 +2056,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DAD960832AA90910009A7557 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAD9608A2AA90910009A7557 /* POLZZAKTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DAD9608C2AA90910009A7557 /* PBXTargetDependency */ = {
+		393054652AB7158E00AA02A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3C4515DB2A0BF2F900C9BA4F /* POLZZAK */;
-			targetProxy = DAD9608B2AA90910009A7557 /* PBXContainerItemProxy */;
+			targetProxy = 393054642AB7158E00AA02A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2085,6 +2079,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		393054672AB7158E00AA02A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2W776SPR4X;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_POLZZAK;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
+			};
+			name = Debug;
+		};
+		393054682AB7158E00AA02A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CB95NTZJ5Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pane.POLZZAKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
+			};
+			name = Release;
+		};
 		3C4515EE2A0BF2FB00C9BA4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2279,51 +2317,18 @@
 			};
 			name = Release;
 		};
-		DAD9608E2AA90910009A7557 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
-			};
-			name = Debug;
-		};
-		DAD9608F2AA90910009A7557 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.z3rosmith.POLZZAKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/POLZZAK.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/POLZZAK";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		393054662AB7158E00AA02A7 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				393054672AB7158E00AA02A7 /* Debug */,
+				393054682AB7158E00AA02A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3C4515D72A0BF2F900C9BA4F /* Build configuration list for PBXProject "POLZZAK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2342,18 +2347,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAD9608D2AA90910009A7557 /* Build configuration list for PBXNativeTarget "POLZZAKTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DAD9608E2AA90910009A7557 /* Debug */,
-				DAD9608F2AA90910009A7557 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+		393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Brightify/Cuckoo.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -2397,6 +2417,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		393054772AB736E600AA02A7 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		3930547A2AB7370200AA02A7 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		3930547D2AB7371500AA02A7 /* Cuckoo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3930547C2AB7371500AA02A7 /* XCRemoteSwiftPackageReference "Cuckoo" */;
+			productName = Cuckoo;
+		};
 		3C4515F42A0BF40200C9BA4F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -2431,36 +2466,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
-		};
-		DAD960912AA909D0009A7557 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		DAD960932AA909DF009A7557 /* CombineCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
-			productName = CombineCocoa;
-		};
-		DAD960952AA909E2009A7557 /* PanModal */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */;
-			productName = PanModal;
-		};
-		DAD960972AA909FD009A7557 /* KakaoSDKAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKAuth;
-		};
-		DAD960992AA909FD009A7557 /* KakaoSDKCommon */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKCommon;
-		};
-		DAD9609B2AA909FD009A7557 /* KakaoSDKUser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3CE4EEFC2A2E3CE5008B27AE /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDKUser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
