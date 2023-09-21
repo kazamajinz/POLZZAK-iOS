@@ -196,7 +196,6 @@
 		39D724AD2A9779BE00D5409D /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724AC2A9779BE00D5409D /* FilterType.swift */; };
 		39D724B62A97B64900D5409D /* BaseFilterSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */; };
 		39F0BDD02AB9B94300420BB2 /* ErrorHandlingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDCF2AB9B94300420BB2 /* ErrorHandlingProtocol.swift */; };
-		39F0BDDD2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */; };
 		39F0BDDF2AB9F9D200420BB2 /* CouponList_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39F0BDDE2AB9F9D200420BB2 /* CouponList_200_Sample.json */; };
 		39F0BDE92ABAA30D00420BB2 /* StampBoardsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDE82ABAA30D00420BB2 /* StampBoardsServiceTests.swift */; };
 		39F0BDEC2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */; };
@@ -505,7 +504,6 @@
 		39D724AC2A9779BE00D5409D /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilterSkeletonView.swift; sourceTree = "<group>"; };
 		39F0BDCF2AB9B94300420BB2 /* ErrorHandlingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlingProtocol.swift; sourceTree = "<group>"; };
-		39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStampBoardsMapper.swift; sourceTree = "<group>"; };
 		39F0BDDE2AB9F9D200420BB2 /* CouponList_200_Sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CouponList_200_Sample.json; sourceTree = "<group>"; };
 		39F0BDE82ABAA30D00420BB2 /* StampBoardsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsServiceTests.swift; sourceTree = "<group>"; };
 		39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkServiceProvider.swift; sourceTree = "<group>"; };
@@ -928,7 +926,6 @@
 			children = (
 				39F0BDD32AB9DE5100420BB2 /* SampleDatas */,
 				39F0BDEA2ABAA37E00420BB2 /* Services */,
-				39F0BDDB2AB9F37900420BB2 /* Mappers */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1243,14 +1240,6 @@
 				39AB8AC62ABC07B200BC4CF2 /* TestDataFactory.swift */,
 			);
 			path = Util;
-			sourceTree = "<group>";
-		};
-		39F0BDDB2AB9F37900420BB2 /* Mappers */ = {
-			isa = PBXGroup;
-			children = (
-				39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */,
-			);
-			path = Mappers;
 			sourceTree = "<group>";
 		};
 		39F0BDE02ABAA16100420BB2 /* DataLayerTests */ = {
@@ -1922,7 +1911,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nPROJECT_DIR=\"/Users/pane/Desktop/Pane_Desktop/SideProject/POLZZAK/POLZZAK-iOS\"\nPROJECT_NAME=\"POLZZAK\"\nRUN_SCRIPT=\"${PROJECT_DIR}/run generate --testable ${PROJECT_NAME}\"\n\n# Directories\nREPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Repositories\"\nMAPPER_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Mappers\"\nBASIC_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/Network/NetworkService\"\nSERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Services\"\n\n# Directories Mocks\nMOCK_REPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Repositories\"\nMOCK_MAPPER_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Mappers\"\nMOCK_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Services\"\n\ngenerate_mock() {\n    INPUT=\"$1\"\n    OUTPUT=\"$2\"\n    ${RUN_SCRIPT} --output \"$OUTPUT\" \"$INPUT\"\n}\n\n# Repository Mocks\ngenerate_mock \"${REPOSITORY_DIR}/StampBoardsRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockStampBoardsRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/LinkManagementRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockLinkManagementRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/CouponRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockCouponRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/NotificationRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockNotificationRepository.swift\"\n\n# Mapper Mocks\ngenerate_mock \"${MAPPER_DIR}/StampBoardsMapper.swift\" \"${MOCK_MAPPER_DIR}/MockStampBoardsMapper.swift\"\n\n# Services Mocks\ngenerate_mock \"${BASIC_SERVICE_DIR}/NetworkService.swift\" \"${MOCK_SERVICE_DIR}/MockNetworkServiceProvider.swift\"\ngenerate_mock \"${SERVICE_DIR}/StampBoardsService.swift\" \"${MOCK_SERVICE_DIR}/MockStampBoardsService.swift\"\ngenerate_mock \"${SERVICE_DIR}/LinkManagementService.swift\" \"${MOCK_SERVICE_DIR}/MockLinkManagementService.swift\"\ngenerate_mock \"${SERVICE_DIR}/CouponService.swift\" \"${MOCK_SERVICE_DIR}/MockCouponService.swift\"\ngenerate_mock \"${SERVICE_DIR}/NotificationService.swift\" \"${MOCK_SERVICE_DIR}/MockNotificationService.swift\"\n";
+			shellScript = "#!/bin/sh\n\nPROJECT_DIR=\"/Users/pane/Desktop/Pane_Desktop/SideProject/POLZZAK/POLZZAK-iOS\"\nPROJECT_NAME=\"POLZZAK\"\nRUN_SCRIPT=\"${PROJECT_DIR}/run generate --testable ${PROJECT_NAME}\"\n\n# Directories\nREPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Repositories\"\nMAPPER_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Mappers\"\nBASIC_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/Network/NetworkService\"\nSERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Services\"\n\n# Directories Mocks\nMOCK_REPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Repositories\"\nMOCK_MAPPER_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Mappers\"\nMOCK_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Services\"\n\ngenerate_mock() {\n    INPUT=\"$1\"\n    OUTPUT=\"$2\"\n    ${RUN_SCRIPT} --output \"$OUTPUT\" \"$INPUT\"\n}\n\n# Repository Mocks\ngenerate_mock \"${REPOSITORY_DIR}/StampBoardsRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockStampBoardsRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/LinkManagementRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockLinkManagementRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/CouponRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockCouponRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/NotificationRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockNotificationRepository.swift\"\n\n# Services Mocks\ngenerate_mock \"${BASIC_SERVICE_DIR}/NetworkService.swift\" \"${MOCK_SERVICE_DIR}/MockNetworkServiceProvider.swift\"\ngenerate_mock \"${SERVICE_DIR}/StampBoardsService.swift\" \"${MOCK_SERVICE_DIR}/MockStampBoardsService.swift\"\ngenerate_mock \"${SERVICE_DIR}/LinkManagementService.swift\" \"${MOCK_SERVICE_DIR}/MockLinkManagementService.swift\"\ngenerate_mock \"${SERVICE_DIR}/CouponService.swift\" \"${MOCK_SERVICE_DIR}/MockCouponService.swift\"\ngenerate_mock \"${SERVICE_DIR}/NotificationService.swift\" \"${MOCK_SERVICE_DIR}/MockNotificationService.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1945,7 +1934,6 @@
 				39CC37E52ABBF5F7004DE176 /* NotificationMapperTests.swift in Sources */,
 				39F0BDEC2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift in Sources */,
 				39F0BDE92ABAA30D00420BB2 /* StampBoardsServiceTests.swift in Sources */,
-				39F0BDDD2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift in Sources */,
 				39AB8AC92ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift in Sources */,
 				39CC37DA2ABBD3E2004DE176 /* StampBoardsMapperTests.swift in Sources */,
 				39AB8ABE2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift in Sources */,
