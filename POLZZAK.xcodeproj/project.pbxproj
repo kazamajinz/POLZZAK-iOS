@@ -922,7 +922,7 @@
 			isa = PBXGroup;
 			children = (
 				39F0BDD32AB9DE5100420BB2 /* SampleDatas */,
-				39F0BDEA2ABAA37E00420BB2 /* Services */,
+				39F0BDEA2ABAA37E00420BB2 /* MockServices */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -997,6 +997,22 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		39AB8AD72ABD0CFD00BC4CF2 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */,
+				397366CE2A114439007D998F /* TabBarController.swift */,
+				DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */,
+				DAA6D03C2A4B15B000101DCE /* Login */,
+				3CD5F8A32A2DC905003E4A67 /* Common */,
+				3CD5F8A02A2DBDD9003E4A67 /* Utils */,
+				3C0793452A0E628800087F73 /* Main */,
+				3901654E2A73860C00A193D7 /* Coupon */,
+				398E586C2A5D936B0055CF37 /* Notification */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		39C572FA2A9AFBD700CD6362 /* TabFilter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1029,6 +1045,11 @@
 		39C5732E2A9F1DDA00CD6362 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
+				DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */,
+				DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */,
+				DAB225712A8954E200113617 /* UserInfoDTO.swift */,
+				DA0919E62A9BBCC200A60AB6 /* MemberTypeDetailListDTO.swift */,
 				39C5732F2A9F1DEB00CD6362 /* StampBoard */,
 				39C5734C2A9F383C00CD6362 /* LinkManagement */,
 				39C573342A9F1E2200CD6362 /* Coupon */,
@@ -1095,6 +1116,9 @@
 		39C573452A9F2F5C00CD6362 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3CD5F8A62A2DF104003E4A67 /* Common */,
+				3CD51CA82A24B98C00936872 /* NetworkService */,
+				DAC36B982A34C3C200BE5C8D /* API */,
 				392B4C132AA0667A00CE0546 /* Enum */,
 				39C573462A9F326000CD6362 /* Targets */,
 				39C573492A9F37D500CD6362 /* Services */,
@@ -1107,6 +1131,12 @@
 		39C573462A9F326000CD6362 /* Targets */ = {
 			isa = PBXGroup;
 			children = (
+				3CD5F8A92A2DF5FB003E4A67 /* LoginTarget.swift */,
+				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
+				DAB2256F2A89515000113617 /* UserInfoTarget.swift */,
+				DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */,
+				DA0919E02A9A169E00A60AB6 /* NicknameTarget.swift */,
+				DA0919E22A9B16DE00A60AB6 /* MemberTypeTarget.swift */,
 				399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */,
 				39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */,
 				3993C76C2AA9F95900B328B2 /* CouponTargets.swift */,
@@ -1260,7 +1290,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		39F0BDEA2ABAA37E00420BB2 /* Services */ = {
+		39F0BDEA2ABAA37E00420BB2 /* MockServices */ = {
 			isa = PBXGroup;
 			children = (
 				39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */,
@@ -1269,7 +1299,7 @@
 				39AB8ACC2ABC293500BC4CF2 /* MockCouponService.swift */,
 				39AB8ACD2ABC293500BC4CF2 /* MockNotificationService.swift */,
 			);
-			path = Services;
+			path = MockServices;
 			sourceTree = "<group>";
 		};
 		3C0793452A0E628800087F73 /* Main */ = {
@@ -1280,7 +1310,9 @@
 				39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */,
 				39D724A72A97797A00D5409D /* StampBoardSkeletonView.swift */,
 				39D539DB2A1654680087B2BD /* Cell */,
+				DACA495A2AB48F7900A2FB77 /* NewStampBoard */,
 				3900FA912A32044D009EAC52 /* LinkManagement */,
+				3C0793462A0E629000087F73 /* StampBoard */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1367,54 +1399,16 @@
 				DA11FEAB2A4190A5005A469D /* POLZZAK.entitlements */,
 				3C4515DF2A0BF2F900C9BA4F /* AppDelegate.swift */,
 				3C4515E12A0BF2F900C9BA4F /* SceneDelegate.swift */,
-				3C4515E32A0BF2F900C9BA4F /* AppFlowController.swift */,
-				397366CE2A114439007D998F /* TabBarController.swift */,
-				DAB2257A2A8E4B2400113617 /* InitialLoadingViewController.swift */,
-				DAA6D03C2A4B15B000101DCE /* Login */,
-				DA11FEAE2A41F27F005A469D /* SocialLoginManager */,
-				3CF28D842A2E4A28000B0A91 /* KakaoAPI */,
-				3CD5F8A32A2DC905003E4A67 /* Common */,
-				3CD5F8A02A2DBDD9003E4A67 /* Utils */,
-				3CDF64242A249238004A87A2 /* Network */,
-				3C0793452A0E628800087F73 /* Main */,
-				3901654E2A73860C00A193D7 /* Coupon */,
-				398E586C2A5D936B0055CF37 /* Notification */,
-				DACA495A2AB48F7900A2FB77 /* NewStampBoard */,
-				3C0793462A0E629000087F73 /* StampBoard */,
+				39AB8AD72ABD0CFD00BC4CF2 /* Presentation */,
+				39D539D12A15F4CB0087B2BD /* DataLayer */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
 				3900FAD82A39FE30009EAC52 /* Enum */,
-				39D539D12A15F4CB0087B2BD /* DataLayer */,
 				3CFB472A2A0FEA1300B03FFD /* Fonts */,
 				3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */,
 				DAB225772A8E3B4500113617 /* LaunchScreen */,
 				3C4515ED2A0BF2FB00C9BA4F /* Info.plist */,
 			);
 			path = POLZZAK;
-			sourceTree = "<group>";
-		};
-		3C6E25AA2A2CA26C0091A929 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				3C74169F2A25EF96001A1E50 /* BaseResponseDTO.swift */,
-				DABEC1B22A382B4300EAD8CA /* AccessTokenDTO.swift */,
-				DABEC1B42A382D1800EAD8CA /* NeedRegisterDTO.swift */,
-				DAB225712A8954E200113617 /* UserInfoDTO.swift */,
-				DA0919E62A9BBCC200A60AB6 /* MemberTypeDetailListDTO.swift */,
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
-		3C74169C2A25ED1F001A1E50 /* Target */ = {
-			isa = PBXGroup;
-			children = (
-				3CD5F8A92A2DF5FB003E4A67 /* LoginTarget.swift */,
-				DA11FEA52A4033D3005A469D /* RegisterTarget.swift */,
-				DAB2256F2A89515000113617 /* UserInfoTarget.swift */,
-				DAB2257E2A8F471700113617 /* MemberPointsTarget.swift */,
-				DA0919E02A9A169E00A60AB6 /* NicknameTarget.swift */,
-				DA0919E22A9B16DE00A60AB6 /* MemberTypeTarget.swift */,
-			);
-			path = Target;
 			sourceTree = "<group>";
 		};
 		3CCEF9EF2A1CA8F9009C61E1 /* Stamp */ = {
@@ -1480,18 +1474,6 @@
 				3CDF64312A24986F004A87A2 /* Encodable+toDictionary.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		3CDF64242A249238004A87A2 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				3CD5F8A62A2DF104003E4A67 /* Common */,
-				3CD51CA82A24B98C00936872 /* NetworkService */,
-				DAC36B982A34C3C200BE5C8D /* API */,
-				3C74169C2A25ED1F001A1E50 /* Target */,
-				3C6E25AA2A2CA26C0091A929 /* DTO */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		3CF28D842A2E4A28000B0A91 /* KakaoAPI */ = {
@@ -1647,6 +1629,7 @@
 		DAA6D03C2A4B15B000101DCE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				DA11FEAE2A41F27F005A469D /* SocialLoginManager */,
 				DAA6D03D2A4B15FE00101DCE /* LoginViewController.swift */,
 				DA0C0C1F2A80C5580021714D /* LoginViewModel.swift */,
 				DA38E6122A4D80E000229282 /* LoginUserType.swift */,
@@ -1708,6 +1691,7 @@
 		DAC36B982A34C3C200BE5C8D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				3CF28D842A2E4A28000B0A91 /* KakaoAPI */,
 				DAC36B992A34C3E100BE5C8D /* AuthAPI.swift */,
 				DAB2256D2A894FD400113617 /* UserAPI.swift */,
 				DA0919E42A9B174100A60AB6 /* MemberTypeAPI.swift */,
@@ -1908,7 +1892,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nPROJECT_DIR=\"/Users/pane/Desktop/Pane_Desktop/SideProject/POLZZAK/POLZZAK-iOS\"\nPROJECT_NAME=\"POLZZAK\"\nRUN_SCRIPT=\"${PROJECT_DIR}/run generate --testable ${PROJECT_NAME}\"\n\n# Directories\nREPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Repositories\"\nMAPPER_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Mappers\"\nBASIC_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/Network/NetworkService\"\nSERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Services\"\n\n# Directories Mocks\nMOCK_REPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Repositories\"\nMOCK_MAPPER_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Mappers\"\nMOCK_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Services\"\n\ngenerate_mock() {\n    INPUT=\"$1\"\n    OUTPUT=\"$2\"\n    ${RUN_SCRIPT} --output \"$OUTPUT\" \"$INPUT\"\n}\n\n# Repository Mocks\ngenerate_mock \"${REPOSITORY_DIR}/StampBoardsRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockStampBoardsRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/LinkManagementRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockLinkManagementRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/CouponRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockCouponRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/NotificationRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockNotificationRepository.swift\"\n\n# Services Mocks\ngenerate_mock \"${BASIC_SERVICE_DIR}/NetworkService.swift\" \"${MOCK_SERVICE_DIR}/MockNetworkServiceProvider.swift\"\ngenerate_mock \"${SERVICE_DIR}/StampBoardsService.swift\" \"${MOCK_SERVICE_DIR}/MockStampBoardsService.swift\"\ngenerate_mock \"${SERVICE_DIR}/LinkManagementService.swift\" \"${MOCK_SERVICE_DIR}/MockLinkManagementService.swift\"\ngenerate_mock \"${SERVICE_DIR}/CouponService.swift\" \"${MOCK_SERVICE_DIR}/MockCouponService.swift\"\ngenerate_mock \"${SERVICE_DIR}/NotificationService.swift\" \"${MOCK_SERVICE_DIR}/MockNotificationService.swift\"\n";
+			shellScript = "#!/bin/sh\n\nPROJECT_DIR=\"/Users/pane/Desktop/Pane_Desktop/SideProject/POLZZAK/POLZZAK-iOS\"\nPROJECT_NAME=\"POLZZAK\"\nRUN_SCRIPT=\"${PROJECT_DIR}/run generate --testable ${PROJECT_NAME}\"\n\n# Directories\nREPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Repositories\"\nMAPPER_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Mappers\"\nBASIC_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/Network/NetworkService\"\nSERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Services\"\n\n# Directories Mocks\nMOCK_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Services\"\n\ngenerate_mock() {\n    INPUT=\"$1\"\n    OUTPUT=\"$2\"\n    ${RUN_SCRIPT} --output \"$OUTPUT\" \"$INPUT\"\n}\n\n# Repository Mocks\ngenerate_mock \"${REPOSITORY_DIR}/StampBoardsRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockStampBoardsRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/LinkManagementRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockLinkManagementRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/CouponRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockCouponRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/NotificationRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockNotificationRepository.swift\"\n\n# Services Mocks\ngenerate_mock \"${BASIC_SERVICE_DIR}/NetworkService.swift\" \"${MOCK_SERVICE_DIR}/MockNetworkServiceProvider.swift\"\ngenerate_mock \"${SERVICE_DIR}/StampBoardsService.swift\" \"${MOCK_SERVICE_DIR}/MockStampBoardsService.swift\"\ngenerate_mock \"${SERVICE_DIR}/LinkManagementService.swift\" \"${MOCK_SERVICE_DIR}/MockLinkManagementService.swift\"\ngenerate_mock \"${SERVICE_DIR}/CouponService.swift\" \"${MOCK_SERVICE_DIR}/MockCouponService.swift\"\ngenerate_mock \"${SERVICE_DIR}/NotificationService.swift\" \"${MOCK_SERVICE_DIR}/MockNotificationService.swift\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
