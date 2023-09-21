@@ -15,7 +15,7 @@ final class CouponDetailViewModel {
         case failure(Error)
     }
     
-    private let useCase: CouponsUsecase
+    private let repository: CouponRepository
     
     private let couponID: Int
     
@@ -35,8 +35,8 @@ final class CouponDetailViewModel {
     var remainingTimeSubject = PassthroughSubject<String?, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: CouponsUsecase, couponID: Int) {
-        self.useCase = useCase
+    init(repository: CouponRepository, couponID: Int) {
+        self.repository = repository
         self.couponID = couponID
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
@@ -69,11 +69,10 @@ extension CouponDetailViewModel {
     func fetchCouponDetail() {
         Task {
             do {
-                let task = useCase.fetchCouponDetail(with: couponID)
-                let result = try await task.value
+                let result = try await repository.getCouponDetail(with: couponID)
                 couponDetailData = result
                 
-                if let time = result.rewardRequestDate {
+                if let time = result?.rewardRequestDate {
                     startTimer(for: time)
                 }
             } catch {
@@ -85,8 +84,7 @@ extension CouponDetailViewModel {
     
     func sendGiftRequest() async {
         do {
-            let task = useCase.sendGiftRequest(to: couponID)
-            try await task.value
+            try await repository.createGiftRequest(with: couponID)
             requestGiftSubject.send()
             let nowTime = Date().toString()
             startTimer(for: nowTime)
@@ -97,8 +95,7 @@ extension CouponDetailViewModel {
     
     func sendGiftReceive() async {
         do {
-            let task = useCase.sendGiftReceive(from: couponID)
-            try await task.value
+            try await repository.sendGiftReceive(from: couponID)
             couponDetailData?.couponState = .rewarded
         } catch {
             handleError(error)
@@ -134,7 +131,7 @@ extension CouponDetailViewModel {
     }
     
     func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError<Void> {
+        if let internalError = error as? PolzzakError {
             handleInternalError(internalError)
         } else if let networkError = error as? NetworkError {
             handleNetworkError(networkError)
@@ -145,7 +142,7 @@ extension CouponDetailViewModel {
         }
     }
     
-    private func handleInternalError(_ error: PolzzakError<Void>) {
+    private func handleInternalError(_ error: PolzzakError) {
         showErrorAlertSubject.send(error)
     }
     

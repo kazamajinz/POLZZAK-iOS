@@ -7,14 +7,18 @@
 
 import Foundation
 
-class StampBoardsService {
-    private let networkService: NetworkServiceProvider
+protocol StampBoardsService {
+    func fetchStampBoardList(for tabState: TabState) async throws -> (Data, URLResponse)
+}
+
+class DefaultStampBoardsService: StampBoardsService, NetworkServiceResponseHandler {
+    var networkService: NetworkServiceProvider
     
     init(networkService: NetworkServiceProvider = NetworkService(requestInterceptor: TokenInterceptor())) {
         self.networkService = networkService
     }
     
-    func fetchStampBoardList(for tabState: String) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: StampBoardsTargets.fetchStampBoardList(tabState: tabState))
+    func fetchStampBoardList(for tabState: TabState) async throws -> (Data, URLResponse) {
+        return try await handleResponse(StampBoardsTargets.fetchStampBoardList(tabState: tabState))
     }
 }

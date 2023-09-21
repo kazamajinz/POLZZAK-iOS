@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtocol, LoadingViewModelProtocol {
-    private let useCase: CouponsUsecase
+    private let repository: CouponRepository
     
     var dataList = CurrentValueSubject<[CouponList], Never>([])
     var cancellables = Set<AnyCancellable>()
@@ -28,8 +28,8 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     var dataDeleted = CurrentValueSubject<IndexPath?, Never>(nil)
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: CouponsUsecase) {
-        self.useCase = useCase
+    init(repository: CouponRepository) {
+        self.repository = repository
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
         let userInfo = UserInfoManager.readUserInfo()
@@ -63,8 +63,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
             
             do {
                 let tabState = tabStateToString(tabState.value)
-                let task = useCase.fetchCouponList(for: tabState)
-                let result = try await task.value
+                let result = try await repository.getCouponList(tabState)
                 dataList.send(result)
             } catch {
                 handleError(error)
@@ -97,7 +96,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     
     func selectItem(at indexPath: IndexPath) -> CouponDetailViewModel? {
         guard let id = couponID(at: indexPath) else { return nil }
-        return CouponDetailViewModel(useCase: useCase, couponID: id)
+        return CouponDetailViewModel(repository: repository, couponID: id)
     }
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
@@ -118,8 +117,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
             guard let couponID = couponID(at: indexPath) else {
                 return false
             }
-            let task = useCase.sendGiftRequest(to: couponID)
-            try await task.value
+            try await repository.createGiftRequest(with: couponID)
             startTimer(indexPath: indexPath)
             return true
         } catch {
@@ -131,8 +129,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     func sendGiftReceive(indexPath: IndexPath) async {
         do {
             guard let couponID = couponID(at: indexPath) else { return }
-            let task = useCase.sendGiftReceive(from: couponID)
-            try await task.value
+            try await repository.sendGiftReceive(from: couponID)
             removeData(indexPath: indexPath)
         } catch {
             handleError(error)
@@ -195,7 +192,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     }
     
     func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError<Void> {
+        if let internalError = error as? PolzzakError {
             handleInternalError(internalError)
         } else if let networkError = error as? NetworkError {
             handleNetworkError(networkError)
@@ -206,7 +203,7 @@ final class CouponListViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
         }
     }
     
-    private func handleInternalError(_ error: PolzzakError<Void>) {
+    private func handleInternalError(_ error: PolzzakError) {
         showErrorAlertSubject.send(error)
     }
     

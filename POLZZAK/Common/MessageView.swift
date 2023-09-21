@@ -20,9 +20,9 @@ class MessageView: UIView {
             case .request:
                 return "쿠폰을 발급해주세요!"
             case .completed:
-                return "쿠폰 발급 완료!"
-            case .issuedCoupon:
                 return "쿠폰 선물이 있어요!"
+            case .issuedCoupon:
+                return "쿠폰 발급 완료!"
             case .rewarded:
                 return "도장을 다 모았어요!"
             }
@@ -30,9 +30,9 @@ class MessageView: UIView {
         
         var image: UIImage? {
             switch self {
-            case .request, .issuedCoupon:
+            case .request, .completed:
                 return .requestGradationView
-            case .completed, .rewarded:
+            case .issuedCoupon, .rewarded:
                 return .completedGradationView
             }
         }
@@ -41,7 +41,7 @@ class MessageView: UIView {
     private let gradationView = UIImageView()
     
     private let gradationLabel: PaddedLabel = {
-        let label = PaddedLabel(padding: UIEdgeInsets(top: 4, left: 16, bottom: 11, right: 16))
+        let label = PaddedLabel(padding: UIEdgeInsets(top: 4, left: 16, bottom: 12, right: 16))
         label.textColor = .white
         label.font = .body14Sbd
         label.textAlignment = .center

@@ -7,8 +7,11 @@
 
 import Foundation
 
+protocol StampBoardsMapper {
+    func mapStampBoardListResponse(from response: BaseResponseDTO<[StampBoardListDTO]>) -> BaseResponse<[StampBoardList]>
+}
 
-struct StampBoardsMapper: MappableResponse {
+struct DefaultStampBoardsMapper: StampBoardsMapper, Mappable {
     func mapStampBoardListResponse(from response: BaseResponseDTO<[StampBoardListDTO]>) -> BaseResponse<[StampBoardList]> {
         return mapBaseResponse(from: response, transform: mapStampBoardList)
     }
@@ -17,7 +20,7 @@ struct StampBoardsMapper: MappableResponse {
         return dto.map{
             StampBoardList(
                 family: mapFamilyMember($0.partner),
-                stampBoardSummaries: mapStampBoardSummaries($0.stampBoardSummaries)
+                stampBoardSummaries: $0.stampBoardSummaries.map(mapStampBoardSummary)
             )
         }
     }
@@ -51,12 +54,8 @@ struct StampBoardsMapper: MappableResponse {
         )
     }
     
-    private func mapStampBoardStatus(_ statusString: String?) -> StampBoardStatus? {
+    func mapStampBoardStatus(_ statusString: String?) -> StampBoardStatus? {
         guard let statusString = statusString else { return nil }
         return StampBoardStatus(rawValue: statusString)
-    }
-    
-    private func mapStampBoardSummaries(_ dto: [StampBoardSummaryDTO]) -> [StampBoardSummary] {
-        return dto.compactMap { mapStampBoardSummary($0) }
     }
 }

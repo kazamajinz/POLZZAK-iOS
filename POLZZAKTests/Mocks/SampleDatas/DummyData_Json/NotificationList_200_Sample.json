@@ -1,0 +1,24 @@
+{
+    "code": 200,
+    "messages": null,
+    "data": {
+        "startId": 17,
+        "notificationDtoList": [
+            {
+                "id": 45,
+                "type": "CREATED_STAMP_BOARD",
+                "status": "READ",
+                "title": "🥁️️ 새로운 도장판 도착",
+                "message": "'<b>sdf</b>' 도장판이 만들어졌어요. 미션 수행 시~작!",
+                "sender": {
+                    "id": 18,
+                    "nickname": "누나",
+                    "profileUrl": "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/default_profile.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230919T105522Z&X-Amz-SignedHeaders=host&X-Amz-Expires=60&X-Amz-Credential=AKIA24ZYI3CQGEVEKZFA%2F20230919%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=02c9d35a5e306b0596ab539dd965a6186e2632be0304ad50fea17efd255f7912"
+                },
+                "link": "stamp-board/20",
+                "requestFamilyId": null,
+                "createdDate": "2023-09-19T08:46:42"
+            }
+        ]
+    }
+}

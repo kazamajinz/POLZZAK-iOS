@@ -7,180 +7,100 @@
 
 import Foundation
 
-class LinkManagementDataRepository: LinkManagementRepository, LinkRequestRepository {
-    private let linkManagementMapper = LinkManagementMapper()
+protocol LinkManagementRepository {
+    func getUserByNickname(_ nickname: String) async throws -> FamilyMember?
+    func getLinkedUsers() async throws -> [FamilyMember]
+    func getReceivedLinkRequests() async throws -> [FamilyMember]
+    func getSentLinkRequests() async throws -> [FamilyMember]
+    func createLinkRequest(to memberID: Int) async throws -> EmptyDataResponse?
+    func deleteSentLinkRequest(to memberID: Int) async throws
+    func removeLink(with memberID: Int) async throws
+    func checkNewLinkRequest() async throws -> CheckLinkRequest?
+}
+
+final class LinkManagementDataRepository: DataRepositoryProtocol, LinkManagementRepository, LinkRequestRepository {
+    typealias MapperType = DefaultLinkManagementMapper
+    let mapper: MapperType = DefaultLinkManagementMapper()
+    
     typealias ServiceType = LinkManagementService
     var service: ServiceType
     
-    init(linkManagementService: LinkManagementService = LinkManagementService()) {
+    init(linkManagementService: LinkManagementService = DefaultLinkManagementService()) {
         self.service = linkManagementService
     }
     
-    func getUserByNickname(_ nickname: String) async throws -> NetworkResult<BaseResponse<FamilyMember>, NetworkError> {
-        let (data, response) = try await service.fetchUserByNickname(nickname)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<FamilyMemberDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapFamilyMemberResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func getUserByNickname(_ nickname: String) async throws -> FamilyMember? {
+        let response: BaseResponse<FamilyMember> = try await fetchData(
+            using: { try await service.fetchUserByNickname(nickname) },
+            decodingTo: BaseResponseDTO<FamilyMemberDTO>.self,
+            map: mapper.mapFamilyMemberResponse
+        )
+        return response.data
     }
     
-    func getLinkedUsers() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await service.fetchAllLinkedUsers()
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<FamilyMemberListDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapFamilyMemberListResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func getLinkedUsers() async throws -> [FamilyMember] {
+        let response: BaseResponse<[FamilyMember]> = try await fetchData(
+            using: { try await service.fetchAllLinkedUsers() },
+            decodingTo: BaseResponseDTO<FamilyMemberListDTO>.self,
+            map: mapper.mapFamilyMemberListResponse
+        )
+        return response.data ?? []
     }
     
-    func getReceivedLinkRequests() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await service.fetchAllReceivedUsers()
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<FamilyMemberListDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapFamilyMemberListResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func getReceivedLinkRequests() async throws -> [FamilyMember] {
+        let response: BaseResponse<[FamilyMember]> = try await fetchData(
+            using: { try await service.fetchAllReceivedUsers() },
+            decodingTo: BaseResponseDTO<FamilyMemberListDTO>.self,
+            map: mapper.mapFamilyMemberListResponse
+        )
+        return response.data ?? []
     }
     
-    func getSentLinkRequests() async throws -> NetworkResult<BaseResponse<[FamilyMember]>, NetworkError> {
-        let (data, response) = try await service.fetchAllRequestedUsers()
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<FamilyMemberListDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapFamilyMemberListResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func getSentLinkRequests() async throws -> [FamilyMember] {
+        let response: BaseResponse<[FamilyMember]> = try await fetchData(
+            using: { try await service.fetchAllRequestUsers() },
+            decodingTo: BaseResponseDTO<FamilyMemberListDTO>.self,
+            map: mapper.mapFamilyMemberListResponse
+        )
+        return response.data ?? []
     }
     
-    func createLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        let (data, response) = try await service.sendLinkRequest(to: memberID)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 201:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<EmptyDataResponseDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapEmptyDataResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    //TODO: - 수정할것
+    func createLinkRequest(to memberID: Int) async throws -> EmptyDataResponse? {
+        let response: BaseResponse<EmptyDataResponse> = try await fetchData(
+            using: { try await service.sendLinkRequest(to: memberID) },
+            decodingTo: BaseResponseDTO<EmptyDataResponseDTO>.self,
+            map: mapper.mapEmptyDataResponse
+        )
+        return response.data
     }
     
-    func deleteSentLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await service.cancelLinkRequest(to: memberID)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func deleteSentLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await service.cancelLinkRequest(to: memberID)
+        try fetchDataNoContent(response: reponse)
+    }
+
+    func approveLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await service.approveLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
     }
     
-    func approveLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await service.approveLinkRequest(from: memberID)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func rejectLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await service.rejectLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
     }
     
-    func rejectLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await service.rejectLinkRequest(from: memberID)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func removeLink(with memberID: Int) async throws {
+        let (_, reponse) = try await service.sendUnlinkRequest(to: memberID)
+        try fetchDataNoContent(response: reponse)
     }
     
-    func removeLink(with memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        let (_, response) = try await service.sendUnlinkRequest(to: memberID)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
-    }
-    
-    func checkNewLinkRequest() async throws -> NetworkResult<BaseResponse<CheckLinkRequest>, NetworkError> {
-        let (data, response) = try await service.checkNewLinkRequest()
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<CheckLinkRequestDTO>.self, from: data)
-            let mapData = linkManagementMapper.mapCheckLinkRequestResponse(from: decodedData)
-            return .success(mapData)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func checkNewLinkRequest() async throws -> CheckLinkRequest? {
+        let response: BaseResponse<CheckLinkRequest> = try await fetchData(
+            using: { try await service.checkNewLinkRequest() },
+            decodingTo: BaseResponseDTO<CheckLinkRequestDTO>.self,
+            map: mapper.mapCheckLinkRequestResponse
+        )
+        return response.data
     }
 }

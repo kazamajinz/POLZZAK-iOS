@@ -7,8 +7,15 @@
 
 import Foundation
 
-class NotificationDataRepository: NotificationRepository, LinkRequestRepository {
-    private let notificationMapper = NotificationMapper()
+protocol NotificationRepository {
+    func fetchNotificationList(with startID: Int?) async throws -> NotificationResponse?
+    func removeNotification(with notificationID: Int) async throws
+}
+
+final class NotificationDataRepository: DataRepositoryProtocol, NotificationRepository, LinkRequestRepository {
+    typealias MapperType = DefaultNotificationMapper
+    let mapper: MapperType = DefaultNotificationMapper()
+    
     typealias ServiceType = NotificationService
     var service: ServiceType
     
@@ -16,47 +23,27 @@ class NotificationDataRepository: NotificationRepository, LinkRequestRepository 
         self.service = notificationService
     }
     
-    func fetchNotificationList(with startID: Int?) async throws -> NetworkResult<BaseResponse<NotificationResponse>, NetworkError> {
-        let (data, response) = try await service.fetchNotificationList(with: startID)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 200..<300:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<NotificationResponseDTO>.self, from: data)
-            let mapData = notificationMapper.mapNotificationResponse(from: decodedData)
-            return .success(mapData)
-        case 400:
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(BaseResponseDTO<EmptyDataResponseDTO>.self, from: data)
-            let mapData = notificationMapper.mapEmptyDataResponse(from: decodedData)
-            if mapData.code == 413 {
-                return .success(BaseResponse<NotificationResponse>(code: mapData.code, messages: mapData.messages, data: nil))
-            } else {
-                throw NetworkError.serverError(mapData.code)
-            }
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func fetchNotificationList(with startID: Int?) async throws -> NotificationResponse? {
+        let response: BaseResponse<NotificationResponse> = try await fetchData(
+            using: { try await service.fetchNotificationList(with: startID) },
+            decodingTo: BaseResponseDTO<NotificationResponseDTO>.self,
+            map: mapper.mapNotificationResponse
+        )
+        return response.data
     }
     
-    func removeNotification(with notificationID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        let (_, response) = try await service.removeNotification(with: notificationID)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.invalidResponse
-        }
-        
-        let statusCode = httpResponse.statusCode
-        switch statusCode {
-        case 204:
-            return .success(nil)
-        default:
-            throw NetworkError.serverError(statusCode)
-        }
+    func removeNotification(with notificationID: Int) async throws {
+        let (_, reponse) = try await service.removeNotification(with: notificationID)
+        try fetchDataNoContent(response: reponse)
+    }
+    
+    func approveLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await service.approveLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
+    }
+    
+    func rejectLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await service.rejectLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
     }
 }

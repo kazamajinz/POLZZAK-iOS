@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol LinkRequestService {
+protocol LinkRequestService: NetworkServiceResponseHandler {
     var networkService: NetworkServiceProvider { get }
     func approveLinkRequest(from memberID: Int) async throws -> (Data, URLResponse)
     func rejectLinkRequest(from memberID: Int) async throws -> (Data, URLResponse)
@@ -15,10 +15,10 @@ protocol LinkRequestService {
 
 extension LinkRequestService {
     func approveLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.approveReceivedLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.approveReceivedLinkRequest(memberID: memberID))
     }
     
     func rejectLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.rejectReceivedLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.rejectReceivedLinkRequest(memberID: memberID))
     }
 }

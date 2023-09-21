@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct LinkManagementMapper: MappableResponse {
+protocol LinkManagementMapper {
+    func mapCheckLinkRequestResponse(from response: BaseResponseDTO<CheckLinkRequestDTO>) -> BaseResponse<CheckLinkRequest>
+    func mapFamilyMemberResponse(from response: BaseResponseDTO<FamilyMemberDTO>) -> BaseResponse<FamilyMember>
+    func mapFamilyMemberListResponse(from response: BaseResponseDTO<FamilyMemberListDTO>) -> BaseResponse<[FamilyMember]>
+}
+
+struct DefaultLinkManagementMapper: Mappable {
     func mapCheckLinkRequestResponse(from response: BaseResponseDTO<CheckLinkRequestDTO>) -> BaseResponse<CheckLinkRequest> {
         return mapBaseResponse(from: response, transform: mapCheckLinkRequest)
     }

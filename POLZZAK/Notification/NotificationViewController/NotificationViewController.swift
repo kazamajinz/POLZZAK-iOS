@@ -15,9 +15,12 @@ final class NotificationViewController: UIViewController {
         static let initialContentOffsetY = 16.0
     }
     
+    private var lastContentOffset: CGFloat = 0
+    private var isScrollingUp: Bool = false
+    
     private var toast: Toast?
     
-    private let viewModel = NotificationViewModel(useCase: DefaultNotificationUseCase(repository: NotificationDataRepository()))
+    private let viewModel = NotificationViewModel(repository: NotificationDataRepository())
     private var cancellables = Set<AnyCancellable>()
     
     private let notificationSkeletonView = NotificationSkeletonView()
@@ -247,8 +250,7 @@ extension NotificationViewController: UITableViewDataSource {
             return
              */
         case .coupon(let couponID):
-            let usecase = DefaultCouponsUseCase(repository: CouponDataRepository())
-            let viewModel = CouponDetailViewModel(useCase: usecase, couponID: couponID)
+            let viewModel = CouponDetailViewModel(repository: CouponDataRepository(), couponID: couponID)
             let couponDetailViewController = CouponDetailViewController(viewModel: viewModel)
             couponDetailViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(couponDetailViewController, animated: false)
@@ -308,15 +310,21 @@ extension NotificationViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         viewModel.didEndDraggingSubject.send()
+        customRefreshControl.isStartRefresh = true
+        
+        if decelerate && scrollView.contentOffset.y > lastContentOffset {
+            checkIfReachedBottom(scrollView)
+        }
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    private func checkIfReachedBottom(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
-        
+
         if offsetY >= contentHeight - frameHeight + 50 {
-            viewModel.rechedBottomSubject.send(true)
+            if viewModel.rechedBottomSubject.value == false {
+                viewModel.rechedBottomSubject.send(true)
+            }
         }
     }
 }

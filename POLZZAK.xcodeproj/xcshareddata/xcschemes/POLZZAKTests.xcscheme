@@ -18,7 +18,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAD960862AA90910009A7557"
+               BlueprintIdentifier = "3930545F2AB7158E00AA02A7"
                BuildableName = "POLZZAKTests.xctest"
                BlueprintName = "POLZZAKTests"
                ReferencedContainer = "container:POLZZAK.xcodeproj">

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class LinkManagementViewModel {
-    private let useCase: LinkManagementUseCase
+    private let repository: LinkManagementDataRepository
     private var cancellables = Set<AnyCancellable>()
     
     var userType: UserType
@@ -25,8 +25,8 @@ final class LinkManagementViewModel {
     
     var searchTask: Task<FamilyMember?, Error>?
     
-    init(useCase: LinkManagementUseCase) {
-        self.useCase = useCase
+    init(repository: LinkManagementDataRepository) {
+        self.repository = repository
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
         let userInfo = UserInfoManager.readUserInfo()
@@ -36,8 +36,7 @@ final class LinkManagementViewModel {
     func searchUserByNickname(_ nickname: String) async {
         updateSearchState(to: .searching(nickname))
         do {
-            searchTask = useCase.searchUserByNickname(nickname)
-            let result = try await searchTask?.value
+            let result = try await repository.getUserByNickname(nickname)
             updateSearchState(to: .completed)
             handleSearchResult(nickname, result)
         } catch {
@@ -46,41 +45,32 @@ final class LinkManagementViewModel {
     }
 
     private func fetchAllLinkedUsers() {
-        Task {
-            await loadMembers(using: useCase.fetchAllLinkedUsers)
-            await checkNewLinkRequest()
-        }
+        loadMembers(using: repository.getLinkedUsers)
     }
     
     private func fetchAllReceivedLinkRequests() {
-        Task {
-            await loadMembers(using: useCase.fetchAllReceivedLinkRequests)
-            await checkNewLinkRequest()
-        }
+        loadMembers(using: repository.getReceivedLinkRequests)
     }
     
     private func fetchAllSentLinkRequests() {
-        Task {
-            await loadMembers(using: useCase.fetchAllSentLinkRequests)
-            await checkNewLinkRequest()
-        }
+        loadMembers(using: repository.getSentLinkRequests)
     }
     
-    private func loadMembers(using useCaseFetchMethod: () -> Task<[FamilyMember], Error>) async {
-        showLoading()
-        do {
-            let task = useCaseFetchMethod()
-            let result = try await task.value
-            dataList = result
-        } catch {
-            handleError(error)
+    private func loadMembers(using repositoryFetchMethod: @escaping () async throws -> [FamilyMember]) {
+        Task {
+            showLoading()
+            do {
+                dataList = try await repositoryFetchMethod()
+                await checkNewLinkRequest()
+            } catch {
+                handleError(error)
+            }
         }
     }
     
     func checkNewLinkRequest() async {
         do {
-            let task = useCase.checkNewLinkRequest()
-            let result = try await task.value
+            let result = try await repository.checkNewLinkRequest()
             newAlertSubject.send(result)
         } catch {
             handleError(error)
@@ -90,8 +80,7 @@ final class LinkManagementViewModel {
     
     func linkRequestDidTap(for memberID: Int) async {
         do {
-            let task = useCase.sendLinkRequest(to: memberID)
-            try await task.value
+            _ = try await repository.createLinkRequest(to: memberID)
             searchResultState = .linkRequestCompleted(nil)
         } catch {
             handleError(error)
@@ -100,8 +89,7 @@ final class LinkManagementViewModel {
     
     func linkCancelDidTap(for memberID: Int) async {
         do {
-            let task = useCase.cancelLinkRequest(to: memberID)
-            try await task.value
+            try await repository.deleteSentLinkRequest(to: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -110,8 +98,7 @@ final class LinkManagementViewModel {
     
     func linkApproveDidTap(for memberID: Int) async {
         do {
-            let task = useCase.approveReceivedLinkRequest(from: memberID)
-            try await task.value
+            try await repository.approveLinkRequest(to: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -120,8 +107,7 @@ final class LinkManagementViewModel {
     
     func linkRejectDidTap(for memberID: Int) async {
         do {
-            let task = useCase.rejectReceivedLinkRequest(from: memberID)
-            try await task.value
+            try await repository.rejectLinkRequest(to: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -130,8 +116,7 @@ final class LinkManagementViewModel {
     
     func unlinkRequestDidTap(for memberID: Int) async {
         do {
-            let task = useCase.sendUnlinkRequest(to: memberID)
-            try await task.value
+            try await repository.removeLink(with: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -213,7 +198,7 @@ final class LinkManagementViewModel {
     }
     
     func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError<Void> {
+        if let internalError = error as? PolzzakError {
             handleInternalError(internalError)
         } else if let networkError = error as? NetworkError {
             handleNetworkError(networkError)
@@ -224,7 +209,7 @@ final class LinkManagementViewModel {
         }
     }
     
-    private func handleInternalError(_ error: PolzzakError<Void>) {
+    private func handleInternalError(_ error: PolzzakError) {
         showErrorAlertSubject.send(error)
     }
     

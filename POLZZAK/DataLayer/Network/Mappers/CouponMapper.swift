@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct CouponMapper: MappableResponse {
+protocol CouponMapper {
+    func mapCouponListResponse(from response: BaseResponseDTO<[CouponListDTO]>) -> BaseResponse<[CouponList]>
+    func mapCouponDetailResponse(from response: BaseResponseDTO<CouponDetailDTO>) -> BaseResponse<CouponDetail>
+}
+
+struct DefaultCouponMapper: Mappable {
     func mapCouponListResponse(from response: BaseResponseDTO<[CouponListDTO]>) -> BaseResponse<[CouponList]> {
         return mapBaseResponse(from: response, transform: mapCouponList)
     }
@@ -78,7 +83,7 @@ struct CouponMapper: MappableResponse {
         )
     }
     
-    private func mapCouponState(_ stateString: String) -> CouponState? {
+    func mapCouponState(_ stateString: String) -> CouponState? {
         return CouponState(rawValue: stateString)
     }
 }

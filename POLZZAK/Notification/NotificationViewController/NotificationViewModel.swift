@@ -9,10 +9,10 @@ import Foundation
 import Combine
 
 final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtocol {
-    private let useCase: NotificationUseCase
+    private let repository: NotificationDataRepository
     
     @Published var saveStartID: Int? = nil
-    @Published var notificationList: [Notification] = []
+    @Published var notificationList: [NotificationData] = []
     var cancellables = Set<AnyCancellable>()
     
     var isSkeleton = CurrentValueSubject<Bool, Never>(true)
@@ -23,26 +23,27 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     var rechedBottomSubject = CurrentValueSubject<Bool, Never>(false)
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: NotificationUseCase) {
-        self.useCase = useCase
+    init(repository: NotificationDataRepository) {
+        self.repository = repository
         
         setupPullToRefreshBinding()
         setupBottomRefreshBindings()
     }
     
     private func setupBottomRefreshBindings() {
-        didEndDraggingSubject.combineLatest(rechedBottomSubject)
-            .filter { _, rechedBottom in
+        rechedBottomSubject.combineLatest(didEndDraggingSubject)
+            .map { rechedBottom, _ -> Bool in
                 return rechedBottom
             }
-            .filter { [weak self] _, _ in
+            .filter { $0 }
+            .filter { [weak self] _ in
                 return false == self?.isCenterLoading.value
             }
-            .filter { [weak self] _, _ in
+            .filter { [weak self] _ in
                 guard let self else { return false }
                 return self.notificationList.count >= 10
             }
-            .sink { [weak self] _, _ in
+            .sink { [weak self] _ in
                 self?.fetchNotificationList(for: true)
             }
             .store(in: &cancellables)
@@ -76,17 +77,20 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
             }
             
             do {
-                let task = useCase.fetchNotificationList(with: saveStartID)
-                let result = try await task.value
+                let result = try await repository.fetchNotificationList(with: saveStartID)
                 guard let result else { return }
                 if false == more {
                     saveStartID = result.startID
                     notificationList = result.notificationList ?? []
                 } else {
-                    var currentList = notificationList
-                    currentList.append(contentsOf: result.notificationList ?? [])
-                    notificationList = currentList
-                    saveStartID = result.startID
+                    if saveStartID == nil {
+                        notificationList = result.notificationList ?? []
+                    } else {
+                        var currentList = notificationList
+                        currentList.append(contentsOf: result.notificationList ?? [])
+                        notificationList = currentList
+                        saveStartID = result.startID
+                    }
                 }
             } catch {
                 handleError(error)
@@ -98,8 +102,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
         do {
             if notificationList[index].status != .requestLink {
                 let notificationID = notificationList[index].id
-                let task = useCase.removeNotification(with: notificationID)
-                try await task.value
+                try await repository.removeNotification(with: notificationID)
                 removeData(for: notificationID)
             }
         } catch {
@@ -114,8 +117,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     
     func linkApproveDidTap(for memberID: Int) async {
         do {
-            let task = useCase.approveReceivedLinkRequest(from: memberID)
-            try await task.value
+            try await repository.approveLinkRequest(to: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -124,8 +126,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     
     func linkRejectDidTap(for memberID: Int) async {
         do {
-            let task = useCase.rejectReceivedLinkRequest(from: memberID)
-            try await task.value
+            try await repository.rejectLinkRequest(to: memberID)
             removeData(for: memberID)
         } catch {
             handleError(error)
@@ -133,7 +134,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     }
     
     func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError<Void> {
+        if let internalError = error as? PolzzakError {
             handleInternalError(internalError)
         } else if let networkError = error as? NetworkError {
             handleNetworkError(networkError)
@@ -144,7 +145,7 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
         }
     }
     
-    private func handleInternalError(_ error: PolzzakError<Void>) {
+    private func handleInternalError(_ error: PolzzakError) {
         showErrorAlertSubject.send(error)
     }
     

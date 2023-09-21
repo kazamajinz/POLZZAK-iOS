@@ -1,0 +1,23 @@
+{
+    "code": 200,
+    "messages": null,
+    "data": {
+        "couponId": 15,
+        "reward": "안녕",
+        "guardian": {
+            "nickname": "보호자",
+            "profileUrl": "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/default_profile.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230914T155221Z&X-Amz-SignedHeaders=host&X-Amz-Expires=59&X-Amz-Credential=AKIA24ZYI3CQGEVEKZFA%2F20230914%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=a00554c657539a36bc42f6fa7c573c784e78a893373a7bcffb7df097f78a9b65"
+        },
+        "kid": {
+            "nickname": "아이",
+            "profileUrl": "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/default_profile.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230914T155221Z&X-Amz-SignedHeaders=host&X-Amz-Expires=59&X-Amz-Credential=AKIA24ZYI3CQGEVEKZFA%2F20230914%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=a00554c657539a36bc42f6fa7c573c784e78a893373a7bcffb7df097f78a9b65"
+        },
+        "missionContents": [],
+        "stampCount": 10,
+        "state": "REWARDED",
+        "rewardDate": "2023-09-08T15:35:52",
+        "rewardRequestDate": null,
+        "startDate": "2023-09-08T14:15:31",
+        "endDate": "2023-09-08T14:16:24"
+    }
+}

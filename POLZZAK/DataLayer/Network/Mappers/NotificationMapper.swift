@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct NotificationMapper: MappableResponse {
+protocol NotificationMapper {
+    func mapNotificationResponse(from response: BaseResponseDTO<NotificationResponseDTO>) -> BaseResponse<NotificationResponse>
+}
+
+struct DefaultNotificationMapper: Mappable {
     func mapNotificationResponse(from response: BaseResponseDTO<NotificationResponseDTO>) -> BaseResponse<NotificationResponse> {
         return mapBaseResponse(from: response, transform: mapNotificationResponse)
     }
@@ -19,8 +23,8 @@ struct NotificationMapper: MappableResponse {
         )
     }
     
-    private func mapNotification(_ dto: NotificationDTO) -> Notification {
-        return Notification(
+    private func mapNotification(_ dto: NotificationDTO) -> NotificationData {
+        return NotificationData(
             id: dto.id,
             type: mapNotificationType(dto.type),
             status: mapNotificationStatus(dto.status),
@@ -49,32 +53,29 @@ struct NotificationMapper: MappableResponse {
         return NotificationStatus(rawValue: statusString)
     }
     
-    private func mapNotificationLink(_ typeString: String?) -> NotificationLink? {
+    func mapNotificationLink(_ typeString: String?) -> NotificationLink? {
         guard let typeString = typeString else {
             return nil
         }
+        let components = typeString.components(separatedBy: "/")
         
-        if false == typeString.contains("/") {
-            switch typeString {
-            case "home":
-                return .home
-            case "my-page":
-                return .myPage
-            default:
-                return nil
-            }
-        } else {
-            let convertType = typeString.components(separatedBy: "/")
-            let type = convertType[0]
-            let id = Int(convertType[1]) ?? 0
-            switch type {
-            case "stamp-board":
+        switch components.first {
+        case "home":
+            return .home
+        case "my-page":
+            return .myPage
+        case "stamp-board":
+            if let id = Int(components[1]) {
                 return .stampBoard(stampBoardID: id)
-            case "coupon":
-                return .coupon(couponID: id)
-            default:
-                return nil
             }
+        case "coupon":
+            if let id = Int(components[1]) {
+                return .coupon(couponID: id)
+            }
+        default:
+            return nil
         }
+        
+        return nil
     }
 }

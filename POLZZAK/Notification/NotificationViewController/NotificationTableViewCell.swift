@@ -326,7 +326,6 @@ extension NotificationTableViewCell {
         
         completionImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.height.equalTo(20)
         }
         
         completionLabel.snp.makeConstraints {
@@ -350,7 +349,7 @@ extension NotificationTableViewCell {
         
     }
     
-    func configure(data: Notification) {
+    func configure(data: NotificationData) {
         if data.title.startsWithEmoji {
             let dataTitle = data.title.components(separatedBy: " ")
             emojiLabel.text = dataTitle[0]
