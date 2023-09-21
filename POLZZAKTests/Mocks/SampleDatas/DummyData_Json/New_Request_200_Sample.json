@@ -1,0 +1,8 @@
+{
+    "code": 200,
+    "messages": null,
+    "data": {
+        "isFamilyReceived": true,
+        "isFamilySent": false
+    }
+}
