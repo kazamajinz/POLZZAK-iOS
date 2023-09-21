@@ -20,7 +20,7 @@ final class NotificationViewController: UIViewController {
     
     private var toast: Toast?
     
-    private let viewModel = NotificationViewModel(useCase: DefaultNotificationUseCase(repository: NotificationDataRepository()))
+    private let viewModel = NotificationViewModel(repository: NotificationDataRepository())
     private var cancellables = Set<AnyCancellable>()
     
     private let notificationSkeletonView = NotificationSkeletonView()
@@ -250,8 +250,7 @@ extension NotificationViewController: UITableViewDataSource {
             return
              */
         case .coupon(let couponID):
-            let usecase = DefaultCouponsUseCase(repository: CouponDataRepository())
-            let viewModel = CouponDetailViewModel(useCase: usecase, couponID: couponID)
+            let viewModel = CouponDetailViewModel(repository: CouponDataRepository(), couponID: couponID)
             let couponDetailViewController = CouponDetailViewController(viewModel: viewModel)
             couponDetailViewController.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(couponDetailViewController, animated: false)

@@ -7,50 +7,63 @@
 
 import Foundation
 
-class LinkManagementService: LinkRequestService {
-    let networkService: NetworkServiceProvider
+protocol LinkManagementService {
+    func fetchUserByNickname(_ nickname: String) async throws -> (Data, URLResponse)
+    func fetchAllLinkedUsers() async throws -> (Data, URLResponse)
+    func fetchAllReceivedUsers() async throws -> (Data, URLResponse)
+    func fetchAllRequestUsers() async throws -> (Data, URLResponse)
+    func sendLinkRequest(to memberID: Int) async throws -> (Data, URLResponse)
+    func cancelLinkRequest(to memberID: Int) async throws -> (Data, URLResponse)
+    func approveLinkRequest(from memberID: Int) async throws -> (Data, URLResponse)
+    func rejectLinkRequest(from memberID: Int) async throws -> (Data, URLResponse)
+    func sendUnlinkRequest(to memberID: Int) async throws -> (Data, URLResponse)
+    func checkNewLinkRequest() async throws -> (Data, URLResponse)
+}
+
+class DefaultLinkManagementService: LinkManagementService, LinkRequestService {
+    var networkService: NetworkServiceProvider
     
     init(networkService: NetworkServiceProvider = NetworkService(requestInterceptor: TokenInterceptor())) {
         self.networkService = networkService
     }
     
     func fetchUserByNickname(_ nickname: String) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.searchUserByNickname(nickname))
+        return try await handleResponse(LinkManagementTargets.searchUserByNickname(nickname))
     }
     
     func fetchAllLinkedUsers() async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.fetchAllLinkedUsers)
+        return try await handleResponse(LinkManagementTargets.fetchAllLinkedUsers)
     }
     
     func fetchAllReceivedUsers() async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.fetchAllReceivedLinkRequests)
+        return try await handleResponse(LinkManagementTargets.fetchAllReceivedLinkRequests)
     }
     
-    func fetchAllRequestedUsers() async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.fetchAllSentLinkRequests)
+    func fetchAllRequestUsers() async throws -> (Data, URLResponse) {
+        return try await handleResponse(LinkManagementTargets.fetchAllSentLinkRequests)
     }
     
     func sendLinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.sendLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.sendLinkRequest(memberID: memberID))
     }
     
     func cancelLinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.cancelSentLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.cancelSentLinkRequest(memberID: memberID))
     }
     
     func approveLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.approveReceivedLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.approveReceivedLinkRequest(memberID: memberID))
     }
     
     func rejectLinkRequest(from memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.rejectReceivedLinkRequest(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.rejectReceivedLinkRequest(memberID: memberID))
     }
     
     func sendUnlinkRequest(to memberID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.requestUnLink(memberID: memberID))
+        return try await handleResponse(LinkManagementTargets.requestUnLink(memberID: memberID))
     }
     
     func checkNewLinkRequest() async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: LinkManagementTargets.checkNewLinkRequest)
+        return try await handleResponse(LinkManagementTargets.checkNewLinkRequest)
     }
 }

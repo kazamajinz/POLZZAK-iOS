@@ -15,10 +15,10 @@ class NotificationService: LinkRequestService {
     }
     
     func fetchNotificationList(with startID: Int?) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: NotificationTargets.fetchNotificationList(startID: startID))
+        return try await handleResponse(NotificationTargets.fetchNotificationList(startID: startID))
     }
     
     func removeNotification(with notificationID: Int) async throws -> (Data, URLResponse) {
-        return try await networkService.request(with: NotificationTargets.removeNotification(notificationID: notificationID))
+        return try await handleResponse(NotificationTargets.removeNotification(notificationID: notificationID))
     }
 }

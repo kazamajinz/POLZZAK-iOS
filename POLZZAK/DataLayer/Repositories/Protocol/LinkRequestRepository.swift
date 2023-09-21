@@ -8,23 +8,20 @@
 import Foundation
 
 protocol LinkRequestRepository: DataRepositoryProtocol {
-    associatedtype ServiceType: LinkRequestService
-    var service: ServiceType { get }
-    
-    func approveLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError>
-    func rejectLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError>
+    func approveLinkRequest(to memberID: Int) async throws
+    func rejectLinkRequest(to memberID: Int) async throws
 }
 
+/*
 extension LinkRequestRepository {
-    func approveLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        return try await fetchDataNoContent(
-            using: { try await service.approveLinkRequest(from: memberID) }
-        )
+    func approveLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await linkService.approveLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
     }
-    
-    func rejectLinkRequest(to memberID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        return try await fetchDataNoContent(
-            using: { try await service.rejectLinkRequest(from: memberID) }
-        )
+
+    func rejectLinkRequest(to memberID: Int) async throws {
+        let (_, reponse) = try await linkService.rejectLinkRequest(from: memberID)
+        try fetchDataNoContent(response: reponse)
     }
 }
+*/

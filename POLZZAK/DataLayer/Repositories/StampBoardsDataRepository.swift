@@ -7,21 +7,26 @@
 
 import Foundation
 
-class StampBoardsDataRepository: DataRepositoryProtocol, StampBoardsRepository {
-    typealias MapperType = StampBoardsMapper
-    let mapper: MapperType = StampBoardsMapper()
+protocol StampBoardsRepository {
+    func getStampBoardList(for tabState: TabState) async throws -> [StampBoardList]
+}
+
+final class StampBoardsDataRepository: DataRepositoryProtocol, StampBoardsRepository {
+    typealias MapperType = DefaultStampBoardsMapper
+    let mapper: MapperType = DefaultStampBoardsMapper()
     
     private let service: StampBoardsService
     
-    init(stampBoardsService: StampBoardsService = StampBoardsService()) {
+    init(stampBoardsService: StampBoardsService = DefaultStampBoardsService()) {
         self.service = stampBoardsService
     }
     
-    func getStampBoardList(for tabState: String) async throws -> NetworkResult<BaseResponse<[StampBoardList]>, NetworkError> {
-        return try await fetchData(
+    func getStampBoardList(for tabState: TabState) async throws -> [StampBoardList] {
+        let response: BaseResponse<[StampBoardList]> = try await fetchData(
             using: { try await service.fetchStampBoardList(for: tabState) },
             decodingTo: BaseResponseDTO<[StampBoardListDTO]>.self,
-            map: { mapper.mapStampBoardListResponse(from: $0) }
+            map: mapper.mapStampBoardListResponse
         )
+        return response.data ?? []
     }
 }

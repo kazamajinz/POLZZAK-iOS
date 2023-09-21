@@ -32,7 +32,7 @@ final class MainViewController: UIViewController {
     
     private var toast: Toast?
     
-    private let viewModel = StampBoardViewModel(useCase: DefaultStampBoardsUseCase(repository: StampBoardsDataRepository()))
+    private let viewModel = StampBoardViewModel(repository: StampBoardsDataRepository())
     private var cancellables = Set<AnyCancellable>()
     
     private let filterView = BaseFilterView()
@@ -255,10 +255,8 @@ extension MainViewController {
         viewModel.showErrorAlertSubject
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
-            .sink { [weak self] error in
-                self?.toast = Toast(type: .qatest(error.localizedDescription))
-                self?.toast?.show()
-                print("error", error.localizedDescription)
+            .sink { error in
+                //TODO: - 에러처리 어떻게 할지 기획필요
             }
             .store(in: &cancellables)
     }

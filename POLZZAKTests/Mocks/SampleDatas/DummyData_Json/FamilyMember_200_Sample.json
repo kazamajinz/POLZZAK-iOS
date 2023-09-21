@@ -1,0 +1,14 @@
+{
+    "code": 200,
+    "messages": null,
+    "data": {
+        "memberId": 18,
+        "nickname": "누나",
+        "memberType": {
+            "name": "GUARDIAN",
+            "detail": "누나"
+        },
+        "profileUrl": "http://polzzak.s3.ap-northeast-2.amazonaws.com/profile/default_profile.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230919T155753Z&X-Amz-SignedHeaders=host&X-Amz-Expires=60&X-Amz-Credential=AKIA24ZYI3CQGEVEKZFA%2F20230919%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Signature=8b6a56de510fb4542913a66c4329df0ca174899d9afc71881f11c6c8be6728c2",
+        "familyStatus": "NONE"
+    }
+}

@@ -91,20 +91,17 @@
 		393053F42AB1178B00AA02A7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053F32AB1178B00AA02A7 /* NotificationService.swift */; };
 		393053F62AB1180A00AA02A7 /* NotificationMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053F52AB1180A00AA02A7 /* NotificationMapper.swift */; };
 		393053F82AB1183000AA02A7 /* NotificationDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053F72AB1183000AA02A7 /* NotificationDataRepository.swift */; };
-		393053FA2AB1183F00AA02A7 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053F92AB1183F00AA02A7 /* NotificationRepository.swift */; };
 		393053FC2AB1314800AA02A7 /* CouponState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053FB2AB1314800AA02A7 /* CouponState.swift */; };
 		393053FE2AB1315E00AA02A7 /* StampBoardStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053FD2AB1315E00AA02A7 /* StampBoardStatus.swift */; };
 		393054002AB1317300AA02A7 /* FamilyStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393053FF2AB1317300AA02A7 /* FamilyStatus.swift */; };
 		393054022AB1343400AA02A7 /* NotificationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054012AB1343400AA02A7 /* NotificationStatus.swift */; };
 		393054042AB1353300AA02A7 /* SenderDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054032AB1353300AA02A7 /* SenderDTO.swift */; };
 		393054062AB1353F00AA02A7 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054052AB1353F00AA02A7 /* Sender.swift */; };
-		393054082AB1374500AA02A7 /* DefaultNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054072AB1374500AA02A7 /* DefaultNotificationUseCase.swift */; };
 		3930540A2AB148E500AA02A7 /* PullToRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054092AB148E500AA02A7 /* PullToRefreshProtocol.swift */; };
 		3930540C2AB1949B00AA02A7 /* String+BoldTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930540B2AB1949B00AA02A7 /* String+BoldTag.swift */; };
 		3930540E2AB19CCF00AA02A7 /* NotificationSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930540D2AB19CCF00AA02A7 /* NotificationSkeletonView.swift */; };
 		393054312AB300BA00AA02A7 /* LinkRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054302AB300BA00AA02A7 /* LinkRequestService.swift */; };
 		393054342AB304AB00AA02A7 /* LinkRequestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054332AB304AB00AA02A7 /* LinkRequestRepository.swift */; };
-		393054372AB32E1300AA02A7 /* LinkRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054362AB32E1300AA02A7 /* LinkRequestUseCase.swift */; };
 		393054392AB3568400AA02A7 /* NotificationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054382AB3568400AA02A7 /* NotificationLink.swift */; };
 		3930543B2AB368F600AA02A7 /* Character+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930543A2AB368F600AA02A7 /* Character+Emoji.swift */; };
 		3930543F2AB433F100AA02A7 /* LinkListTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3900FAD32A39B5D1009EAC52 /* LinkListTabCell.swift */; };
@@ -113,17 +110,23 @@
 		393054452AB4DDEB00AA02A7 /* MappableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054442AB4DDEB00AA02A7 /* MappableResponse.swift */; };
 		393054472AB57F0E00AA02A7 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054462AB57F0E00AA02A7 /* NetworkResult.swift */; };
 		393054492AB5867100AA02A7 /* DataRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */; };
-		3930544B2AB6B4D700AA02A7 /* UseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */; };
 		3930544D2AB6B89A00AA02A7 /* ReponseDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */; };
 		3930544E2AB7080D00AA02A7 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E586D2A5D93790055CF37 /* NotificationViewController.swift */; };
-		393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054622AB7158E00AA02A7 /* POLZZAKTests.swift */; };
 		393054782AB736E600AA02A7 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 393054772AB736E600AA02A7 /* Nimble */; };
-		3930547B2AB7370200AA02A7 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 3930547A2AB7370200AA02A7 /* Quick */; };
-		393054912AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */; };
-		393054A52AB766BC00AA02A7 /* MockStampBoardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */; };
+		3934A0332ABAD04600B247D5 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934A0322ABAD04600B247D5 /* URLSessionProtocol.swift */; };
+		3934A0372ABAEEB000B247D5 /* LinkManagementServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934A0362ABAEEB000B247D5 /* LinkManagementServiceTests.swift */; };
+		3934A03F2ABAF2E900B247D5 /* LinkManagementList_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 3934A03D2ABAF2E900B247D5 /* LinkManagementList_200_Sample.json */; };
+		3934A0412ABAF43300B247D5 /* NetworkServiceResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934A0402ABAF43300B247D5 /* NetworkServiceResponseHandler.swift */; };
+		3934A0462ABAFAF900B247D5 /* Error_400_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 3934A0452ABAFAF900B247D5 /* Error_400_Sample.json */; };
 		397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CA2A10FA35007D998F /* UIImage+extension.swift */; };
 		397366CD2A112967007D998F /* UILabel+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CC2A112967007D998F /* UILabel+extension.swift */; };
 		397366CF2A114439007D998F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397366CE2A114439007D998F /* TabBarController.swift */; };
+		39781A4A2AB784C700CA55AB /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A492AB784C700CA55AB /* CombineCocoa */; };
+		39781A5A2AB84E9200CA55AB /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A592AB84E9200CA55AB /* Cuckoo */; };
+		39781A5F2AB84EB800CA55AB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A5E2AB84EB800CA55AB /* SnapKit */; };
+		39781A612AB84EBE00CA55AB /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A602AB84EBE00CA55AB /* PanModal */; };
+		39781A672AB84ED700CA55AB /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A662AB84ED700CA55AB /* CombineCocoa */; };
+		39781A692AB84EDF00CA55AB /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 39781A682AB84EDF00CA55AB /* FSCalendar */; };
 		398E58702A5D93830055CF37 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E586F2A5D93830055CF37 /* NotificationViewModel.swift */; };
 		398E58722A5DBAD10055CF37 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58712A5DBAD10055CF37 /* NotificationTableViewCell.swift */; };
 		398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398E58732A5EB9070055CF37 /* NotificationType.swift */; };
@@ -134,14 +137,20 @@
 		3993C76F2AAA010B00B328B2 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C76E2AAA010B00B328B2 /* CouponService.swift */; };
 		3993C7712AAAB97800B328B2 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7702AAAB97800B328B2 /* BaseResponse.swift */; };
 		3993C7732AAB5FF500B328B2 /* CouponDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7722AAB5FF500B328B2 /* CouponDataRepository.swift */; };
-		3993C7752AAB601100B328B2 /* CouponsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7742AAB601100B328B2 /* CouponsRepository.swift */; };
 		3993C7772AAB60FE00B328B2 /* CouponMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7762AAB60FE00B328B2 /* CouponMapper.swift */; };
-		3993C7792AAB710C00B328B2 /* DefaultCouponsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3993C7782AAB710C00B328B2 /* DefaultCouponsUseCase.swift */; };
 		399E51412AA8D89600F4A6C3 /* StampBoardsTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */; };
 		399E51432AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51422AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift */; };
-		399E51452AA8DBA200F4A6C3 /* StampBoardsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */; };
 		399E51472AA8DC3300F4A6C3 /* StampBoardsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51462AA8DC3300F4A6C3 /* StampBoardsService.swift */; };
-		399E51492AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */; };
+		39AB8ABE2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8ABD2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift */; };
+		39AB8AC12ABBFCDF00BC4CF2 /* MockLinkManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8ABF2ABBFCDF00BC4CF2 /* MockLinkManagementService.swift */; };
+		39AB8AC22ABBFCDF00BC4CF2 /* MockStampBoardsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8AC02ABBFCDF00BC4CF2 /* MockStampBoardsService.swift */; };
+		39AB8AC72ABC07B200BC4CF2 /* TestDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8AC62ABC07B200BC4CF2 /* TestDataFactory.swift */; };
+		39AB8AC92ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8AC82ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift */; };
+		39AB8ACB2ABC1B3400BC4CF2 /* FamilyMember_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39AB8ACA2ABC1B1300BC4CF2 /* FamilyMember_200_Sample.json */; };
+		39AB8ACE2ABC293500BC4CF2 /* MockCouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8ACC2ABC293500BC4CF2 /* MockCouponService.swift */; };
+		39AB8ACF2ABC293500BC4CF2 /* MockNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8ACD2ABC293500BC4CF2 /* MockNotificationService.swift */; };
+		39AB8AD12ABC2AF300BC4CF2 /* CouponDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8AD02ABC2AF300BC4CF2 /* CouponDataRepositoryTests.swift */; };
+		39AB8AD32ABC2B0100BC4CF2 /* NotificationDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AB8AD22ABC2B0100BC4CF2 /* NotificationDataRepositoryTests.swift */; };
 		39AC7DC82A1825ED007D58F3 /* StampGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */; };
 		39AC7DCC2A1839C3007D58F3 /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */; };
 		39AC7DD02A1A1029007D58F3 /* CustomRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */; };
@@ -165,9 +174,18 @@
 		39C573482A9F328A00CD6362 /* LinkManagementTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */; };
 		39C5734B2A9F37EC00CD6362 /* LinkManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5734A2A9F37EC00CD6362 /* LinkManagementService.swift */; };
 		39C573502A9F61B800CD6362 /* StampBoardsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5734F2A9F61B800CD6362 /* StampBoardsMapper.swift */; };
-		39C573552A9F75DF00CD6362 /* LinkManagementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */; };
 		39C573582A9F761F00CD6362 /* LinkManagementDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573572A9F761F00CD6362 /* LinkManagementDataRepository.swift */; };
-		39C5735A2A9F874400CD6362 /* DefaultLinkManagementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */; };
+		39CC37C62ABB4CC9004DE176 /* CouponServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37C52ABB4CC9004DE176 /* CouponServiceTests.swift */; };
+		39CC37C92ABB5110004DE176 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37C82ABB5110004DE176 /* NotificationServiceTests.swift */; };
+		39CC37D22ABB58DA004DE176 /* CouponDetail_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CC37CD2ABB5385004DE176 /* CouponDetail_200_Sample.json */; };
+		39CC37D32ABB58DF004DE176 /* Success_201_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CC37D02ABB548E004DE176 /* Success_201_Sample.json */; };
+		39CC37D42ABB58E4004DE176 /* StampBoardList_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CC37C72ABB4EDF004DE176 /* StampBoardList_200_Sample.json */; };
+		39CC37D52ABB58E9004DE176 /* New_Request_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CC37D12ABB56E2004DE176 /* New_Request_200_Sample.json */; };
+		39CC37D72ABB58EF004DE176 /* NotificationList_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CC37CC2ABB531F004DE176 /* NotificationList_200_Sample.json */; };
+		39CC37DA2ABBD3E2004DE176 /* StampBoardsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37D92ABBD3E2004DE176 /* StampBoardsMapperTests.swift */; };
+		39CC37DC2ABBE1C0004DE176 /* LinkManagementMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37DB2ABBE1C0004DE176 /* LinkManagementMapperTests.swift */; };
+		39CC37E32ABBF2EB004DE176 /* CouponMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37E22ABBF2EB004DE176 /* CouponMapperTests.swift */; };
+		39CC37E52ABBF5F7004DE176 /* NotificationMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CC37E42ABBF5F7004DE176 /* NotificationMapperTests.swift */; };
 		39D539DD2A1654B60087B2BD /* InprogressStampBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */; };
 		39D724982A97771600D5409D /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724972A97771600D5409D /* EmptyView.swift */; };
 		39D7249E2A97781800D5409D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D7249D2A97781800D5409D /* MainViewModel.swift */; };
@@ -177,6 +195,12 @@
 		39D724AA2A9779A100D5409D /* TabState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724A92A9779A100D5409D /* TabState.swift */; };
 		39D724AD2A9779BE00D5409D /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724AC2A9779BE00D5409D /* FilterType.swift */; };
 		39D724B62A97B64900D5409D /* BaseFilterSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */; };
+		39F0BDD02AB9B94300420BB2 /* ErrorHandlingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDCF2AB9B94300420BB2 /* ErrorHandlingProtocol.swift */; };
+		39F0BDDD2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */; };
+		39F0BDDF2AB9F9D200420BB2 /* CouponList_200_Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 39F0BDDE2AB9F9D200420BB2 /* CouponList_200_Sample.json */; };
+		39F0BDE92ABAA30D00420BB2 /* StampBoardsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDE82ABAA30D00420BB2 /* StampBoardsServiceTests.swift */; };
+		39F0BDEC2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */; };
+		39F0BDF22ABAAB9900420BB2 /* TestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F0BDF12ABAAB9900420BB2 /* TestUtilities.swift */; };
 		3C1E9F402A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1E9F3F2A176D0E0074A58C /* UICollectionView+reloadDataWIthAnimation.swift */; };
 		3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5C92A1B527900D7B9DD /* StampCell.swift */; };
 		3C43C5CE2A1B64F800D7B9DD /* StampSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C43C5CD2A1B64F800D7B9DD /* StampSize.swift */; };
@@ -383,32 +407,30 @@
 		393053F32AB1178B00AA02A7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		393053F52AB1180A00AA02A7 /* NotificationMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMapper.swift; sourceTree = "<group>"; };
 		393053F72AB1183000AA02A7 /* NotificationDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDataRepository.swift; sourceTree = "<group>"; };
-		393053F92AB1183F00AA02A7 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		393053FB2AB1314800AA02A7 /* CouponState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponState.swift; sourceTree = "<group>"; };
 		393053FD2AB1315E00AA02A7 /* StampBoardStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardStatus.swift; sourceTree = "<group>"; };
 		393053FF2AB1317300AA02A7 /* FamilyStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyStatus.swift; sourceTree = "<group>"; };
 		393054012AB1343400AA02A7 /* NotificationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStatus.swift; sourceTree = "<group>"; };
 		393054032AB1353300AA02A7 /* SenderDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderDTO.swift; sourceTree = "<group>"; };
 		393054052AB1353F00AA02A7 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
-		393054072AB1374500AA02A7 /* DefaultNotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationUseCase.swift; sourceTree = "<group>"; };
 		393054092AB148E500AA02A7 /* PullToRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshProtocol.swift; sourceTree = "<group>"; };
 		3930540B2AB1949B00AA02A7 /* String+BoldTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+BoldTag.swift"; sourceTree = "<group>"; };
 		3930540D2AB19CCF00AA02A7 /* NotificationSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSkeletonView.swift; sourceTree = "<group>"; };
 		393054302AB300BA00AA02A7 /* LinkRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRequestService.swift; sourceTree = "<group>"; };
 		393054332AB304AB00AA02A7 /* LinkRequestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRequestRepository.swift; sourceTree = "<group>"; };
-		393054362AB32E1300AA02A7 /* LinkRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRequestUseCase.swift; sourceTree = "<group>"; };
 		393054382AB3568400AA02A7 /* NotificationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLink.swift; sourceTree = "<group>"; };
 		3930543A2AB368F600AA02A7 /* Character+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Emoji.swift"; sourceTree = "<group>"; };
 		393054412AB4A4C600AA02A7 /* NotLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLinkCell.swift; sourceTree = "<group>"; };
 		393054442AB4DDEB00AA02A7 /* MappableResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappableResponse.swift; sourceTree = "<group>"; };
 		393054462AB57F0E00AA02A7 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepositoryProtocol.swift; sourceTree = "<group>"; };
-		3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProtocol.swift; sourceTree = "<group>"; };
 		3930544C2AB6B89A00AA02A7 /* ReponseDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReponseDataProtocol.swift; sourceTree = "<group>"; };
 		393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POLZZAKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		393054622AB7158E00AA02A7 /* POLZZAKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POLZZAKTests.swift; sourceTree = "<group>"; };
-		393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsUseCaseTests.swift; sourceTree = "<group>"; };
-		393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStampBoardsRepository.swift; sourceTree = "<group>"; };
+		3934A0322ABAD04600B247D5 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		3934A0362ABAEEB000B247D5 /* LinkManagementServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementServiceTests.swift; sourceTree = "<group>"; };
+		3934A03D2ABAF2E900B247D5 /* LinkManagementList_200_Sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LinkManagementList_200_Sample.json; sourceTree = "<group>"; };
+		3934A0402ABAF43300B247D5 /* NetworkServiceResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceResponseHandler.swift; sourceTree = "<group>"; };
+		3934A0452ABAFAF900B247D5 /* Error_400_Sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Error_400_Sample.json; sourceTree = "<group>"; };
 		395FF05D2A2F5DAC00E1377D /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		397366CA2A10FA35007D998F /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
 		397366CC2A112967007D998F /* UILabel+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+extension.swift"; sourceTree = "<group>"; };
@@ -424,14 +446,20 @@
 		3993C76E2AAA010B00B328B2 /* CouponService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponService.swift; sourceTree = "<group>"; };
 		3993C7702AAAB97800B328B2 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		3993C7722AAB5FF500B328B2 /* CouponDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDataRepository.swift; sourceTree = "<group>"; };
-		3993C7742AAB601100B328B2 /* CouponsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponsRepository.swift; sourceTree = "<group>"; };
 		3993C7762AAB60FE00B328B2 /* CouponMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponMapper.swift; sourceTree = "<group>"; };
-		3993C7782AAB710C00B328B2 /* DefaultCouponsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCouponsUseCase.swift; sourceTree = "<group>"; };
 		399E51402AA8D89600F4A6C3 /* StampBoardsTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsTargets.swift; sourceTree = "<group>"; };
 		399E51422AA8DB8F00F4A6C3 /* StampBoardsDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsDataRepository.swift; sourceTree = "<group>"; };
-		399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsRepository.swift; sourceTree = "<group>"; };
 		399E51462AA8DC3300F4A6C3 /* StampBoardsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsService.swift; sourceTree = "<group>"; };
-		399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStampBoardsUseCase.swift; sourceTree = "<group>"; };
+		39AB8ABD2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsDataRepositoryTests.swift; sourceTree = "<group>"; };
+		39AB8ABF2ABBFCDF00BC4CF2 /* MockLinkManagementService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLinkManagementService.swift; sourceTree = "<group>"; };
+		39AB8AC02ABBFCDF00BC4CF2 /* MockStampBoardsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStampBoardsService.swift; sourceTree = "<group>"; };
+		39AB8AC62ABC07B200BC4CF2 /* TestDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataFactory.swift; sourceTree = "<group>"; };
+		39AB8AC82ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementDataRepositoryTests.swift; sourceTree = "<group>"; };
+		39AB8ACA2ABC1B1300BC4CF2 /* FamilyMember_200_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FamilyMember_200_Sample.json; sourceTree = "<group>"; };
+		39AB8ACC2ABC293500BC4CF2 /* MockCouponService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCouponService.swift; sourceTree = "<group>"; };
+		39AB8ACD2ABC293500BC4CF2 /* MockNotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNotificationService.swift; sourceTree = "<group>"; };
+		39AB8AD02ABC2AF300BC4CF2 /* CouponDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDataRepositoryTests.swift; sourceTree = "<group>"; };
+		39AB8AD22ABC2B0100BC4CF2 /* NotificationDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDataRepositoryTests.swift; sourceTree = "<group>"; };
 		39AC7DC72A1825ED007D58F3 /* StampGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampGraphView.swift; sourceTree = "<group>"; };
 		39AC7DCB2A1839C3007D58F3 /* UIView+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
 		39AC7DCF2A1A1029007D58F3 /* CustomRefreshControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControl.swift; sourceTree = "<group>"; };
@@ -455,9 +483,18 @@
 		39C573472A9F328A00CD6362 /* LinkManagementTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementTargets.swift; sourceTree = "<group>"; };
 		39C5734A2A9F37EC00CD6362 /* LinkManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementService.swift; sourceTree = "<group>"; };
 		39C5734F2A9F61B800CD6362 /* StampBoardsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsMapper.swift; sourceTree = "<group>"; };
-		39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementRepository.swift; sourceTree = "<group>"; };
 		39C573572A9F761F00CD6362 /* LinkManagementDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementDataRepository.swift; sourceTree = "<group>"; };
-		39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLinkManagementUseCase.swift; sourceTree = "<group>"; };
+		39CC37C52ABB4CC9004DE176 /* CouponServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponServiceTests.swift; sourceTree = "<group>"; };
+		39CC37C72ABB4EDF004DE176 /* StampBoardList_200_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = StampBoardList_200_Sample.json; sourceTree = "<group>"; };
+		39CC37C82ABB5110004DE176 /* NotificationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceTests.swift; sourceTree = "<group>"; };
+		39CC37CC2ABB531F004DE176 /* NotificationList_200_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NotificationList_200_Sample.json; sourceTree = "<group>"; };
+		39CC37CD2ABB5385004DE176 /* CouponDetail_200_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CouponDetail_200_Sample.json; sourceTree = "<group>"; };
+		39CC37D02ABB548E004DE176 /* Success_201_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Success_201_Sample.json; sourceTree = "<group>"; };
+		39CC37D12ABB56E2004DE176 /* New_Request_200_Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = New_Request_200_Sample.json; sourceTree = "<group>"; };
+		39CC37D92ABBD3E2004DE176 /* StampBoardsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsMapperTests.swift; sourceTree = "<group>"; };
+		39CC37DB2ABBE1C0004DE176 /* LinkManagementMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManagementMapperTests.swift; sourceTree = "<group>"; };
+		39CC37E22ABBF2EB004DE176 /* CouponMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponMapperTests.swift; sourceTree = "<group>"; };
+		39CC37E42ABBF5F7004DE176 /* NotificationMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMapperTests.swift; sourceTree = "<group>"; };
 		39D539DC2A1654B60087B2BD /* InprogressStampBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InprogressStampBoardCell.swift; sourceTree = "<group>"; };
 		39D724972A97771600D5409D /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		39D7249D2A97781800D5409D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -467,6 +504,12 @@
 		39D724A92A9779A100D5409D /* TabState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabState.swift; sourceTree = "<group>"; };
 		39D724AC2A9779BE00D5409D /* FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilterSkeletonView.swift; sourceTree = "<group>"; };
+		39F0BDCF2AB9B94300420BB2 /* ErrorHandlingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlingProtocol.swift; sourceTree = "<group>"; };
+		39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStampBoardsMapper.swift; sourceTree = "<group>"; };
+		39F0BDDE2AB9F9D200420BB2 /* CouponList_200_Sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CouponList_200_Sample.json; sourceTree = "<group>"; };
+		39F0BDE82ABAA30D00420BB2 /* StampBoardsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampBoardsServiceTests.swift; sourceTree = "<group>"; };
+		39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkServiceProvider.swift; sourceTree = "<group>"; };
+		39F0BDF12ABAAB9900420BB2 /* TestUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtilities.swift; sourceTree = "<group>"; };
 		3C0793472A0E637700087F73 /* MissionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionHeaderView.swift; sourceTree = "<group>"; };
 		3C0793492A0E637700087F73 /* StampView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		3C07934D2A0E639F00087F73 /* DetailBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoardViewController.swift; sourceTree = "<group>"; };
@@ -588,8 +631,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3930547B2AB7370200AA02A7 /* Quick in Frameworks */,
+				39781A692AB84EDF00CA55AB /* FSCalendar in Frameworks */,
+				39781A612AB84EBE00CA55AB /* PanModal in Frameworks */,
 				393054782AB736E600AA02A7 /* Nimble in Frameworks */,
+				39781A5A2AB84E9200CA55AB /* Cuckoo in Frameworks */,
+				39781A5F2AB84EB800CA55AB /* SnapKit in Frameworks */,
+				39781A672AB84ED700CA55AB /* CombineCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +649,7 @@
 				DA5927D72A9F7D4700836126 /* PanModal in Frameworks */,
 				3CE4EF002A2E3CE5008B27AE /* KakaoSDKCommon in Frameworks */,
 				3CE4EEFE2A2E3CE5008B27AE /* KakaoSDKAuth in Frameworks */,
+				39781A4A2AB784C700CA55AB /* CombineCocoa in Frameworks */,
 				DA6589342AAF7F1500746D5A /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -833,6 +881,7 @@
 		3930542F2AB300A700AA02A7 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				3934A0402ABAF43300B247D5 /* NetworkServiceResponseHandler.swift */,
 				393054302AB300BA00AA02A7 /* LinkRequestService.swift */,
 			);
 			path = Protocol;
@@ -843,15 +892,6 @@
 			children = (
 				393054332AB304AB00AA02A7 /* LinkRequestRepository.swift */,
 				393054482AB5867100AA02A7 /* DataRepositoryProtocol.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		393054352AB32DE500AA02A7 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				3930544A2AB6B4D700AA02A7 /* UseCaseProtocol.swift */,
-				393054362AB32E1300AA02A7 /* LinkRequestUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -876,35 +916,51 @@
 		393054612AB7158E00AA02A7 /* POLZZAKTests */ = {
 			isa = PBXGroup;
 			children = (
-				393054622AB7158E00AA02A7 /* POLZZAKTests.swift */,
-				3930547F2AB73B5E00AA02A7 /* DomainTests */,
+				39F0BDD62AB9E64600420BB2 /* Util */,
+				393054812AB73B7F00AA02A7 /* Mocks */,
+				39F0BDE02ABAA16100420BB2 /* DataLayerTests */,
 			);
 			path = POLZZAKTests;
-			sourceTree = "<group>";
-		};
-		3930547F2AB73B5E00AA02A7 /* DomainTests */ = {
-			isa = PBXGroup;
-			children = (
-				393054812AB73B7F00AA02A7 /* Mocks */,
-				393054802AB73B6A00AA02A7 /* UseCaseTests */,
-			);
-			path = DomainTests;
-			sourceTree = "<group>";
-		};
-		393054802AB73B6A00AA02A7 /* UseCaseTests */ = {
-			isa = PBXGroup;
-			children = (
-				393054902AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift */,
-			);
-			path = UseCaseTests;
 			sourceTree = "<group>";
 		};
 		393054812AB73B7F00AA02A7 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				393054A42AB766BC00AA02A7 /* MockStampBoardsRepository.swift */,
+				39F0BDD32AB9DE5100420BB2 /* SampleDatas */,
+				39F0BDEA2ABAA37E00420BB2 /* Services */,
+				39F0BDDB2AB9F37900420BB2 /* Mappers */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3934A0382ABAF1E400B247D5 /* DummyData_Json */ = {
+			isa = PBXGroup;
+			children = (
+				39CC37C72ABB4EDF004DE176 /* StampBoardList_200_Sample.json */,
+				39AB8ACA2ABC1B1300BC4CF2 /* FamilyMember_200_Sample.json */,
+				3934A03D2ABAF2E900B247D5 /* LinkManagementList_200_Sample.json */,
+				39F0BDDE2AB9F9D200420BB2 /* CouponList_200_Sample.json */,
+				39CC37CD2ABB5385004DE176 /* CouponDetail_200_Sample.json */,
+				39CC37D12ABB56E2004DE176 /* New_Request_200_Sample.json */,
+				39CC37CC2ABB531F004DE176 /* NotificationList_200_Sample.json */,
+			);
+			path = DummyData_Json;
+			sourceTree = "<group>";
+		};
+		3934A0422ABAFAD000B247D5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				39CC37D02ABB548E004DE176 /* Success_201_Sample.json */,
+				3934A0452ABAFAF900B247D5 /* Error_400_Sample.json */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		39781A5B2AB84EB200CA55AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		398E586C2A5D936B0055CF37 /* Notification */ = {
@@ -934,6 +990,17 @@
 				3930540D2AB19CCF00AA02A7 /* NotificationSkeletonView.swift */,
 			);
 			path = NotificationViewController;
+			sourceTree = "<group>";
+		};
+		39AB8ABC2ABBFA9700BC4CF2 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				39AB8ABD2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift */,
+				39AB8AC82ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift */,
+				39AB8AD02ABC2AF300BC4CF2 /* CouponDataRepositoryTests.swift */,
+				39AB8AD22ABC2B0100BC4CF2 /* NotificationDataRepositoryTests.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		39C572FA2A9AFBD700CD6362 /* TabFilter */ = {
@@ -994,17 +1061,6 @@
 				393053E32AAC4A6300AA02A7 /* GuardianDTO.swift */,
 			);
 			path = Coupon;
-			sourceTree = "<group>";
-		};
-		39C573372A9F1E5A00CD6362 /* DomainLayer */ = {
-			isa = PBXGroup;
-			children = (
-				39C573512A9F755300CD6362 /* UseCases */,
-				39C573382A9F1E6600CD6362 /* Entities */,
-				39C573532A9F75AA00CD6362 /* Repositories */,
-				39C573522A9F756900CD6362 /* Interfaces */,
-			);
-			path = DomainLayer;
 			sourceTree = "<group>";
 		};
 		39C573382A9F1E6600CD6362 /* Entities */ = {
@@ -1097,36 +1153,6 @@
 			path = Mappers;
 			sourceTree = "<group>";
 		};
-		39C573512A9F755300CD6362 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				393054352AB32DE500AA02A7 /* Protocol */,
-				399E51482AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift */,
-				39C573592A9F874400CD6362 /* DefaultLinkManagementUseCase.swift */,
-				3993C7782AAB710C00B328B2 /* DefaultCouponsUseCase.swift */,
-				393054072AB1374500AA02A7 /* DefaultNotificationUseCase.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		39C573522A9F756900CD6362 /* Interfaces */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Interfaces;
-			sourceTree = "<group>";
-		};
-		39C573532A9F75AA00CD6362 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				399E51442AA8DBA200F4A6C3 /* StampBoardsRepository.swift */,
-				39C573542A9F75DF00CD6362 /* LinkManagementRepository.swift */,
-				3993C7742AAB601100B328B2 /* CouponsRepository.swift */,
-				393053F92AB1183F00AA02A7 /* NotificationRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
 		39C573562A9F760E00CD6362 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1139,11 +1165,23 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		39CC37D82ABBD3D2004DE176 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				39CC37D92ABBD3E2004DE176 /* StampBoardsMapperTests.swift */,
+				39CC37DB2ABBE1C0004DE176 /* LinkManagementMapperTests.swift */,
+				39CC37E22ABBF2EB004DE176 /* CouponMapperTests.swift */,
+				39CC37E42ABBF5F7004DE176 /* NotificationMapperTests.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
 		39D539D12A15F4CB0087B2BD /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				39C573562A9F760E00CD6362 /* Repositories */,
+				39C573382A9F1E6600CD6362 /* Entities */,
 				39C573452A9F2F5C00CD6362 /* Network */,
+				39C573562A9F760E00CD6362 /* Repositories */,
 				DAB225732A89560400113617 /* MemberPoint.swift */,
 			);
 			path = DataLayer;
@@ -1187,6 +1225,65 @@
 				39D724B52A97B64900D5409D /* BaseFilterSkeletonView.swift */,
 			);
 			path = SkeletonView;
+			sourceTree = "<group>";
+		};
+		39F0BDD32AB9DE5100420BB2 /* SampleDatas */ = {
+			isa = PBXGroup;
+			children = (
+				3934A0422ABAFAD000B247D5 /* Common */,
+				3934A0382ABAF1E400B247D5 /* DummyData_Json */,
+			);
+			path = SampleDatas;
+			sourceTree = "<group>";
+		};
+		39F0BDD62AB9E64600420BB2 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				39F0BDF12ABAAB9900420BB2 /* TestUtilities.swift */,
+				39AB8AC62ABC07B200BC4CF2 /* TestDataFactory.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		39F0BDDB2AB9F37900420BB2 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				39F0BDDC2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		39F0BDE02ABAA16100420BB2 /* DataLayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				39F0BDE72ABAA30300420BB2 /* Services */,
+				39CC37D82ABBD3D2004DE176 /* Mappers */,
+				39AB8ABC2ABBFA9700BC4CF2 /* Repositories */,
+			);
+			path = DataLayerTests;
+			sourceTree = "<group>";
+		};
+		39F0BDE72ABAA30300420BB2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				39F0BDE82ABAA30D00420BB2 /* StampBoardsServiceTests.swift */,
+				3934A0362ABAEEB000B247D5 /* LinkManagementServiceTests.swift */,
+				39CC37C52ABB4CC9004DE176 /* CouponServiceTests.swift */,
+				39CC37C82ABB5110004DE176 /* NotificationServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		39F0BDEA2ABAA37E00420BB2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				39F0BDEB2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift */,
+				39AB8AC02ABBFCDF00BC4CF2 /* MockStampBoardsService.swift */,
+				39AB8ABF2ABBFCDF00BC4CF2 /* MockLinkManagementService.swift */,
+				39AB8ACC2ABC293500BC4CF2 /* MockCouponService.swift */,
+				39AB8ACD2ABC293500BC4CF2 /* MockNotificationService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3C0793452A0E628800087F73 /* Main */ = {
@@ -1265,7 +1362,7 @@
 				3C4515DE2A0BF2F900C9BA4F /* POLZZAK */,
 				393054612AB7158E00AA02A7 /* POLZZAKTests */,
 				3C4515DD2A0BF2F900C9BA4F /* Products */,
-				DAD960902AA909D0009A7557 /* Frameworks */,
+				39781A5B2AB84EB200CA55AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1300,7 +1397,6 @@
 				3C0793462A0E629000087F73 /* StampBoard */,
 				3C2300A02A0E34ED00130D1B /* Extensions */,
 				3900FAD82A39FE30009EAC52 /* Enum */,
-				39C573372A9F1E5A00CD6362 /* DomainLayer */,
 				39D539D12A15F4CB0087B2BD /* DataLayer */,
 				3CFB472A2A0FEA1300B03FFD /* Fonts */,
 				3C4515E82A0BF2FB00C9BA4F /* Assets.xcassets */,
@@ -1352,6 +1448,7 @@
 				DAC36B902A344A2400BE5C8D /* RequestInterceptor */,
 				DAC36B912A344A4500BE5C8D /* UserInterceptor */,
 				3CDF642F2A2496DF004A87A2 /* NetworkService.swift */,
+				3934A0322ABAD04600B247D5 /* URLSessionProtocol.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -1381,6 +1478,7 @@
 				39D724B42A97B5ED00D5409D /* SkeletonView */,
 				390F421E2A8CBB6A005FC7B2 /* BottomSheet */,
 				39C572FA2A9AFBD700CD6362 /* TabFilter */,
+				39F0BDCF2AB9B94300420BB2 /* ErrorHandlingProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1670,13 +1768,6 @@
 			path = MissonAdd;
 			sourceTree = "<group>";
 		};
-		DAD960902AA909D0009A7557 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1687,6 +1778,7 @@
 				3930545C2AB7158E00AA02A7 /* Sources */,
 				3930545D2AB7158E00AA02A7 /* Frameworks */,
 				3930545E2AB7158E00AA02A7 /* Resources */,
+				39781A6C2AB852AD00CA55AB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1696,7 +1788,11 @@
 			name = POLZZAKTests;
 			packageProductDependencies = (
 				393054772AB736E600AA02A7 /* Nimble */,
-				3930547A2AB7370200AA02A7 /* Quick */,
+				39781A592AB84E9200CA55AB /* Cuckoo */,
+				39781A5E2AB84EB800CA55AB /* SnapKit */,
+				39781A602AB84EBE00CA55AB /* PanModal */,
+				39781A662AB84ED700CA55AB /* CombineCocoa */,
+				39781A682AB84EDF00CA55AB /* FSCalendar */,
 			);
 			productName = POLZZAKTests;
 			productReference = 393054602AB7158E00AA02A7 /* POLZZAKTests.xctest */;
@@ -1722,6 +1818,7 @@
 				3CE4EF012A2E3CE5008B27AE /* KakaoSDKUser */,
 				DA5927D62A9F7D4700836126 /* PanModal */,
 				DA6589332AAF7F1500746D5A /* FSCalendar */,
+				39781A492AB784C700CA55AB /* CombineCocoa */,
 			);
 			productName = POLZZAK;
 			productReference = 3C4515DC2A0BF2F900C9BA4F /* POLZZAK.app */;
@@ -1763,7 +1860,7 @@
 				DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */,
 				DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */,
-				393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */,
+				39781A582AB84E9200CA55AB /* XCRemoteSwiftPackageReference "Cuckoo" */,
 			);
 			productRefGroup = 3C4515DD2A0BF2F900C9BA4F /* Products */;
 			projectDirPath = "";
@@ -1780,6 +1877,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3934A03F2ABAF2E900B247D5 /* LinkManagementList_200_Sample.json in Resources */,
+				39CC37D42ABB58E4004DE176 /* StampBoardList_200_Sample.json in Resources */,
+				39CC37D72ABB58EF004DE176 /* NotificationList_200_Sample.json in Resources */,
+				39CC37D52ABB58E9004DE176 /* New_Request_200_Sample.json in Resources */,
+				39CC37D22ABB58DA004DE176 /* CouponDetail_200_Sample.json in Resources */,
+				3934A0462ABAFAF900B247D5 /* Error_400_Sample.json in Resources */,
+				39CC37D32ABB58DF004DE176 /* Success_201_Sample.json in Resources */,
+				39AB8ACB2ABC1B3400BC4CF2 /* FamilyMember_200_Sample.json in Resources */,
+				39F0BDDF2AB9F9D200420BB2 /* CouponList_200_Sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1800,14 +1906,51 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		39781A6C2AB852AD00CA55AB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nPROJECT_DIR=\"/Users/pane/Desktop/Pane_Desktop/SideProject/POLZZAK/POLZZAK-iOS\"\nPROJECT_NAME=\"POLZZAK\"\nRUN_SCRIPT=\"${PROJECT_DIR}/run generate --testable ${PROJECT_NAME}\"\n\n# Directories\nREPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Repositories\"\nMAPPER_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Mappers\"\nBASIC_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/Network/NetworkService\"\nSERVICE_DIR=\"${PROJECT_DIR}/POLZZAK/DataLayer/Network/Services\"\n\n# Directories Mocks\nMOCK_REPOSITORY_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Repositories\"\nMOCK_MAPPER_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Mappers\"\nMOCK_SERVICE_DIR=\"${PROJECT_DIR}/POLZZAKTests/Mocks/Services\"\n\ngenerate_mock() {\n    INPUT=\"$1\"\n    OUTPUT=\"$2\"\n    ${RUN_SCRIPT} --output \"$OUTPUT\" \"$INPUT\"\n}\n\n# Repository Mocks\ngenerate_mock \"${REPOSITORY_DIR}/StampBoardsRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockStampBoardsRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/LinkManagementRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockLinkManagementRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/CouponRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockCouponRepository.swift\"\ngenerate_mock \"${REPOSITORY_DIR}/NotificationRepository.swift\" \"${MOCK_REPOSITORY_DIR}/MockNotificationRepository.swift\"\n\n# Mapper Mocks\ngenerate_mock \"${MAPPER_DIR}/StampBoardsMapper.swift\" \"${MOCK_MAPPER_DIR}/MockStampBoardsMapper.swift\"\n\n# Services Mocks\ngenerate_mock \"${BASIC_SERVICE_DIR}/NetworkService.swift\" \"${MOCK_SERVICE_DIR}/MockNetworkServiceProvider.swift\"\ngenerate_mock \"${SERVICE_DIR}/StampBoardsService.swift\" \"${MOCK_SERVICE_DIR}/MockStampBoardsService.swift\"\ngenerate_mock \"${SERVICE_DIR}/LinkManagementService.swift\" \"${MOCK_SERVICE_DIR}/MockLinkManagementService.swift\"\ngenerate_mock \"${SERVICE_DIR}/CouponService.swift\" \"${MOCK_SERVICE_DIR}/MockCouponService.swift\"\ngenerate_mock \"${SERVICE_DIR}/NotificationService.swift\" \"${MOCK_SERVICE_DIR}/MockNotificationService.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3930545C2AB7158E00AA02A7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				393054A52AB766BC00AA02A7 /* MockStampBoardsRepository.swift in Sources */,
-				393054912AB75C2F00AA02A7 /* StampBoardsUseCaseTests.swift in Sources */,
-				393054632AB7158E00AA02A7 /* POLZZAKTests.swift in Sources */,
+				39AB8AD12ABC2AF300BC4CF2 /* CouponDataRepositoryTests.swift in Sources */,
+				39CC37C92ABB5110004DE176 /* NotificationServiceTests.swift in Sources */,
+				3934A0372ABAEEB000B247D5 /* LinkManagementServiceTests.swift in Sources */,
+				39CC37C62ABB4CC9004DE176 /* CouponServiceTests.swift in Sources */,
+				39F0BDF22ABAAB9900420BB2 /* TestUtilities.swift in Sources */,
+				39AB8AC22ABBFCDF00BC4CF2 /* MockStampBoardsService.swift in Sources */,
+				39AB8AC72ABC07B200BC4CF2 /* TestDataFactory.swift in Sources */,
+				39AB8AC12ABBFCDF00BC4CF2 /* MockLinkManagementService.swift in Sources */,
+				39AB8ACF2ABC293500BC4CF2 /* MockNotificationService.swift in Sources */,
+				39AB8AD32ABC2B0100BC4CF2 /* NotificationDataRepositoryTests.swift in Sources */,
+				39AB8ACE2ABC293500BC4CF2 /* MockCouponService.swift in Sources */,
+				39CC37E52ABBF5F7004DE176 /* NotificationMapperTests.swift in Sources */,
+				39F0BDEC2ABAA56F00420BB2 /* MockNetworkServiceProvider.swift in Sources */,
+				39F0BDE92ABAA30D00420BB2 /* StampBoardsServiceTests.swift in Sources */,
+				39F0BDDD2AB9F5DE00420BB2 /* MockStampBoardsMapper.swift in Sources */,
+				39AB8AC92ABC0EFA00BC4CF2 /* LinkManagementDataRepositoryTests.swift in Sources */,
+				39CC37DA2ABBD3E2004DE176 /* StampBoardsMapperTests.swift in Sources */,
+				39AB8ABE2ABBFAA500BC4CF2 /* StampBoardsDataRepositoryTests.swift in Sources */,
+				39CC37DC2ABBE1C0004DE176 /* LinkManagementMapperTests.swift in Sources */,
+				39CC37E32ABBF2EB004DE176 /* CouponMapperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1869,9 +2012,7 @@
 				392B4C1B2AA387B100CE0546 /* ToastType.swift in Sources */,
 				398E58742A5EB9070055CF37 /* NotificationType.swift in Sources */,
 				390165642A7A7A7B00A193D7 /* String+Date.swift in Sources */,
-				399E51492AA8E3D700F4A6C3 /* DefaultStampBoardsUseCase.swift in Sources */,
 				390F42222A8CBB9D005FC7B2 /* BottomSheetPresentationController.swift in Sources */,
-				3993C7752AAB601100B328B2 /* CouponsRepository.swift in Sources */,
 				DABA1CD32A31FB5E009E351B /* StampView.swift in Sources */,
 				DABA1CD42A31FB5E009E351B /* DetailBoardViewController.swift in Sources */,
 				39D724AD2A9779BE00D5409D /* FilterType.swift in Sources */,
@@ -1901,7 +2042,6 @@
 				393053E22AAC4A0A00AA02A7 /* CouponDetailDTO.swift in Sources */,
 				DA11FEA82A4071A9005A469D /* MultipartFormTargetType.swift in Sources */,
 				39D724A22A9778FC00D5409D /* StampBoardHeaderView.swift in Sources */,
-				393053FA2AB1183F00AA02A7 /* NotificationRepository.swift in Sources */,
 				DA11FEAD2A41E465005A469D /* AppleLoginManager.swift in Sources */,
 				39C573582A9F761F00CD6362 /* LinkManagementDataRepository.swift in Sources */,
 				393054002AB1317300AA02A7 /* FamilyStatus.swift in Sources */,
@@ -1936,6 +2076,7 @@
 				DA0C0C202A80C5580021714D /* LoginViewModel.swift in Sources */,
 				DACA49552AB42DD100A2FB77 /* StampBoardDetail.swift in Sources */,
 				DAB225832A90846E00113617 /* UserInfoManager.swift in Sources */,
+				3934A0412ABAF43300B247D5 /* NetworkServiceResponseHandler.swift in Sources */,
 				393054422AB4A4C600AA02A7 /* NotLinkCell.swift in Sources */,
 				3CDF64302A2496DF004A87A2 /* NetworkService.swift in Sources */,
 				DACA49592AB43E6F00A2FB77 /* StampBoardDetailMapper.swift in Sources */,
@@ -1958,7 +2099,6 @@
 				390178502A9497BB001D0E90 /* CouponListEmptyView.swift in Sources */,
 				390F42362A8F0817005FC7B2 /* MissionDateView.swift in Sources */,
 				398E587A2A6003ED0055CF37 /* NotificationSettingViewController.swift in Sources */,
-				3993C7792AAB710C00B328B2 /* DefaultCouponsUseCase.swift in Sources */,
 				39C5733E2A9F1EC800CD6362 /* FamilyMember.swift in Sources */,
 				390F42302A8E0F52005FC7B2 /* UIViewController+UINavigation.swift in Sources */,
 				39C573402A9F1EE900CD6362 /* MemberType.swift in Sources */,
@@ -1991,7 +2131,6 @@
 				397366CF2A114439007D998F /* TabBarController.swift in Sources */,
 				397366CB2A10FA35007D998F /* UIImage+extension.swift in Sources */,
 				391E23B32A42D54100CA75EF /* SearchResultState.swift in Sources */,
-				393054082AB1374500AA02A7 /* DefaultNotificationUseCase.swift in Sources */,
 				390F42442A912705005FC7B2 /* AlertButtonView.swift in Sources */,
 				3900FAE12A3AB6B3009EAC52 /* SentTabCell.swift in Sources */,
 				39D724982A97771600D5409D /* EmptyView.swift in Sources */,
@@ -2007,7 +2146,6 @@
 				393053F62AB1180A00AA02A7 /* NotificationMapper.swift in Sources */,
 				3993C7712AAAB97800B328B2 /* BaseResponse.swift in Sources */,
 				390F421B2A8C6E2A005FC7B2 /* BottomSheetViewController.swift in Sources */,
-				393054372AB32E1300AA02A7 /* LinkRequestUseCase.swift in Sources */,
 				DAA6D03E2A4B15FE00101DCE /* LoginViewController.swift in Sources */,
 				397366CD2A112967007D998F /* UILabel+extension.swift in Sources */,
 				DA38E60A2A4D464E00229282 /* UserTypeSelectButton.swift in Sources */,
@@ -2016,6 +2154,7 @@
 				39227BE12A1E498700C86049 /* CompletedStampBoardCell.swift in Sources */,
 				DA65893C2AB1D25500746D5A /* TitleLoadingViewController.swift in Sources */,
 				39C5730A2A9BC4DD00CD6362 /* Filterable.swift in Sources */,
+				3934A0332ABAD04600B247D5 /* URLSessionProtocol.swift in Sources */,
 				390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */,
 				390F422E2A8DFEA5005FC7B2 /* CouponDetailViewController.swift in Sources */,
 				390165792A7FCFE500A193D7 /* CouponGuideViewController.swift in Sources */,
@@ -2048,18 +2187,15 @@
 				DA383DD02A69B0B2001F697E /* AgreementCheckView.swift in Sources */,
 				392B4C1D2AA4306B00CE0546 /* CheckLinkRequestResponseDTO.swift in Sources */,
 				39C5732D2A9E2E4600CD6362 /* LinkManagementViewModel.swift in Sources */,
-				39C5735A2A9F874400CD6362 /* DefaultLinkManagementUseCase.swift in Sources */,
 				393053EA2AAC851E00AA02A7 /* Date+String.swift in Sources */,
 				3C43C5CA2A1B527900D7B9DD /* StampCell.swift in Sources */,
 				3901784E2A949688001D0E90 /* TabConstants.swift in Sources */,
 				3900FB112A409025009EAC52 /* UserType.swift in Sources */,
 				39D7249E2A97781800D5409D /* MainViewModel.swift in Sources */,
-				3930544B2AB6B4D700AA02A7 /* UseCaseProtocol.swift in Sources */,
-				399E51452AA8DBA200F4A6C3 /* StampBoardsRepository.swift in Sources */,
+				39F0BDD02AB9B94300420BB2 /* ErrorHandlingProtocol.swift in Sources */,
 				3901655E2A7A142D00A193D7 /* CouponFooterView.swift in Sources */,
 				DACA49662AB4CEF900A2FB77 /* MissionAddView.swift in Sources */,
 				39152B3A2A5AB37500AAFA23 /* TabViews.swift in Sources */,
-				39C573552A9F75DF00CD6362 /* LinkManagementRepository.swift in Sources */,
 				3CCEF9EC2A1BA24A009C61E1 /* StampFooterView.swift in Sources */,
 				390F42382A8F14DC005FC7B2 /* CouponDetailViewModel.swift in Sources */,
 				393054312AB300BA00AA02A7 /* LinkRequestService.swift in Sources */,
@@ -2385,12 +2521,12 @@
 				minimumVersion = 12.0.0;
 			};
 		};
-		393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */ = {
+		39781A582AB84E9200CA55AB /* XCRemoteSwiftPackageReference "Cuckoo" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Quick.git";
+			repositoryURL = "https://github.com/Brightify/Cuckoo.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 		3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -2441,10 +2577,35 @@
 			package = 393054762AB736E600AA02A7 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
 		};
-		3930547A2AB7370200AA02A7 /* Quick */ = {
+		39781A492AB784C700CA55AB /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 393054792AB7370200AA02A7 /* XCRemoteSwiftPackageReference "Quick" */;
-			productName = Quick;
+			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		39781A592AB84E9200CA55AB /* Cuckoo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39781A582AB84E9200CA55AB /* XCRemoteSwiftPackageReference "Cuckoo" */;
+			productName = Cuckoo;
+		};
+		39781A5E2AB84EB800CA55AB /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C4515F32A0BF40200C9BA4F /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		39781A602AB84EBE00CA55AB /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA5927D52A9F7D4700836126 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+		39781A662AB84ED700CA55AB /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAAFC5A22A5D91E9006393D0 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		39781A682AB84EDF00CA55AB /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA6589322AAF7F1500746D5A /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		3C4515F42A0BF40200C9BA4F /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

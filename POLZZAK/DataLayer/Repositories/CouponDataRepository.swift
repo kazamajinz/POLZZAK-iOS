@@ -7,9 +7,17 @@
 
 import Foundation
 
-class CouponDataRepository: DataRepositoryProtocol, CouponsRepository {
-    typealias MapperType = CouponMapper
-    let mapper: MapperType = CouponMapper()
+protocol CouponRepository {
+    func getCouponList(_ tabState: String) async throws -> [CouponList]
+    func getCouponDetail(with couponID: Int) async throws -> CouponDetail?
+    func createGiftRequest(with couponID: Int) async throws
+    func acceptCoupon(from stampBoardID: Int) async throws -> EmptyDataResponse?
+    func sendGiftReceive(from couponID: Int) async throws
+}
+
+final class CouponDataRepository: DataRepositoryProtocol, CouponRepository {
+    typealias MapperType = DefaultCouponMapper
+    let mapper: MapperType = DefaultCouponMapper()
     
     private let service: CouponService
     
@@ -17,40 +25,42 @@ class CouponDataRepository: DataRepositoryProtocol, CouponsRepository {
         self.service = couponService
     }
     
-    func getCouponList(_ tabState: String) async throws -> NetworkResult<BaseResponse<[CouponList]>, NetworkError> {
-        return try await fetchData(
+    func getCouponList(_ tabState: String) async throws -> [CouponList] {
+        let response: BaseResponse<[CouponList]> = try await fetchData(
             using: { try await service.fetchCouponList(for: tabState) },
             decodingTo: BaseResponseDTO<[CouponListDTO]>.self,
-            map: { mapper.mapCouponListResponse(from: $0) }
+            map: mapper.mapCouponListResponse
         )
+        return response.data ?? []
     }
     
-    func getCouponDetail(with couponID: Int) async throws -> NetworkResult<BaseResponse<CouponDetail>, NetworkError> {
-        return try await fetchData(
+    func getCouponDetail(with couponID: Int) async throws -> CouponDetail? {
+        let response: BaseResponse<CouponDetail> = try await fetchData(
             using: { try await service.fetchCouponDetail(with: couponID) },
             decodingTo: BaseResponseDTO<CouponDetailDTO>.self,
-            map: { mapper.mapCouponDetailResponse(from: $0) }
+            map: mapper.mapCouponDetailResponse
         )
+        return response.data
     }
     
-    func createGiftRequest(with couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        return try await fetchDataNoContent(
-            using: { try await service.sendGiftRequest(to: couponID) }
-        )
+    func createGiftRequest(with couponID: Int) async throws {
+        let (_, reponse) = try await service.sendGiftRequest(to: couponID)
+        try fetchDataNoContent(response: reponse)
     }
     
-    func acceptCoupon(from stampBoardID: Int) async throws -> NetworkResult<BaseResponse<EmptyDataResponse>, NetworkError> {
-        return try await fetchData(
+//TODO: - 수정할것
+    func acceptCoupon(from stampBoardID: Int) async throws -> EmptyDataResponse? {
+        let response: BaseResponse<EmptyDataResponse> = try await fetchData(
             using: { try await service.acceptCoupon(from: stampBoardID) },
             decodingTo: BaseResponseDTO<EmptyDataResponseDTO>.self,
-            map: { mapper.mapEmptyDataResponse(from: $0) },
-            handleStatusCodes: [201]
+            map: mapper.mapEmptyDataResponse
         )
+        return response.data
     }
     
-    func sendGiftReceive(from couponID: Int) async throws -> NetworkResult<BaseResponse<Void>, NetworkError> {
-        return try await fetchDataNoContent(
-            using: { try await service.sendGiftRequest(to: couponID) }
-        )
+    func sendGiftReceive(from couponID: Int) async throws {
+        let (_, reponse) = try await service.sendGiftReceive(from: couponID)
+        try fetchDataNoContent(response: reponse)
     }
+
 }

@@ -32,7 +32,7 @@ final class CouponListViewController: UIViewController {
     
     private var toast: Toast?
     
-    private let viewModel = CouponListViewModel(useCase: DefaultCouponsUseCase(repository: CouponDataRepository()))
+    private let viewModel = CouponListViewModel(repository: CouponDataRepository())
     private var cancellables = Set<AnyCancellable>()
     
     private let filterView = CouponFilterView()

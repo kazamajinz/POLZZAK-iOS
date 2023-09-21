@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: POLZZAK/DomainLayer/Repositories/LinkManagementRepository.swift at 2023-09-17 16:46:32 +0000
+// MARK: - Mocks generated from file: POLZZAK/DomainLayer/Repositories/LinkManagementRepository.swift at 2023-09-18 10:40:16 +0000
 
 //
 //  LinkManagementRepository.swift

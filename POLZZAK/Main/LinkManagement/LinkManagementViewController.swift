@@ -14,7 +14,7 @@ final class LinkManagementViewController: UIViewController {
         static let backButtonPadding = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     }
     
-    private let viewModel = LinkManagementViewModel(useCase: DefaultLinkManagementUseCase(repository: LinkManagementDataRepository()))
+    private let viewModel = LinkManagementViewModel(repository: LinkManagementDataRepository())
     private var cancellables = Set<AnyCancellable>()
     
     private var toast: Toast?

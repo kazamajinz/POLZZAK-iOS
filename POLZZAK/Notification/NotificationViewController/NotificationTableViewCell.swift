@@ -349,7 +349,7 @@ extension NotificationTableViewCell {
         
     }
     
-    func configure(data: Notification) {
+    func configure(data: NotificationData) {
         if data.title.startsWithEmoji {
             let dataTitle = data.title.components(separatedBy: " ")
             emojiLabel.text = dataTitle[0]

@@ -8,8 +8,8 @@
 import Foundation
 import Combine
 
-final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtocol, LoadingViewModelProtocol {
-    private let useCase: StampBoardsUseCase
+final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtocol, LoadingViewModelProtocol, ErrorHandlingProtocol {
+    private let repository: StampBoardsDataRepository
     
     var dataList = CurrentValueSubject<[StampBoardList], Never>([])
     var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
@@ -24,8 +24,8 @@ final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     var shouldEndRefreshing = PassthroughSubject<Bool, Never>()
     var showErrorAlertSubject = PassthroughSubject<Error, Never>()
     
-    init(useCase: StampBoardsUseCase) {
-        self.useCase = useCase
+    init(repository: StampBoardsDataRepository) {
+        self.repository = repository
         
         //TODO: - DTO에서 Model로 변환할때 UserType을 단순하게 부모인지 아이인지 변환하고 UserInfo에서 사용하는 Model에 userType을 추가했으면 좋겠음.
         let userInfo = UserInfoManager.readUserInfo()
@@ -58,9 +58,7 @@ final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
             }
             
             do {
-                let tabState = tabStateToString(tabState.value)
-                let task = useCase.fetchStampBoardList(for: tabState)
-                let result = try await task.value
+                let result = try await repository.getStampBoardList(for: tabState.value)
                 dataList.send(result)
             } catch {
                 handleError(error)
@@ -74,42 +72,5 @@ final class StampBoardViewModel: TabFilterViewModelProtocol, PullToRefreshProtoc
     
     func isDataNotEmpty(forSection sectionIndex: Int) -> Bool {
         return false == dataList.value.isEmpty &&  false == dataList.value[sectionIndex].stampBoardSummaries.isEmpty
-    }
-    
-    private func tabStateToString(_ tabState: TabState) -> String {
-        switch tabState {
-        case .inProgress:
-            return "in_progress"
-        case .completed:
-            return "ended"
-        }
-    }
-    
-    func handleError(_ error: Error) {
-        if let internalError = error as? PolzzakError<Void> {
-            handleInternalError(internalError)
-        } else if let networkError = error as? NetworkError {
-            handleNetworkError(networkError)
-        } else if let decodingError = error as? DecodingError {
-            handleDecodingError(decodingError)
-        } else {
-            handleUnknownError(error)
-        }
-    }
-    
-    private func handleInternalError(_ error: PolzzakError<Void>) {
-        showErrorAlertSubject.send(error)
-    }
-    
-    private func handleNetworkError(_ error: NetworkError) {
-        showErrorAlertSubject.send(error)
-    }
-    
-    private func handleDecodingError(_ error: DecodingError) {
-        showErrorAlertSubject.send(error)
-    }
-    
-    private func handleUnknownError(_ error: Error) {
-        showErrorAlertSubject.send(error)
     }
 }
