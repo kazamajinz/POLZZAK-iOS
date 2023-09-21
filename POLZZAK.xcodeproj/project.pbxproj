@@ -29,7 +29,6 @@
 		390165792A7FCFE500A193D7 /* CouponGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390165782A7FCFE500A193D7 /* CouponGuideViewController.swift */; };
 		390178432A932790001D0E90 /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178422A932790001D0E90 /* AlertTableViewCell.swift */; };
 		390178462A938217001D0E90 /* PhotoAccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178452A938217001D0E90 /* PhotoAccessAlertController.swift */; };
-		390178482A938A46001D0E90 /* AlertTitleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178472A938A46001D0E90 /* AlertTitleButtonView.swift */; };
 		3901784A2A947A15001D0E90 /* QnaStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390178492A947A15001D0E90 /* QnaStackView.swift */; };
 		3901784C2A9492BC001D0E90 /* UIStackView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901784B2A9492BC001D0E90 /* UIStackView+extension.swift */; };
 		3901784E2A949688001D0E90 /* TabConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901784D2A949688001D0E90 /* TabConstants.swift */; };
@@ -348,7 +347,6 @@
 		390165782A7FCFE500A193D7 /* CouponGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponGuideViewController.swift; sourceTree = "<group>"; };
 		390178422A932790001D0E90 /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
 		390178452A938217001D0E90 /* PhotoAccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAccessAlertController.swift; sourceTree = "<group>"; };
-		390178472A938A46001D0E90 /* AlertTitleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTitleButtonView.swift; sourceTree = "<group>"; };
 		390178492A947A15001D0E90 /* QnaStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QnaStackView.swift; sourceTree = "<group>"; };
 		3901784B2A9492BC001D0E90 /* UIStackView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+extension.swift"; sourceTree = "<group>"; };
 		3901784D2A949688001D0E90 /* TabConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabConstants.swift; sourceTree = "<group>"; };
@@ -768,7 +766,6 @@
 			children = (
 				390F423F2A910E01005FC7B2 /* BaseAlertViewController.swift */,
 				390F42432A912705005FC7B2 /* AlertButtonView.swift */,
-				390178472A938A46001D0E90 /* AlertTitleButtonView.swift */,
 			);
 			path = AlertViewController;
 			sourceTree = "<group>";
@@ -2080,7 +2077,6 @@
 				390F42292A8D16EC005FC7B2 /* CouponSkeletonView.swift in Sources */,
 				393053E42AAC4A6300AA02A7 /* GuardianDTO.swift in Sources */,
 				DABEC1B52A382D1800EAD8CA /* NeedRegisterDTO.swift in Sources */,
-				390178482A938A46001D0E90 /* AlertTitleButtonView.swift in Sources */,
 				DACA496E2AB4DB1200A2FB77 /* MissionExampleButtonCell.swift in Sources */,
 				3C7416A02A25EF96001A1E50 /* BaseResponseDTO.swift in Sources */,
 				DACA49502AB3339D00A2FB77 /* StampBoardDetailTarget.swift in Sources */,

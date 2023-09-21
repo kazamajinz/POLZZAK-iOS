@@ -116,21 +116,21 @@ final class NotificationViewModel: PullToRefreshProtocol, LoadingViewModelProtoc
     }
     
     func linkApproveDidTap(for memberID: Int) async {
-//        do {
-//            try await repository.approveLinkRequest(to: memberID)
-//            removeData(for: memberID)
-//        } catch {
-//            handleError(error)
-//        }
+        do {
+            try await repository.approveLinkRequest(to: memberID)
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func linkRejectDidTap(for memberID: Int) async {
-//        do {
-//            try await repository.rejectLinkRequest(to: memberID)
-//            removeData(for: memberID)
-//        } catch {
-//            handleError(error)
-//        }
+        do {
+            try await repository.rejectLinkRequest(to: memberID)
+            removeData(for: memberID)
+        } catch {
+            handleError(error)
+        }
     }
     
     func handleError(_ error: Error) {

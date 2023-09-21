@@ -310,6 +310,7 @@ extension NotificationViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         viewModel.didEndDraggingSubject.send()
+        customRefreshControl.isStartRefresh = true
         
         if decelerate && scrollView.contentOffset.y > lastContentOffset {
             checkIfReachedBottom(scrollView)
